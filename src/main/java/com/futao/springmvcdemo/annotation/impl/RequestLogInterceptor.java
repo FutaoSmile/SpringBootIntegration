@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.UUID;
 
 import static com.futao.springmvcdemo.utils.RequestUtils.getCookies;
 import static com.futao.springmvcdemo.utils.RequestUtils.getSessionParameters;
@@ -20,14 +21,25 @@ import static com.futao.springmvcdemo.utils.RequestUtils.getSessionParameters;
 /**
  * @author futao
  * Created on 2018/9/20-12:12.
- * 请求controller记录日志
+ * 请求controller记录日志，以及接口请求时间记录
  */
 @Component
 public class RequestLogInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(RequestLogInterceptor.class);
+    /**
+     * 请求开始的时间
+     */
+    private long startTime;
+    /**
+     * 标识一次请求
+     */
+    private UUID uuid;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        startTime = DateTime.now().getMillis();
+//        uuid = UUID.randomUUID();
+//        logger.info("请求(id=" + uuid + ")开始：" + StringUtils.repeat("↓", 10));
         if (handler instanceof HandlerMethod) {
             RestController restController = ((HandlerMethod) handler).getMethod().getDeclaringClass().getAnnotation(RestController.class);
             if (ObjectUtils.allNotNull(restController)) {
@@ -57,6 +69,6 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+//        logger.info("请求(id=" + uuid + ")结束：" + StringUtils.repeat("↑", 10) + "本次请求所消耗的时间（毫秒）：" + (DateTime.now().minus(startTime)).getMillis());
     }
 }

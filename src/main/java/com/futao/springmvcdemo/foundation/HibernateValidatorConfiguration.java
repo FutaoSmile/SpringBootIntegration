@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.utils;
+package com.futao.springmvcdemo.foundation;
 
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;

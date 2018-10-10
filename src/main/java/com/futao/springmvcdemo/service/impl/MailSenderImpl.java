@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @author futao
  * Created on 2018/9/23-11:21.
  */
-@Service
+//@Service
 public class MailSenderImpl implements MailSender {
 
     @Value("spring.mail.username")

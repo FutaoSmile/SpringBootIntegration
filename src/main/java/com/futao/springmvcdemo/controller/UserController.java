@@ -1,16 +1,15 @@
 package com.futao.springmvcdemo.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.IllegalValueCheck;
 import com.futao.springmvcdemo.annotation.LoginUser;
+import com.futao.springmvcdemo.foundation.ApplicationContext;
+import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UserService;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,6 +33,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private ApplicationContext applicationContext;
 
     /**
      * 用户注册
@@ -113,13 +112,12 @@ public class UserController {
      * @return
      */
     @GetMapping("list")
-    public JSONArray list() {
-        JSONArray jsonArray = new JSONArray();
-        List<User> userList = userService.list();
-        if (ObjectUtils.allNotNull(userList)) {
-            userList.forEach(user -> jsonArray.add(JSON.toJSON(user)));
-        }
-        return jsonArray;
+    public PageResultList<User> list(
+            @RequestParam(value = "mobile", required = false) String mobile,
+            @RequestParam("start") int start,
+            @RequestParam("limit") int limit
+    ) {
+        return new PageResultList<>(userService.list(mobile, start, limit), userService.total());
     }
 
 

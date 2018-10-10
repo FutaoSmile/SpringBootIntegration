@@ -5,12 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.RestResult;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -19,12 +21,22 @@ import java.util.UUID;
  */
 public class NormalTest {
 
+    @Test
+    public void test8() {
+        DateTime now = DateTime.now();
+        System.out.println(now.minus(now.minusMinutes(1).getMillis()));
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(NormalTest.class);
 
     @Test
     public void test7() {
-        String a = null;
-        System.out.println(Arrays.toString(a.split(",")));
+        //取得系统已经安装的语言数组
+        Locale[] locales = Locale.getAvailableLocales();
+        //循环获取系统已经安装的国家和对应的语言代码
+        for (Locale locale : locales) {
+            System.out.println(locale.getDisplayCountry() + locale.getCountry() + "-" + locale.getDisplayLanguage() + locale.getLanguage());
+        }
     }
 
     @Test

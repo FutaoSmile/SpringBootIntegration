@@ -11,7 +11,6 @@ import java.util.List;
 public interface UserService {
     String currentUser();
 
-    List<User> getByName(String name);
 
     /**
      * 用户注册
@@ -27,7 +26,10 @@ public interface UserService {
 
     /**
      * 获取用户列表
+     *
      * @return
      */
-    List<User> list();
+    List<User> list(String mobile, int start, int limit);
+
+    int total();
 }

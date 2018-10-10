@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @author futao
  * Created on 2018/9/25.
  */
-//关联解析类, 检验逻辑
+//关联解析类, 校验逻辑
 @Constraint(validatedBy = IllegalValueCheckImpl.class)
 @Target(value = {ElementType.PARAMETER})
 @Retention(value = RetentionPolicy.RUNTIME)
