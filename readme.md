@@ -8,6 +8,17 @@
 * git
 
 ### # 实现的功能：
+ 
+> 统一返回的数据结构
+
+> 统一异常处理(系统异常/业务逻辑异常)
+
+> 服务端请求参数校验
+
+> Swagger接口文档
+
+> 整合mybatis
+
 > 用户登录
     基于`httpsession`
 
@@ -29,13 +40,21 @@
 > 第三方接口统一验签
  * 基于`Annotation`+`SpringMvc Interceptor`
  
- 
-> 统一返回的数据结构
-
-> 统一异常处理(系统异常/业务逻辑异常)
-
-> 服务端请求参数校验
-
-> Swagger接口文档
-
-> 整合mybatis
+### # 项目结构
+```xml
+src
+|-main 源代码
+    |-java java代码
+        |-com.futao.springmvcdemo
+            |-annotaion 项目用到的自定义注解
+            |-controller 接口
+            |-dao 持久层
+            |-foundation 支持项目运行的一些功能代码
+            |-model 实体层
+            |-service 业务逻辑层
+            |-utils 工具类
+            |-SpringmvcdemoApplication.java 启动类
+    |-kotlin kotlin代码
+    |-resource 配置文件
+|-test
+```
