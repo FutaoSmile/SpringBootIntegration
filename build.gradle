@@ -59,6 +59,10 @@ dependencies {
     compile('org.springframework.boot:spring-boot-devtools')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+//    你在把这个项目打成war包时，scope=provided的jar包，不会出现在WEB-INFO/lib目录下，而scope=compile的jar包，会放到WEB-INFO/lib目录
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+
 
 }
 

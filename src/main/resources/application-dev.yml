@@ -5,10 +5,28 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    platform: mysql
+    initialSize: 5
+    minIdle: 10
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 2000
+    minEvictableIdleTimeMillis: 600000
+    maxEvictableIdleTimeMillis: 900000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    asyncInit: true
+    filters: stat,wall,log4j
+    logSlowSql: true
   # 格式化返回的Timestamp类型
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  # 连接池
 
 server:
   port: 8888
@@ -20,3 +38,6 @@ mybatis:
 
 # 在线人数缩放比例
 onlinePeopleQuantityScale: 2
+
+jianshu:
+  id: futaosmile

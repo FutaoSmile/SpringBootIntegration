@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -21,6 +22,8 @@ import java.util.UUID;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+
 
     /**
      * 0.1+0.2=0.300000000004问题

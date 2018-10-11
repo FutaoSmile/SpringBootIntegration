@@ -58,3 +58,7 @@ src
     |-resource 配置文件
 |-test
 ```
+
+> swagger api地址: [http://localhost:8888/swagger-ui.html#!](http://localhost:8888/swagger-ui.html#!)
+
+> druid连接池地址: [http://localhost:8888/druid/index.html](http://localhost:8888/druid/index.html)

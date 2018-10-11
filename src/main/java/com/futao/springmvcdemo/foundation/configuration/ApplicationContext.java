@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.foundation;
+package com.futao.springmvcdemo.foundation.configuration;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContextAware;
