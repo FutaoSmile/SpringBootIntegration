@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo;
+package com.futao.springmvcdemo.other;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

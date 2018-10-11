@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
@@ -20,6 +21,18 @@ import java.util.UUID;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    /**
+     * 0.1+0.2=0.300000000004问题
+     * 解决方案是转为BigDecimal或者放大倍数为整数进行计算
+     */
+    @Test
+    public void test9() {
+        System.out.println(0.1 + 0.2);
+        System.out.println(BigDecimal.valueOf(0.1).add(BigDecimal.valueOf(0.2)));
+        System.out.println((0.1 * 10 + 0.2 * 10) / 10);
+        System.out.println(0.3 - 0.1);
+    }
 
     @Test
     public void test8() {

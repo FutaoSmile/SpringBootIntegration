@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.controller;
+package com.futao.springmvcdemo.controller.business;
 
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import org.springframework.stereotype.Controller;

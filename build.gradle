@@ -58,6 +58,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
     compile('org.springframework.boot:spring-boot-devtools')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 }
 

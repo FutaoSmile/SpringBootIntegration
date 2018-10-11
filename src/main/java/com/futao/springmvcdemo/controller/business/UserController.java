@@ -1,8 +1,8 @@
-package com.futao.springmvcdemo.controller;
+package com.futao.springmvcdemo.controller.business;
 
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.IllegalValueCheck;
-import com.futao.springmvcdemo.annotation.LoginUser;
+import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
 import com.futao.springmvcdemo.foundation.ApplicationContext;
 import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;

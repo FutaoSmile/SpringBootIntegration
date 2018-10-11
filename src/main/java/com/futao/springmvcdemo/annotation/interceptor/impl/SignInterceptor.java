@@ -1,6 +1,6 @@
-package com.futao.springmvcdemo.annotation.impl;
+package com.futao.springmvcdemo.annotation.interceptor.impl;
 
-import com.futao.springmvcdemo.annotation.Sign;
+import com.futao.springmvcdemo.annotation.interceptor.Sign;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -8,8 +8,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 /**
  * @author futao

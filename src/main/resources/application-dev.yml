@@ -1,0 +1,22 @@
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  # 格式化返回的Timestamp类型
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+server:
+  port: 8888
+
+# 在控制台打印sql
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 在线人数缩放比例
+onlinePeopleQuantityScale: 2
