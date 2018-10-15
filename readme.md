@@ -41,7 +41,7 @@
  * 基于`Annotation`+`SpringMvc Interceptor`
  
 ### # 项目结构
-```xml
+```
 src
 |-main 源代码
     |-java java代码
@@ -62,3 +62,7 @@ src
 > swagger api地址: [http://localhost:8888/swagger-ui.html#!](http://localhost:8888/swagger-ui.html#!)
 
 > druid连接池地址: [http://localhost:8888/druid/index.html](http://localhost:8888/druid/index.html)
+
+> 打包生成jar包 `java -jar ./build/libs/springmvcdemo-0.0.1-SNAPSHOT.jar`
+    
+> 运行 `gradle clean build -x test`

@@ -8,7 +8,6 @@ import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
-import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.UUID;
 
 /**
  * @author futao
@@ -83,14 +80,12 @@ public class UserController {
      * @return
      */
     @PostMapping(path = "login")
-    public JSONObject login(
+    public User login(
             @RequestParam("mobile") String mobile,
+            @RequestParam("password") String password,
             HttpServletRequest request
     ) {
-        HttpSession session = request.getSession();
-        session.setAttribute(SystemConfig.LOGIN_USER_SESSION_KEY, String.valueOf(UUID.randomUUID()));
-        session.setMaxInactiveInterval(SystemConfig.SESSION_INVALIDATE_SECOND);
-        return new JSONObject();
+        return userService.login(mobile, password, request);
     }
 
     /**

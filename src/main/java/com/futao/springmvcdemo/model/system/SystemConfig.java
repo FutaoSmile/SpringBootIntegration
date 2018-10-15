@@ -12,5 +12,5 @@ public final class SystemConfig {
     /**
      * session过期时间,单位：秒
      */
-    public static final int SESSION_INVALIDATE_SECOND = 60;
+    public static final int SESSION_INVALIDATE_SECOND = 10;
 }

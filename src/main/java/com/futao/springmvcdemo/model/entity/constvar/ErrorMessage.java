@@ -18,4 +18,5 @@ public final class ErrorMessage {
     public static final String MOBILE_LEN_ILLEGAL = "01004_手机号长度不合法";
     public static final String EMAIL_ILLEGAL = "01005_邮箱格式不合法";
     public static final String USERNAME_LEN_ILLEGAL = "01006_名字长度不合法";
+    public static final String MOBILE_OR_PWD_ERROR = "01007_手机号或者密码错误，请重试";
 }

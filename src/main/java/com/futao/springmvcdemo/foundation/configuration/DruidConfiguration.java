@@ -1,6 +1,7 @@
 package com.futao.springmvcdemo.foundation.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -93,15 +94,18 @@ public class DruidConfiguration {
     private int maxOpenPreparedStatements;
 
     /**
-     *
+     * 开启哪些拦截器 stat：性能监控，wall： 防火墙控制
      */
-    private boolean asyncInit;
+    private String filters;
 
+    public void qqq() {
+    }
 
-    @Bean
+    @Bean(destroyMethod = "close", initMethod = "init")
     public DataSource druidDataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
+        druidDataSource.setFilters(filters);
         druidDataSource.setUsername(userName);
         druidDataSource.setPassword(password);
         druidDataSource.setMaxActive(maxActive);
@@ -116,7 +120,6 @@ public class DruidConfiguration {
         druidDataSource.setTestOnReturn(testOnReturn);
         druidDataSource.setPoolPreparedStatements(poolPreparedStatements);
         druidDataSource.setMaxOpenPreparedStatements(maxOpenPreparedStatements);
-        druidDataSource.setAsyncInit(asyncInit);
         return druidDataSource;
     }
 
@@ -240,11 +243,11 @@ public class DruidConfiguration {
         this.maxOpenPreparedStatements = maxOpenPreparedStatements;
     }
 
-    public boolean isAsyncInit() {
-        return asyncInit;
+    public String getFilters() {
+        return filters;
     }
 
-    public void setAsyncInit(boolean asyncInit) {
-        this.asyncInit = asyncInit;
+    public void setFilters(String filters) {
+        this.filters = filters;
     }
 }

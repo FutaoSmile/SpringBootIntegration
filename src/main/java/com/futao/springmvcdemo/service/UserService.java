@@ -2,6 +2,7 @@ package com.futao.springmvcdemo.service;
 
 import com.futao.springmvcdemo.model.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public interface UserService {
      * @return 是否注册成功
      */
     boolean register(String username, String age, String mobile, String email, String address);
+
+    User login(String mobile, String password, HttpServletRequest request);
 
     /**
      * 获取用户列表

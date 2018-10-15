@@ -7,9 +7,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     platform: mysql
+    filters: stat,wall
     initialSize: 5
     minIdle: 10
-    maxActive: 20
+    maxActive: 50
     maxWait: 60000
     timeBetweenEvictionRunsMillis: 2000
     minEvictableIdleTimeMillis: 600000
@@ -20,7 +21,6 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
     asyncInit: true
-    filters: stat,wall,log4j
     logSlowSql: true
   # 格式化返回的Timestamp类型
   jackson:

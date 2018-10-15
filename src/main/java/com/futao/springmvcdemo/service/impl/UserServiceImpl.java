@@ -4,14 +4,18 @@ import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
+import com.futao.springmvcdemo.utils.CommonUtilsKt;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -57,6 +61,28 @@ public class UserServiceImpl implements UserService {
             } else {
                 return false;
             }
+        }
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param mobile
+     * @param password
+     * @param request
+     * @return
+     */
+    @Override
+    public User login(String mobile, String password, HttpServletRequest request) {
+        String md5Pwd = CommonUtilsKt.md5(password);
+        User user = userDao.getUserByMobileAndPwd(mobile, md5Pwd);
+        if (ObjectUtils.allNotNull(user)) {
+            HttpSession session = request.getSession();
+            session.setAttribute(SystemConfig.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
+            session.setMaxInactiveInterval(SystemConfig.SESSION_INVALIDATE_SECOND);
+            return user;
+        } else {
+            throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);
         }
     }
 

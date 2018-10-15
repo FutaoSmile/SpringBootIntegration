@@ -9,7 +9,6 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -23,7 +22,19 @@ import java.util.UUID;
  */
 public class NormalTest {
 
+    @Test
+    public void test10() {
+        ThreadLocal<User> threadLocal = new ThreadLocal<>();
+        User user = new User();
+        user.setAge("11");
+        threadLocal.set(user);
+        System.out.println(threadLocal.get());
 
+        User user1=new User();
+        user1.setAddress("1231");
+        threadLocal.set(user1);
+        System.out.println(threadLocal.get());
+    }
 
     /**
      * 0.1+0.2=0.300000000004问题

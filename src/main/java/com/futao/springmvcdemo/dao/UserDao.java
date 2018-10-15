@@ -69,4 +69,20 @@ public interface UserDao {
             "where " +
             "mobile=#{mobile}")
     User getUserByMobile(@Param("mobile") String mobile);
+
+    /**
+     * 通过手机号和密码查询用户信息
+     *
+     * @param mobile   用户手机号
+     * @param password 密码
+     * @return
+     */
+    @Select("select " +
+            "* " +
+            "from " +
+            "futao_user " +
+            "where " +
+            "mobile=#{mobile} " +
+            "and password=#{password}")
+    User getUserByMobileAndPwd(@Param("mobile") String mobile, @Param("password") String password);
 }

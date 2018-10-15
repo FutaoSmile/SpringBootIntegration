@@ -20,6 +20,11 @@ public class User extends BaseEntity {
      */
     @Size(min = 3, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
     private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
     /**
      * 年龄
      */
@@ -82,5 +87,13 @@ public class User extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
