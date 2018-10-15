@@ -71,6 +71,21 @@ public interface UserDao {
     User getUserByMobile(@Param("mobile") String mobile);
 
     /**
+     * 通过id查询用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Select("select " +
+            "id,createTime,lastModifyTime,username,age,mobile,email,address " +
+            "from " +
+            "futao_user " +
+            "where " +
+            "id=#{id}")
+    User getUserById(@Param("id") String id);
+
+
+    /**
      * 通过手机号和密码查询用户信息
      *
      * @param mobile   用户手机号

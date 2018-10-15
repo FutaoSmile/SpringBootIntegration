@@ -34,8 +34,18 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public String currentUser() {
-        return (String) threadLocalUtils.get();
+    public User currentUser() {
+        return (User) threadLocalUtils.get();
+    }
+
+    @Override
+    public User getUserByMobile(String mobile) {
+        return userDao.getUserByMobile(mobile);
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return userDao.getUserById(id);
     }
 
     @Override

@@ -10,6 +10,6 @@ import org.junit.Test
 class KotlinTest {
     @Test
     fun test1() {
-        println("123456".md5())
+        println("1".md5())
     }
 }

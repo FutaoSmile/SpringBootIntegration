@@ -66,3 +66,7 @@ src
 > 打包生成jar包 `java -jar ./build/libs/springmvcdemo-0.0.1-SNAPSHOT.jar`
     
 > 运行 `gradle clean build -x test`
+
+
+### # TODO items
+* mybatis分页

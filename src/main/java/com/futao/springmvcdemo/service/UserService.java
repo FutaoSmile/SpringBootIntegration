@@ -10,8 +10,12 @@ import java.util.List;
  * Created on 2018/9/20-15:17.
  */
 public interface UserService {
-    String currentUser();
+    User currentUser();
 
+
+    User getUserByMobile(String mobile);
+
+    User getUserById(String id);
 
     /**
      * 用户注册

@@ -2,9 +2,11 @@ package com.futao.springmvcdemo.annotation.interceptor.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
+import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.model.system.SystemConfig;
+import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -29,7 +31,9 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LoginUserInterceptor.class);
 
     @Resource
-    private ThreadLocalUtils<String> threadLocalUtils;
+    private ThreadLocalUtils<User> threadLocalUtils;
+    @Resource
+    private UserService userService;
 
     /**
      * 在请求到达Controller之前进行拦截并处理
@@ -51,11 +55,12 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
                 HttpSession session = request.getSession(false);
                 //session不为空
                 if (ObjectUtils.allNotNull(session)) {
-                    String loginUser = (String) session.getAttribute(SystemConfig.LOGIN_USER_SESSION_KEY);
-                    if (ObjectUtils.allNotNull(loginUser)) {
-                        System.out.println("当前登陆用户为：" + loginUser);
+                    String loginUserId = (String) session.getAttribute(SystemConfig.LOGIN_USER_SESSION_KEY);
+                    if (ObjectUtils.allNotNull(loginUserId)) {
+                        User currentUser = userService.getUserById(loginUserId);
+                        System.out.println("当前登陆用户为：" + currentUser);
                         //将当前用户的信息存入threadLocal中
-                        threadLocalUtils.set(loginUser);
+                        threadLocalUtils.set(currentUser);
                     } else {
                         System.out.println("用户不存在");
                         return false;
