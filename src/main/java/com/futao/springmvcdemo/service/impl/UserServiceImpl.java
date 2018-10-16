@@ -8,7 +8,9 @@ import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.CommonUtilsKt;
+import com.futao.springmvcdemo.utils.PageResultUtils;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
+import lombok.val;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,8 +99,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> list(String mobile, int start, int limit) {
-        return userDao.list(mobile, start, limit);
+    public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
+        PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
+        final val sql = pageResultUtils.createCriteria("futao_" + User.class.getSimpleName())
+                                       .orderBy(orderBy)
+                                       .page(pageNum, pageSize)
+                                       .getSql();
+        return userDao.list(sql);
     }
 
     @Override

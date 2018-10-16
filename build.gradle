@@ -34,7 +34,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
-    runtime('org.springframework.boot:spring-boot-devtools')
+//    runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
 //    compile('com.alibaba:druid-spring-boot-starter:1.1.10')
@@ -48,7 +48,6 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.21'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
-    compile('org.springframework.boot:spring-boot-devtools')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
 //    你在把这个项目打成war包时，scope=provided的jar包，不会出现在WEB-INFO/lib目录下，而scope=compile的jar包，会放到WEB-INFO/lib目录

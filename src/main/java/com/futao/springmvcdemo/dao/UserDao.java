@@ -16,22 +16,29 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
+//    /**
+//     * 查询用户列表
+//     *
+//     * @param mobile
+//     * @param start
+//     * @param limit
+//     * @return
+//     */
+//    @Select("select " +
+//            "* " +
+//            "from futao_user " +
+//            "where mobile like '%${mobile}%' " +
+//            "order by createtime desc " +
+//            "limit #{start},#{limit}")
+//    List<User> list(@Param("mobile") String mobile, @Param("start") int start, @Param("limit") int limit);
+
     /**
      * 查询用户列表
      *
-     * @param mobile
-     * @param start
-     * @param limit
      * @return
      */
-    @Select("select " +
-            "* " +
-            "from futao_user " +
-            "where mobile like '%${mobile}%' " +
-            "order by createtime desc " +
-            "limit #{start},#{limit}")
-    List<User> list(@Param("mobile") String mobile, @Param("start") int start, @Param("limit") int limit);
-
+    @Select("${sql}")
+    List<User> list(@Param("sql") String sql);
 
     /**
      * 按表名查询数据量
