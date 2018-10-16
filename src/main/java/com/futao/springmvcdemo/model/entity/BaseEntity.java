@@ -45,4 +45,13 @@ public class BaseEntity {
     public void setLastModifyTime(Timestamp lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
+
+    @Override
+    public String toString() {
+        return "BaseEntity{" +
+                "id='" + id + '\'' +
+                ", createTime=" + createTime +
+                ", lastModifyTime=" + lastModifyTime +
+                '}';
+    }
 }

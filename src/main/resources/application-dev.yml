@@ -26,7 +26,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  # 连接池
 
 server:
   port: 8888

@@ -1,6 +1,8 @@
 package com.futao.springmvcdemo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -12,6 +14,7 @@ import javax.validation.constraints.Size;
  * 用户实体
  */
 @Validated
+@AllArgsConstructor
 public class User extends BaseEntity {
 
     /**
@@ -23,6 +26,7 @@ public class User extends BaseEntity {
     /**
      * 密码
      */
+    @JsonIgnore
     private String password;
     /**
      * 年龄

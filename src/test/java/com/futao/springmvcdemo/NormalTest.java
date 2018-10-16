@@ -4,7 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.val;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -12,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
@@ -21,6 +26,35 @@ import java.util.*;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+
+    /**
+     * 如果类的属性没有getter的话toJson()得到的是空对象
+     */
+    @Test
+    public void test14() {
+        @AllArgsConstructor
+        @Getter
+        @Setter
+        class A {
+            private String a;
+            private String c;
+        }
+        List<A> list = new ArrayList<>();
+
+//        list.add(new User("1231", "123123", "12", "1111", "1231", "12313"));
+        list.add(new A("12312", "123123"));
+        System.out.println(JSONObject.toJSON(list));
+    }
+
+    @Test
+    public void test13() throws IllegalAccessException {
+        ErrorMessage errorMessage = new ErrorMessage();
+        final Class<? extends ErrorMessage> aClass = errorMessage.getClass();
+        for (Field field : aClass.getFields()) {
+            System.out.println(field.getName() + "___" + field.get(ErrorMessage.class));
+        }
+    }
 
     @Test
     public void test12() {
