@@ -53,6 +53,8 @@ dependencies {
 //    你在把这个项目打成war包时，scope=provided的jar包，不会出现在WEB-INFO/lib目录下，而scope=compile的jar包，会放到WEB-INFO/lib目录
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
     compile('org.apache.maven.plugins:maven-javadoc-plugin:3.0.0')
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+//    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
 }
 
 compileKotlin {

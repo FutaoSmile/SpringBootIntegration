@@ -9,9 +9,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 /**
+ * Hibernate Validator配置类
+ *
  * @author futao
  * Created on 2018/9/23-20:00.
- * Hibernate Validator配置类
  */
 @Configuration
 public class HibernateValidatorConfiguration {

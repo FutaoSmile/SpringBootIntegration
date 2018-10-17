@@ -40,6 +40,10 @@
 > 第三方接口统一验签
  * 基于`Annotation`+`SpringMvc Interceptor`
  
+> 简单易用的sql分页
+
+> 整合redis
+ 
 ### # 项目结构
 ```
 src
@@ -69,4 +73,5 @@ src
 
 
 ### # TODO items
-* mybatis分页
+* ~~mybatis分页~~ -> sql分页
+* 缓存    

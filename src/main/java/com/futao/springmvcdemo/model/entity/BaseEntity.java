@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.model.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -7,8 +8,9 @@ import java.sql.Timestamp;
  * Created on 2018/9/22-15:17.
  * 实体基类
  */
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 7360778825666258407L;
     /**
      * 唯一主键id
      */

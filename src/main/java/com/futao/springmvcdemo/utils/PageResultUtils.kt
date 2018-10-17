@@ -9,7 +9,7 @@ import com.futao.springmvcdemo.model.entity.BaseEntity
 class PageResultUtils<T : BaseEntity> {
     var sql = ""
     fun createCriteria(tableName: String): PageResultUtils<T> {
-        sql += "select * from ${tablePrefix}_$tableName where 1=1 "
+        sql += "select * from $tablePrefix$tableName where 1=1 "
         return this
     }
 

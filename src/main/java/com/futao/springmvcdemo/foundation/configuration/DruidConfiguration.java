@@ -1,7 +1,6 @@
 package com.futao.springmvcdemo.foundation.configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -10,6 +9,8 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
+ * druid连接池配置类
+ *
  * @author futao
  * Created on 2018/10/11.
  * ConfigurationProperties(prefix = "spring.datasource")使用规则，注入的字段如果为private，则必须具有setter方法

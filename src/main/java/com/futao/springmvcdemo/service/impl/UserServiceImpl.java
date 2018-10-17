@@ -13,6 +13,7 @@ import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import lombok.val;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -99,9 +100,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = "user")
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
-        final val sql = pageResultUtils.createCriteria("futao_" + User.class.getSimpleName())
+        final val sql = pageResultUtils.createCriteria(User.class.getSimpleName())
                                        .orderBy(orderBy)
                                        .page(pageNum, pageSize)
                                        .getSql();

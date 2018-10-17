@@ -20,4 +20,5 @@ public final class ErrorMessage {
     public static final String USERNAME_LEN_ILLEGAL = "01006_名字长度不合法";
     public static final String MOBILE_OR_PWD_ERROR = "01007_手机号或者密码错误，请重试";
     public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";
+    public static final String DESERIALIZER_FAIL = "01009_反序列化失败";
 }
