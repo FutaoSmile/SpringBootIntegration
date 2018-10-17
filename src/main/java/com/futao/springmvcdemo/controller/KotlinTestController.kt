@@ -1,12 +1,14 @@
 package com.futao.springmvcdemo.controller
 
 import com.futao.springmvcdemo.model.entity.User
+import com.futao.springmvcdemo.service.MailService
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.thymeleaf.context.Context
 import javax.annotation.Resource
 
 /**
@@ -19,6 +21,9 @@ open class KotlinTestController {
 
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
+
+    @Resource
+    private lateinit var mailService: MailService
 
     /**
      * 存入缓存
@@ -47,5 +52,33 @@ open class KotlinTestController {
         return if (redisTemplate.opsForValue().get(name) != null) {
             redisTemplate.opsForValue().get(name) as User
         } else null
+    }
+
+    @GetMapping(path = ["mailSend"])
+    open fun mailSend() {
+        mailService.sendSimpleEmail(arrayOf("taof@wicrenet.com", "1185172056@qq.com"), arrayOf("taof@wicrenet.com", "1185172056@qq.com"), "SpringbootMail", "from Springboot SimpleMail")
+    }
+
+    @GetMapping(path = ["htmlMailSend"])
+    open fun htmlMailSend(
+            @RequestParam("isHtml") isHtml: Boolean,
+            @RequestParam("content") content: String
+    ) {
+        mailService.sendHtmlEmail(arrayOf("taof@wicrenet.com", "1185172056@qq.com"), arrayOf("taof@wicrenet.com", "1185172056@qq.com"), "SpringbootMail", content, isHtml)
+    }
+
+    @GetMapping(path = ["htmlTemplateHtml"])
+    open fun htmlTemplateHtml(
+            @RequestParam("templatePath") templatePath: String
+    ) {
+        mailService.sendHtmlEmailWithTemplate(
+                arrayOf("taof@wicrenet.com", "1185172056@qq.com"),
+                arrayOf("taof@wicrenet.com", "1185172056@qq.com"),
+                "SpringbootMail",
+                templatePath,
+                Context().apply {
+                    setVariable("username", "futao")
+                }
+        )
     }
 }

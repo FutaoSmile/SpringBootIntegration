@@ -3,6 +3,8 @@ package com.futao.springmvcdemo;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.futao.springmvcdemo.a.Classes;
+import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
@@ -20,12 +22,44 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author futao
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+
+    @Test
+    public void test15() {
+        List<Classes> classesList = new ArrayList<>();
+
+        Student s1 = new Student(55);
+        Student s2 = new Student(66);
+        Student s3 = new Student(77);
+
+        List<Student> stuL1 = new ArrayList<>();
+        stuL1.add(s1);
+        stuL1.add(s2);
+        List<Student> stuL2 = new ArrayList<>();
+        stuL2.add(s3);
+
+        Classes c1 = new Classes("架构1班", stuL1);
+        Classes c2 = new Classes("架构2班", stuL2);
+
+
+        classesList.add(c1);
+        classesList.add(c2);
+
+        System.out.println(classesList.stream().flatMap(it -> it.getStudents().stream().filter(stu -> stu.getScore() > 60)).collect(Collectors.toList()));
+    }
+
+    public void a(String... args) {
+        for (String arg : args) {
+            System.out.println(arg);
+        }
+    }
 
 
     /**

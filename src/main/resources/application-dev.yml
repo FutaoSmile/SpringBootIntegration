@@ -38,6 +38,28 @@ spring:
         min-idle: 0
         max-idle: 8
     timeout: 10000
+  thymeleaf:
+    cache: true
+    prefix:classpath: /templates/
+    mode: HTML5
+  # 发邮件
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 1185172056@qq.com
+    password: msfllmibekwfhigb
+    properties:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+          required: true
+#      mail:
+#        smtp:
+#          ssl:
+#            enable: true
+
+
 
 server:
   port: 8888
