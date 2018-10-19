@@ -13,12 +13,20 @@ public final class ErrorMessage {
     public static final String NOT_LOGIN = "00001_您还未登陆或者登陆已超时，请重新登陆";
     public static final String CONTAIN_ILLEGAL_PARAMETER = "00002_评论中包含敏感词汇";
 
+    public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";
+    public static final String DESERIALIZER_FAIL = "01009_反序列化失败";
+    public static final String ROCKET_MQ_PRODUCER_GROUP_NAME_EMPTY = "01010_rocketMq的producerGroupName不允许为空";
+    public static final String ROCKET_MQ_PRODUCER_NAME_SERVER_EMPTY = "01010_rocketMq的producerNameServer不允许为空";
+    public static final String ROCKET_MQ_CONSUMER_GROUP_NAME_EMPTY = "01010_rocketMq的consumerGroupName不允许为空";
+    public static final String ROCKET_MQ_CONSUMER_NAME_SERVER_EMPTY = "01010_rocketMq的consumerNameServer不允许为空";
+    public static final String ROCKET_MQ_CONSUMER_TOPICS_EMPTY = "01010_rocketMq的topics不允许为空";
+
+
     public static final String MOBILE_ALREADY_REGISTER = "01002_该手机号已经被注册了";
     public static final String LOGIC_EXCEPTION = "01003_对不起，你是真的没有我帅";
     public static final String MOBILE_LEN_ILLEGAL = "01004_手机号长度不合法";
     public static final String EMAIL_ILLEGAL = "01005_邮箱格式不合法";
     public static final String USERNAME_LEN_ILLEGAL = "01006_名字长度不合法";
     public static final String MOBILE_OR_PWD_ERROR = "01007_手机号或者密码错误，请重试";
-    public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";
-    public static final String DESERIALIZER_FAIL = "01009_反序列化失败";
+
 }

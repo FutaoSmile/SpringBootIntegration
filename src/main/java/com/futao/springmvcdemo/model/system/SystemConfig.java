@@ -18,4 +18,14 @@ public final class SystemConfig {
      * UTF-8编码
      */
     public static final String UTF8_ENCODE = "UTF-8";
+
+    /**
+     * rocket mq 发送邮件的 topic
+     */
+    public static final String ROCKET_MQ_TOPIC_MAIL = "topic_mail";
+
+    /**
+     * rocket mq 发送邮件-注册邮件的tag
+     */
+    public static final String ROCKET_MQ_TAG_MAIL_REGISTER = "tag_mail_register";
 }

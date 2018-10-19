@@ -56,6 +56,11 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-redis')
 //    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+//    compile group: 'com.alibaba.rocketmq', name: 'rocketmq-client', version: '3.6.2.Final'
+//    compile 'org.apache.rocketmq:spring-boot-starter-rocketmq:1.0.0-SNAPSHOT'
+    // https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client
+    compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: '4.3.0'
+
 }
 
 compileKotlin {

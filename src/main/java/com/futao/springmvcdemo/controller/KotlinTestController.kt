@@ -1,7 +1,12 @@
 package com.futao.springmvcdemo.controller
 
 import com.futao.springmvcdemo.model.entity.User
+import com.futao.springmvcdemo.model.system.MailM
+import com.futao.springmvcdemo.model.system.SystemConfig
 import com.futao.springmvcdemo.service.MailService
+import org.apache.rocketmq.client.producer.DefaultMQProducer
+import org.apache.rocketmq.common.message.Message
+import org.slf4j.LoggerFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.thymeleaf.context.Context
+import java.nio.charset.Charset
 import javax.annotation.Resource
 
 /**
@@ -29,6 +35,7 @@ open class KotlinTestController {
      * 存入缓存
      */
     @GetMapping(path = ["setCache"])
+//    @RocketMQMessageListener
     open fun cache(
             @RequestParam("name") name: String,
             @RequestParam("age") age: Int
@@ -80,5 +87,39 @@ open class KotlinTestController {
                     setVariable("username", "futao")
                 }
         )
+    }
+
+
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
+    @Resource
+    private lateinit var rocketMqService: DefaultMQProducer
+
+    /**
+     * mq
+     */
+    @GetMapping("producer")
+    open fun producer(
+            @RequestParam("message") message: String,
+            @RequestParam("repeat") repeat: Int
+    ) {
+        for (i in (1..repeat)) {
+            val message1 = Message(SystemConfig.ROCKET_MQ_TOPIC_MAIL, SystemConfig.ROCKET_MQ_TAG_MAIL_REGISTER, (message + i).toByteArray(Charset.forName(SystemConfig.UTF8_ENCODE)))
+            logger.info("开始发送消息：${message + i},::,$message1")
+            val sendResult = rocketMqService.send(message1)
+            logger.info("发送消息结果：$sendResult")
+        }
+    }
+
+
+    @GetMapping("sendMailMq")
+    open fun sendMailMq() {
+        val mailM = MailM().apply {
+            to = arrayOf("1185172056@qq.com")
+            cc = arrayOf("taof@wicrenet.com")
+            subject = "消息队列"
+            content = "<h1>您好，RocketMq</h1>"
+        }
+        mailService.sendMq(mailM)
     }
 }

@@ -5,6 +5,6 @@ import java.util.*
 
 interface StatisticService {
     @Override
-    open fun getErrorMessages(): ArrayList<ErrorMessageFields>
+    fun getErrorMessages(): ArrayList<ErrorMessageFields>
 
 }

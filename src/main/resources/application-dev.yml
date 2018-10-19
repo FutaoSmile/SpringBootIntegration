@@ -41,13 +41,13 @@ spring:
   thymeleaf:
     cache: true
     prefix:classpath: /templates/
-    mode: HTML5
+    mode: HTML
   # 发邮件
   mail:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: msfllmibekwfhigb
+    password:
     properties:
       smtp:
         auth: true
@@ -59,7 +59,37 @@ spring:
 #          ssl:
 #            enable: true
 
+###producer
+#该应用是否启用生产者
+rocketmq:
+  producer:
+    isOnOff: on
+    #发送同一类消息的设置为同一个group，保证唯一,默认不需要设置，rocketmq会使用ip@pid(pid代表jvm名字)作为唯一标示
+    groupName: ${spring.application.name}
+    #mq的nameserver地址
+    namesrvAddr: 127.0.0.1:9876
+    #消息最大长度 默认1024*4(4M)
+    maxMessageSize: 4096
+    #发送消息超时时间,默认3000
+    sendMsgTimeout: 3000
+    #发送消息失败重试次数，默认2
+    retryTimesWhenSendFailed: 2
 
+  ###consumer
+  ##该应用是否启用消费者
+  consumer:
+    isOnOff: on
+    groupName: ${spring.application.name}
+    #mq的nameserver地址
+    namesrvAddr: 127.0.0.1:9876
+    #该消费者订阅的主题和tags("*"号表示订阅该主题下所有的tags),格式：topic~tag1||tag2||tag3;topic2~*;
+    topics: futaotopic~*;
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    #设置一次消费消息的条数，默认为1条
+    consumeMessageBatchMaxSize: 1
+
+reConsumerTimes: 3
 
 server:
   port: 8888

@@ -1,10 +1,12 @@
 package com.futao.springmvcdemo.service
 
+import com.futao.springmvcdemo.model.system.MailM
 import org.thymeleaf.context.Context
 
 interface MailService {
 
-    fun sendSimpleEmail(to: Array<String>, cc: Array<String>, subject: String, content: String)
-    fun sendHtmlEmail(to: Array<String>, cc: Array<String>, subject: String, content: String, isHtml: Boolean)
-    fun sendHtmlEmailWithTemplate(to: Array<String>, cc: Array<String>, subject: String, templatePath: String, context: Context)
+    fun sendHtmlEmailWithTemplate(to: Array<String>, cc: Array<String>, subject: String, templatePath: String, context: Context): Boolean
+    fun sendHtmlEmail(to: Array<String>, cc: Array<String>, subject: String, content: String, isHtml: Boolean): Boolean
+    fun sendSimpleEmail(to: Array<String>, cc: Array<String>, subject: String, content: String): Boolean
+    fun sendMq(mailM: MailM)
 }
