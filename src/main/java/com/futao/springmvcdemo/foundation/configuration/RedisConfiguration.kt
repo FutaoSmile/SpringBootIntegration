@@ -68,6 +68,7 @@ open class RedisConfiguration : CachingConfigurerSupport() {
     lateinit var redisConnectionFactory: RedisConnectionFactory
 
     override fun cacheManager(): CacheManager {
-        return RedisCacheManager.create(redisConnectionFactory)
+        val create = RedisCacheManager.create(redisConnectionFactory)
+        return create
     }
 }

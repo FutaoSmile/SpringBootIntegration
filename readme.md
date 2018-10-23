@@ -78,4 +78,15 @@ src
 
 ### # TODO items
 * ~~mybatis分页~~ -> sql分页
-* 缓存    
+* ~~缓存~~
+        *   redis缓存过期时间
+* ~~elastic search全文检索~~
+        * 查询语句
+        * elasticsearch分词器
+* 接口限流
+        * 漏斗算法
+        * 令牌桶算法
+ 
+
+* shiro 安全框架
+* solr 全文检索框架

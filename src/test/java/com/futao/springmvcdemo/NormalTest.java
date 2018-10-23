@@ -30,6 +30,14 @@ import java.util.stream.Collectors;
  */
 public class NormalTest {
 
+    @Test
+    public void test16() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
+        map.put("2", 0);
+        System.out.println(map.size());
+    }
+
 
     @Test
     public void test15() {

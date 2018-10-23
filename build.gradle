@@ -60,7 +60,9 @@ dependencies {
 //    compile 'org.apache.rocketmq:spring-boot-starter-rocketmq:1.0.0-SNAPSHOT'
     // https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client
     compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: '4.3.0'
-
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
+    compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.14')
+    compile('org.elasticsearch.client:transport:5.6.11')
 }
 
 compileKotlin {

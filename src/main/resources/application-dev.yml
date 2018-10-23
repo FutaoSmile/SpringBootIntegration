@@ -1,4 +1,11 @@
 spring:
+#  data:
+#    # 全文检索 elasticsearch
+#    elasticsearch:
+#      cluster-name: elasticsearch #节点名称
+#      cluster-nodes: 127.0.0.1:9300 #节点地址
+#      repositories:
+#        enabled: true
   # 数据源
   datasource:
     url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8

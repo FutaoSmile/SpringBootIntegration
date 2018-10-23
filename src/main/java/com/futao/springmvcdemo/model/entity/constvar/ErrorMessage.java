@@ -29,4 +29,5 @@ public final class ErrorMessage {
     public static final String USERNAME_LEN_ILLEGAL = "01006_名字长度不合法";
     public static final String MOBILE_OR_PWD_ERROR = "01007_手机号或者密码错误，请重试";
 
+    public static final String ADD_ARTICLE_FAIL = "01011_新增文章失败";
 }

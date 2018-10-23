@@ -23,13 +23,14 @@ import javax.validation.constraints.Size;
  * @author futao
  * Created on 2018/9/19-15:05.
  */
-@RequestMapping(path = "User", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RestController
 @Validated
 public class UserController {
 
     @Resource
     private UserService userService;
+
     @Resource
     private ApplicationContext applicationContext;
 

@@ -6,6 +6,7 @@ import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.LoggerFactory
 import java.security.MessageDigest
+import java.util.*
 import kotlin.reflect.KFunction1
 
 /**
@@ -15,7 +16,7 @@ import kotlin.reflect.KFunction1
 
 const val salt = "white55"
 /**
- * 数据库表明前缀
+ * 数据库表名前缀
  */
 const val tablePrefix = "futao_"
 val commonUtilsLogger = LoggerFactory.getLogger("CommonUtilsKt")
@@ -44,4 +45,8 @@ fun <T, R> KFunction1<T, R>.getFieldName(): String {
     } else {
         throw LogicException.le(ErrorMessage.FIELD_NO_GETTER_OR_SETTER)
     }
+}
+
+fun uuid(): String {
+    return (UUID.randomUUID()).toString().replace("-", "")
 }
