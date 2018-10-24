@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author futao
@@ -16,6 +18,8 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @ServletComponentScan
 @MapperScan("com.futao.springmvcdemo.dao")
 @EnableCaching
+@EnableScheduling
+@EnableAsync
 //@EnableAspectJAutoProxy
 @EnableElasticsearchRepositories(basePackages = "com.futao.springmvcdemo")
 public class SpringmvcdemoApplication {

@@ -111,3 +111,9 @@ onlinePeopleQuantityScale: 2
 
 jianshu:
   id: futaosmile
+
+# 线程池配置
+threadpool:
+  corePoolSize: 10
+  maxPoolSize: 200
+  queueCapacity: 10
