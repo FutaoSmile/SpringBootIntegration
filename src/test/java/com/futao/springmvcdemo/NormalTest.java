@@ -8,14 +8,14 @@ import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -29,6 +29,15 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+    /**
+     * 获取类的信息
+     */
+    @Test
+    public void test17() {
+        Reflections reflections = new Reflections("com.futao.springmvcdemo.model.entity");
+        Set<Class<?>> classSet = reflections.getTypesAnnotatedWith(Document.class);
+        classSet.forEach(it -> System.out.println(it.getSimpleName()));
+    }
 
     @Test
     public void test16() {
@@ -75,12 +84,16 @@ public class NormalTest {
      */
     @Test
     public void test14() {
-        @AllArgsConstructor
         @Getter
         @Setter
         class A {
             private String a;
             private String c;
+
+            public A(String a, String c) {
+                this.a = a;
+                this.c = c;
+            }
         }
         List<A> list = new ArrayList<>();
 
@@ -105,7 +118,7 @@ public class NormalTest {
             list.add(i);
         }
         System.out.println("before: " + list);
-        val size = list.size();
+        int size = list.size();
         System.out.println("after: " + list.subList(size - 10, size));
     }
 

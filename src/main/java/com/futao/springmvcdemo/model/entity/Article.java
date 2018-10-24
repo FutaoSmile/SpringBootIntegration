@@ -18,7 +18,6 @@ public class Article extends BaseEntity {
     /**
      * 标题
      */
-    @Field(type = FieldType.Text, store = true)
     private String title;
     /**
      * 简介

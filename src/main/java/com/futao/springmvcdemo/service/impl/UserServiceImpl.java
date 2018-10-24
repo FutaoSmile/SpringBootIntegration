@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
     @Cacheable(value = "user")
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
-        final val sql = pageResultUtils.createCriteria(User.class.getSimpleName())
+        String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
                                        .orderBy(orderBy)
                                        .page(pageNum, pageSize)
                                        .getSql();
