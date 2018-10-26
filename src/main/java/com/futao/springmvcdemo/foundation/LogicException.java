@@ -46,4 +46,15 @@ public class LogicException extends RuntimeException {
     public static LogicException le(String errorMsg) {
         return new LogicException(errorMsg);
     }
+
+    /**
+     * 抛出逻辑异常，带有占位符
+     *
+     * @param errorMsg
+     * @param args
+     * @return
+     */
+    public static LogicException le(String errorMsg, String... args) {
+        return new LogicException(String.format(errorMsg, (Object[]) args));
+    }
 }

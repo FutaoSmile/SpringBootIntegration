@@ -66,6 +66,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.reflections/reflections
     compile('org.reflections:reflections:0.9.11')
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
+// https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
 }
 
 compileKotlin {

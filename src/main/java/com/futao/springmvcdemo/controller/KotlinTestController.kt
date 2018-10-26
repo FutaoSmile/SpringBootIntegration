@@ -1,9 +1,11 @@
 package com.futao.springmvcdemo.controller
 
+import com.futao.springmvcdemo.model.entity.SingleValueResult
 import com.futao.springmvcdemo.model.entity.User
 import com.futao.springmvcdemo.model.system.MailM
 import com.futao.springmvcdemo.model.system.SystemConfig
 import com.futao.springmvcdemo.service.MailService
+import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
 import org.apache.rocketmq.client.producer.DefaultMQProducer
 import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
@@ -121,5 +123,21 @@ open class KotlinTestController {
             content = "<h1>您好，RocketMq</h1>"
         }
         mailService.sendMq(mailM)
+    }
+
+    @Resource
+    private lateinit var accessLimitServiceImpl: AccessLimitServiceImpl
+
+    /**
+     * 接口限流测试-令牌桶
+     */
+    @RequestMapping("rate")
+    open fun rateLimit(): SingleValueResult {
+        return if (!accessLimitServiceImpl.getPermit()) {
+            SingleValueResult("限流")
+        } else {
+            SingleValueResult("正常业务逻辑")
+        }
+
     }
 }

@@ -25,8 +25,6 @@ open class ThreadPoolConfiguration {
 
     @Bean
     open fun taskExecutor(): Executor {
-        println(corePoolSize)
-        println(queueCapacity)
         val executor = ThreadPoolTaskExecutor()
         executor.setQueueCapacity(queueCapacity)
         executor.corePoolSize = corePoolSize

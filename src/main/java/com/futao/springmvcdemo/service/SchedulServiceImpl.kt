@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service
 open class SchedulServiceImpl {
     private val logger = LoggerFactory.getLogger(SchedulServiceImpl::class.java)
 
-    @Scheduled(cron = "* * * * * ?")
+//    @Scheduled(cron = "* * * * * ?")
     open fun test1() {
         logger.info("11")
     }
 
-    @Scheduled(cron = "* * * * * ?")
+//    @Scheduled(cron = "* * * * * ?")
     open fun test2() {
         logger.info("22")
     }

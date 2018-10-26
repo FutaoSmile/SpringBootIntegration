@@ -5,9 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.futao.springmvcdemo.a.Classes;
 import com.futao.springmvcdemo.a.Student;
+import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
+import com.futao.springmvcdemo.service.impl.DB2ElasticSearchServiceImpl;
+import com.futao.springmvcdemo.suit.A;
+import com.futao.springmvcdemo.suit.B;
+import com.futao.springmvcdemo.suit.CC;
 import lombok.Getter;
 import lombok.Setter;
 import org.joda.time.DateTime;
@@ -29,6 +34,43 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    @Test
+    public void test22() {
+    }
+
+    @Test
+    public void test21() {
+        DB2ElasticSearchServiceImpl db2ElasticSearchService = new DB2ElasticSearchServiceImpl();
+        db2ElasticSearchService.sync();
+    }
+
+    @Test
+    public void test20() {
+        throw LogicException.le(ErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, "111");
+    }
+
+    @Test
+    public void test19() {
+        String a = null;
+        t1(a);
+    }
+
+    public void t1(String str) {
+        str.replace("1", "1");
+    }
+
+    @Test
+    public void test18() {
+        A a = new A();
+        if (a instanceof B) {
+            System.out.println(true);
+        } else {
+            System.out.println(false);
+        }
+        System.out.println(CC.class.isAssignableFrom(B.class));
+    }
+
     /**
      * 获取类的信息
      */

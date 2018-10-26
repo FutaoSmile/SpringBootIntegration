@@ -2,6 +2,7 @@ package com.futao.springmvcdemo;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -13,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @author futao
  * ServletComponentScan 开启servlet和filter
+ * springboot项目在启动的时候如果抛出了Exception的话会导致项目启动失败，且异常信息并不会打印出来
  */
 @SpringBootApplication
 @ServletComponentScan
@@ -22,7 +24,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 //@EnableAspectJAutoProxy
 @EnableElasticsearchRepositories(basePackages = "com.futao.springmvcdemo")
-public class SpringmvcdemoApplication {
+public class SpringmvcdemoApplication implements CommandLineRunner {
+
     public static void main(String[] args) {
         /**
          * 添加elasticsearch之后发生异常的解决方案
@@ -39,4 +42,38 @@ public class SpringmvcdemoApplication {
          */
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
     }
+
+    /**
+     * Callback used to run the bean.
+     *
+     * @param args incoming main method arguments
+     */
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("//\n" +
+                "//                       _oo0oo_\n" +
+                "//                      o8888888o\n" +
+                "//                      88\" . \"88\n" +
+                "//                      (| -_- |)\n" +
+                "//                      0\\  =  /0\n" +
+                "//                    ___/`---'\\___\n" +
+                "//                  .' \\\\|     |// '.\n" +
+                "//                 / \\\\|||  :  |||// \\\n" +
+                "//                / _||||| -:- |||||- \\\n" +
+                "//               |   | \\\\\\  -  /// |   |\n" +
+                "//               | \\_|  ''\\---/''  |_/ |\n" +
+                "//               \\  .-\\__  '-'  ___/-. /\n" +
+                "//             ___'. .'  /--.--\\  `. .'___\n" +
+                "//          .\"\" '<  `.___\\_<|>_/___.' >' \"\".\n" +
+                "//         | | :  `- \\`.;`\\ _ /`;.`/ - ` : | |\n" +
+                "//         \\  \\ `_.   \\_ __\\ /__ _/   .-` /  /\n" +
+                "//     =====`-.____`.___ \\_____/___.-`___.-'=====\n" +
+                "//                       `=---='//\n" +
+                "//\n" +
+                "//     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+                "//\n" +
+                "//               佛祖保佑         永无BUG\n" +
+                "//");
+    }
+
 }

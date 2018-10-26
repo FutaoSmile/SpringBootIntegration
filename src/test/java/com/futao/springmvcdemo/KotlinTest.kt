@@ -6,6 +6,9 @@ import com.futao.springmvcdemo.utils.PageResultUtils
 import com.futao.springmvcdemo.utils.getFieldName
 import com.futao.springmvcdemo.utils.md5
 import org.junit.Test
+import java.io.BufferedInputStream
+import java.io.InputStreamReader
+import java.net.URL
 import javax.annotation.Resource
 
 /**
@@ -15,6 +18,20 @@ import javax.annotation.Resource
 //@SpringBootTest
 //@RunWith(SpringRunner::class)
 class KotlinTest {
+
+    @Test
+    fun test7() {
+//        val connection = URL("https://www.baidu.com").openConnection()
+//        connection.setRequestProperty("", "")
+//        val inputStream = connection.getInputStream()
+//        val bufferedInputStream = BufferedInputStream(inputStream)
+//        val streamReader = InputStreamReader(bufferedInputStream)
+//        var c = streamReader.read()
+//        while ((c = streamReader.read()) > 0) {
+//            println(c.toChar())
+//        }
+    }
+
     @Resource
     lateinit var mailService: MailService
 
