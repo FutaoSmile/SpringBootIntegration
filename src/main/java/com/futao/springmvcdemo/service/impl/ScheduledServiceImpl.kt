@@ -1,8 +1,7 @@
-package com.futao.springmvcdemo.service
+package com.futao.springmvcdemo.service.impl
 
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
 /**
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service
  */
 @Async
 @Service
-open class SchedulServiceImpl {
-    private val logger = LoggerFactory.getLogger(SchedulServiceImpl::class.java)
+open class ScheduledServiceImpl {
+    private val logger = LoggerFactory.getLogger(ScheduledServiceImpl::class.java)
 
 //    @Scheduled(cron = "* * * * * ?")
     open fun test1() {

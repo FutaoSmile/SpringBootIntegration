@@ -4,11 +4,14 @@ import com.futao.springmvcdemo.model.entity.SingleValueResult
 import com.futao.springmvcdemo.model.entity.User
 import com.futao.springmvcdemo.model.system.MailM
 import com.futao.springmvcdemo.model.system.SystemConfig
+import com.futao.springmvcdemo.service.KotlinTestService
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
+import com.futao.springmvcdemo.service.impl.KotlinTestServiceImpl
 import org.apache.rocketmq.client.producer.DefaultMQProducer
 import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Conditional
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,6 +26,7 @@ import javax.annotation.Resource
  * @author futao
  * Created on 2018/10/17.
  */
+@Conditional(KotlinTestServiceImpl::class)
 @RestController
 @RequestMapping(path = ["kotlinTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
 open class KotlinTestController {
@@ -138,6 +142,15 @@ open class KotlinTestController {
         } else {
             SingleValueResult("正常业务逻辑")
         }
-
     }
+
+
+    @Resource
+    private lateinit var ktService: KotlinTestService
+
+    @GetMapping(path = ["os"])
+    open fun os(): SingleValueResult {
+        return SingleValueResult(ktService.t())
+    }
+
 }

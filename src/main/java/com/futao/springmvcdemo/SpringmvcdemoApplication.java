@@ -1,29 +1,34 @@
 package com.futao.springmvcdemo;
 
 import com.alibaba.fastjson.parser.ParserConfig;
+import com.futao.springmvcdemo.annotation.EnableEntity;
+import com.futao.springmvcdemo.model.entity.User;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.util.Map;
 
 /**
  * @author futao
  * ServletComponentScan 开启servlet和filter
- * springboot项目在启动的时候如果抛出了Exception的话会导致项目启动失败，且异常信息并不会打印出来
+ * springboot项目在启动的时候如果抛出了Exception的话会导致项目启动失败，且异常信息不会打印出来
  */
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.futao.springmvcdemo.dao")
-@EnableCaching
+//@EnableCaching
 @EnableScheduling
 @EnableAsync
-//@EnableAspectJAutoProxy
-@EnableElasticsearchRepositories(basePackages = "com.futao.springmvcdemo")
+@EnableAspectJAutoProxy
+//@EnableElasticsearchRepositories(basePackages = "com.futao.springmvcdemo")
+@EnableEntity
 public class SpringmvcdemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -35,7 +40,9 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
          */
         System.setProperty("es.set.netty.runtime.available.processors", "false");
 
-        SpringApplication.run(SpringmvcdemoApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SpringmvcdemoApplication.class, args);
+        Map<String, User> stringUserMap = context.getBeansOfType(User.class);
+        System.out.println(stringUserMap.keySet() + "-------");
         /**
          * redis反序列化
          * 开启fastjson反序列化的autoType

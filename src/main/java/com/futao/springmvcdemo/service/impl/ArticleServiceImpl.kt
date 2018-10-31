@@ -10,6 +10,7 @@ import com.futao.springmvcdemo.service.ArticleService
 import com.futao.springmvcdemo.utils.currentTimeStamp
 import com.futao.springmvcdemo.utils.getFieldName
 import com.futao.springmvcdemo.utils.uuid
+import org.apache.commons.lang3.StringUtils
 import org.elasticsearch.client.Client
 import org.elasticsearch.index.query.QueryBuilders
 import org.springframework.data.redis.core.RedisTemplate
@@ -42,17 +43,17 @@ open class ArticleServiceImpl : ArticleService {
     //    @Cacheable(value = ["article"])
     override fun list(): List<Article> {
         //        NativeSearchQueryBuilder()
-        elastic
-                .prepareSearch("futao")
-                .setTypes("article")
-                .setQuery(QueryBuilders.matchAllQuery())
-                .execute()
-                .actionGet()
-                .hits
-                .getAt(0)
-                .sourceAsString
+//        elastic
+//                .prepareSearch("futao")
+//                .setTypes("article")
+//                .setQuery(QueryBuilders.matchAllQuery()!!)
+//                .execute()
+//                .actionGet()
+//                .hits
+//                .getAt(0)
+//                .sourceAsString
         val opsForValue = redisTemplate.opsForValue()
-        return if (opsForValue.get("articlelist") != null) {
+        return if (opsForValue.get("articlelist") != null && opsForValue.get("articlelist") == StringUtils.EMPTY) {
             val list = opsForValue.get("articlelist") as List<Article>
             elasticsearch.saveAll(list)
             list

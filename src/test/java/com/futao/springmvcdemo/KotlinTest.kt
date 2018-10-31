@@ -6,9 +6,6 @@ import com.futao.springmvcdemo.utils.PageResultUtils
 import com.futao.springmvcdemo.utils.getFieldName
 import com.futao.springmvcdemo.utils.md5
 import org.junit.Test
-import java.io.BufferedInputStream
-import java.io.InputStreamReader
-import java.net.URL
 import javax.annotation.Resource
 
 /**
@@ -55,7 +52,7 @@ class KotlinTest {
 
     @Test
     fun test2() {
-        val pageResultUtils = PageResultUtils<User>()
+        PageResultUtils<User>()
         println(User::getAddress.getFieldName())
     }
 

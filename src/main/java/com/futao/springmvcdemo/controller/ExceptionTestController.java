@@ -2,10 +2,13 @@ package com.futao.springmvcdemo.controller;
 
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.service.KotlinTestService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author futao
@@ -30,5 +33,17 @@ public class ExceptionTestController {
     @GetMapping(path = "systemException")
     public void systemException() {
         throw new NullPointerException("空指针了，哥门!!!");
+    }
+
+
+    @Resource
+    private KotlinTestService service;
+
+    /**
+     * Service层异常
+     */
+    @GetMapping(path = "serviceException")
+    public void serviceException() {
+        service.exception();
     }
 }

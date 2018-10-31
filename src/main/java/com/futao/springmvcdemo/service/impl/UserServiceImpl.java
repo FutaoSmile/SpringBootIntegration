@@ -10,7 +10,6 @@ import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.CommonUtilsKt;
 import com.futao.springmvcdemo.utils.PageResultUtils;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
-import lombok.val;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -104,9 +103,9 @@ public class UserServiceImpl implements UserService {
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
         String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
-                                       .orderBy(orderBy)
-                                       .page(pageNum, pageSize)
-                                       .getSql();
+                .orderBy(orderBy)
+                .page(pageNum, pageSize)
+                .getSql();
         return userDao.list(sql);
     }
 
