@@ -1,6 +1,8 @@
 package com.futao.springmvcdemo.annotation.interceptor.impl;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,14 +31,6 @@ import static com.futao.springmvcdemo.utils.RequestUtils.getSessionParameters;
 @Component
 public class RequestLogInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(RequestLogInterceptor.class);
-    /**
-     * 请求开始的时间
-     */
-    private long startTime;
-    /**
-     * 标识一次请求
-     */
-    private UUID uuid;
 
     /**
      * 统计接口请求次数请求
@@ -45,22 +39,24 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        startTime = DateTime.now().getMillis();
-//        uuid = UUID.randomUUID();
-//        logger.info("请求(id=" + uuid + ")开始：" + StringUtils.repeat("↓", 10));
+        long startTime = System.currentTimeMillis();
+        String uuid = UUID.randomUUID().toString();
+        logger.info("请求(id=" + uuid + ")开始：" + "开始时间：" + startTime);
+        request.setAttribute("startTime", startTime);
+        request.setAttribute("uuid", uuid);
         if (handler instanceof HandlerMethod) {
             Method method = ((HandlerMethod) handler).getMethod();
             RestController restController = method.getDeclaringClass().getAnnotation(RestController.class);
             if (ObjectUtils.allNotNull(restController)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n")
-                  .append("请求地址: " + request.getRequestURL())
-                  .append("\n")
-                  .append("请求sessions: " + getSessionParameters(request.getSession(false)))
-                  .append("\n")
-                  .append("请求参数：" + queryString(request.getQueryString()))
-                  .append("\n")
-                  .append("请求cookies: " + getCookies(request.getCookies()));
+                        .append("请求地址: " + request.getRequestURL())
+                        .append("\n")
+                        .append("请求sessions: " + getSessionParameters(request.getSession(false)))
+                        .append("\n")
+                        .append("请求参数：" + queryString(request.getQueryString()))
+                        .append("\n")
+                        .append("请求cookies: " + getCookies(request.getCookies()));
                 logger.info(String.valueOf(sb));
             }
             String methodName = method.getDeclaringClass() + ".< " + method.getName() + " >";
@@ -85,7 +81,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-//        logger.info("请求(id=" + uuid + ")结束：" + StringUtils.repeat("↑", 10) + "本次请求所消耗的时间（毫秒）：" + (DateTime.now().minus(startTime)).getMillis());
+        logger.info("请求(id=" + request.getAttribute("uuid") + ")结束：" + "本次请求所消耗的时间（毫秒）：" + ((System.currentTimeMillis() - (Long.valueOf(request.getAttribute("startTime").toString())))));
     }
 
     public ConcurrentHashMap<String, AtomicInteger> getApiRequestStatistic() {

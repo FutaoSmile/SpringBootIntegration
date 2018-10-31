@@ -98,6 +98,12 @@ src
     * 令牌桶算法
 * shiro 安全框架
 * solr 全文检索框架
+* Excel的导入导出
+* WebSecurity
+
+* Condition接口与@Conditional注解的使用
+* @Enable* 注解原理与@Import注解的使用
+* ImportSelector与ImportBeanDefinitionRegistrar接口的使用
 
 
 ```xml
@@ -117,3 +123,6 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 版权声明：本文为博主原创文章，转载请附上博文链接！
 
 ```
+
+在项目启动时候选择激活的profile
+java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd

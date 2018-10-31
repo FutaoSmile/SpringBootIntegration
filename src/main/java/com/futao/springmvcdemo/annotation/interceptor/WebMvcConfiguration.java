@@ -147,6 +147,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
+     * 添加静态资源映射
+     * <p>
      * Add handlers to serve static resources such as images, js, and, css
      * files from specific locations under web application root, the classpath,
      * and others.
@@ -155,6 +157,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 
     }
 

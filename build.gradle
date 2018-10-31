@@ -24,7 +24,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+//    mavenCentral()
     maven {
         name "aliyunmaven"
         url "http://maven.aliyun.com/nexus/content/groups/public/"
@@ -70,7 +70,8 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-
+//    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 compileKotlin {
