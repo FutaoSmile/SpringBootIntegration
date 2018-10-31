@@ -59,7 +59,7 @@ new Vue({
     },
     methods: {
         currentUserFun() {
-            this.$http.get('/User/my').then(result => {
+            this.$http.get('/user/my').then(result => {
                 this.currentUser = result.data;
             console.log(result.data)
         }

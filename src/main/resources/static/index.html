@@ -42,6 +42,12 @@
         </el-row>
 
 
+        <div>
+            <form action="/file/upload" enctype="multipart/form-data" method="post">
+                <input type="file" name="file"><br>
+                <input type="submit" value="上传">
+            </form>
+        </div>
         <p>当前用户信息:{{currentUser}}</p>
         <!-- search-sort -->
         <div class="sort">

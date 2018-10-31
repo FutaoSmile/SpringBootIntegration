@@ -36,7 +36,7 @@ new Vue({
                 if (valid) {
                     this.loadings(); //加载动画
                     //提交表单
-                    this.$http.post('/User/login', {
+                    this.$http.post('/user/login', {
                         mobile: this.login.mobile,
                         password: this.login.password,
                         remember: this.login.remember

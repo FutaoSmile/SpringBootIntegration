@@ -1,4 +1,18 @@
 spring:
+  servlet:
+    # 设置文件上传与下载的文件大小限制
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 100Mb
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    entitymanager:
+      packagesToScan: com.futao.springmvcdemo.model
+    hibernate:
+      ddl-auto: update
   #  data:
   #    # 全文检索 elasticsearch
   #    elasticsearch:
@@ -10,7 +24,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: 123456789
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     platform: mysql
@@ -38,7 +52,7 @@ spring:
     database: 0
     host: localhost
     port: 6379
-    password: 12345
+    #    password: 12345
     jedis:
       pool:
         max-active: 10
@@ -54,7 +68,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: msfllmibekwfhigb
+    password:
     properties:
       smtp:
         auth: true
@@ -121,7 +135,13 @@ threadpool:
 
 #debug: true
 logging:
-  path: D:\\src\\backend\\fun
-  file: log.log
+  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
   level:
     root: info
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
