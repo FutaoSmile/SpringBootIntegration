@@ -6,10 +6,13 @@ import org.springframework.cache.annotation.EnableCaching
 import org.springframework.cache.interceptor.KeyGenerator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.cache.RedisCacheConfiguration
 import org.springframework.data.redis.cache.RedisCacheManager
+import org.springframework.data.redis.cache.RedisCacheWriter
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
+import java.time.Duration
 import javax.annotation.Resource
 
 /**
@@ -28,6 +31,7 @@ import javax.annotation.Resource
 @Configuration
 @EnableCaching
 open class RedisConfiguration : CachingConfigurerSupport() {
+
 
     /**
      * 自定义redis key的生成规则
@@ -64,11 +68,17 @@ open class RedisConfiguration : CachingConfigurerSupport() {
         }
     }
 
+
     @Resource
-    lateinit var redisConnectionFactory: RedisConnectionFactory
+    lateinit var factory: RedisConnectionFactory
 
     override fun cacheManager(): CacheManager {
-        val create = RedisCacheManager.create(redisConnectionFactory)
-        return create
+        val configuration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(3))
+                .disableCachingNullValues()
+
+        return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(factory))
+                .cacheDefaults(configuration)
+                .build()
     }
 }

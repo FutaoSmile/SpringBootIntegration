@@ -53,13 +53,13 @@ open class ArticleServiceImpl : ArticleService {
 //                .getAt(0)
 //                .sourceAsString
         val opsForValue = redisTemplate.opsForValue()
-        return if (opsForValue.get("articlelist") != null && opsForValue.get("articlelist") == StringUtils.EMPTY) {
+        return if (opsForValue.get("articlelist") != null && opsForValue.get("articlelist") != StringUtils.EMPTY) {
             val list = opsForValue.get("articlelist") as List<Article>
             elasticsearch.saveAll(list)
             list
         } else {
             val list = articleDao.list()
-            opsForValue.set("articlelist", list, 1000 * 10)
+            opsForValue.set("articlelist", list)
             elasticsearch.saveAll(list)
             list
         }

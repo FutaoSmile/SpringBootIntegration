@@ -36,6 +36,21 @@ import java.util.stream.Collectors;
 public class NormalTest {
 
     @Test
+    public void test23() {
+        List<User> list1 = new ArrayList();
+        List<User> list2 = new ArrayList();
+        List<User> list3 = new ArrayList();
+
+        List<String> names = new ArrayList<>();
+        List<List<User>> users = new ArrayList<>();
+        users.add(list1);
+        users.add(list2);
+        users.add(list3);
+        System.out.println(users.stream().flatMap(Collection::stream));
+
+    }
+
+    @Test
     public void test22() {
     }
 

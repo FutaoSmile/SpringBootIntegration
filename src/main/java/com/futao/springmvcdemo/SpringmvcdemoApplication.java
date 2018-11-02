@@ -2,7 +2,6 @@ package com.futao.springmvcdemo;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springmvcdemo.annotation.EnableEntity;
-import com.futao.springmvcdemo.model.entity.User;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.util.Map;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author futao
@@ -29,6 +27,8 @@ import java.util.Map;
 @EnableAspectJAutoProxy
 //@EnableElasticsearchRepositories(basePackages = "com.futao.springmvcdemo")
 @EnableEntity
+//@EnableWebSocketMessageBroker
+@EnableTransactionManagement
 public class SpringmvcdemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -41,8 +41,6 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
 
         ConfigurableApplicationContext context = SpringApplication.run(SpringmvcdemoApplication.class, args);
-        Map<String, User> stringUserMap = context.getBeansOfType(User.class);
-        System.out.println(stringUserMap.keySet() + "-------");
         /**
          * redis反序列化
          * 开启fastjson反序列化的autoType

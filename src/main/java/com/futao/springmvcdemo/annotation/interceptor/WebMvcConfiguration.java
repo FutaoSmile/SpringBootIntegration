@@ -152,12 +152,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      * Add handlers to serve static resources such as images, js, and, css
      * files from specific locations under web application root, the classpath,
      * and others.
+     * <p>
+     * 配置了该资源解析器之后会导致swagger 404 ，需要加上对/swagger-ui.html的映射
      *
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 
     }
 

@@ -86,7 +86,7 @@ src
 ### # TODO items
 * ~~mybatis分页~~ -> sql分页
 * ~~缓存~~
-    * redis缓存过期时间
+    ~~* redis缓存过期时间(全局过期时间)~~
 * ~~elastic search全文检索~~
     * 查询语句
     * elasticsearch分词器
@@ -105,6 +105,8 @@ src
 * @Enable* 注解原理与@Import注解的使用
 * ImportSelector与ImportBeanDefinitionRegistrar接口的使用
 * 服务端消息推送
+    * SSE 
+    * Socket
 
 ```xml
 报错内容:

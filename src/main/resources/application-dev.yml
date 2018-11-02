@@ -1,9 +1,20 @@
 spring:
+  cache:
+    type: redis
+    redis:
+      use-key-prefix: true
+      cache-null-values: true
+      time-to-live: 5s
   servlet:
     # 设置文件上传与下载的文件大小限制
     multipart:
       max-file-size: 10Mb
       max-request-size: 100Mb
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
   jpa:
     show-sql: true
     properties:
@@ -58,7 +69,7 @@ spring:
         max-active: 10
         min-idle: 0
         max-idle: 8
-    timeout: 10000
+    timeout: 10s
   thymeleaf:
     cache: true
     prefix:classpath: /templates/
@@ -68,7 +79,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: msfllmibekwfhigb
+    password:
     properties:
       smtp:
         auth: true
