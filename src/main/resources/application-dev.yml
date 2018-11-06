@@ -144,15 +144,18 @@ threadpool:
   queueCapacity: 10
 
 
-#debug: true
-logging:
-  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
-  level:
-    root: info
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+debug: false
+#logging:
+#  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
+#  level:
+#    root: info
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
+
+log:
+  path: /Users/futao/src/backend/fun/logs

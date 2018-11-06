@@ -4,6 +4,7 @@ import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.security.MessageDigest
 import java.util.*
@@ -49,4 +50,36 @@ fun <T, R> KFunction1<T, R>.getFieldName(): String {
 
 fun uuid(): String {
     return (UUID.randomUUID()).toString().replace("-", "")
+}
+
+/**
+ * 记录消息队列
+ */
+fun logMq(): Logger {
+    return getLogger("mq")
+}
+
+/**
+ * 记录http请求
+ */
+fun logHttp(): Logger {
+    return getLogger("http")
+}
+
+/**
+ * 记录消息发送
+ */
+fun logSms(): Logger {
+    return getLogger("sms")
+}
+
+/**
+ * 记录支付
+ */
+fun logPay(): Logger {
+    return getLogger("pay")
+}
+
+fun getLogger(name: String): Logger {
+    return LoggerFactory.getLogger(name)!!
 }

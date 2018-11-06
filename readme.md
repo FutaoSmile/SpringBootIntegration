@@ -1,6 +1,7 @@
 ### # 环境
 * SpringBoot 2.0.5.RELEASE
 * java 1.8
+* redis
 * rocketmq 4.3.0
 * elasticsearch 5.6.11
 * gradle
@@ -49,6 +50,8 @@
 > 发送邮件
 
 > 整合rocketMq消息队列
+
+> logback 日志系统
  
 ### # 项目结构
 ```
@@ -78,9 +81,9 @@ src
 
 > kibana地址: [http://localhost:5601/app/kibana](http://localhost:5601/app/kibana)
 
-> 打包生成jar包 `java -jar ./build/libs/springmvcdemo-0.0.1-SNAPSHOT.jar`
+> 打包生成jar包 `gradle clean build -x test`
     
-> 运行 `gradle clean build -x test`
+> 运行 `java -jar ./build/libs/springmvcdemo-0.0.1-SNAPSHOT.jar`
 
 
 ### # TODO items
