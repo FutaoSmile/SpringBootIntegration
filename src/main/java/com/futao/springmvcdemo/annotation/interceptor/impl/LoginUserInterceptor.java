@@ -3,7 +3,7 @@ package com.futao.springmvcdemo.annotation.interceptor.impl;
 import com.alibaba.fastjson.JSON;
 import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UserService;

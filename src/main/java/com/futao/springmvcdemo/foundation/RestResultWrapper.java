@@ -1,7 +1,7 @@
 package com.futao.springmvcdemo.foundation;
 
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

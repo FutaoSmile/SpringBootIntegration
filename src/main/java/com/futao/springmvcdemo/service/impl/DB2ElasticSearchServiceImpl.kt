@@ -4,7 +4,7 @@ import com.futao.springmvcdemo.dao.ArticleDao
 import com.futao.springmvcdemo.dao.impl.ArticleSearchDao
 import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.entity.BaseEntity
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
+import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.service.DB2ElasticSearchService
 import org.reflections.Reflections
 import org.slf4j.LoggerFactory

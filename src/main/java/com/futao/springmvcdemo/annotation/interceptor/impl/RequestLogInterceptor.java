@@ -1,8 +1,7 @@
 package com.futao.springmvcdemo.annotation.interceptor.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,6 +38,15 @@ public class RequestLogInterceptor implements HandlerInterceptor {
      */
     private ConcurrentHashMap<String, AtomicInteger> apiRequestStatistic = new ConcurrentHashMap();
 
+    /**
+     * controller执行之前
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
@@ -54,7 +64,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
                         .append("\n")
                         .append("请求sessions: " + getSessionParameters(request.getSession(false)))
                         .append("\n")
-                        .append("请求参数：" + queryString(request.getQueryString()))
+                        .append("请求参数：" + queryParameters(request))
                         .append("\n")
                         .append("请求cookies: " + getCookies(request.getCookies()));
                 logger.info(String.valueOf(sb));
@@ -70,10 +80,42 @@ public class RequestLogInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private String queryString(String qStr) throws UnsupportedEncodingException {
+    /**
+     * 获取queryString中的数据
+     *
+     * @param request
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    private String queryString(HttpServletRequest request) throws UnsupportedEncodingException {
+        String qStr = request.getQueryString();
         return qStr == null ? "" : URLDecoder.decode(qStr, "UTF-8");
     }
 
+    /**
+     * 获取getParameter中的数据
+     * 使用getParameter代替getQueryString的原因是后者只能拿到url中的参数，对于放在body中的参数是拿不到的
+     * 虽然GET和POST方法都可以将参数放在url中，但是POST放在body中的时候，getQueryString拿不到数据
+     *
+     * @param request
+     * @return
+     */
+    private String queryParameters(HttpServletRequest request) {
+        Map<String, String[]> map = request.getParameterMap();
+        JSONObject jsonObject = new JSONObject();
+        map.forEach((k, v) -> jsonObject.put(k, Arrays.toString(v)));
+        return jsonObject.toJSONString();
+    }
+
+    /**
+     * 视图渲染之前
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 

@@ -3,7 +3,7 @@ package com.futao.springmvcdemo.controller.business;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.interceptor.Sign;
 import com.futao.springmvcdemo.foundation.LogicException;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

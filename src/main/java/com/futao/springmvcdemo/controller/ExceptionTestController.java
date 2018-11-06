@@ -1,7 +1,7 @@
 package com.futao.springmvcdemo.controller;
 
 import com.futao.springmvcdemo.foundation.LogicException;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.KotlinTestService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

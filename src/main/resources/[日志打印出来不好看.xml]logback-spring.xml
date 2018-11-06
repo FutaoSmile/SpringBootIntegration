@@ -1,0 +1,240 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<configuration scan="true" scanPeriod="60 seconds" debug="false">-->
+
+    <!--&lt;!&ndash;-->
+<!--说明：-->
+    <!--1. 文件的命名和加载顺序有关-->
+       <!--logback.xml早于application.yml加载，logback-spring.xml晚于application.yml加载-->
+       <!--如果logback配置需要使用application.yml中的属性，需要命名为logback-spring.xml-->
+    <!--2. logback使用application.yml中的属性-->
+       <!--使用springProperty才可使用application.yml中的值 可以设置默认值-->
+
+<!--&ndash;&gt;-->
+    <!--<springProperty scope="context" name="path" source="log.path" defaultValue="logs"/>-->
+    <!--<springProperty scope="context" name="projectName" source="spring.application.name" defaultValue="springmvcdemo"/>-->
+    <!--<property name="logPath" value="${path}/${projectName}"/>-->
+    <!--<contextName>logback-contextName</contextName>-->
+
+
+    <!--&lt;!&ndash; ConsoleAppender 控制台输出日志 &ndash;&gt;-->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss}  %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+
+    <!--&lt;!&ndash; ERROR级别日志 &ndash;&gt;-->
+    <!--&lt;!&ndash; 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender&ndash;&gt;-->
+    <!--<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录WARN级别的日志 &ndash;&gt;-->
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>ERROR</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+        <!--&lt;!&ndash; 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责出发滚动 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash;日志输出位置  可相对、和绝对路径 &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/error-log-%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!--&lt;!&ndash; 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件假设设置每个月滚动，且<maxHistory>是6，-->
+            <!--则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是，那些为了归档而创建的目录也会被删除&ndash;&gt;-->
+            <!--<maxHistory>90</maxHistory>-->
+        <!--</rollingPolicy>-->
+
+        <!--&lt;!&ndash; 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">-->
+          <!--<fileNamePattern>${maven_logback_path}/%d{yyyy-MM-dd}/.log.zip</fileNamePattern>-->
+          <!--<minIndex>1</minIndex>-->
+          <!--<maxIndex>3</maxIndex>-->
+        <!--</rollingPolicy>   &ndash;&gt;-->
+        <!--&lt;!&ndash; 查看当前活动文件的大小，如果超过指定大小会告知RollingFileAppender 触发当前活动文件滚动-->
+        <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">-->
+            <!--<maxFileSize>5MB</maxFileSize>-->
+        <!--</triggeringPolicy>   &ndash;&gt;-->
+
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+
+
+    <!--&lt;!&ndash; WARN级别日志 appender &ndash;&gt;-->
+    <!--<appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录WARN级别的日志 &ndash;&gt;-->
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>WARN</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/warn-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>60</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+
+
+
+    <!--&lt;!&ndash; INFO级别日志 appender &ndash;&gt;-->
+    <!--<appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>INFO</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/info-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>30</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+
+
+
+    <!--&lt;!&ndash; DEBUG级别日志 appender &ndash;&gt;-->
+    <!--<appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录DEBUG级别的日志 &ndash;&gt;-->
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>DEBUG</level>-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--<onMismatch>DENY</onMismatch>-->
+        <!--</filter>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/debug-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>30</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+    <!--<logger name="java.sql.PreparedStatement" level="WARN" />-->
+    <!--<logger name="java.sql.Connection" level="WARN" />-->
+    <!--<logger name="java.sql.Statement" level="WARN" />-->
+    <!--<logger name="org.hibernate" level="WARN" />-->
+    <!--<logger name="org.hibernate.type" level="WARN" />-->
+    <!--<logger name="org.hibernate.tool" level="WARN" />-->
+    <!--<logger name="org.springframework" level="WARN" />-->
+    <!--<logger name="org.apache.http" level="WARN"/>-->
+
+    <!--<appender name="stackTrace" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/stackTrace-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>30</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<logger name="stackTrace" level="ALL" addtivity="false">-->
+        <!--<appender-ref ref="stackTrace" />-->
+        <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+    <!--<appender name="http" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/http-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>60</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<logger name="http" level="ALL" addtivity="false">-->
+        <!--<appender-ref ref="http" />-->
+        <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+    <!--<appender name="pay" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/pay-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>90</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<logger name="pay" level="ALL" addtivity="false">-->
+        <!--<appender-ref ref="pay" />-->
+        <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+    <!--<appender name="sms" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/sms-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>90</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<logger name="sms" level="ALL" addtivity="false">-->
+        <!--<appender-ref ref="sms" />-->
+        <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+    <!--<appender name="mq" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash; 按天回滚 daily &ndash;&gt;-->
+            <!--<fileNamePattern>${logPath}/mq-log-%d{yyyy-MM-dd}.log-->
+            <!--</fileNamePattern>-->
+            <!--&lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;-->
+            <!--<maxHistory>90</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<logger name="mq" level="ALL" addtivity="false">-->
+        <!--<appender-ref ref="mq" />-->
+        <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+    <!--&lt;!&ndash; root级别   DEBUG &ndash;&gt;-->
+    <!--<root level="ALL">-->
+        <!--&lt;!&ndash; 控制台输出 &ndash;&gt;-->
+        <!--<appender-ref ref="STDOUT" />-->
+        <!--&lt;!&ndash; 文件输出 &ndash;&gt;-->
+        <!--<appender-ref ref="ERROR" />-->
+        <!--<appender-ref ref="INFO" />-->
+        <!--<appender-ref ref="WARN" />-->
+        <!--<appender-ref ref="DEBUG" />-->
+        <!--&lt;!&ndash;<appender-ref ref="DATABASE" />&ndash;&gt;-->
+    <!--</root>-->
+
+<!--</configuration>-->

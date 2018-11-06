@@ -1,6 +1,6 @@
 package com.futao.springmvcdemo.service.impl
 
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
+import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.model.system.ErrorMessageFields
 import com.futao.springmvcdemo.service.StatisticService
 import org.springframework.cache.annotation.Cacheable

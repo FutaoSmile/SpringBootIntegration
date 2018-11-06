@@ -5,7 +5,7 @@ import com.futao.springmvcdemo.dao.ArticleDao
 import com.futao.springmvcdemo.dao.impl.ArticleSearchDao
 import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.entity.Article
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
+import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.service.ArticleService
 import com.futao.springmvcdemo.utils.currentTimeStamp
 import com.futao.springmvcdemo.utils.getFieldName

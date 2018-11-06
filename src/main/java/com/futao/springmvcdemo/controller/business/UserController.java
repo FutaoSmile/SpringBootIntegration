@@ -7,7 +7,7 @@ import com.futao.springmvcdemo.foundation.configuration.ApplicationContext;
 import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -64,7 +64,7 @@ public class UserController {
             @IllegalValueCheck(forbidden = "LOL")
             @RequestParam("address")
                     String address
-    ) {
+    ) throws InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", "注册失败");
         if (userService.register(username, age, mobile, email, address)) {

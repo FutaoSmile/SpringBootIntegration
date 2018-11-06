@@ -7,7 +7,7 @@ import com.futao.springmvcdemo.a.Classes;
 import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.service.impl.DB2ElasticSearchServiceImpl;
 import com.futao.springmvcdemo.suit.A;

@@ -1,7 +1,7 @@
 package com.futao.springmvcdemo.utils
 
 import com.futao.springmvcdemo.foundation.LogicException
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
+import com.futao.springmvcdemo.model.system.ErrorMessage
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger

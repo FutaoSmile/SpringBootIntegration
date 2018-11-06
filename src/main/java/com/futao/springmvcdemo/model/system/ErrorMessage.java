@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.model.entity.constvar;
+package com.futao.springmvcdemo.model.system;
 
 /**
  * @author futao

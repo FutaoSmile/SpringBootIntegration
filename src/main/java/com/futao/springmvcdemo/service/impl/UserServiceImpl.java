@@ -3,7 +3,7 @@ package com.futao.springmvcdemo.service.impl;
 import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
@@ -14,6 +14,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,10 @@ import static com.futao.springmvcdemo.utils.TimeUtilsKt.currentTimeStamp;
 /**
  * @author futao
  * Created on 2018/9/20-15:16.
+ * Spring事务超时 = 事务开始时到最后一个Statement创建时时间 + 最后一个Statement的执行时超时时间（即其queryTimeout）。所以在在执行Statement之外的超时无法进行事务回滚。
+ * 参考：https://blog.csdn.net/qq_18860653/article/details/79907984
  */
+@Transactional(isolation = Isolation.DEFAULT, timeout = SystemConfig.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
@@ -51,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean register(String username, String age, String mobile, String email, String address) {
+    public boolean register(String username, String age, String mobile, String email, String address) throws InterruptedException {
         User user1 = new User();
         user1.setUsername("1");
         user1.setAge(age);

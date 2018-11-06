@@ -1,7 +1,7 @@
 package com.futao.springmvcdemo.annotation;
 
 import com.futao.springmvcdemo.annotation.impl.IllegalValueCheckImpl;
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

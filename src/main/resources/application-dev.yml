@@ -144,7 +144,7 @@ threadpool:
   queueCapacity: 10
 
 
-debug: false
+debug: true
 #logging:
 #  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
 #  level:

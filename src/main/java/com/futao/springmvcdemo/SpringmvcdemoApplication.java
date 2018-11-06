@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @ServletComponentScan
-@MapperScan("com.futao.springmvcdemo.dao")
+@MapperScan("com.futao.springmvcdemo.dao")      //会将包里面的接口当做mapper配置，之后可以自动引入mapper类
 //@EnableCaching
 @EnableScheduling
 @EnableAsync

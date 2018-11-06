@@ -4,22 +4,14 @@ package com.futao.springmvcdemo.model.entity;
  * @author futao
  * Created on ${date}.
  */
-//@Entity
-//@Table(name = "futao_revire")
-//@DynamicInsert
-//@DynamicUpdate
 public class Review extends BaseEntity {
 
-    //    @JoinColumn(name = "article_id")
     private Article article;
 
-    //    @JoinColumn(name = "user_id")
     private User user;
 
-    //    @Column(name = "content")
     private String content;
 
-    //    @JoinColumn(name = "p_article_id")
     private Review pArticle;
 
     public Article getArticle() {

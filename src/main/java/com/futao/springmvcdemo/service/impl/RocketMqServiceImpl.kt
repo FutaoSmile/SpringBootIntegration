@@ -1,7 +1,7 @@
 package com.futao.springmvcdemo.service.impl
 
 import com.futao.springmvcdemo.foundation.LogicException
-import com.futao.springmvcdemo.model.entity.constvar.ErrorMessage
+import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.model.system.SystemConfig
 import com.futao.springmvcdemo.service.RocketMqService
 import org.apache.commons.lang3.StringUtils
