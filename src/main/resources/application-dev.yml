@@ -86,6 +86,8 @@ spring:
         starttls:
           enable: true
           required: true
+  mvc:
+    dispatch-options-request: false
 #      mail:
 #        smtp:
 #          ssl:
@@ -124,7 +126,7 @@ rocketmq:
 reConsumerTimes: 3
 
 server:
-  port: 8888
+  port: 8889
 
 # 在控制台打印sql
 mybatis:
@@ -157,5 +159,6 @@ debug: true
 #            sql:
 #              BasicBinder: TRACE
 
+# [日志打印出来不好看.xml]logback-spring
 log:
-  path: /Users/futao/src/backend/fun/logs
+  path: logs

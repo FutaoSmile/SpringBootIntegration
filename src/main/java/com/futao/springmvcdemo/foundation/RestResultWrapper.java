@@ -57,35 +57,4 @@ public class RestResultWrapper implements ResponseBodyAdvice<Object> {
         RestResult result = new RestResult(true, "0", body, null);
         return JSONObject.toJSON(result);
     }
-
-
-    /**
-     * 全局异常处理
-     *
-     * @param request
-     * @param e
-     * @param response
-     * @return
-     */
-    @ExceptionHandler(value = Exception.class)
-    @ResponseBody
-    public Object logicExceptionHandler(HttpServletRequest request, Exception e, HttpServletResponse response) {
-        //系统级异常，错误码固定为-1，提示语固定为系统繁忙，请稍后再试
-        RestResult result = new RestResult(false, "-1", e.getMessage(), ErrorMessage.SYSTEM_EXCEPTION);
-        //如果是业务逻辑异常，返回具体的错误码与提示信息
-        if (e instanceof LogicException) {
-            LogicException logicException = (LogicException) e;
-            result.setCode(logicException.getCode());
-            result.setErrorMessage(logicException.getErrorMsg());
-            //Validator验证框架抛出的业务逻辑异常
-        } else if (e instanceof ConstraintViolationException) {
-            String message = ((ConstraintViolationException) e).getConstraintViolations().iterator().next().getMessage();
-            result.setCode(message.substring(0, 5));
-            result.setErrorMessage(message.substring(6));
-        } else {
-            //对系统级异常进行日志记录
-            logger.error("系统异常:" + e.getMessage(), e);
-        }
-        return JSONObject.toJSON(result);
-    }
 }

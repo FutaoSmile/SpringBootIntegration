@@ -32,11 +32,9 @@ public class AppFilter implements Filter {
 
         ArrayList<String> allowOrigins = (ArrayList<String>) req.getServletContext().getAttribute("allowOrigins");
         String origin = request.getHeader("Origin");
-        String allowOrigin = StringUtils.EMPTY;
         if (allowOrigins.contains(origin)) {
-            allowOrigin = origin;
+            response.setHeader("Access-Control-Allow-Origin", origin);
         }
-        response.setHeader("Access-Control-Allow-Origin", allowOrigin);
         // Access-Control-Max-Age
         response.setHeader("Access-Control-Max-Age", "3600");
         // Access-Control-Allow-Credentials
@@ -44,13 +42,17 @@ public class AppFilter implements Filter {
         // Access-Control-Allow-Methods
         response.setHeader("Access-Control-Allow-Methods", "PUT,POST, GET, OPTIONS, DELETE");
 
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
         chain.doFilter(req, resp);
     }
 
     @Override
     public void init(FilterConfig config) throws ServletException {
+        //白名单
         ArrayList<String> allowOrigins = new ArrayList<>();
         allowOrigins.add("http://localhost:63343");
+        allowOrigins.add("http://localhost:9528");
         config.getServletContext().setAttribute("allowOrigins", allowOrigins);
     }
 

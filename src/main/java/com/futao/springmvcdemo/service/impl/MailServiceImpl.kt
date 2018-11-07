@@ -1,9 +1,11 @@
 package com.futao.springmvcdemo.service.impl
 
 import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.JSONObject
 import com.futao.springmvcdemo.model.system.MailM
 import com.futao.springmvcdemo.model.system.SystemConfig
 import com.futao.springmvcdemo.service.MailService
+import com.futao.springmvcdemo.utils.logSms
 import org.apache.rocketmq.client.producer.DefaultMQProducer
 import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
@@ -11,11 +13,13 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import java.nio.charset.Charset
 import javax.annotation.Resource
+import kotlin.math.log
 
 /**
  * @author futao
@@ -23,7 +27,7 @@ import javax.annotation.Resource
  */
 @Service
 open class MailServiceImpl : MailService {
-    private val logger = LoggerFactory.getLogger(MailServiceImpl::class.java)
+    private val logger = logSms()
 
     @Value("\${spring.mail.username}")
     lateinit var username: String
@@ -49,6 +53,7 @@ open class MailServiceImpl : MailService {
                 setSubject(subject)
                 text = content
             }
+            logger.info(JSONObject.toJSONString(mailMessage))
             sender.send(mailMessage)
             true
         } catch (e: Exception) {

@@ -5,6 +5,7 @@ import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.SystemConfig;
+import com.futao.springmvcdemo.service.MailService;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.CommonUtilsKt;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Resource
+    private MailService mailServicel;
+
     @Override
     public User currentUser() {
         return (User) threadLocalUtils.get();
@@ -74,6 +78,7 @@ public class UserServiceImpl implements UserService {
             Timestamp currentTimeStamp = currentTimeStamp();
             int count = userDao.addUser(UUIDService.get(), username, age, mobile, email, address, currentTimeStamp, currentTimeStamp);
             if (count > 0) {
+                mailServicel.sendSimpleEmail(new String[]{email}, new String[]{"1185172056@qq.com"}, "注册springboot成功", "恭喜你注册成功，帅B" + username);
                 return true;
             } else {
                 return false;

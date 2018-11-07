@@ -52,6 +52,8 @@
 > 整合rocketMq消息队列
 
 > logback 日志系统
+
+> 解决跨域访问
  
 ### # 项目结构
 ```
@@ -71,6 +73,8 @@ src
     |-resource 配置文件
 |-test
 ```
+
+> 138.128.197.162
 > 登陆地址: [http://localhost:8888/login.html](http://localhost:8888/login.html)
 
 > swagger api地址: [http://localhost:8888/swagger-ui.html#!](http://localhost:8888/swagger-ui.html#!)

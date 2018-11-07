@@ -50,7 +50,7 @@ public class UserController {
              * 是流的形式读取，那么流读了一次就没有了
              * */
             @RequestParam("username")
-            @Size(min = 3, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
+            @Size(min = 2, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
                     String username,
             @RequestParam("age")
                     String age,
