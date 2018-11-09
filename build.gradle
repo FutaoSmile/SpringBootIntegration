@@ -79,7 +79,11 @@ dependencies {
 // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
     // https://mvnrepository.com/artifact/org.apache.poi/poi
-    compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+    // https://mvnrepository.com/artifact/com.belerweb/pinyin4j
+//    compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
 }
 
 compileKotlin {

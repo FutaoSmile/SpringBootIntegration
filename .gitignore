@@ -42,7 +42,7 @@
 *.iws
 *.iml
 *.ipr
-*.jar
+
 
 ### NetBeans ###
 /nbproject/private/

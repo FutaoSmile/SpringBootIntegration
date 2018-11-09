@@ -15,6 +15,11 @@ import com.futao.springmvcdemo.suit.B;
 import com.futao.springmvcdemo.suit.CC;
 import lombok.Getter;
 import lombok.Setter;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -34,6 +39,37 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+
+    @Test
+    public void test25() {
+        StringBuffer sb = new StringBuffer();
+        String chines = "$%^&*()!@~#重庆123重量";
+
+
+        char[] chars = chines.toCharArray();
+        HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
+        defaultFormat.setCaseType(HanyuPinyinCaseType.UPPERCASE);
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] > 128) {
+                try {
+                    sb.append(PinyinHelper.toHanyuPinyinStringArray(chars[i], defaultFormat)[0].charAt(0));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                sb.append(chars[i]);
+            }
+        }
+
+        System.out.println("sb : " + sb.toString());
+    }
+
+    @Test
+    public void test24() {
+        System.out.println(Arrays.asList(StringUtils.split(null, ",")));
+    }
 
     @Test
     public void test23() {

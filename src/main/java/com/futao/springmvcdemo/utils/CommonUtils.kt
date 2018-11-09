@@ -2,6 +2,11 @@ package com.futao.springmvcdemo.utils
 
 import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.system.ErrorMessage
+import net.sourceforge.pinyin4j.PinyinHelper
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
@@ -82,4 +87,38 @@ fun logPay(): Logger {
 
 fun getLogger(name: String): Logger {
     return LoggerFactory.getLogger(name)!!
+}
+
+
+/**
+ * 获取汉字拼音的首字母
+ */
+fun hanziToPinyin(chinese: String): String {
+    val sb = StringBuffer()
+    val chars = chinese.toCharArray()
+    val defaultFormat = HanyuPinyinOutputFormat()
+    //大小写
+    defaultFormat.caseType = HanyuPinyinCaseType.UPPERCASE
+    //声调
+    defaultFormat.toneType = HanyuPinyinToneType.WITHOUT_TONE
+    //以V代表拼音u
+    defaultFormat.vCharType = HanyuPinyinVCharType.WITH_V
+    for (i in chars.indices) {
+        if (chars[i].toInt() > 128) {
+            try {
+                sb.append(PinyinHelper.toHanyuPinyinStringArray(chars[i], defaultFormat)[0][0])
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        } else {
+            sb.append(chars[i])
+        }
+    }
+
+    return sb.toString()
+}
+
+fun main(args: Array<String>) {
+    println(hanziToPinyin("哈哈哈哈11asds"))
 }

@@ -122,11 +122,10 @@ rocketmq:
     consumeThreadMax: 64
     #设置一次消费消息的条数，默认为1条
     consumeMessageBatchMaxSize: 1
-
-reConsumerTimes: 3
+    reConsumerTimes: 3
 
 server:
-  port: 8889
+  port: 8888
 
 # 在控制台打印sql
 mybatis:

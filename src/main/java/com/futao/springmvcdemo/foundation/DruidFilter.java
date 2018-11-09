@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.controller;
+package com.futao.springmvcdemo.foundation;
 
 import com.alibaba.druid.support.http.WebStatFilter;
 

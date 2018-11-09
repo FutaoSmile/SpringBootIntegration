@@ -102,7 +102,7 @@ open class RocketMqServiceImpl : RocketMqService {
 //    private lateinit var mqMessageListenerProcessor: MQConsumeMsgListenerProcessor
 
 
-    @Value("\${reConsumerTimes}")
+    @Value("\${rocketmq.consumer.reConsumerTimes}")
     private var reConsumerTimes: Int = 0
 
 
