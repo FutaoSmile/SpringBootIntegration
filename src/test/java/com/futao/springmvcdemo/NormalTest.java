@@ -40,6 +40,18 @@ import java.util.stream.Collectors;
  */
 public class NormalTest {
 
+    @Test
+    public void test26() {
+        String jsonStr = "{\"a\":null}";
+        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        System.out.println(jsonObject.getJSONObject("a"));
+        jsonObject.put("active", false);
+        System.out.println(jsonObject);
+        jsonObject.put("active", true);
+        System.out.println(jsonObject);
+
+    }
+
 
     @Test
     public void test25() {

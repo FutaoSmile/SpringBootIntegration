@@ -2,6 +2,7 @@ package com.futao.springmvcdemo
 
 import com.futao.springmvcdemo.model.entity.User
 import com.futao.springmvcdemo.service.MailService
+import com.futao.springmvcdemo.utils.HttpRequestUtils
 import com.futao.springmvcdemo.utils.PageResultUtils
 import com.futao.springmvcdemo.utils.getFieldName
 import com.futao.springmvcdemo.utils.md5
@@ -15,6 +16,11 @@ import javax.annotation.Resource
 //@SpringBootTest
 //@RunWith(SpringRunner::class)
 class KotlinTest {
+    @Test
+    fun test8() {
+        val httpUtils = HttpRequestUtils()
+        httpUtils.request()
+    }
 
     @Test
     fun test7() {

@@ -139,4 +139,5 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 
 在项目启动时候选择激活的profile
 java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
+
 项目依赖的其他jar包放在jars文件夹下
