@@ -33,7 +33,7 @@ spring:
   #        enabled: true
   # 数据源
   datasource:
-    url: jdbc:mysql://http://47.106.247.59:3306/springboot?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://47.106.247.59:3306/springboot?useUnicode=true&characterEncoding=utf8
     username: root
     password: nobug666
     driver-class-name: com.mysql.jdbc.Driver
