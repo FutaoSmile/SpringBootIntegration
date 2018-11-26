@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.controller.business;
 
+import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.interceptor.impl.RequestLogInterceptor;
 import com.futao.springmvcdemo.annotation.listener.OnlineHttpSessionListener;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -42,7 +44,6 @@ public class StatisticController {
     public SingleValueResult onlinePeopleQuantity() {
         return new SingleValueResult(onlineHttpSessionListener.getOnlinePeopleQuantity().get());
     }
-
     /**
      * 获取接口的请求次数统计
      *
@@ -60,7 +61,9 @@ public class StatisticController {
      */
     @GetMapping("errorMessages")
     public List<ErrorMessageFields> errorMessages() {
-        return statisticService.getErrorMessages();
+        ArrayList<ErrorMessageFields> errorMessages = statisticService.getErrorMessages();
+        System.out.println(JSONObject.toJSONString(errorMessages));
+        return errorMessages;
     }
 
 }

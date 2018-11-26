@@ -24,13 +24,13 @@ spring:
       packagesToScan: com.futao.springmvcdemo.model
     hibernate:
       ddl-auto: update
-  #  data:
-  #    # 全文检索 elasticsearch
-  #    elasticsearch:
-  #      cluster-name: elasticsearch #节点名称
-  #      cluster-nodes: 127.0.0.1:9300 #节点地址
-  #      repositories:
-  #        enabled: true
+    data:
+      # 全文检索 elasticsearch
+      elasticsearch:
+        cluster-name: springboot-service #节点名称
+        cluster-nodes: 47.106.247.59:9300 #节点地址
+        repositories:
+          enabled: true
   # 数据源
   datasource:
     url: jdbc:mysql://47.106.247.59:3306/springboot?useUnicode=true&characterEncoding=utf8

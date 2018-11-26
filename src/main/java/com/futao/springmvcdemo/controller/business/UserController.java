@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -63,11 +64,16 @@ public class UserController {
             @NotBlank
             @IllegalValueCheck(forbidden = "LOL")
             @RequestParam("address")
-                    String address
+                    String address,
+
+            @RequestParam("password")
+            @NotNull
+            @Size(min = 8,message = ErrorMessage.PASSWORD_LEN)
+                    String password
     ) throws InterruptedException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", "注册失败");
-        if (userService.register(username, age, mobile, email, address)) {
+        if (userService.register(username, password, age, mobile, email, address)) {
             jsonObject.put("result", "注册成功");
         }
         return jsonObject;

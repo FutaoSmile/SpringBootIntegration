@@ -2,7 +2,7 @@ package com.futao.springmvcdemo.service.impl
 
 import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.system.ErrorMessage
-import com.futao.springmvcdemo.model.system.SystemConfig
+import com.futao.springmvcdemo.model.system.Constant
 import com.futao.springmvcdemo.service.RocketMqService
 import org.apache.commons.lang3.StringUtils
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer
@@ -111,8 +111,8 @@ open class RocketMqServiceImpl : RocketMqService {
      */
     @Bean
     override fun consumer(): DefaultMQPushConsumer {
-        val topic = SystemConfig.ROCKET_MQ_TOPIC_MAIL
-        val tag = SystemConfig.ROCKET_MQ_TAG_MAIL_REGISTER
+        val topic = Constant.ROCKET_MQ_TOPIC_MAIL
+        val tag = Constant.ROCKET_MQ_TAG_MAIL_REGISTER
         if (this.consumerGroupName.isEmpty()) {
             throw LogicException.le(ErrorMessage.ROCKET_MQ_CONSUMER_GROUP_NAME_EMPTY)
         }
@@ -166,7 +166,7 @@ open class RocketMqServiceImpl : RocketMqService {
                                 ConsumeConcurrentlyStatus.RECONSUME_LATER
                             }
                             //TODO("开始正常的业务逻辑")
-                            println(StringUtils.repeat(":", 30) + String(msg.body, Charset.forName(SystemConfig.UTF8_ENCODE)))
+                            println(StringUtils.repeat(":", 30) + String(msg.body, Charset.forName(Constant.UTF8_ENCODE)))
                         }
                         return@MessageListenerConcurrently ConsumeConcurrentlyStatus.CONSUME_SUCCESS    //消费成功
                     }

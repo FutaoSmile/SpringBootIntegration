@@ -28,8 +28,10 @@ public final class ErrorMessage {
     public static final String EMAIL_ILLEGAL = "01005_邮箱格式不合法";
     public static final String USERNAME_LEN_ILLEGAL = "01006_名字长度不合法";
     public static final String MOBILE_OR_PWD_ERROR = "01007_手机号或者密码错误，请重试";
+    public static final String PASSWORD_LEN = "01008_密码长度最少8位";
 
     public static final String ADD_ARTICLE_FAIL = "01011_新增文章失败";
 
     public static final String REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY = "01012_重建elasticsearch索引失败，实体%s必须继承BaseEntity";
+    public static final String PARSE_TO_DOUBLE_FAILE = "01013_输入的字符串不可转为数值";
 }

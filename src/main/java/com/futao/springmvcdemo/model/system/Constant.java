@@ -4,7 +4,7 @@ package com.futao.springmvcdemo.model.system;
  * @author futao
  * Created on 2018/9/19-14:50.
  */
-public final class SystemConfig {
+public final class Constant {
     /**
      * session中存放登陆用户的id的session key
      */
@@ -12,7 +12,7 @@ public final class SystemConfig {
     /**
      * session过期时间,单位：秒
      */
-    public static final int SESSION_INVALIDATE_SECOND = 10;
+    public static final int SESSION_INVALIDATE_SECOND = 60 * 60;
 
     /**
      * UTF-8编码

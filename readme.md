@@ -118,6 +118,8 @@ src
 * 服务端消息推送
     * SSE 
     * Socket
+* zxing二维码
+* hashMap原理
 
 ```xml
 报错内容:
@@ -141,3 +143,11 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
 
 项目依赖的其他jar包放在jars文件夹下
+
+    /*--------------------------------------------
+    |         C O N S T R U C T O R S           |
+    ============================================*/
+
+    /*--------------------------------------------
+    |  A C C E S S O R S / M O D I F I E R S    |
+    ============================================*/

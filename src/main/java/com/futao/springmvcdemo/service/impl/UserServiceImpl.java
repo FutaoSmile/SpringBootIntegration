@@ -3,8 +3,8 @@ package com.futao.springmvcdemo.service.impl;
 import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.system.Constant;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
-import com.futao.springmvcdemo.model.system.SystemConfig;
 import com.futao.springmvcdemo.service.MailService;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
@@ -32,7 +32,7 @@ import static com.futao.springmvcdemo.utils.TimeUtilsKt.currentTimeStamp;
  * Spring事务超时 = 事务开始时到最后一个Statement创建时时间 + 最后一个Statement的执行时超时时间（即其queryTimeout）。所以在在执行Statement之外的超时无法进行事务回滚。
  * 参考：https://blog.csdn.net/qq_18860653/article/details/79907984
  */
-@Transactional(isolation = Isolation.DEFAULT, timeout = SystemConfig.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
+@Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Resource
-    private MailService mailServicel;
+    private MailService mailService;
 
     @Override
     public User currentUser() {
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean register(String username, String age, String mobile, String email, String address) throws InterruptedException {
+    public boolean register(String username, String password, String age, String mobile, String email, String address) throws InterruptedException {
         User user1 = new User();
         user1.setUsername("1");
         user1.setAge(age);
@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
         } else {
             //3.未被注册，进行注册,返回注册成功的提示
             Timestamp currentTimeStamp = currentTimeStamp();
-            int count = userDao.addUser(UUIDService.get(), username, age, mobile, email, address, currentTimeStamp, currentTimeStamp);
+            int count = userDao.addUser(UUIDService.get(), username, CommonUtilsKt.md5(password), age, mobile, email, address, currentTimeStamp, currentTimeStamp);
             if (count > 0) {
-                mailServicel.sendSimpleEmail(new String[]{email}, new String[]{"1185172056@qq.com"}, "注册springboot成功", "恭喜你注册成功，帅B" + username);
+//                mailService.sendSimpleEmail(new String[]{email}, new String[]{"1185172056@qq.com"}, "注册springboot成功", "恭喜你注册成功，帅B" + username);
                 return true;
             } else {
                 return false;
@@ -100,8 +100,8 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUserByMobileAndPwd(mobile, md5Pwd);
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
-            session.setAttribute(SystemConfig.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
-            session.setMaxInactiveInterval(SystemConfig.SESSION_INVALIDATE_SECOND);
+            session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
+            session.setMaxInactiveInterval(Constant.SESSION_INVALIDATE_SECOND);
             return user;
         } else {
             throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);

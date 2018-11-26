@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.security.MessageDigest
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.reflect.KFunction1
 
@@ -119,6 +120,14 @@ fun hanziToPinyin(chinese: String): String {
     return sb.toString()
 }
 
-fun main(args: Array<String>) {
-    println(hanziToPinyin("哈哈哈哈11asds"))
+/**
+ * 将字符串转为两位小数
+ */
+fun parseStringToTwoDecimalStr(str: String): String? {
+    try {
+        val double = java.lang.Double.parseDouble(str)
+        return DecimalFormat("0.00").format(double)
+    } catch (e: Exception) {
+        throw LogicException.le(ErrorMessage.PARSE_TO_DOUBLE_FAILE)
+    }
 }

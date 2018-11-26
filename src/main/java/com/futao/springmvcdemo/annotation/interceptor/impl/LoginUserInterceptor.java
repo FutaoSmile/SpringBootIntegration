@@ -5,7 +5,7 @@ import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
-import com.futao.springmvcdemo.model.system.SystemConfig;
+import com.futao.springmvcdemo.model.system.Constant;
 import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -55,7 +55,7 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
                 HttpSession session = request.getSession(false);
                 //session不为空
                 if (ObjectUtils.allNotNull(session)) {
-                    String loginUserId = (String) session.getAttribute(SystemConfig.LOGIN_USER_SESSION_KEY);
+                    String loginUserId = (String) session.getAttribute(Constant.LOGIN_USER_SESSION_KEY);
                     if (ObjectUtils.allNotNull(loginUserId)) {
                         User currentUser = userService.getUserById(loginUserId);
                         System.out.println("当前登陆用户为：" + currentUser);

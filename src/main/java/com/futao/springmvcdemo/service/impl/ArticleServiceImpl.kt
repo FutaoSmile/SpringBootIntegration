@@ -2,7 +2,6 @@ package com.futao.springmvcdemo.service.impl
 
 import com.alibaba.fastjson.JSONObject
 import com.futao.springmvcdemo.dao.ArticleDao
-import com.futao.springmvcdemo.dao.impl.ArticleSearchDao
 import com.futao.springmvcdemo.foundation.LogicException
 import com.futao.springmvcdemo.model.entity.Article
 import com.futao.springmvcdemo.model.system.ErrorMessage
@@ -28,11 +27,11 @@ open class ArticleServiceImpl : ArticleService {
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
 
-    @Resource
-    private lateinit var elasticsearch: ArticleSearchDao
+//    @Resource
+//    private lateinit var elasticsearch: ArticleSearchDao
 
-    @Resource
-    private lateinit var elastic: Client
+//    @Resource
+//    private lateinit var elastic: Client
 
     override fun add(title: String, desc: String, content: String) {
         if (articleDao.add(uuid(), title, desc, content, currentTimeStamp(), currentTimeStamp()) < 1) {
@@ -55,12 +54,12 @@ open class ArticleServiceImpl : ArticleService {
         val opsForValue = redisTemplate.opsForValue()
         return if (opsForValue.get("articlelist") != null && opsForValue.get("articlelist") != StringUtils.EMPTY) {
             val list = opsForValue.get("articlelist") as List<Article>
-            elasticsearch.saveAll(list)
+//            elasticsearch.saveAll(list)
             list
         } else {
             val list = articleDao.list()
             opsForValue.set("articlelist", list)
-            elasticsearch.saveAll(list)
+//            elasticsearch.saveAll(list)
             list
         }
     }
@@ -69,21 +68,21 @@ open class ArticleServiceImpl : ArticleService {
      * 全文检索
      */
     override fun search(key: String): ArrayList<Article> {
-        val hits = elastic.prepareSearch("futao")
-                .setTypes("article")
-                .setQuery(
-                        QueryBuilders
-                                .boolQuery()
-                                .should(QueryBuilders.matchQuery(Article::getContent.getFieldName(), key))
-                                .should(QueryBuilders.matchQuery(Article::getTitle.getFieldName(), key))
-                                .should(QueryBuilders.matchQuery(Article::getDescription.getFieldName(), key))
-
-                )
-                .execute()
-                .actionGet()
-                .hits
+//        val hits = elastic.prepareSearch("futao")
+//                .setTypes("article")
+//                .setQuery(
+//                        QueryBuilders
+//                                .boolQuery()
+//                                .should(QueryBuilders.matchQuery(Article::getContent.getFieldName(), key))
+//                                .should(QueryBuilders.matchQuery(Article::getTitle.getFieldName(), key))
+//                                .should(QueryBuilders.matchQuery(Article::getDescription.getFieldName(), key))
+//
+//                )
+//                .execute()
+//                .actionGet()
+//                .hits
         val list: ArrayList<Article> = arrayListOf()
-        hits.forEach { it -> list.add(JSONObject.parseObject(it.sourceAsString, Article::class.java)) }
+//        hits.forEach { it -> list.add(JSONObject.parseObject(it.sourceAsString, Article::class.java)) }
         return list
     }
 }

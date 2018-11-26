@@ -23,11 +23,22 @@ group = 'com.futao'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+//repositories {
+////    mavenCentral()
+//    maven {
+//        name "aliyunmaven"
+//        url "http://maven.aliyun.com/nexus/content/groups/public/"
+//    }
+//}
+
 repositories {
-//    mavenCentral()
+    // maven库
+    def cn = "http://maven.aliyun.com/nexus/content/groups/public/"
+    def abroad = "http://central.maven.org/maven2/"
+    // 先从url中下载jar若没有找到，则在artifactUrls中寻找
     maven {
-        name "aliyunmaven"
-        url "http://maven.aliyun.com/nexus/content/groups/public/"
+        url cn
+        artifactUrls abroad
     }
 }
 
@@ -84,6 +95,11 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
     // https://mvnrepository.com/artifact/com.belerweb/pinyin4j
     compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-core
+    compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
+    // https://mvnrepository.com/artifact/com.google.zxing/core
+    compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
+
 }
 
 compileKotlin {

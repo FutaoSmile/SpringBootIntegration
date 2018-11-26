@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.service.impl
 
+import com.alibaba.fastjson.JSONObject
 import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.model.system.ErrorMessageFields
 import com.futao.springmvcdemo.service.StatisticService
@@ -14,13 +15,14 @@ import java.util.*
 @Service
 open class StatisticServiceImpl : StatisticService {
 
-    @Cacheable(value = ["errorMessages"])
+    //    @Cacheable(value = ["errorMessages"])
     override fun getErrorMessages(): ArrayList<ErrorMessageFields> {
         val errorMessageClass = ErrorMessage::class.java
         val list = ArrayList<ErrorMessageFields>()
         for (field in errorMessageClass.fields) {
             list.add(ErrorMessageFields(field.name, field.get(ErrorMessage::class.java).toString()))
         }
+        println(JSONObject.toJSONString(list))
         return list
     }
 }

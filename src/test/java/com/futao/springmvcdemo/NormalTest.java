@@ -19,7 +19,13 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import org.apache.catalina.security.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.realm.SimpleAccountRealm;
+import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -31,6 +37,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +46,72 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+    @Test
+    public void test31() {
+        System.out.println("\n/n");
+    }
+
+    @Test
+    public void test30() {
+        String str = "99.0909";
+        double parseDouble = Double.parseDouble(str);
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        System.out.println(decimalFormat.format(parseDouble));
+
+    }
+
+
+    Logger logger = LoggerFactory.getLogger(NormalTest.class);
+
+    @Test
+    public void test29() {
+        String a = "123";
+        System.out.println(a.substring(0, a.length() - 2));
+    }
+
+    @Test
+    public void test28() {
+
+
+        try {
+            throw new NullPointerException("kongzhicheng");
+        } catch (Exception e) {
+            logger.error("发生了异常{},{}", 6666, 7777, e);
+        }
+    }
+
+    @Test
+    public void test27() {
+        System.out.println("1\n" +
+                "11\n" +
+                "111\n" +
+                "1111\n" +
+                "11111\n" +
+                "1111\n" +
+                "111\n" +
+                "11\n" +
+                "1");
+
+        logger.error("1\n" +
+                "11\n" +
+                "111\n" +
+                "1111\n" +
+                "11111\n" +
+                "1111\n" +
+                "111\n" +
+                "11\n" +
+                "1");
+
+        logger.warn("1\n" +
+                "11\n" +
+                "111\n" +
+                "1111\n" +
+                "11111\n" +
+                "1111\n" +
+                "111\n" +
+                "11\n" +
+                "1");
+    }
 
     @Test
     public void test26() {
@@ -263,8 +336,6 @@ public class NormalTest {
         DateTime now = DateTime.now();
         System.out.println(now.minus(now.minusMinutes(1).getMillis()));
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(NormalTest.class);
 
     @Test
     public void test7() {

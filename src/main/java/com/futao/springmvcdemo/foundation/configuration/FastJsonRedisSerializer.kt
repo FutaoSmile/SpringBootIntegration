@@ -2,7 +2,7 @@ package com.futao.springmvcdemo.foundation.configuration
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.serializer.SerializerFeature
-import com.futao.springmvcdemo.model.system.SystemConfig
+import com.futao.springmvcdemo.model.system.Constant
 import org.springframework.data.redis.serializer.RedisSerializer
 import java.nio.charset.Charset
 
@@ -26,7 +26,7 @@ class FastJsonRedisSerializer<T>(java: Class<T>) : RedisSerializer<T> {
         return if (t == null) {
             null
         } else {
-            JSON.toJSONString(t, SerializerFeature.WriteClassName).toByteArray(Charset.forName(SystemConfig.UTF8_ENCODE))
+            JSON.toJSONString(t, SerializerFeature.WriteClassName).toByteArray(Charset.forName(Constant.UTF8_ENCODE))
         }
     }
 
@@ -40,7 +40,7 @@ class FastJsonRedisSerializer<T>(java: Class<T>) : RedisSerializer<T> {
         return if (bytes == null || bytes.isEmpty()) {
             null
         } else {
-            val string = String(bytes, Charset.forName(SystemConfig.UTF8_ENCODE))
+            val string = String(bytes, Charset.forName(Constant.UTF8_ENCODE))
             JSON.parseObject(string, clazz) as T
         }
     }

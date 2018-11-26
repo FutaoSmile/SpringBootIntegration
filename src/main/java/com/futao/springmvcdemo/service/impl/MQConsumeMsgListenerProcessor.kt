@@ -4,7 +4,7 @@
 //import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus
 //import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently
 //import com.alibaba.rocketmq.common.message.MessageExt
-//import com.futao.springmvcdemo.model.system.SystemConfig
+//import com.futao.springmvcdemo.model.system.Constant
 //import org.apache.commons.lang3.StringUtils
 //import org.slf4j.LoggerFactory
 //import org.springframework.beans.factory.annotation.Value
@@ -61,7 +61,7 @@
 //                ConsumeConcurrentlyStatus.RECONSUME_LATER
 //            }
 //            //TODO("开始正常的业务逻辑")
-//            println(StringUtils.repeat(":", 30) + String(msg.body, Charset.forName(SystemConfig.UTF8_ENCODE)))
+//            println(StringUtils.repeat(":", 30) + String(msg.body, Charset.forName(Constant.UTF8_ENCODE)))
 //        }
 //        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS    //消费成功
 //    }

@@ -145,7 +145,7 @@ threadpool:
   queueCapacity: 10
 
 
-debug: true
+#debug: true
 #logging:
 #  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
 #  level:
@@ -159,5 +159,5 @@ debug: true
 #              BasicBinder: TRACE
 
 # [日志打印出来不好看.xml]logback-spring
-log:
-  path: logs
+#log:
+#  path: logs

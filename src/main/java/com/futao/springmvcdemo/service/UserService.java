@@ -27,7 +27,7 @@ public interface UserService {
      * @param address  地址
      * @return 是否注册成功
      */
-    boolean register(String username, String age, String mobile, String email, String address) throws InterruptedException;
+    boolean register(String username, String password, String age, String mobile, String email, String address) throws InterruptedException;
 
     User login(String mobile, String password, HttpServletRequest request);
 

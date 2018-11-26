@@ -3,7 +3,7 @@ package com.futao.springmvcdemo.controller
 import com.futao.springmvcdemo.model.entity.SingleValueResult
 import com.futao.springmvcdemo.model.entity.User
 import com.futao.springmvcdemo.model.system.MailM
-import com.futao.springmvcdemo.model.system.SystemConfig
+import com.futao.springmvcdemo.model.system.Constant
 import com.futao.springmvcdemo.service.KotlinTestService
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
@@ -110,7 +110,7 @@ open class KotlinTestController {
             @RequestParam("repeat") repeat: Int
     ) {
         for (i in (1..repeat)) {
-            val message1 = Message(SystemConfig.ROCKET_MQ_TOPIC_MAIL, SystemConfig.ROCKET_MQ_TAG_MAIL_REGISTER, (message + i).toByteArray(Charset.forName(SystemConfig.UTF8_ENCODE)))
+            val message1 = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, (message + i).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
             logger.info("开始发送消息：${message + i},::,$message1")
             val sendResult = rocketMqService.send(message1)
             logger.info("发送消息结果：$sendResult")
