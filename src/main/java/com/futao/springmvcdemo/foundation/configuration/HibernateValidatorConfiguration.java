@@ -1,12 +1,16 @@
 package com.futao.springmvcdemo.foundation.configuration;
 
+import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.model.system.RestResult;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * Hibernate Validator配置类
@@ -43,11 +47,18 @@ public class HibernateValidatorConfiguration {
                 .buildValidatorFactory()
                 .getValidator();
     }
-//
-//    public static <T> void validate(T obj) {
-//        Set<ConstraintViolation<T>> constraintViolations = validator().validate(obj);
-//        if (constraintViolations.size() > 0) {
-//            throw LogicException.le(constraintViolations.iterator().next().getMessage());
-//        }
-//    }
+
+    /**
+     * 手动触发校验，可直接在需要校验对象的地方调用这个方法
+     *
+     * @param obj
+     */
+    public static void validate(Object obj) {
+        Set<ConstraintViolation<Object>> constraintViolations = validator().validate(obj);
+        if (constraintViolations.size() > 0) {
+            String message = constraintViolations.iterator().next().getMessage();
+
+            throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + message);
+        }
+    }
 }

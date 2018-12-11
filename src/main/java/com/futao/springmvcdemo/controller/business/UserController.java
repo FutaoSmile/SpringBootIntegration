@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("sendRegisterEmailVerifyCode")
     public SingleValueResult sendRegisterEmailVerifyCode(
             @RequestParam("email")
-            @Email
+            @Email(message = ErrorMessage.EMAIL_ILLEGAL)
                     String email
     ) {
         userService.sendRegisterEmailVerifyCode(email);
@@ -58,8 +58,8 @@ public class UserController {
      * @param address  地址
      * @return
      */
-    @PostMapping("register")
-    public SingleValueResult register(
+    @PostMapping("registerByEmail")
+    public SingleValueResult registerByEmail(
             /*使用@RequestBody注解需要保证该对象有默认的空的构造函数
              * 是流的形式读取，那么流读了一次就没有了
              * */

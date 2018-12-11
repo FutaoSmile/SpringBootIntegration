@@ -1,14 +1,17 @@
 package com.futao.springmvcdemo.controller;
 
 import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.foundation.configuration.HibernateValidatorConfiguration;
+import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.KotlinTestService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author futao
@@ -17,6 +20,7 @@ import javax.annotation.Resource;
  */
 @RequestMapping(path = "exception", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RestController
+@Validated
 public class ExceptionTestController {
 
     /**
@@ -45,5 +49,24 @@ public class ExceptionTestController {
     @GetMapping(path = "serviceException")
     public void serviceException() {
         service.exception();
+    }
+
+
+    /**
+     * 验证框架测试
+     *
+     * @param param
+     */
+    @PostMapping("validatorTest")
+    public void validatorTest(
+            @RequestParam("param")
+            @Email
+            @NotNull
+                    String param
+    ) {
+        User user = new User();
+        user.setEmail(param);
+
+        HibernateValidatorConfiguration.validate(user);
     }
 }
