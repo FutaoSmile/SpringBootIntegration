@@ -32,4 +32,5 @@ public final class Constant {
      * Service事物超时时间
      */
     public static final int SERVICE_TIMEOUT_TIME = 2;
+
 }

@@ -38,6 +38,10 @@ import static com.futao.springmvcdemo.utils.TimeUtilsKt.currentTimeStamp;
 @Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl implements UserService {
+    /**
+     * 密码加盐
+     */
+    private static final String pwdSalt = "nobug666";
     @Resource
     private ThreadLocalUtils threadLocalUtils;
 
@@ -69,30 +73,27 @@ public class UserServiceImpl implements UserService {
     public int registerMailCodeExpireSecond;
 
     @Override
-    public boolean register(String username, String password, String age, String mobile, String email, String address) throws InterruptedException {
-        User user1 = new User();
-        user1.setUsername("1");
-        user1.setAge(age);
-        user1.setMobile(mobile);
-        user1.setEmail(email);
-        user1.setAddress(address);
-
+    public void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex) {
         //1.查询该手机号有没有被注册
-        User userInfo = userDao.getUserByMobile(mobile);
-        //2.已经被注册返回注册失败，已经被注册的提示
-        if (ObjectUtils.allNotNull(userInfo)) {
-            throw LogicException.le(ErrorMessage.MOBILE_ALREADY_REGISTER);
-        } else {
-            //3.未被注册，进行注册,返回注册成功的提示
-            Timestamp currentTimeStamp = currentTimeStamp();
-            int count = userDao.addUser(UUIDService.get(), username, CommonUtilsKt.md5(password), age, mobile, email, address, currentTimeStamp, currentTimeStamp);
-            if (count > 0) {
-//                mailService.sendSimpleEmail(new String[]{email}, new String[]{"1185172056@qq.com"}, "注册springboot成功", "恭喜你注册成功，帅B" + username);
-                return true;
-            } else {
-                return false;
-            }
+//        User userInfo = userDao.getUserByMobile(mobile);
+
+        //检查验证码
+        Object o = redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.registerEmailCode, email));
+        //检查是否过期
+        if (o == null) {
+            throw LogicException.le(ErrorMessage.VERIFY_CODE_EXPIRED);
         }
+        //检查是否正确
+        if (!verifyCode.equals(o.toString())) {
+            throw LogicException.le(ErrorMessage.VERIFY_CODE_ERROR);
+        }
+
+        //检查该邮箱是否已经被注册
+        if (userDao.getNormalUserByEmail(email, User_Status.Normal.getCode()) != null) {
+            throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
+        }
+        //更新账号信息与状态
+        userDao.registerByEmail(username, CommonUtilsKt.md5(password + pwdSalt), age, mobile, address, User_Status.Normal.getCode(), sex, email);
     }
 
     /**

@@ -165,4 +165,4 @@ log:
 
 futao:
   # 注册邮件验证码过期时间
-  registerMailCodeExpireSecond: 60*60*2
+  registerMailCodeExpireSecond: 7200

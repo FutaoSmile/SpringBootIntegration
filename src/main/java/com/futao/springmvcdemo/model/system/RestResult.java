@@ -11,6 +11,20 @@ import java.sql.Timestamp;
  */
 public class RestResult {
     /**
+     * 请求成功code
+     */
+    public static final String SUCCESS_CODE = "0";
+    /**
+     * 系统异常code
+     */
+    public static final String SYSTEM_ERROR_CODE = "-1";
+    /**
+     * 未重写hibernate validator错误信息的异常code
+     */
+    public static final String NOT_RE_WRITE_ERROR_MESSAGE = "-99";
+
+
+    /**
      * 请求是否成功
      */
     private boolean success;
@@ -44,7 +58,6 @@ public class RestResult {
                 ", currentTime=" + currentTime +
                 '}';
     }
-
 
 
     public RestResult(boolean success, String code, Object data, Object errorMessage) {

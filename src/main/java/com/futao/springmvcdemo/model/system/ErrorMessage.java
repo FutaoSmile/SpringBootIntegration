@@ -37,4 +37,10 @@ public final class ErrorMessage {
 
     public static final String EMAIL_ALREADY_EXIST = "01014_该邮箱已被注册，请直接登录或找回密码";
     public static final String EMAIL_ALREADY_SEND = "01015_邮件已发送，请检查您的邮箱";
+    public static final String AGE_ERROR = "01016_年龄数据错误";
+    public static final String ADDRESS_CAN_NOT_BE_EMPTY = "01017_地址不可为空";
+    public static final String PASSWORD_CAN_NOT_BE_EMPTY = "01018_密码不可为空";
+    public static final String ADDRESS_LEN_TOO_LARGE = "01019_地址过长";
+    public static final String VERIFY_CODE_EXPIRED = "01020_验证码已过期";
+    public static final String VERIFY_CODE_ERROR = "01021_验证码不正确";
 }

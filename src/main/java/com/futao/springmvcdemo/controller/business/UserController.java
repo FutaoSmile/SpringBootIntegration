@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 /**
  * @author futao
@@ -62,7 +59,7 @@ public class UserController {
      * @return
      */
     @PostMapping("register")
-    public JSONObject register(
+    public SingleValueResult register(
             /*使用@RequestBody注解需要保证该对象有默认的空的构造函数
              * 是流的形式读取，那么流读了一次就没有了
              * */
@@ -70,29 +67,30 @@ public class UserController {
             @Size(min = 2, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
                     String username,
             @RequestParam("age")
-                    String age,
+            @Max(value = 300, message = ErrorMessage.AGE_ERROR)
+                    int age,
             @Size(max = 11, message = ErrorMessage.MOBILE_LEN_ILLEGAL)
             @RequestParam("mobile")
                     String mobile,
             @RequestParam("email")
             @Email(message = ErrorMessage.EMAIL_ILLEGAL)
                     String email,
-            @NotBlank
+            @Size(max = 100, message = ErrorMessage.ADDRESS_LEN_TOO_LARGE)
             @IllegalValueCheck(forbidden = "LOL")
             @RequestParam("address")
                     String address,
-
             @RequestParam("password")
-            @NotNull
             @Size(min = 8, message = ErrorMessage.PASSWORD_LEN)
-                    String password
-    ) throws InterruptedException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result", "注册失败");
-        if (userService.register(username, password, age, mobile, email, address)) {
-            jsonObject.put("result", "注册成功");
-        }
-        return jsonObject;
+                    String password,
+            @RequestParam("sex")
+                    int sex,
+            @RequestParam("verifyCode")
+            @NotNull
+                    String verifyCode
+    ) {
+        userService.registerByEmail(username, password, age, mobile, email, address, verifyCode, sex);
+
+        return new SingleValueResult("注册成功");
     }
 
     /**

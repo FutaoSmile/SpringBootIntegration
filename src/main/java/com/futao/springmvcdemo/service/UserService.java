@@ -17,17 +17,7 @@ public interface UserService {
 
     User getUserById(String id);
 
-    /**
-     * 用户注册
-     *
-     * @param username 用户名
-     * @param age      年龄
-     * @param mobile   手机号
-     * @param email    邮箱
-     * @param address  地址
-     * @return 是否注册成功
-     */
-    boolean register(String username, String password, String age, String mobile, String email, String address) throws InterruptedException;
+    void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex) ;
 
     User login(String mobile, String password, HttpServletRequest request);
 

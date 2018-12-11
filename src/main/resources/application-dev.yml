@@ -165,4 +165,4 @@ threadpool:
 
 futao:
   # 注册邮件验证码过期时间
-  registerMailCodeExpireSecond: 10
+  registerMailCodeExpireSecond: 300

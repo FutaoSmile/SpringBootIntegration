@@ -1,10 +1,7 @@
 package com.futao.springmvcdemo.dao;
 
 import com.futao.springmvcdemo.model.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.mapstruct.Mapper;
 
 import java.sql.Timestamp;
@@ -148,4 +145,29 @@ public interface UserDao {
                      @Param("status") int status,
                      @Param("createTime") Timestamp createTime,
                      @Param("lastModifyTime") Timestamp lastModifyTime);
+
+
+    /**
+     * 用户通过邮箱进行注册
+     *
+     * @param username
+     * @param password
+     * @param age
+     * @param mobile
+     * @param address
+     * @param status
+     * @param sex
+     */
+    @Update("update futao_user " +
+            "set username=#{username},password=#{password},age=#{age},mobile=#{mobile},address=#{address},status=#{status},sex=#{sex} " +
+            "where email=#{email}")
+    void registerByEmail(@Param("username") String username,
+                         @Param("password") String password,
+                         @Param("age") int age,
+                         @Param("mobile") String mobile,
+                         @Param("address") String address,
+                         @Param("status") int status,
+                         @Param("sex") int sex,
+                         @Param("email") String email
+    );
 }
