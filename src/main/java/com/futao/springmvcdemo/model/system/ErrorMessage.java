@@ -33,5 +33,8 @@ public final class ErrorMessage {
     public static final String ADD_ARTICLE_FAIL = "01011_新增文章失败";
 
     public static final String REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY = "01012_重建elasticsearch索引失败，实体%s必须继承BaseEntity";
-    public static final String PARSE_TO_DOUBLE_FAILE = "01013_输入的字符串不可转为数值";
+    public static final String PARSE_TO_DOUBLE_FAIL = "01013_输入的字符串不可转为数值";
+
+    public static final String EMAIL_ALREADY_EXIST = "01014_该邮箱已被注册，请直接登录或找回密码";
+    public static final String EMAIL_ALREADY_SEND = "01015_邮件已发送，请检查您的邮箱";
 }

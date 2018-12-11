@@ -35,8 +35,8 @@ Vue.component('el-step', ElStep)
 | space | 每个 step 的间距，不填写将自适应间距 | Number | — | — |
 | direction | 显示方向 | string | vertical/horizontal | horizontal |
 | active | 设置当前激活步骤  | number | — | 0 |
-| process-status | 设置当前步骤的状态 | string | wait/process/finish/error/success | process |
-| finish-status | 设置结束步骤的状态 | string | wait/process/finish/error/success | finish |
+| process-status | 设置当前步骤的状态 | string | wait/process/finish/error/isSuccess | process |
+| finish-status | 设置结束步骤的状态 | string | wait/process/finish/error/isSuccess | finish |
 | align-center | 标题描述居中对齐 | boolean | - | false |
 
 ### Step Attributes

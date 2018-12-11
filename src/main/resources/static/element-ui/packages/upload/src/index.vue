@@ -127,7 +127,7 @@ export default {
       handler(fileList) {
         this.uploadFiles = fileList.map(item => {
           item.uid = item.uid || (Date.now() + this.tempIndex++);
-          item.status = item.status || 'success';
+          item.status = item.status || 'isSuccess';
           return item;
         });
       }
@@ -166,7 +166,7 @@ export default {
       const file = this.getFile(rawFile);
 
       if (file) {
-        file.status = 'success';
+        file.status = 'isSuccess';
         file.response = res;
 
         this.onSuccess(res, file, this.uploadFiles);
@@ -276,7 +276,7 @@ export default {
         'on-exceed': this.onExceed,
         'on-start': this.handleStart,
         'on-progress': this.handleProgress,
-        'on-success': this.handleSuccess,
+        'on-isSuccess': this.handleSuccess,
         'on-error': this.handleError,
         'on-preview': this.onPreview,
         'on-remove': this.handleRemove,

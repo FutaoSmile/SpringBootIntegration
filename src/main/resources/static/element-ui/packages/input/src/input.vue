@@ -180,7 +180,7 @@
       validateIcon() {
         return {
           validating: 'el-icon-loading',
-          success: 'el-icon-circle-check',
+          isSuccess: 'el-icon-circle-check',
           error: 'el-icon-circle-close'
         }[this.validateState];
       },

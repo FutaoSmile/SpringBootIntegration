@@ -60,10 +60,10 @@ spring:
     time-zone: GMT+8
   # redis
   redis:
-    database: 0
-    host: localhost
+    database: 1
+    host: 47.106.247.59
     port: 6379
-    #    password: 12345
+      password: redisPass123.
     jedis:
       pool:
         max-active: 10
@@ -161,3 +161,8 @@ debug: true
 # [日志打印出来不好看.xml]logback-spring
 log:
   path: logs
+
+
+futao:
+  # 注册邮件验证码过期时间
+  registerMailCodeExpireSecond: 60*60*2

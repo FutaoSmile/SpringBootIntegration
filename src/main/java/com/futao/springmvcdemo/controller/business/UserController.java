@@ -36,6 +36,22 @@ public class UserController {
     private ApplicationContext applicationContext;
 
     /**
+     * 发送注册邮件验证码
+     *
+     * @param email 注册邮箱
+     * @return
+     */
+    @PostMapping("sendRegisterEmailVerifyCode")
+    public SingleValueResult sendRegisterEmailVerifyCode(
+            @RequestParam("email")
+            @Email
+                    String email
+    ) {
+        userService.sendRegisterEmailVerifyCode(email);
+        return new SingleValueResult("success");
+    }
+
+    /**
      * 用户注册
      *
      * @param username 用户名
@@ -68,7 +84,7 @@ public class UserController {
 
             @RequestParam("password")
             @NotNull
-            @Size(min = 8,message = ErrorMessage.PASSWORD_LEN)
+            @Size(min = 8, message = ErrorMessage.PASSWORD_LEN)
                     String password
     ) throws InterruptedException {
         JSONObject jsonObject = new JSONObject();
@@ -86,13 +102,22 @@ public class UserController {
      * @param request
      * @return
      */
-    @PostMapping(path = "login")
-    public User login(
+    @PostMapping(path = "mobileLogin")
+    public User mobileLogin(
             @RequestParam("mobile") String mobile,
             @RequestParam("password") String password,
             HttpServletRequest request
     ) {
         return userService.login(mobile, password, request);
+    }
+
+    @PostMapping(path = "login")
+    public User userNameLogin(
+            @RequestBody User user,
+            HttpServletRequest request
+
+    ) {
+        return userService.userNameLogin(user, request);
     }
 
     /**

@@ -25,7 +25,7 @@
 
 <script type="text/babel">
   const typeMap = {
-    success: 'success',
+    isSuccess: 'isSuccess',
     info: 'info',
     warning: 'warning',
     error: 'error'

@@ -50,6 +50,18 @@ public class User extends BaseEntity {
     @NotNull
     private String address;
 
+    /**
+     * {@link com.futao.springmvcdemo.model.enums.User_Status}
+     * 用户状态
+     */
+    private int status;
+
+    /**
+     * {@link com.futao.springmvcdemo.model.enums.User_Sex}
+     * 性别
+     */
+    private int sex;
+
     public User() {
     }
 
@@ -101,15 +113,19 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", age='" + age + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

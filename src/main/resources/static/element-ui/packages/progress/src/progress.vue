@@ -109,7 +109,7 @@
           ret = this.color;
         } else {
           switch (this.status) {
-            case 'success':
+            case 'isSuccess':
               ret = '#13ce66';
               break;
             case 'exception':
@@ -123,9 +123,9 @@
       },
       iconClass() {
         if (this.type === 'line') {
-          return this.status === 'success' ? 'el-icon-circle-check' : 'el-icon-circle-close';
+          return this.status === 'isSuccess' ? 'el-icon-circle-check' : 'el-icon-circle-close';
         } else {
-          return this.status === 'success' ? 'el-icon-check' : 'el-icon-close';
+          return this.status === 'isSuccess' ? 'el-icon-check' : 'el-icon-close';
         }
       },
       progressTextSize() {

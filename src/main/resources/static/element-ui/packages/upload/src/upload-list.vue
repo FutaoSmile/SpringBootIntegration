@@ -28,7 +28,7 @@
       </a>
       <label class="el-upload-list__item-status-label">
         <i :class="{
-          'el-icon-upload-success': true,
+          'el-icon-upload-isSuccess': true,
           'el-icon-circle-check': listType === 'text',
           'el-icon-check': ['picture-card', 'picture'].indexOf(listType) > -1
         }"></i>

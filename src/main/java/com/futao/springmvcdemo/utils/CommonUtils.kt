@@ -11,6 +11,7 @@ import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.lang.StringBuilder
 import java.security.MessageDigest
 import java.text.DecimalFormat
 import java.util.*
@@ -128,6 +129,17 @@ fun parseStringToTwoDecimalStr(str: String): String? {
         val double = java.lang.Double.parseDouble(str)
         return DecimalFormat("0.00").format(double)
     } catch (e: Exception) {
-        throw LogicException.le(ErrorMessage.PARSE_TO_DOUBLE_FAILE)
+        throw LogicException.le(ErrorMessage.PARSE_TO_DOUBLE_FAIL)
     }
+}
+
+fun numVerifyCode(size: Int): String {
+    var i = 0
+    var sb = StringBuilder()
+    while (i < size) {
+        i++
+        val random = Random()
+        sb.append(random.nextInt(9))
+    }
+    return sb.toString()
 }

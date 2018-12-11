@@ -45,6 +45,8 @@ public class RestResult {
                 '}';
     }
 
+
+
     public RestResult(boolean success, String code, Object data, Object errorMessage) {
         this.success = success;
         this.code = code;

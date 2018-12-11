@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author futao
@@ -26,11 +27,17 @@ public class AppFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
+        //白名单
+        ArrayList<String> allowOrigins = new ArrayList<>();
+        allowOrigins.add("http://localhost:63343");
+        allowOrigins.add("http://localhost:9527");
+        allowOrigins.add("http://localhost:8080");
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-        ArrayList<String> allowOrigins = (ArrayList<String>) req.getServletContext().getAttribute("allowOrigins");
+//        ArrayList<String> allowOrigins = (ArrayList<String>) req.getServletContext().getAttribute("allowOrigins");
         String origin = request.getHeader("Origin");
         if (allowOrigins.contains(origin)) {
             response.setHeader("Access-Control-Allow-Origin", origin);
@@ -49,11 +56,8 @@ public class AppFilter implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        //白名单
-        ArrayList<String> allowOrigins = new ArrayList<>();
-        allowOrigins.add("http://localhost:63343");
-        allowOrigins.add("http://localhost:9528");
-        config.getServletContext().setAttribute("allowOrigins", allowOrigins);
+
+//        config.getServletContext().setAttribute("allowOrigins", allowOrigins);
     }
 
 }

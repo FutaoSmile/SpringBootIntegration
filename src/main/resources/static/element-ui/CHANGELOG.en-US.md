@@ -604,7 +604,7 @@
   able to work in JSX. So `on-*` attributes are renamed to `active-*`, and accordingly `off-*` attributes are renamed to `inactive-*`. This change affects the following attributes: `on-icon-class`, `off-icon-class`, `on-text`, `off-text`, `on-color`, `off-color`, `on-value`, `off-value`
   - `active-text` and `inactive-text` attributes now don't have default values
 - Tag
-  - `type` attribute now accepts `success`, `info`, `warning` and `danger`
+  - `type` attribute now accepts `isSuccess`, `info`, `warning` and `danger`
 - Menu
   - Removed `theme` attribute. The color of Menu can be configured using `background-color`, `text-color` and `active-text-color`
 - Input

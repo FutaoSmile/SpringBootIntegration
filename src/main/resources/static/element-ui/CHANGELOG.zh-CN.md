@@ -604,7 +604,7 @@
   - 由于 `on-*` 属性在 JSX 中会被识别为事件，导致 Switch 所有 `on-*` 属性在 JSX 中无法正常工作，所以 `on-*` 属性更名为 `active-*`，对应地，`off-*` 属性更名为 `inactive-*`。受到影响的属性有：`on-icon-class`、`off-icon-class`、`on-text`、`off-text`、`on-color`、`off-color`、`on-value`、`off-value`
   - `active-text` 和 `inactive-text` 属性不再有默认值
 - Tag
-  - `type` 属性现在支持 `success`、`info`、`warning` 和 `danger` 四个值
+  - `type` 属性现在支持 `isSuccess`、`info`、`warning` 和 `danger` 四个值
 - Menu
   - 移除 `theme` 属性。现在通过 `background-color`、`text-color` 和 `active-text-color` 属性进行颜色的自定义
 - Input

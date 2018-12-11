@@ -20,7 +20,7 @@
 
 <script type="text/babel">
   const TYPE_CLASSES_MAP = {
-    'success': 'el-icon-success',
+    'isSuccess': 'el-icon-isSuccess',
     'warning': 'el-icon-warning',
     'error': 'el-icon-error'
   };

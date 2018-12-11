@@ -33,7 +33,7 @@
 
 <script type="text/babel">
   let typeMap = {
-    success: 'success',
+    isSuccess: 'isSuccess',
     info: 'info',
     warning: 'warning',
     error: 'error'

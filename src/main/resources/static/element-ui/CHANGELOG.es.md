@@ -608,7 +608,7 @@
   - Los atributos que comienzan con `on*` serán analizados en eventos en JSX, haciendo que todos los atributos `on*` de Switch no puedan trabajar en JSX. Por lo tanto, los atributos `on*` se renombran a `active-*`, y por consiguiente los atributos `off-*` se renombran a `inactivado-*`. Este cambio afecta a los siguientes atributos:  `on-icon-class`, `off-icon-class`, `on-text`, `off-text`, `on-color`, `off-color`, `on-value`, `off-value`.
   - Los atributos `active-text` y `inactive-text`  ahora no tienen valores por defecto.
 - Tag
-  - El atributo type acepta ahora  `success`, `info`, `warning` y `danger`
+  - El atributo type acepta ahora  `isSuccess`, `info`, `warning` y `danger`
 - Menu
   - Atributo `theme` eliminado. El color de Menu se puede configurar utilizando  `background-color`, `text-color` y `active-text-color`
 - Input

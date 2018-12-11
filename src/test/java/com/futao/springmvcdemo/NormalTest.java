@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -9,7 +10,6 @@ import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
-import com.futao.springmvcdemo.service.impl.DB2ElasticSearchServiceImpl;
 import com.futao.springmvcdemo.suit.A;
 import com.futao.springmvcdemo.suit.B;
 import com.futao.springmvcdemo.suit.CC;
@@ -19,13 +19,7 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
-import org.apache.catalina.security.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.mgt.DefaultSecurityManager;
-import org.apache.shiro.realm.SimpleAccountRealm;
-import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -46,9 +40,55 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    @Test
+    public void test35() {
+        Random random = new Random();
+        System.out.println(random.nextInt());
+    }
+
+    @Test
+    public void test34() {
+        System.out.println(true && true);
+        System.out.println(true && false);
+        System.out.println(false && true);
+        System.out.println(false && false);
+    }
+
+
+    @Test
+    public void test33() {
+        DecimalFormat format = new DecimalFormat("0.00");
+
+        System.out.println(format.format(Double.parseDouble("1")));
+    }
+
+    @Test
+    public void test32() {
+        JSONObject jsonObject = JSON.parseObject(null);
+        JSONObject jsonObject1 = JSON.parseObject("");
+        System.out.println(jsonObject1.isEmpty());
+        System.out.println(jsonObject.isEmpty());
+    }
+
     @Test
     public void test31() {
-        System.out.println("\n/n");
+        List<String> list = new ArrayList<>();
+        list.add("1");
+
+        list.add("2");
+        list.add("0");
+        list.add("3");
+        for (int i = 0; i < list.size(); i++) {
+            try {
+                System.out.println(5 / Integer.valueOf(list.get(i)));
+            } catch (Exception e) {
+                System.out.println(
+                        e.getLocalizedMessage()
+                );
+                continue;
+            }
+        }
     }
 
     @Test
@@ -177,8 +217,8 @@ public class NormalTest {
 
     @Test
     public void test21() {
-        DB2ElasticSearchServiceImpl db2ElasticSearchService = new DB2ElasticSearchServiceImpl();
-        db2ElasticSearchService.sync();
+//        DB2ElasticSearchServiceImpl db2ElasticSearchService = new DB2ElasticSearchServiceImpl();
+//        db2ElasticSearchService.sync();
     }
 
     @Test

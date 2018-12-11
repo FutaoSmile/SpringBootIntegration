@@ -87,7 +87,7 @@
 
   let messageBox;
   let typeMap = {
-    success: 'success',
+    isSuccess: 'isSuccess',
     info: 'info',
     warning: 'warning',
     error: 'error'

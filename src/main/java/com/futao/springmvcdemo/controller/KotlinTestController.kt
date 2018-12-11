@@ -8,8 +8,8 @@ import com.futao.springmvcdemo.service.KotlinTestService
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
 import com.futao.springmvcdemo.service.impl.KotlinTestServiceImpl
-import org.apache.rocketmq.client.producer.DefaultMQProducer
-import org.apache.rocketmq.common.message.Message
+//import org.apache.rocketmq.client.producer.DefaultMQProducer
+//import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Conditional
 import org.springframework.data.redis.core.RedisTemplate
@@ -98,8 +98,8 @@ open class KotlinTestController {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    @Resource
-    private lateinit var rocketMqService: DefaultMQProducer
+//    @Resource
+//    private lateinit var rocketMqService: DefaultMQProducer
 
     /**
      * mq
@@ -109,12 +109,12 @@ open class KotlinTestController {
             @RequestParam("message") message: String,
             @RequestParam("repeat") repeat: Int
     ) {
-        for (i in (1..repeat)) {
-            val message1 = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, (message + i).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
-            logger.info("开始发送消息：${message + i},::,$message1")
-            val sendResult = rocketMqService.send(message1)
-            logger.info("发送消息结果：$sendResult")
-        }
+//        for (i in (1..repeat)) {
+//            val message1 = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, (message + i).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
+//            logger.info("开始发送消息：${message + i},::,$message1")
+//            val sendResult = rocketMqService.send(message1)
+//            logger.info("发送消息结果：$sendResult")
+//        }
     }
 
 
@@ -126,7 +126,7 @@ open class KotlinTestController {
             subject = "消息队列"
             content = "<h1>您好，RocketMq</h1>"
         }
-        mailService.sendMq(mailM)
+//        mailService.sendMq(mailM)
     }
 
     @Resource

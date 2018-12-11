@@ -39,4 +39,8 @@ public interface UserService {
     List<User> list(String mobile, int pageNum, int pageSize, String orderBy);
 
     int total();
+
+    User userNameLogin(User user, HttpServletRequest request);
+
+    void sendRegisterEmailVerifyCode(String email);
 }

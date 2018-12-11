@@ -3,7 +3,7 @@
       'el-form-item--feedback': elForm && elForm.statusIcon,
       'is-error': validateState === 'error',
       'is-validating': validateState === 'validating',
-      'is-success': validateState === 'success',
+      'is-isSuccess': validateState === 'isSuccess',
       'is-required': isRequired || required
     },
     sizeClass ? 'el-form-item--' + sizeClass : ''
@@ -193,7 +193,7 @@
         model[this.prop] = this.fieldValue;
 
         validator.validate(model, { firstFields: true }, (errors, invalidFields) => {
-          this.validateState = !errors ? 'success' : 'error';
+          this.validateState = !errors ? 'isSuccess' : 'error';
           this.validateMessage = errors ? errors[0].message : '';
 
           callback(this.validateMessage, invalidFields);

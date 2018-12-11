@@ -2,6 +2,7 @@ package com.futao.springmvcdemo.dao;
 
 import com.futao.springmvcdemo.model.entity.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.mapstruct.Mapper;
@@ -107,4 +108,44 @@ public interface UserDao {
             "mobile=#{mobile} " +
             "and password=#{password}")
     User getUserByMobileAndPwd(@Param("mobile") String mobile, @Param("password") String password);
+
+    @Select("select * " +
+            "from " +
+            "futao_user " +
+            "where " +
+            "username=#{username} " +
+            "and " +
+            "password=#{password}")
+    User getUserByUserNameAndPwd(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 通过email查询正常的用户,如果没查到数据返回的是null
+     *
+     * @param email
+     * @param status
+     * @return
+     */
+    @Select("select id from futao_user where email=#{email} and status=#{status}")
+    String getNormalUserByEmail(@Param("email") String email, @Param("status") int status);
+
+
+    /**
+     * 预注册
+     *
+     * @param id
+     * @param email
+     * @param status
+     * @param createTime
+     * @param lastModifyTime
+     */
+    @Insert("insert into futao_user(id,email,status,createTime,lastModifyTime) " +
+            "select #{id},#{email},#{status},#{createTime},#{lastModifyTime} " +
+            "where not exists(" +
+            "select id from futao_user where email=#{email}" +
+            ")")
+    void preRegister(@Param("id") String id,
+                     @Param("email") String email,
+                     @Param("status") int status,
+                     @Param("createTime") Timestamp createTime,
+                     @Param("lastModifyTime") Timestamp lastModifyTime);
 }

@@ -79,7 +79,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password:
+    password: qzezzeylwgmsgabb
     properties:
       smtp:
         auth: true
@@ -161,3 +161,8 @@ threadpool:
 # [日志打印出来不好看.xml]logback-spring
 #log:
 #  path: logs
+
+
+futao:
+  # 注册邮件验证码过期时间
+  registerMailCodeExpireSecond: 10

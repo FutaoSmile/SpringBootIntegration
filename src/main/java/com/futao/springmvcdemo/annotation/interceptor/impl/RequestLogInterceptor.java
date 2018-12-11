@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.annotation.interceptor.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -60,6 +61,8 @@ public class RequestLogInterceptor implements HandlerInterceptor {
             if (ObjectUtils.allNotNull(restController)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n")
+                        .append("From: " + request.getRemoteHost() + "|" + request.getRemoteAddr() + "|" + request.getRemotePort())
+                        .append("\n")
                         .append("请求地址: " + request.getRequestURL())
                         .append("\n")
                         .append("请求sessions: " + getSessionParameters(request.getSession(false)))

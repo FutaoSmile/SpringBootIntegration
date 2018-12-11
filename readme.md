@@ -131,11 +131,6 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 解法:
 
 修改项目下 .idea\workspace.xml，找到标签 <component name="PropertiesComponent"> ， 在标签里加一行  <property name="dynamic.classpath" value="true" />
---------------------- 
-作者：ZXJ_1223 
-来源：CSDN 
-原文：https://blog.csdn.net/ZXJ_1223/article/details/80611089 
-版权声明：本文为博主原创文章，转载请附上博文链接！
 
 ```
 
@@ -151,3 +146,5 @@ java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
     /*--------------------------------------------
     |  A C C E S S O R S / M O D I F I E R S    |
     ============================================*/
+
+需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了

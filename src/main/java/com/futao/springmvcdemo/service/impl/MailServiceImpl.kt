@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
 import com.futao.springmvcdemo.model.system.MailM
 import com.futao.springmvcdemo.model.system.Constant
+import com.futao.springmvcdemo.model.system.MailMSingle
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.utils.logSms
-import org.apache.rocketmq.client.producer.DefaultMQProducer
-import org.apache.rocketmq.common.message.Message
+//import org.apache.rocketmq.client.producer.DefaultMQProducer
+//import org.apache.rocketmq.common.message.Message
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
@@ -35,8 +36,8 @@ open class MailServiceImpl : MailService {
     @Resource
     lateinit var template: TemplateEngine
 
-    @Resource
-    lateinit var producer: DefaultMQProducer
+//    @Resource
+//    lateinit var producer: DefaultMQProducer
 
     /**
      * 发送简单邮件
@@ -101,15 +102,27 @@ open class MailServiceImpl : MailService {
         }
     }
 
-    /**
-     * 通过消息队列发送邮件
-     */
-    override fun sendMq(mailM: MailM) {
-        val message = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, JSON.toJSONString(mailM).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
-        try {
-            producer.send(message)
-        } catch (e: Exception) {
-            logger.error(e.message, e)
-        }
-    }
+//    /**
+//     * 通过消息队列发送邮件
+//     */
+//    override fun sendMq(mailM: MailM) {
+//        val message = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, JSON.toJSONString(mailM).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
+//        try {
+//            producer.send(message)
+//        } catch (e: Exception) {
+//            logger.error(e.message, e)
+//        }
+//    }
+//
+//    /**
+//     * 通过消息队列发送邮件
+//     */
+//    override fun sendMq(mailM: MailMSingle) {
+//        val message = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, JSON.toJSONString(mailM).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
+//        try {
+//            producer.send(message)
+//        } catch (e: Exception) {
+//            logger.error(e.message, e)
+//        }
+//    }
 }
