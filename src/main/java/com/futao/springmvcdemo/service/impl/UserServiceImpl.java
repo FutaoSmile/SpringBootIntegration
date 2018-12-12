@@ -72,6 +72,18 @@ public class UserServiceImpl implements UserService {
     @Value("${futao.registerMailCodeExpireSecond}")
     public int registerMailCodeExpireSecond;
 
+    /**
+     * TODO("注册功能还有问题")
+     *
+     * @param username
+     * @param password
+     * @param age
+     * @param mobile
+     * @param email
+     * @param address
+     * @param verifyCode
+     * @param sex
+     */
     @Override
     public void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex) {
         //1.查询该手机号有没有被注册

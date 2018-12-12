@@ -24,13 +24,13 @@ spring:
       packagesToScan: com.futao.springmvcdemo.model
     hibernate:
       ddl-auto: update
-    data:
-      # 全文检索 elasticsearch
-      elasticsearch:
-        cluster-name: springboot-service #节点名称
-        cluster-nodes: 47.106.247.59:9300 #节点地址
-        repositories:
-          enabled: true
+  #    data:
+  #      # 全文检索 elasticsearch
+  #      elasticsearch:
+  #        cluster-name: springboot-service #节点名称
+  #        cluster-nodes: 47.106.247.59:9300 #节点地址
+  #        repositories:
+  #          enabled: true
   # 数据源
   datasource:
     url: jdbc:mysql://47.106.247.59:3306/springboot?useUnicode=true&characterEncoding=utf8
@@ -60,15 +60,16 @@ spring:
     time-zone: GMT+8
   # redis
   redis:
-    database: 1
+    database: 0
     host: 47.106.247.59
     port: 6379
-      password: redisPass123.
+    password: redisPass123.
     jedis:
       pool:
         max-active: 10
         min-idle: 0
         max-idle: 8
+        max-wait:
     timeout: 10s
   thymeleaf:
     cache: true
@@ -79,7 +80,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password:
+    password: qzezzeylwgmsgabb
     properties:
       smtp:
         auth: true
@@ -159,8 +160,8 @@ debug: true
 #              BasicBinder: TRACE
 
 # [日志打印出来不好看.xml]logback-spring
-log:
-  path: logs
+#log:
+#  path: logs
 
 
 futao:

@@ -74,7 +74,7 @@ open class RedisConfiguration : CachingConfigurerSupport() {
 
     override fun cacheManager(): CacheManager {
         val configuration = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(3))
+                .entryTtl(Duration.ofSeconds(60 * 5))
                 .disableCachingNullValues()
 
         return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(factory))
