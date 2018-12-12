@@ -50,6 +50,8 @@ public class HibernateValidatorConfiguration {
 
     /**
      * 手动触发校验，可直接在需要校验对象的地方调用这个方法
+     * 对于重写了message的提示信息，直接返回该message
+     * 对于没有重写message的系统默认提示信息，返回某个字段-违反了某个规则的message格式返回
      *
      * @param obj
      */
@@ -57,7 +59,6 @@ public class HibernateValidatorConfiguration {
         Set<ConstraintViolation<Object>> constraintViolations = validator().validate(obj);
         if (constraintViolations.size() > 0) {
             String message = constraintViolations.iterator().next().getMessage();
-
             throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + message);
         }
     }

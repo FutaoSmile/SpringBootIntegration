@@ -43,8 +43,8 @@ public class NormalTest {
 
     @Test
     public void test35() {
-        Random random = new Random();
-        System.out.println(random.nextInt());
+        String str = "";
+        str.replaceAll("1", "2");
     }
 
     @Test
