@@ -5,6 +5,7 @@ import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.service.ArticleService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author futao
  * Created on 2018/10/20.
  */
+@ApiIgnore
 @RestController
 @RequestMapping(path = "article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ArticleController {

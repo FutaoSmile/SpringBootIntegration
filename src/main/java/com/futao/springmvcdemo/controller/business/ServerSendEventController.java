@@ -4,6 +4,7 @@ import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Random;
 
@@ -15,6 +16,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping(path = "sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+@ApiIgnore
 public class ServerSendEventController {
 
     @RequestMapping(path = "push")

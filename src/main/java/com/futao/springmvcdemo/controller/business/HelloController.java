@@ -6,6 +6,7 @@ import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author futao
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("Hello")
 @Sign
+@ApiIgnore
 public class HelloController {
 
     @RequestMapping(value = "get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
