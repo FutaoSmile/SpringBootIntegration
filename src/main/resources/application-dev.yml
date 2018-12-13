@@ -27,7 +27,7 @@ spring:
   #  data:
   #    # 全文检索 elasticsearch
   #    elasticsearch:
-  #      cluster-name: elasticsearch #节点名称
+  #      cluster-name: elasticsearch-service #节点名称
   #      cluster-nodes: 127.0.0.1:9300 #节点地址
   #      repositories:
   #        enabled: true
@@ -63,7 +63,7 @@ spring:
     database: 0
     host: localhost
     port: 6379
-    #    password: 12345
+    #    password: nobug666
     jedis:
       pool:
         max-active: 10

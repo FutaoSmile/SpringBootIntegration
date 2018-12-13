@@ -1,6 +1,6 @@
-package com.futao.springmvcdemo.annotation.interceptor.impl;
+package com.futao.springmvcdemo.annotation.impl.interceptor;
 
-import com.futao.springmvcdemo.annotation.interceptor.Sign;
+import com.futao.springmvcdemo.annotation.Sign;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

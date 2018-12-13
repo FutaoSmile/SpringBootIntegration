@@ -2,7 +2,7 @@
 * SpringBoot 2.0.5.RELEASE
 * java 1.8
 * redis
-* rocketmq 4.3.0
+* rocket mq 4.3.0
 * elasticsearch 5.6.11
 * gradle
 * mybatis
@@ -121,7 +121,7 @@ src
 * zxing二维码
 * hashMap原理
 
-```xml
+```
 报错内容:
 
 Error running 'ServiceStarter': Command line is too long. Shorten command line for ServiceStarter or also for Application default configuration.
@@ -148,3 +148,17 @@ java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
     ============================================*/
 
 需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了
+
+```
+# mysql 字符集设置
+[client]
+# 设置mysql客户端默认字符集
+default-character-set=utf8mb4
+[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8mb4
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+```

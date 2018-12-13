@@ -1,6 +1,7 @@
 package com.futao.springmvcdemo.utils;
 
 import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,7 +30,7 @@ public class ThreadLocalUtils<T> {
     public T get() {
         T t = threadLocal.get();
         if (t == null) {
-            throw LogicException.le("您还未登陆");
+            throw LogicException.le(ErrorMessage.NOT_LOGIN);
         }
         return t;
     }

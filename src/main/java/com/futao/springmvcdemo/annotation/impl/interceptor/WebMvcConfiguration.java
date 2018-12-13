@@ -1,8 +1,5 @@
-package com.futao.springmvcdemo.annotation.interceptor;
+package com.futao.springmvcdemo.annotation.impl.interceptor;
 
-import com.futao.springmvcdemo.annotation.interceptor.impl.LoginUserInterceptor;
-import com.futao.springmvcdemo.annotation.interceptor.impl.RequestLogInterceptor;
-import com.futao.springmvcdemo.annotation.interceptor.impl.SignInterceptor;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.utils.TimeUtilsKt;
 import org.joda.time.DateTime;

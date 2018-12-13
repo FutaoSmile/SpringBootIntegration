@@ -82,7 +82,7 @@ public interface UserDao {
      * @return
      */
     @Select("select " +
-            "id,createTime,lastModifyTime,username,age,mobile,email,address " +
+            "id,createTime,lastModifyTime,username,age,mobile,email,address,role " +
             "from " +
             "futao_user " +
             "where " +

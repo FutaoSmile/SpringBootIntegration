@@ -59,7 +59,7 @@ public class HibernateValidatorConfiguration {
         Set<ConstraintViolation<Object>> constraintViolations = validator().validate(obj);
         if (constraintViolations.size() > 0) {
             String message = constraintViolations.iterator().next().getMessage();
-            throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + message);
+            throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + " " + message);
         }
     }
 }

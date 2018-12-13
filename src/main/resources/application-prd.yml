@@ -27,7 +27,7 @@ spring:
   #    data:
   #      # 全文检索 elasticsearch
   #      elasticsearch:
-  #        cluster-name: springboot-service #节点名称
+  #        cluster-name: elasticsearch-service #节点名称
   #        cluster-nodes: 47.106.247.59:9300 #节点地址
   #        repositories:
   #          enabled: true

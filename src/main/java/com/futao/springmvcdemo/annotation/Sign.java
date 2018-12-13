@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.annotation.interceptor;
+package com.futao.springmvcdemo.annotation;
 
 import java.lang.annotation.*;
 

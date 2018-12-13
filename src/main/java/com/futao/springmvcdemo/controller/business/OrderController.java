@@ -4,7 +4,7 @@
 
 package com.futao.springmvcdemo.controller.business;
 
-import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
+import com.futao.springmvcdemo.annotation.LoginUser;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.service.OrderSyncService;
 import org.springframework.http.MediaType;

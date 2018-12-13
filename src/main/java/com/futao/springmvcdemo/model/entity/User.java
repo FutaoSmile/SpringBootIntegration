@@ -1,10 +1,12 @@
 package com.futao.springmvcdemo.model.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,8 +28,11 @@ public class User extends BaseEntity {
 
     /**
      * 密码
+     *
+     * @JsonIgnore
+     * @Transient
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     private String password;
     /**
      * 年龄
@@ -61,6 +66,12 @@ public class User extends BaseEntity {
      * 性别
      */
     private int sex;
+
+    /**
+     * 角色
+     * {@link com.futao.springmvcdemo.model.enums.User_Role}
+     */
+    private int role;
 
     public User() {
     }
@@ -127,5 +138,13 @@ public class User extends BaseEntity {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(String mobile, String password, HttpServletRequest request) {
-        String md5Pwd = CommonUtilsKt.md5(password);
+        String md5Pwd = CommonUtilsKt.md5(password + pwdSalt);
         User user = userDao.getUserByMobileAndPwd(mobile, md5Pwd);
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userNameLogin(User user, HttpServletRequest request) {
-        String md5Pwd = CommonUtilsKt.md5(user.getPassword());
+        String md5Pwd = CommonUtilsKt.md5(user.getPassword() + pwdSalt);
         User byUserNameAndPwd = userDao.getUserByUserNameAndPwd(user.getUsername(), md5Pwd);
 
         if (ObjectUtils.allNotNull(byUserNameAndPwd)) {
@@ -145,15 +145,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Cacheable(value = "userList")
     @Override
-    @Cacheable(value = "user")
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
         String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
                 .orderBy(orderBy)
                 .page(pageNum, pageSize)
                 .getSql();
-        return userDao.list(sql);
+        List<User> list = userDao.list(sql);
+        redisTemplate.opsForValue().set("aaa", list);
+        return list;
+
     }
 
     @Override

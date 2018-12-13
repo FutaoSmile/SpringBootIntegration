@@ -1,9 +1,11 @@
 package com.futao.springmvcdemo.controller.business;
 
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springmvcdemo.annotation.interceptor.impl.RequestLogInterceptor;
+import com.futao.springmvcdemo.annotation.Role;
+import com.futao.springmvcdemo.annotation.impl.interceptor.RequestLogInterceptor;
 import com.futao.springmvcdemo.annotation.listener.OnlineHttpSessionListener;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
+import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessageFields;
 import com.futao.springmvcdemo.service.StatisticService;
 import org.springframework.http.MediaType;
@@ -40,10 +42,12 @@ public class StatisticController {
      *
      * @return
      */
+    @Role(User_Role.Admin)
     @GetMapping("onlinePeopleQuantity")
     public SingleValueResult onlinePeopleQuantity() {
         return new SingleValueResult(onlineHttpSessionListener.getOnlinePeopleQuantity().get());
     }
+
     /**
      * 获取接口的请求次数统计
      *

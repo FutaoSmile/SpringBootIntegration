@@ -2,11 +2,13 @@ package com.futao.springmvcdemo.controller.business;
 
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.IllegalValueCheck;
-import com.futao.springmvcdemo.annotation.interceptor.LoginUser;
+import com.futao.springmvcdemo.annotation.LoginUser;
+import com.futao.springmvcdemo.annotation.Role;
 import com.futao.springmvcdemo.foundation.configuration.ApplicationContext;
 import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
 import org.springframework.http.MediaType;
@@ -93,6 +95,23 @@ public class UserController {
         return new SingleValueResult("注册成功");
     }
 
+
+    /**
+     * 获取用户列表
+     *
+     * @return
+     */
+    @GetMapping("list")
+    @Role({User_Role.Admin, User_Role.Normal})
+    public PageResultList<User> list(
+            @RequestParam(value = "mobile", required = false) String mobile,
+            @RequestParam(value = "orderBy", required = false) String orderBy,
+            @RequestParam("pageNum") int pageNum,
+            @RequestParam("pageSize") int pageSize
+    ) {
+        return new PageResultList<>(userService.list(mobile, pageNum, pageSize, orderBy), 1, 11);
+    }
+
     /**
      * 登陆接口
      *
@@ -129,21 +148,6 @@ public class UserController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("当前的登陆的用户是:", userService.currentUser());
         return jsonObject;
-    }
-
-    /**
-     * 获取用户列表
-     *
-     * @return
-     */
-    @GetMapping("list")
-    public PageResultList<User> list(
-            @RequestParam(value = "mobile", required = false) String mobile,
-            @RequestParam(value = "orderBy", required = false) String orderBy,
-            @RequestParam("pageNum") int pageNum,
-            @RequestParam("pageSize") int pageSize
-    ) {
-        return new PageResultList<>(userService.list(mobile, pageNum, pageSize, orderBy), 1, 11);
     }
 
 

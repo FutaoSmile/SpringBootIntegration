@@ -18,8 +18,9 @@ class PageResultUtils<T : BaseEntity> {
         return this
     }
 
-    fun orderBy(columnName: String): PageResultUtils<T> {
-        sql += " order by $columnName"
+    fun orderBy(columnName: String?): PageResultUtils<T> {
+        if (!columnName.isNullOrBlank())
+            sql += " order by $columnName"
         return this
     }
 
