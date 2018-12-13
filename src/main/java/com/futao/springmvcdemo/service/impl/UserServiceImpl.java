@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
         }
         String verifyCode = CommonUtilsKt.numVerifyCode(6);
 
-        //4.通过消息队列发送注册邮件
+        //4.TODO("通过消息队列")发送注册邮件
         MailMSingle mailM = new MailMSingle();
         mailM.setTo(email);
         mailM.setSubject("快乐的网站 | 注册验证码");

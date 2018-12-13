@@ -1,6 +1,5 @@
 package com.futao.springmvcdemo.foundation;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 
 import javax.servlet.*;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author futao

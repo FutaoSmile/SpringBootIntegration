@@ -101,7 +101,8 @@ dependencies {
     compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
     // https://mvnrepository.com/artifact/com.google.zxing/core
     compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
-
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring
+    compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
 }
 
 compileKotlin {

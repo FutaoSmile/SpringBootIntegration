@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse
 @ApiIgnore
 open class OpenController {
 
-    @RequestMapping(path = ["/"], method = [RequestMethod.GET, RequestMethod.OPTIONS])
+    //    @RequestMapping(path = ["/"], method = [RequestMethod.GET, RequestMethod.OPTIONS])
     open fun option(request: HttpServletRequest, response: HttpServletResponse): SingleValueResult {
         response.sendRedirect("http://47.106.247.59:8888/swagger-ui.html#")
         return SingleValueResult("swagger api地址: http://localhost:8888/swagger-ui.html#!" +

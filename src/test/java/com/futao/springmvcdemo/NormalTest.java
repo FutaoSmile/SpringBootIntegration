@@ -31,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,6 +41,17 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    /**
+     * 当前系统时间
+     */
+    @Test
+    public void test36() {
+        System.out.println(new Timestamp(new DateTime().getMillis()));
+        System.out.println(new Timestamp(System.currentTimeMillis()));
+        System.out.println(new Timestamp(new Date().getTime()));
+        System.out.println(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+    }
 
     @Test
     public void test35() {
