@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.futao.springmvcdemo.model.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.mapstruct.Mapper;
@@ -12,7 +13,7 @@ import java.util.List;
  * Created on 2018/9/20-16:00.
  */
 @Mapper
-public interface UserDao {
+public interface UserDao extends BaseMapper<User> {
 
 //    /**
 //     * 查询用户列表

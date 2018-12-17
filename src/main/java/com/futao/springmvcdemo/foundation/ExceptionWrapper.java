@@ -17,9 +17,9 @@ import javax.validation.ConstraintViolationException;
  * @author futao
  * Created on 2018/11/6.
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
 public class ExceptionWrapper {
-    private static final Logger logger = LoggerFactory.getLogger(ExceptionWrapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWrapper.class);
 
     /**
      * 全局异常处理
@@ -31,7 +31,7 @@ public class ExceptionWrapper {
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public Object logicExceptionHandler(HttpServletRequest request, Exception e, HttpServletResponse response) {
+    public Object exceptionHandler(HttpServletRequest request, Exception e, HttpServletResponse response) {
         //系统级异常，错误码固定为-1，提示语固定为系统繁忙，请稍后再试
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.SYSTEM_EXCEPTION);
         //如果是业务逻辑异常，返回具体的错误码与提示信息
@@ -51,7 +51,7 @@ public class ExceptionWrapper {
             }
         } else {
             //对系统级异常进行日志记录
-            logger.error("系统异常:" + e.getMessage(), e);
+            LOGGER.error("系统异常:" + e.getMessage(), e);
         }
         return JSONObject.toJSON(result);
     }

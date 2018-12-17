@@ -1,5 +1,7 @@
 package com.futao.springmvcdemo.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
@@ -37,7 +39,7 @@ import static com.futao.springmvcdemo.utils.TimeUtilsKt.currentTimeStamp;
  */
 @Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService, IService<User> {
     /**
      * 密码加盐
      */
@@ -148,12 +150,15 @@ public class UserServiceImpl implements UserService {
     @Cacheable(value = "userList")
     @Override
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
-        PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
-        String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
-                .orderBy(orderBy)
-                .page(pageNum, pageSize)
-                .getSql();
-        List<User> list = userDao.list(sql);
+//        PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
+//        String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
+//                .orderBy(orderBy)
+//                .page(pageNum, pageSize)
+//                .getSql();
+//        List<User> list = userDao.list(sql);
+        User user = new User();
+
+        List<User> list = this.list();
         redisTemplate.opsForValue().set("aaa", list);
         return list;
 
@@ -195,6 +200,5 @@ public class UserServiceImpl implements UserService {
         mailService.sendSimpleEmail(new String[]{mailM.getTo()}, new String[]{mailM.getCc()}, mailM.getSubject(), mailM.getContent());
         //5.将验证码存入redis环境，控制有效期
         redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.registerEmailCode, email), verifyCode, registerMailCodeExpireSecond, TimeUnit.SECONDS);
-
     }
 }

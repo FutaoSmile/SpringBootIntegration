@@ -17,6 +17,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author futao
  * ServletComponentScan 开启servlet和filter
  * springboot项目在启动的时候如果抛出了Exception的话会导致项目启动失败，且异常信息不会打印出来
+ * <p>
+ * The @EnableRedisHttpSession annotation
+ * creates a Spring Bean with the name of springSessionRepositoryFilter that implements Filter.
  */
 @SpringBootApplication
 @ServletComponentScan
@@ -29,6 +32,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableEntity
 //@EnableWebSocketMessageBroker
 @EnableTransactionManagement
+//@EnableRedisHttpSession
 public class SpringmvcdemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -47,6 +51,17 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
          */
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
     }
+
+    /**
+     * 开启spring-session redis管理session
+     * We create a RedisConnectionFactory that connects Spring Session to the Redis Server
+     *
+     * @return
+     */
+//    @Bean
+//    public LettuceConnectionFactory connectionFactory() {
+//        return new LettuceConnectionFactory();
+//    }
 
     /**
      * Callback used to run the bean.

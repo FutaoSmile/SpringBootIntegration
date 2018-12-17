@@ -1,7 +1,10 @@
 package com.futao.springmvcdemo.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.futao.springmvcdemo.model.enums.User_Sex;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +21,7 @@ import javax.validation.constraints.Size;
  */
 @Validated
 @AllArgsConstructor
+@TableName(value = "futao_user")
 public class User extends BaseEntity {
 
     /**
@@ -65,6 +69,7 @@ public class User extends BaseEntity {
      * {@link com.futao.springmvcdemo.model.enums.User_Sex}
      * 性别
      */
+//    @JSONField(serialzeFeatures = SerializerFeature.WriteEnumUsingToString)
     private int sex;
 
     /**

@@ -26,7 +26,7 @@ public interface UserService {
      *
      * @return
      */
-    List<User> list(String mobile, int pageNum, int pageSize, String orderBy);
+    List list(String mobile, int pageNum, int pageSize, String orderBy);
 
     int total();
 

@@ -57,7 +57,9 @@
 
 > 获取汉字拼音的首字母
 
->读取Excel
+> 分布式session管理 => springSession + redis
+
+> mybatis-plus(待优化)
  
 ### # 项目结构
 ```
@@ -120,7 +122,7 @@ src
     * Socket
 * zxing二维码
 * hashMap原理
-
+* gradle profile 根据不同用户读取不同的配置文件
 ```
 报错内容:
 

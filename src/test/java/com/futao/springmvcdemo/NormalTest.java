@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futao.springmvcdemo.a.Classes;
 import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.foundation.LogicException;
@@ -41,6 +43,22 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    @Test
+    public void test37() throws JsonProcessingException {
+        com.futao.springmvcdemo.A a = new com.futao.springmvcdemo.A();
+        a.add("super1");
+        a.add("super2");
+        ArrayList list = new ArrayList();
+        list.add("sub1");
+        list.add("sub2");
+        a.setList(list);
+        a.setString("aHa");
+//        a.setList(new ArL);
+        ObjectMapper jsonList = new ObjectMapper();
+        System.out.println(a.toString());
+        System.out.println(jsonList.writeValueAsString(a));
+    }
 
     /**
      * 当前系统时间

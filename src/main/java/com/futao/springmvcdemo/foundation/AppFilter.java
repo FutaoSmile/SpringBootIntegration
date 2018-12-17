@@ -30,6 +30,7 @@ public class AppFilter implements Filter {
         allowOrigins.add("http://localhost:63343");
         allowOrigins.add("http://localhost:9527");
         allowOrigins.add("http://localhost:8080");
+        allowOrigins.add("http://localhost:4444");
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");

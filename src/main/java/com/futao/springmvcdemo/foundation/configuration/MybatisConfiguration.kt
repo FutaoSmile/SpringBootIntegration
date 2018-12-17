@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.foundation.configuration
 
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean
 import org.mybatis.spring.SqlSessionFactoryBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,6 +9,9 @@ import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.TransactionManagementConfigurer
 import javax.annotation.Resource
 import javax.sql.DataSource
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor
+
+
 
 /**
  * Mybatis配置类
@@ -31,8 +35,9 @@ open class MybatisConfiguration : TransactionManagementConfigurer {
     lateinit var dataSource: DataSource
 
     @Bean(name = ["sqlSessionFactory"])
-    open fun sqlSessionFactory(): SqlSessionFactoryBean {
-        val factoryBean = SqlSessionFactoryBean()
+    open fun sqlSessionFactory(): MybatisSqlSessionFactoryBean {
+//        val factoryBean = SqlSessionFactoryBean()
+        val factoryBean = MybatisSqlSessionFactoryBean()
         factoryBean.setDataSource(dataSource)
         return factoryBean
     }
@@ -42,6 +47,14 @@ open class MybatisConfiguration : TransactionManagementConfigurer {
         val transactionManager = DataSourceTransactionManager()
         transactionManager.setDataSource(dataSource)
         return transactionManager
+    }
+
+    /**
+     * 分页插件
+     */
+    @Bean
+    open fun paginationInterceptor(): PaginationInterceptor {
+        return PaginationInterceptor()
     }
 
 }
