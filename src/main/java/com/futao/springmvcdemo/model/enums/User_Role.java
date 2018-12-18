@@ -48,5 +48,4 @@ public enum User_Role {
         }
         throw LogicException.le(ErrorMessage.ROLE_NOT_EXIST);
     }
-
 }

@@ -24,10 +24,10 @@ public class ExceptionWrapper {
     /**
      * 全局异常处理
      *
-     * @param request
-     * @param e
-     * @param response
-     * @return
+     * @param request  请求
+     * @param e        异常
+     * @param response 响应
+     * @return 处理后的异常的数据结构
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody

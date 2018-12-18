@@ -17,7 +17,7 @@ public interface UserService {
 
     User getUserById(String id);
 
-    void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex) ;
+    void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex);
 
     User login(String mobile, String password, HttpServletRequest request);
 

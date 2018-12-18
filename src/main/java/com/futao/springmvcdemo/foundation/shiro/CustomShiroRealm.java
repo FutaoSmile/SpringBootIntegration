@@ -8,15 +8,17 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * @author futao
  * Created on 2018-12-13.
  */
-public class CustomShiroRealm extends AuthorizingRealm {
+public class CustomShiroRealm extends JdbcRealm {
 
 
     @Resource
@@ -44,5 +46,20 @@ public class CustomShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         return null;
+    }
+
+    @Override
+    public void setDataSource(DataSource dataSource) {
+        super.setDataSource(dataSource);
+    }
+
+    @Override
+    public void setUserRolesQuery(String userRolesQuery) {
+        super.setUserRolesQuery(userRolesQuery);
+    }
+
+    @Override
+    public void setPermissionsQuery(String permissionsQuery) {
+        super.setPermissionsQuery(permissionsQuery);
     }
 }

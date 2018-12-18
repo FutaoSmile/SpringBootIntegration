@@ -10,6 +10,7 @@ import com.futao.springmvcdemo.a.Classes;
 import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.suit.A;
@@ -43,6 +44,12 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+    @Test
+    public void test38() {
+        System.out.println(JSON.toJSONString(User_Role.Admin));
+        System.out.println(JSON.toJSON(User_Role.Admin));
+        System.out.println(User_Role.Admin.toString());
+    }
 
     @Test
     public void test37() throws JsonProcessingException {

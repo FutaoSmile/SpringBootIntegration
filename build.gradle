@@ -69,40 +69,26 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 //    compile group: 'com.alibaba.rocketmq', name: 'rocketmq-client', version: '3.6.2.Final'
 //    compile 'org.apache.rocketmq:spring-boot-starter-rocketmq:1.0.0-SNAPSHOT'
-    // https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client
 
 
     // compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: '4.3.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
 //    compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.14')
     compile('org.elasticsearch.client:transport:5.6.11')
-    // https://mvnrepository.com/artifact/org.reflections/reflections
     compile('org.reflections:reflections:0.9.11')
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
-    // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
-// https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-//    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-// https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
-    // https://mvnrepository.com/artifact/org.apache.poi/poi
     compile group: 'org.apache.poi', name: 'poi', version: '3.15'
-    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
-    // https://mvnrepository.com/artifact/com.belerweb/pinyin4j
     compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
-    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-core
-    compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
-    // https://mvnrepository.com/artifact/com.google.zxing/core
     compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
-    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+    compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
     compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.6'
     // springSession redis管理session
 //    compile group: 'org.springframework.session', name: 'spring-session-data-redis'

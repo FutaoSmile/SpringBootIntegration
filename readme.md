@@ -60,6 +60,7 @@
 > 分布式session管理 => springSession + redis
 
 > mybatis-plus(待优化)
+[https://mp.baomidou.com/](https://mp.baomidou.com/)
  
 ### # 项目结构
 ```
@@ -164,3 +165,9 @@ character-set-server=utf8mb4
 collation-server=utf8mb4_unicode_ci
 
 ```
+
+### # 开发者profile的解决方案:
+[使用gradle构建的springboot项目在IDEA根据不同的开发人员读取不同的配置文件](https://www.jianshu.com/p/27abbeccbebe)
+
+新建application-developerName.yml
+在IDEA中设置 ProgramArguments:`spring.profiles.active=developerName`

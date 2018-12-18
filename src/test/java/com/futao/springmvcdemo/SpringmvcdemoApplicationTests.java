@@ -18,4 +18,12 @@ public class SpringmvcdemoApplicationTests {
         System.out.println(id);
     }
 
+    @Value("${aha}")
+    private String aha;
+
+    @Test
+    public void test11() {
+        System.out.println("ah-----" + aha);
+        System.out.println("-=-=-==" + id);
+    }
 }

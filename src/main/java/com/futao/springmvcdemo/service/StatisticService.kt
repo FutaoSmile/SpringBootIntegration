@@ -1,10 +1,11 @@
 package com.futao.springmvcdemo.service
 
+import com.alibaba.fastjson.JSONArray
 import com.futao.springmvcdemo.model.system.ErrorMessageFields
-import java.util.*
 
 interface StatisticService {
-    @Override
-    fun getErrorMessages(): ArrayList<ErrorMessageFields>
 
+    fun enumList(): MutableMap<String, JSONArray>?
+    @Throws(IllegalAccessException::class)
+    fun getErrorMessages(): List<ErrorMessageFields>
 }

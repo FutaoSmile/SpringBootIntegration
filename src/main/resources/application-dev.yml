@@ -178,4 +178,3 @@ mybatis-plus:
       #      查询的时候并不会带上
       table-prefix: futao_
       table-underline: false
-

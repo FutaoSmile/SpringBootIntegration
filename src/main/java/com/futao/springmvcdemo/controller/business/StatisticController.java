@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.controller.business;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.Role;
 import com.futao.springmvcdemo.annotation.impl.interceptor.RequestLogInterceptor;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -64,10 +65,19 @@ public class StatisticController {
      * @return
      */
     @GetMapping("errorMessages")
-    public List<ErrorMessageFields> errorMessages() {
-        ArrayList<ErrorMessageFields> errorMessages = statisticService.getErrorMessages();
+    public List<ErrorMessageFields> errorMessages() throws IllegalAccessException {
+        List<ErrorMessageFields> errorMessages = statisticService.getErrorMessages();
         System.out.println(JSONObject.toJSONString(errorMessages));
         return errorMessages;
     }
 
+    /**
+     * 查看系统中的enums
+     *
+     * @return
+     */
+    @GetMapping("enumList")
+    public Map<String, JSONArray> enumList() {
+        return statisticService.enumList();
+    }
 }

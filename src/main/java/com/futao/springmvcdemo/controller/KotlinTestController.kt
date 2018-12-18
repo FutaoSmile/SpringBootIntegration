@@ -11,6 +11,7 @@ import com.futao.springmvcdemo.service.impl.KotlinTestServiceImpl
 //import org.apache.rocketmq.client.producer.DefaultMQProducer
 //import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Conditional
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
@@ -32,6 +33,18 @@ import javax.annotation.Resource
 @RequestMapping(path = ["kotlinTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
 @ApiIgnore
 open class KotlinTestController {
+
+    @Value("\${niu.a}")
+    private lateinit var id: String
+
+    @Value("\${wohenniu}")
+    private lateinit var aha: String
+
+
+    @GetMapping("test")
+    open fun test(): SingleValueResult {
+        return SingleValueResult("$id---$aha")
+    }
 
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
