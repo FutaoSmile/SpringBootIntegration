@@ -11,6 +11,8 @@ import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -125,6 +127,11 @@ public class UserController {
             @RequestParam("password") String password,
             HttpServletRequest request
     ) {
+        try {
+//            SecurityUtils.getSubject().login(new UsernamePasswordToken(mobile, password));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return userService.login(mobile, password, request);
     }
 

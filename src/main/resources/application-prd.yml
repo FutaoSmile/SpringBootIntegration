@@ -167,3 +167,15 @@ debug: true
 futao:
   # 注册邮件验证码过期时间
   registerMailCodeExpireSecond: 7200
+
+# mybatis-plus插件
+mybatis-plus:
+  typeAliasesPackage: com.futao.springmvcdemo.model.entity
+  global-config:
+    db-config:
+      #      大写
+      capital-mode: false
+      db-type: mysql
+      #      查询的时候并不会带上
+      table-prefix: futao_
+      table-underline: false

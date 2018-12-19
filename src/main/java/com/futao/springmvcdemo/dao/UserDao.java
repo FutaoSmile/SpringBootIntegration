@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.mapstruct.Mapper;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -171,4 +172,7 @@ public interface UserDao extends BaseMapper<User> {
                          @Param("sex") int sex,
                          @Param("email") String email
     );
+
+
+    ArrayList<String> getUserRoleList();
 }

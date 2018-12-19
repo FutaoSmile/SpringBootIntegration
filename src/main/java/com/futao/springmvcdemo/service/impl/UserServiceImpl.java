@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     /**
      * 密码加盐
      */
-    private static final String pwdSalt = "nobug666";
+    public static final String pwdSalt = "nobug666";
     @Resource
     private ThreadLocalUtils threadLocalUtils;
 
@@ -201,4 +201,5 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         //5.将验证码存入redis环境，控制有效期
         redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.registerEmailCode, email), verifyCode, registerMailCodeExpireSecond, TimeUnit.SECONDS);
     }
+
 }
