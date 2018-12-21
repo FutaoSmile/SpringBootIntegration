@@ -73,6 +73,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Value("${futao.registerMailCodeExpireSecond}")
     public int registerMailCodeExpireSecond;
 
+    @Value("${futao.sessionInvalidateSecond}")
+    private int sessionInvalidateSecond;
+
     /**
      * TODO("注册功能还有问题")
      *
@@ -124,7 +127,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
             session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
-            session.setMaxInactiveInterval(Constant.SESSION_INVALIDATE_SECOND);
+            session.setMaxInactiveInterval(sessionInvalidateSecond);
             return user;
         } else {
             throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);
@@ -139,7 +142,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         if (ObjectUtils.allNotNull(byUserNameAndPwd)) {
             HttpSession session = request.getSession();
             session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
-            session.setMaxInactiveInterval(Constant.SESSION_INVALIDATE_SECOND);
+            session.setMaxInactiveInterval(sessionInvalidateSecond);
             return byUserNameAndPwd;
         } else {
             throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);

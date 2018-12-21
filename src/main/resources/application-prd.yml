@@ -167,6 +167,7 @@ debug: true
 futao:
   # 注册邮件验证码过期时间
   registerMailCodeExpireSecond: 7200
+  sessionInvalidateSecond: 86400
 
 # mybatis-plus插件
 mybatis-plus:

@@ -9,10 +9,6 @@ public final class Constant {
      * session中存放登陆用户的id的session key
      */
     public static final String LOGIN_USER_SESSION_KEY = "userLoginUserId";
-    /**
-     * session过期时间,单位：秒
-     */
-    public static final int SESSION_INVALIDATE_SECOND = 10;
 
     /**
      * UTF-8编码

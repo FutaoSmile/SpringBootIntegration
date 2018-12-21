@@ -166,6 +166,7 @@ threadpool:
 futao:
   # 注册邮件验证码过期时间
   registerMailCodeExpireSecond: 300
+  sessionInvalidateSecond: 1800
 
 # mybatis-plus插件
 mybatis-plus:

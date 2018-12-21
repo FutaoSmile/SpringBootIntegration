@@ -1,11 +1,10 @@
 package com.futao.springmvcdemo.annotation.impl.interceptor;
 
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.system.SystemConfiguration;
 import com.futao.springmvcdemo.utils.TimeUtilsKt;
 import org.joda.time.DateTime;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -36,23 +35,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private LoginUserInterceptor loginUserInterceptor;
     @Resource
     private RequestLogInterceptor requestLogInterceptor;
-
-//    @Resource
-//    private MessageConvertConfiguration messageConvertConfiguration;
-
-//    @Resource
-//    private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
-
-    @Bean
-    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-        return new FastJsonHttpMessageConverter();
-    }
-
-//    @Bean
-//    public MessageConvertConfiguration messageConvertConfiguration() {
-//        return new MessageConvertConfiguration();
-//    }
-
 
     /**
      * 添加拦截器
@@ -188,7 +170,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
+        registry.addMapping("/**")
+                .allowCredentials(true)
+                .allowedMethods("*")
+                .allowedHeaders("Content-Type")
+                .allowedOrigins(SystemConfiguration.ALLOWORIGINS)
+                .maxAge(SystemConfiguration.ORIGINMAXAGE);
     }
 
     /**

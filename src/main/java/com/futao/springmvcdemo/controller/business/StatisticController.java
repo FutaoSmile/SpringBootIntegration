@@ -98,7 +98,7 @@ public class StatisticController {
      * @return
      */
     @ApiOperation("统计系统中所有的api")
-    @GetMapping("apiList")
+    @GetMapping(path = "apiList")
     public ArrayList<ApiControllerDescription> apiList() {
         return statisticService.apiList();
     }
