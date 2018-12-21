@@ -11,7 +11,6 @@ import com.futao.springmvcdemo.service.MailService;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.CommonUtilsKt;
-import com.futao.springmvcdemo.utils.PageResultUtils;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     /**
      * 密码加盐
      */
-    public static final String pwdSalt = "nobug666";
+    public static final String PWD_SALT = "nobug666";
     @Resource
     private ThreadLocalUtils threadLocalUtils;
 
@@ -92,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 //        User userInfo = userDao.getUserByMobile(mobile);
 
         //检查验证码
-        Object o = redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.registerEmailCode, email));
+        Object o = redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email));
         //检查是否过期
         if (o == null) {
             throw LogicException.le(ErrorMessage.VERIFY_CODE_EXPIRED);
@@ -107,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
         }
         //更新账号信息与状态
-        userDao.registerByEmail(username, CommonUtilsKt.md5(password + pwdSalt), age, mobile, address, User_Status.Normal.getCode(), sex, email);
+        userDao.registerByEmail(username, CommonUtilsKt.md5(password + PWD_SALT), age, mobile, address, User_Status.Normal.getCode(), sex, email);
     }
 
     /**
@@ -120,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
      */
     @Override
     public User login(String mobile, String password, HttpServletRequest request) {
-        String md5Pwd = CommonUtilsKt.md5(password + pwdSalt);
+        String md5Pwd = CommonUtilsKt.md5(password + PWD_SALT);
         User user = userDao.getUserByMobileAndPwd(mobile, md5Pwd);
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
@@ -134,7 +133,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public User userNameLogin(User user, HttpServletRequest request) {
-        String md5Pwd = CommonUtilsKt.md5(user.getPassword() + pwdSalt);
+        String md5Pwd = CommonUtilsKt.md5(user.getPassword() + PWD_SALT);
         User byUserNameAndPwd = userDao.getUserByUserNameAndPwd(user.getUsername(), md5Pwd);
 
         if (ObjectUtils.allNotNull(byUserNameAndPwd)) {
@@ -185,13 +184,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         Timestamp currentTimeStamp = currentTimeStamp();
         userDao.preRegister(UUIDService.get(), email, User_Status.Pre_Register.getCode(), currentTimeStamp, currentTimeStamp);
         //3.判断是否已经发送了邮件且未过期
-        if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.registerEmailCode, email)) != null) {
+        if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email)) != null) {
             throw LogicException.le(ErrorMessage.EMAIL_ALREADY_SEND);
         }
         String verifyCode = CommonUtilsKt.numVerifyCode(6);
 
         //4.TODO("通过消息队列")发送注册邮件
-        MailMSingle mailM = new MailMSingle();
+        MailmSingle mailM = new MailmSingle();
         mailM.setTo(email);
         mailM.setSubject("快乐的网站 | 注册验证码");
         mailM.setContent("您的验证码是" + verifyCode);
@@ -199,7 +198,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
         mailService.sendSimpleEmail(new String[]{mailM.getTo()}, new String[]{mailM.getCc()}, mailM.getSubject(), mailM.getContent());
         //5.将验证码存入redis环境，控制有效期
-        redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.registerEmailCode, email), verifyCode, registerMailCodeExpireSecond, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email), verifyCode, registerMailCodeExpireSecond, TimeUnit.SECONDS);
     }
 
 }

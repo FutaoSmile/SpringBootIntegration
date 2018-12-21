@@ -9,7 +9,7 @@ public class RedisKeySet {
     /**
      * 注册邮件验证码的key
      */
-    public static final String registerEmailCode = "registerEmailCode";
+    public static final String REGISTER_EMAIL_CODE = "REGISTER_EMAIL_CODE";
 
     /**
      * 生成redis中的key

@@ -1,6 +1,8 @@
 package com.futao.springmvcdemo.controller.business;
 
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import java.io.IOException;
  * @author futao
  * Created on 2018/9/26.
  */
+@Api("文件操作")
 @RestController
 @RequestMapping(path = "file")
 public class FileController {
@@ -45,6 +48,13 @@ public class FileController {
 //        }
 //    }
 
+    /**
+     * 上传文件
+     *
+     * @param file 文件
+     * @return
+     */
+    @ApiOperation("上传文件")
     @PostMapping(path = "upload")
     public SingleValueResult upload(
             @RequestParam(value = "file") MultipartFile file

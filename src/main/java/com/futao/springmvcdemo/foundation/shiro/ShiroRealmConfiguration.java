@@ -12,15 +12,9 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 /**
@@ -62,7 +56,7 @@ public class ShiroRealmConfiguration extends AuthorizingRealm {
             return null;
         }
         String mobile = (String) token.getPrincipal();
-        String password = CommonUtilsKt.md5(new String((char[]) token.getCredentials()) + UserServiceImpl.pwdSalt);
+        String password = CommonUtilsKt.md5(new String((char[]) token.getCredentials()) + UserServiceImpl.PWD_SALT);
         User user = userDao.getUserByMobileAndPwd(mobile, password);
         return null != user ? new SimpleAuthenticationInfo(mobile, password, getName()) : null;
     }

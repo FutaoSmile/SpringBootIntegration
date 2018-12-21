@@ -11,6 +11,8 @@ import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.http.MediaType;
@@ -28,13 +30,11 @@ import javax.validation.constraints.*;
 @RequestMapping(path = "user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RestController
 @Validated
+@Api("用户")
 public class UserController {
 
     @Resource
     private UserService userService;
-
-    @Resource
-    private ApplicationContext applicationContext;
 
     /**
      * 发送注册邮件验证码
@@ -42,6 +42,7 @@ public class UserController {
      * @param email 注册邮箱
      * @return
      */
+    @ApiOperation("发送注册邮件验证码")
     @PostMapping("sendRegisterEmailVerifyCode")
     public SingleValueResult sendRegisterEmailVerifyCode(
             @RequestParam("email")
@@ -62,6 +63,7 @@ public class UserController {
      * @param address  地址
      * @return
      */
+    @ApiOperation("通过邮箱注册")
     @PostMapping("registerByEmail")
     public SingleValueResult registerByEmail(
             /*使用@RequestBody注解需要保证该对象有默认的空的构造函数
@@ -103,6 +105,7 @@ public class UserController {
      *
      * @return
      */
+    @ApiOperation("用户列表")
     @GetMapping("list")
     @Role({User_Role.Admin, User_Role.Normal})
     public PageResultList<User> list(
@@ -121,6 +124,7 @@ public class UserController {
      * @param request
      * @return
      */
+    @ApiOperation("手机登录")
     @PostMapping(path = "mobileLogin")
     public User mobileLogin(
             @RequestParam("mobile") String mobile,
@@ -135,6 +139,7 @@ public class UserController {
         return userService.login(mobile, password, request);
     }
 
+    @ApiOperation("RequestBody形式登录")
     @PostMapping(path = "login")
     public User userNameLogin(
             @RequestBody User user,
@@ -149,6 +154,7 @@ public class UserController {
      *
      * @return
      */
+    @ApiOperation("我的信息")
     @LoginUser
     @GetMapping(path = "my")
     public JSONObject my() {
@@ -158,22 +164,13 @@ public class UserController {
     }
 
 
-    @GetMapping("get")
-    public User get() {
-        User user = new User();
-        user.setUsername("NiuBist");
-        user.setAge("18");
-        user.setEmail("12312");
-        user.setMobile("12312321312");
-        return user;
-    }
-
     /**
      * 添加评论
      *
      * @param content
      * @return
      */
+    @ApiOperation("敏感词检测")
     @PostMapping(path = "addReview")
     public SingleValueResult addReview(
             @RequestParam("content")

@@ -27,8 +27,6 @@ fun <T : BaseEntity> T.setCreateAndLastModifyTime() {
     this.lastModifyTime = currentTimeStamp
 }
 
-const val dateTimeFormatterMinute = "yyyy-MM-dd HH:mm:ss"
-
 fun currentTimeStamp(): Timestamp {
     return Timestamp(Date().time)
 }
@@ -37,7 +35,7 @@ fun currentTimeStamp(): Timestamp {
  * 将时间戳字符串转换成DateTime
  */
 fun String.toDateTime(): DateTime {
-    val timestampFormatter = DateTimeFormat.forPattern(dateTimeFormatterMinute)
+    val timestampFormatter = DateTimeFormat.forPattern(yyyyMMddHHmmss)
     return DateTime.parse(this, timestampFormatter)
 }
 
@@ -47,3 +45,13 @@ fun String.toDateTime(): DateTime {
 fun DateTime.toTimestamp(): Timestamp {
     return Timestamp(this.millis)
 }
+
+
+const val yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
+
+const val yyyyMMddhhmmss = "yyyy-MM-dd hh:mm:ss"
+
+const val yyyyMMdd = "yyyy-MM-dd"
+
+
+

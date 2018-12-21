@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futao.springmvcdemo.a.Classes;
 import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
@@ -44,6 +45,23 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    @Test
+    public void test39() {
+        User user = new User();
+        user.setAge("18");
+        System.out.println(JSONObject.toJSONString(user,
+                SerializerFeature.PrettyFormat,
+                SerializerFeature.SkipTransientField,
+                SerializerFeature.WriteDateUseDateFormat,
+                SerializerFeature.WriteMapNullValue
+        ));
+        System.out.println(JSON.toJSON(user));
+        System.out.println(JSON.toJSONString(user));
+        ApiControllerDescription apiControllerDescription = new ApiControllerDescription("desc", new ArrayList<>(),
+                "cn", new ArrayList<>());
+    }
+
     @Test
     public void test38() {
         System.out.println(JSON.toJSONString(User_Role.Admin));

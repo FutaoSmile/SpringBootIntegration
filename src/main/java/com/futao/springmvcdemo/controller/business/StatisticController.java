@@ -5,16 +5,21 @@ import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.Role;
 import com.futao.springmvcdemo.annotation.impl.interceptor.RequestLogInterceptor;
 import com.futao.springmvcdemo.annotation.listener.OnlineHttpSessionListener;
+import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
+import com.futao.springmvcdemo.model.entity.SystemInformation;
 import com.futao.springmvcdemo.model.enums.User_Role;
 import com.futao.springmvcdemo.model.system.ErrorMessageFields;
 import com.futao.springmvcdemo.service.StatisticService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,6 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created on 2018/10/11.
  * 统计
  */
+@Api("统计接口")
 @RestController
 @RequestMapping(path = "statistic", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class StatisticController {
@@ -43,6 +49,7 @@ public class StatisticController {
      *
      * @return
      */
+    @ApiOperation("统计当前在线人数")
     @Role(User_Role.Admin)
     @GetMapping("onlinePeopleQuantity")
     public SingleValueResult onlinePeopleQuantity() {
@@ -50,20 +57,22 @@ public class StatisticController {
     }
 
     /**
-     * 获取接口的请求次数统计
+     * 统计接口的请求次数
      *
      * @return
      */
+    @ApiOperation("统计接口的请求次数")
     @GetMapping("apiRequest")
     public ConcurrentHashMap<String, AtomicInteger> apiRequest() {
         return requestLogInterceptor.getApiRequestStatistic();
     }
 
     /**
-     * 查看所有的错误码
+     * 统计所有的错误码
      *
      * @return
      */
+    @ApiOperation("统计所有的错误码")
     @GetMapping("errorMessages")
     public List<ErrorMessageFields> errorMessages() throws IllegalAccessException {
         List<ErrorMessageFields> errorMessages = statisticService.getErrorMessages();
@@ -72,12 +81,40 @@ public class StatisticController {
     }
 
     /**
-     * 查看系统中的enums
+     * 统计所有的枚举类信息
      *
      * @return
      */
+    @ApiOperation("统计所有的枚举类信息")
     @GetMapping("enumList")
     public Map<String, JSONArray> enumList() {
         return statisticService.enumList();
+    }
+
+
+    /**
+     * 统计系统中所有的api
+     *
+     * @return
+     */
+    @ApiOperation("统计系统中所有的api")
+    @GetMapping("apiList")
+    public ArrayList<ApiControllerDescription> apiList() {
+        return statisticService.apiList();
+    }
+
+
+    @Resource
+    private SystemInformation systemInformation;
+
+    /**
+     * 系统版本信息
+     *
+     * @return
+     */
+    @ApiOperation("系统版本信息")
+    @GetMapping("systemInformation")
+    public SystemInformation systemInformation() {
+        return systemInformation;
     }
 }

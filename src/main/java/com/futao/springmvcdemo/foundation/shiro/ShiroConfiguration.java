@@ -4,9 +4,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.apache.shiro.web.mgt.*;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +35,7 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>(2);
         //登出
         map.put("/logout", "logout");
         //对所有用户认证

@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.model.system;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
@@ -43,6 +44,7 @@ public class RestResult {
     /**
      * 服务器当前时间（便于查找定位请求时间，因为实际开发过程中服务器时间可能跟本地时间不一致，加上这个时间戳便于日后定位）
      */
+    @JSONField(format = "yyyy-MM-dd")
     private Timestamp currentTime;
 
     public RestResult() {

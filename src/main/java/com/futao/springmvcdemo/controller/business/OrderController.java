@@ -7,6 +7,8 @@ package com.futao.springmvcdemo.controller.business;
 import com.futao.springmvcdemo.annotation.LoginUser;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.service.OrderSyncService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping(path = "order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @ApiIgnore
+@Api("订单")
 public class OrderController {
 
     @Resource
@@ -34,6 +37,7 @@ public class OrderController {
      * @param times 次数
      * @return
      */
+    @ApiOperation("同步第三方订单")
     @LoginUser
     @PostMapping(path = "sync")
     public SingleValueResult sync(@RequestParam("times") int times) {
@@ -41,6 +45,7 @@ public class OrderController {
     }
 
 
+    @ApiOperation("添加")
     @LoginUser
     @PostMapping("add")
     public SingleValueResult add(

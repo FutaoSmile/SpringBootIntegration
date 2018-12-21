@@ -1,6 +1,6 @@
 package com.futao.springmvcdemo.foundation;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import com.futao.springmvcdemo.model.system.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +48,6 @@ public class RestResultWrapper implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         RestResult result = new RestResult(true, RestResult.SUCCESS_CODE, body, null);
-        return JSONObject.toJSON(result);
+        return JSON.toJSON(result);
     }
 }

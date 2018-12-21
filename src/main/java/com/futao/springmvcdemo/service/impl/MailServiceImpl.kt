@@ -1,10 +1,6 @@
 package com.futao.springmvcdemo.service.impl
 
-import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
-import com.futao.springmvcdemo.model.system.MailM
-import com.futao.springmvcdemo.model.system.Constant
-import com.futao.springmvcdemo.model.system.MailMSingle
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.utils.logSms
 //import org.apache.rocketmq.client.producer.DefaultMQProducer
@@ -16,7 +12,6 @@ import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
-import java.nio.charset.Charset
 import javax.annotation.Resource
 
 /**
@@ -117,7 +112,7 @@ open class MailServiceImpl : MailService {
 //    /**
 //     * 通过消息队列发送邮件
 //     */
-//    override fun sendMq(mailM: MailMSingle) {
+//    override fun sendMq(mailM: MailmSingle) {
 //        val message = Message(Constant.ROCKET_MQ_TOPIC_MAIL, Constant.ROCKET_MQ_TAG_MAIL_REGISTER, JSON.toJSONString(mailM).toByteArray(Charset.forName(Constant.UTF8_ENCODE)))
 //        try {
 //            producer.send(message)

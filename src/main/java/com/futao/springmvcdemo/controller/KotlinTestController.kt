@@ -8,6 +8,8 @@ import com.futao.springmvcdemo.service.KotlinTestService
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
 import com.futao.springmvcdemo.service.impl.KotlinTestServiceImpl
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 //import org.apache.rocketmq.client.producer.DefaultMQProducer
 //import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
@@ -32,19 +34,8 @@ import javax.annotation.Resource
 @RestController
 @RequestMapping(path = ["kotlinTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
 @ApiIgnore
+@Api("Kotlin测试")
 open class KotlinTestController {
-
-    @Value("\${niu.a}")
-    private lateinit var id: String
-
-    @Value("\${wohenniu}")
-    private lateinit var aha: String
-
-
-    @GetMapping("test")
-    open fun test(): SingleValueResult {
-        return SingleValueResult("$id---$aha")
-    }
 
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
@@ -55,8 +46,8 @@ open class KotlinTestController {
     /**
      * 存入缓存
      */
+    @ApiOperation("缓存set测试")
     @GetMapping(path = ["setCache"])
-//    @RocketMQMessageListener
     open fun cache(
             @RequestParam("name") name: String,
             @RequestParam("age") age: Int
@@ -73,6 +64,7 @@ open class KotlinTestController {
     /**
      * 获取缓存
      */
+    @ApiOperation("缓存get测试")
     @GetMapping(path = ["getCache"])
     open fun getCache(
             @RequestParam("name") name: String
@@ -82,11 +74,19 @@ open class KotlinTestController {
         } else null
     }
 
+    /**
+     * 发送普通邮件测试
+     */
+    @ApiOperation("发送普通邮件测试")
     @GetMapping(path = ["mailSend"])
     open fun mailSend() {
         mailService.sendSimpleEmail(arrayOf("taof@wicrenet.com", "1185172056@qq.com"), arrayOf("taof@wicrenet.com", "1185172056@qq.com"), "SpringbootMail", "from Springboot SimpleMail")
     }
 
+    /**
+     * 发送html邮件测试
+     */
+    @ApiOperation("发送html邮件测试")
     @GetMapping(path = ["htmlMailSend"])
     open fun htmlMailSend(
             @RequestParam("isHtml") isHtml: Boolean,
@@ -95,6 +95,11 @@ open class KotlinTestController {
         mailService.sendHtmlEmail(arrayOf("taof@wicrenet.com", "1185172056@qq.com"), arrayOf("taof@wicrenet.com", "1185172056@qq.com"), "SpringbootMail", content, isHtml)
     }
 
+
+    /**
+     * 发送html模板邮件测试
+     */
+    @ApiOperation("发送html模板邮件测试")
     @GetMapping(path = ["htmlTemplateHtml"])
     open fun htmlTemplateHtml(
             @RequestParam("templatePath") templatePath: String
@@ -110,15 +115,10 @@ open class KotlinTestController {
         )
     }
 
-
-    private val logger = LoggerFactory.getLogger(this::class.java)
-
-//    @Resource
-//    private lateinit var rocketMqService: DefaultMQProducer
-
     /**
      * mq
      */
+    @ApiOperation("消息队列")
     @GetMapping("producer")
     open fun producer(
             @RequestParam("message") message: String,
@@ -133,7 +133,11 @@ open class KotlinTestController {
     }
 
 
+    /**
+     * 消息队列发送邮件
+     */
     @GetMapping("sendMailMq")
+    @ApiOperation("消息队列发送邮件")
     open fun sendMailMq() {
         val mailM = MailM().apply {
             to = arrayOf("1185172056@qq.com")
@@ -151,6 +155,7 @@ open class KotlinTestController {
      * 接口限流测试-令牌桶
      */
     @RequestMapping("rate")
+    @ApiOperation("接口限流测试-令牌桶")
     open fun rateLimit(): SingleValueResult {
         return if (!accessLimitServiceImpl.getPermit()) {
             SingleValueResult("限流")
@@ -163,9 +168,12 @@ open class KotlinTestController {
     @Resource
     private lateinit var ktService: KotlinTestService
 
-    @GetMapping(path = ["os"])
+    /**
+     * 映射多路径测试
+     */
+    @ApiOperation("映射多路径测试")
+    @GetMapping(path = ["os", "111", "222"])
     open fun os(): SingleValueResult {
         return SingleValueResult(ktService.t())
     }
-
 }

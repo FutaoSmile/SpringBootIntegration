@@ -2,16 +2,23 @@ package com.futao.springmvcdemo;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springmvcdemo.annotation.EnableEntity;
+import com.futao.springmvcdemo.model.entity.SystemInformation;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.sql.Timestamp;
+
+import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
 
 /**
  * @author futao
@@ -50,6 +57,12 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
          * 开启fastjson反序列化的autoType
          */
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+    }
+
+    @Scope(value = SCOPE_SINGLETON)
+    @Bean
+    public SystemInformation startTimestamp() {
+        return new SystemInformation(new Timestamp(System.currentTimeMillis()));
     }
 
     /**

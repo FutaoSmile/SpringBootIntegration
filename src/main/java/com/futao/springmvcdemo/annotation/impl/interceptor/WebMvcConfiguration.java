@@ -1,9 +1,11 @@
 package com.futao.springmvcdemo.annotation.impl.interceptor;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.utils.TimeUtilsKt;
 import org.joda.time.DateTime;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -34,6 +36,23 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private LoginUserInterceptor loginUserInterceptor;
     @Resource
     private RequestLogInterceptor requestLogInterceptor;
+
+//    @Resource
+//    private MessageConvertConfiguration messageConvertConfiguration;
+
+//    @Resource
+//    private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
+
+    @Bean
+    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+        return new FastJsonHttpMessageConverter();
+    }
+
+//    @Bean
+//    public MessageConvertConfiguration messageConvertConfiguration() {
+//        return new MessageConvertConfiguration();
+//    }
+
 
     /**
      * 添加拦截器
@@ -238,7 +257,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
+//        converters.add(messageConvertConfiguration);
+//        converters.add(fastJsonHttpMessageConverter);
+//        暂时无效
     }
 
     /**
@@ -254,36 +275,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     }
 
-    /**
-     * Configure exception resolvers.
-     * <p>The given list starts out empty. If it is left empty, the framework
-     * configures a default set of resolvers, see
-     * {@link WebMvcConfigurationSupport#addDefaultHandlerExceptionResolvers(List)}.
-     * Or if any exception resolvers are added to the list, then the application
-     * effectively takes over and must provide, fully initialized, exception
-     * resolvers.
-     * <p>Alternatively you can use
-     * {@link #extendHandlerExceptionResolvers(List)} which allows you to extend
-     * or modify the list of exception resolvers configured by default.
-     *
-     * @param resolvers initially an empty list
-     * @see #extendHandlerExceptionResolvers(List)
-     * @see WebMvcConfigurationSupport#addDefaultHandlerExceptionResolvers(List)
-     */
+
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
 
     }
 
-    /**
-     * Extending or modify the list of exception resolvers configured by default.
-     * This can be useful for inserting a custom exception resolver without
-     * interfering with default ones.
-     *
-     * @param resolvers the list of configured resolvers to extend
-     * @see WebMvcConfigurationSupport#addDefaultHandlerExceptionResolvers(List)
-     * @since 4.3
-     */
+
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
 

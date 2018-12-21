@@ -4,7 +4,7 @@ package com.futao.springmvcdemo.model.system;
  * @author futao
  * Created on 2018-12-11.
  */
-public class MailMSingle {
+public class MailmSingle {
     private String to;
     private String cc;
     private String subject;

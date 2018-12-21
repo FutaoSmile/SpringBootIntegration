@@ -4,6 +4,8 @@ package com.futao.springmvcdemo.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
+ * @author futao
+ * Created on 2018-12-11.
  * 角色
  */
 @TableName("futao_role")
