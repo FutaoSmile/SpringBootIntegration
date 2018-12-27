@@ -99,9 +99,6 @@ public class DruidConfiguration {
      */
     private String filters;
 
-    public void qqq() {
-    }
-
     @Bean(destroyMethod = "close", initMethod = "init")
     public DataSource druidDataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();

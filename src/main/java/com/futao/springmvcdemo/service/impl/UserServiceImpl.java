@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.enums.User_Status;
+import com.futao.springmvcdemo.model.enums.UserStatusEnum;
 import com.futao.springmvcdemo.model.system.*;
 import com.futao.springmvcdemo.service.MailService;
 import com.futao.springmvcdemo.service.UUIDService;
@@ -105,11 +105,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         }
 
         //检查该邮箱是否已经被注册
-        if (userDao.getNormalUserByEmail(email, User_Status.Normal.getCode()) != null) {
+        if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
             throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
         }
         //更新账号信息与状态
-        userDao.registerByEmail(username, CommonUtilsKt.md5(password + PWD_SALT), age, mobile, address, User_Status.Normal.getCode(), sex, email);
+        userDao.registerByEmail(username, CommonUtilsKt.md5(password + PWD_SALT), age, mobile, address, UserStatusEnum.NORMAL.getCode(), sex, email);
     }
 
     /**
@@ -179,13 +179,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public void sendRegisterEmailVerifyCode(String email) {
         //1.检查该邮箱是否已经被注册
-        if (userDao.getNormalUserByEmail(email, User_Status.Normal.getCode()) != null) {
+        if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
             throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
         }
 
         //2.预注册，用户表生成一条数据，存储email
         Timestamp currentTimeStamp = currentTimeStamp();
-        userDao.preRegister(UUIDService.get(), email, User_Status.Pre_Register.getCode(), currentTimeStamp, currentTimeStamp);
+        userDao.preRegister(UUIDService.get(), email, UserStatusEnum.PRE_REGISTER.getCode(), currentTimeStamp, currentTimeStamp);
         //3.判断是否已经发送了邮件且未过期
         if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email)) != null) {
             throw LogicException.le(ErrorMessage.EMAIL_ALREADY_SEND);

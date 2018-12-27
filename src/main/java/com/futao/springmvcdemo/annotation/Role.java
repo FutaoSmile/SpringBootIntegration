@@ -1,6 +1,6 @@
 package com.futao.springmvcdemo.annotation;
 
-import com.futao.springmvcdemo.model.enums.User_Role;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 
 import java.lang.annotation.*;
 
@@ -22,5 +22,5 @@ public @interface Role {
      *
      * @return
      */
-    User_Role[] value() default User_Role.Normal;
+    UserRoleEnum[] value() default UserRoleEnum.NORMAL;
 }

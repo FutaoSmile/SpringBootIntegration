@@ -1,15 +1,14 @@
 package com.futao.springmvcdemo.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.futao.springmvcdemo.model.enums.User_Sex;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
+import com.futao.springmvcdemo.model.enums.UserSexEnum;
+import com.futao.springmvcdemo.model.enums.UserStatusEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -60,13 +59,13 @@ public class User extends BaseEntity {
     private String address;
 
     /**
-     * {@link com.futao.springmvcdemo.model.enums.User_Status}
+     * {@link UserStatusEnum}
      * 用户状态
      */
     private int status;
 
     /**
-     * {@link com.futao.springmvcdemo.model.enums.User_Sex}
+     * {@link UserSexEnum}
      * 性别
      */
 //    @JSONField(serialzeFeatures = SerializerFeature.WriteEnumUsingToString)
@@ -74,7 +73,7 @@ public class User extends BaseEntity {
 
     /**
      * 角色
-     * {@link com.futao.springmvcdemo.model.enums.User_Role}
+     * {@link UserRoleEnum}
      */
     private int role;
 
@@ -151,5 +150,20 @@ public class User extends BaseEntity {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", age='" + age + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", sex=" + sex +
+                ", role=" + role +
+                '}';
     }
 }

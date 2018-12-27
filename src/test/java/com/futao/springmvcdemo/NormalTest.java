@@ -6,12 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.futao.springmvcdemo.a.Classes;
-import com.futao.springmvcdemo.a.Student;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.enums.User_Role;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.suit.A;
@@ -37,14 +35,37 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author futao
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+
+    @Test
+    public void test41() {
+//        String[] ac = new String[]{"1", "2"};
+//        Arrays.asList(ac).add(1, "2");
+        System.out.println(Calendar.getInstance().getTimeZone());
+        System.out.println(28800000 / (1000 * 60 * 60));
+    }
+
+
+    @Test
+    public void test40() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = simpleDateFormat.parse("2018-10-11");
+        Timestamp timestamp = new Timestamp(parse.getTime());
+        System.out.println(timestamp.toString());
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(simpleDateFormat2.format(timestamp));
+        System.out.println(new Date().getTime());
+        System.out.println(new Timestamp(new Date().getTime()));
+    }
 
     @Test
     public void test39() {
@@ -64,9 +85,9 @@ public class NormalTest {
 
     @Test
     public void test38() {
-        System.out.println(JSON.toJSONString(User_Role.Admin));
-        System.out.println(JSON.toJSON(User_Role.Admin));
-        System.out.println(User_Role.Admin.toString());
+        System.out.println(JSON.toJSONString(UserRoleEnum.ADMIN));
+        System.out.println(JSON.toJSON(UserRoleEnum.ADMIN));
+        System.out.println(UserRoleEnum.ADMIN.toString());
     }
 
     @Test
@@ -321,37 +342,6 @@ public class NormalTest {
     }
 
 
-    @Test
-    public void test15() {
-        List<Classes> classesList = new ArrayList<>();
-
-        Student s1 = new Student(55);
-        Student s2 = new Student(66);
-        Student s3 = new Student(77);
-
-        List<Student> stuL1 = new ArrayList<>();
-        stuL1.add(s1);
-        stuL1.add(s2);
-        List<Student> stuL2 = new ArrayList<>();
-        stuL2.add(s3);
-
-        Classes c1 = new Classes("架构1班", stuL1);
-        Classes c2 = new Classes("架构2班", stuL2);
-
-
-        classesList.add(c1);
-        classesList.add(c2);
-
-        System.out.println(classesList.stream().flatMap(it -> it.getStudents().stream().filter(stu -> stu.getScore() > 60)).collect(Collectors.toList()));
-    }
-
-    public void a(String... args) {
-        for (String arg : args) {
-            System.out.println(arg);
-        }
-    }
-
-
     /**
      * 如果类的属性没有getter的话toJson()得到的是空对象
      */
@@ -398,20 +388,6 @@ public class NormalTest {
     @Test
     public void test11() throws NoSuchMethodException {
         System.out.println(Arrays.toString(new Method[]{User.class.getMethod("getAddress")}));
-    }
-
-    @Test
-    public void test10() {
-        ThreadLocal<User> threadLocal = new ThreadLocal<>();
-        User user = new User();
-        user.setAge("11");
-        threadLocal.set(user);
-        System.out.println(threadLocal.get());
-
-        User user1 = new User();
-        user1.setAddress("1231");
-        threadLocal.set(user1);
-        System.out.println(threadLocal.get());
     }
 
     /**

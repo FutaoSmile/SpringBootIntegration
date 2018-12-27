@@ -3,7 +3,7 @@ package com.futao.springmvcdemo.annotation.impl.aop;
 import com.futao.springmvcdemo.annotation.Role;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.enums.User_Role;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
 import org.aspectj.lang.JoinPoint;
@@ -55,7 +55,7 @@ public class RoleInterceptor {
             annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
         }
         if (annotation != null) {
-            if (!Arrays.asList(annotation.value()).contains(User_Role.value(user.getRole()))) {
+            if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
                 throw LogicException.le(ErrorMessage.ROLE_NOT_ALLOW);
             }
         }

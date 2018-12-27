@@ -7,7 +7,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -31,7 +33,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.futao.springmvcdemo.dao")      //会将包里面的接口当做mapper配置，之后可以自动引入mapper类
-//@EnableCaching
+@EnableCaching
 @EnableScheduling
 @EnableAsync
 @EnableAspectJAutoProxy
@@ -40,6 +42,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 //@EnableWebSocketMessageBroker
 @EnableTransactionManagement
 //@EnableRedisHttpSession
+@EnableConfigurationProperties
 public class SpringmvcdemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

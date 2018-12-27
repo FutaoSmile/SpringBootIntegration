@@ -1,13 +1,15 @@
 package com.futao.springmvcdemo.service.impl
 
 import com.futao.springmvcdemo.foundation.LogicException
+import com.futao.springmvcdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff
 import com.futao.springmvcdemo.model.system.ErrorMessage
 import com.futao.springmvcdemo.service.KotlinTestService
+import org.apache.rocketmq.client.producer.DefaultMQProducer
+import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Condition
-import org.springframework.context.annotation.ConditionContext
-import org.springframework.core.type.AnnotatedTypeMetadata
+import org.springframework.context.annotation.Conditional
 import org.springframework.stereotype.Service
+import javax.annotation.Resource
 
 /**
  * @author futao
@@ -18,23 +20,12 @@ import org.springframework.stereotype.Service
  *  可以在其他类上打上@Condition(K::class)注解，会根据K类是否被实例化再来实例化自己
  *
  */
+
+@Conditional(RocketMqProducerOnOff::class)
 @Service
-open class KotlinTestServiceImpl : Condition, KotlinTestService {
+open class KotlinTestServiceImpl : KotlinTestService {
 
     val logger = LoggerFactory.getLogger(KotlinTestServiceImpl::class.java)!!
-    /**
-     * Determine if the condition matches.
-     * @param context the condition context
-     * @param metadata metadata of the [class][org.springframework.core.type.AnnotationMetadata]
-     * or [method][org.springframework.core.type.MethodMetadata] being checked
-     * @return `true` if the condition matches and the component can be registered,
-     * or `false` to veto the annotated component's registration
-     */
-    override fun matches(context: ConditionContext?, metadata: AnnotatedTypeMetadata?): Boolean {
-        val osName = context!!.environment.getProperty("os.name")
-        logger.info("osName$osName")
-        return true
-    }
 
     override fun t(): String {
         return "test"
@@ -43,5 +34,12 @@ open class KotlinTestServiceImpl : Condition, KotlinTestService {
 
     override fun exception() {
         throw LogicException.le(ErrorMessage.LOGIC_EXCEPTION)
+    }
+
+    @Resource
+    lateinit var producer: DefaultMQProducer
+
+    override fun send() {
+        producer.send(Message("niubiTopic", "niubiTag", "我是消息本体了".toByteArray()))
     }
 }

@@ -8,10 +8,19 @@ import java.io.Serializable;
  * 接口方法描述
  */
 public class ApiMethodDescription implements Serializable {
+    /**
+     * 方法的名称
+     */
     private String methodName;
 
+    /**
+     * 注解ApiOperation值
+     */
     private String methodDescription;
 
+    /**
+     * value() or path()
+     */
     private String[] methodUrl;
 
     public ApiMethodDescription(String methodName, String methodDescription, String[] methodUrl) {

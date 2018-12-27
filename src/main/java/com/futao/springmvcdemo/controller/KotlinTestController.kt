@@ -1,19 +1,14 @@
 package com.futao.springmvcdemo.controller
 
+import com.futao.springmvcdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff
 import com.futao.springmvcdemo.model.entity.SingleValueResult
 import com.futao.springmvcdemo.model.entity.User
 import com.futao.springmvcdemo.model.system.MailM
-import com.futao.springmvcdemo.model.system.Constant
 import com.futao.springmvcdemo.service.KotlinTestService
 import com.futao.springmvcdemo.service.MailService
 import com.futao.springmvcdemo.service.impl.AccessLimitServiceImpl
-import com.futao.springmvcdemo.service.impl.KotlinTestServiceImpl
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
-//import org.apache.rocketmq.client.producer.DefaultMQProducer
-//import org.apache.rocketmq.common.message.Message
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Conditional
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.http.MediaType
@@ -22,18 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.thymeleaf.context.Context
-import springfox.documentation.annotations.ApiIgnore
-import java.nio.charset.Charset
 import javax.annotation.Resource
 
 /**
  * @author futao
  * Created on 2018/10/17.
  */
-@Conditional(KotlinTestServiceImpl::class)
+@Conditional(RocketMqProducerOnOff::class)
 @RestController
 @RequestMapping(path = ["kotlinTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
-@ApiIgnore
+//@ApiIgnore
 @Api("Kotlin测试")
 open class KotlinTestController {
 
@@ -175,5 +168,10 @@ open class KotlinTestController {
     @GetMapping(path = ["os", "111", "222"])
     open fun os(): SingleValueResult {
         return SingleValueResult(ktService.t())
+    }
+
+    @GetMapping("mq")
+    open fun mq() {
+        ktService.send()
     }
 }

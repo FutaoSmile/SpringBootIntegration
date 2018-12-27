@@ -4,17 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.IllegalValueCheck;
 import com.futao.springmvcdemo.annotation.LoginUser;
 import com.futao.springmvcdemo.annotation.Role;
-import com.futao.springmvcdemo.foundation.configuration.ApplicationContext;
 import com.futao.springmvcdemo.model.entity.PageResultList;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.User;
-import com.futao.springmvcdemo.model.enums.User_Role;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -107,7 +104,7 @@ public class UserController {
      */
     @ApiOperation("用户列表")
     @GetMapping("list")
-    @Role({User_Role.Admin, User_Role.Normal})
+    @Role({UserRoleEnum.ADMIN, UserRoleEnum.NORMAL})
     public PageResultList<User> list(
             @RequestParam(value = "mobile", required = false) String mobile,
             @RequestParam(value = "orderBy", required = false) String orderBy,

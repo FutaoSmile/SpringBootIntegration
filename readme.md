@@ -171,3 +171,19 @@ collation-server=utf8mb4_unicode_ci
 
 新建application-developerName.yml
 在IDEA中设置 ProgramArguments:`spring.profiles.active=developerName`
+
+
+### # Rocketmq
+* 启动nameserver ` ~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqnamesrv`
+* 启动broker `~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true’`
+* 启动console `java -jar ./docs/jars/rocketmq-console-ng-1.0.0.jar`
+* 如果没装rocketmq，可关闭该功能(项目中使用到rocketmq的地方都将被关闭)。关闭方法: 配置文件:`rocketmq.consumer.onOff:off,rocketmq.producer.onOff:off`
+
+## #代码规范
+
+> 强制
+
+* 对于依赖RocketMq的Bean
+    * 如果依赖生产者，则需要需要标注`@Conditional(RocketMqProducerOnOff::class)`
+    * 如果依赖消费者，则需要标注`@Conditional(RocketMqConsumerOnOff::class)`
+否则项目启不起来

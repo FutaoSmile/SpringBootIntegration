@@ -14,7 +14,7 @@ import javax.annotation.Resource
 //@RunWith(SpringRunner::class)
 class KotlinTest {
     @Test
-    fun test9(){
+    fun test9() {
         println(parseStringToTwoDecimalStr(""))
     }
 
@@ -43,13 +43,6 @@ class KotlinTest {
     @Test
     fun test6() {
 
-    }
-
-    @Test
-    fun test5() {
-        val normalTest = NormalTest()
-        normalTest.a(*arrayOf("1", "1"))
-        normalTest.a(*arrayOf("1", "2313"))
     }
 
     @Test

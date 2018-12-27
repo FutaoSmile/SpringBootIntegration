@@ -8,7 +8,7 @@ import com.futao.springmvcdemo.annotation.listener.OnlineHttpSessionListener;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.SystemInformation;
-import com.futao.springmvcdemo.model.enums.User_Role;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessageFields;
 import com.futao.springmvcdemo.service.StatisticService;
 import io.swagger.annotations.Api;
@@ -50,7 +50,7 @@ public class StatisticController {
      * @return
      */
     @ApiOperation("统计当前在线人数")
-    @Role(User_Role.Admin)
+    @Role(UserRoleEnum.ADMIN)
     @GetMapping("onlinePeopleQuantity")
     public SingleValueResult onlinePeopleQuantity() {
         return new SingleValueResult(onlineHttpSessionListener.getOnlinePeopleQuantity().get());

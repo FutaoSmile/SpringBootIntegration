@@ -33,4 +33,5 @@ public interface UserService {
     User userNameLogin(User user, HttpServletRequest request);
 
     void sendRegisterEmailVerifyCode(String email);
+
 }

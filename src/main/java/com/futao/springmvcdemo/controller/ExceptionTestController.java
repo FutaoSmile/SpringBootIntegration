@@ -2,11 +2,13 @@ package com.futao.springmvcdemo.controller;
 
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.foundation.configuration.HibernateValidatorConfiguration;
+import com.futao.springmvcdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.service.KotlinTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @Validated
 @Api("异常示例")
+@Conditional(RocketMqProducerOnOff.class)
 public class ExceptionTestController {
 
     /**
