@@ -48,8 +48,8 @@ public class NormalTest {
 
     @Test
     public void test41() {
-//        String[] ac = new String[]{"1", "2"};
-//        Arrays.asList(ac).add(1, "2");
+//        String[] actuator = new String[]{"1", "2"};
+//        Arrays.asList(actuator).add(1, "2");
         System.out.println(Calendar.getInstance().getTimeZone());
         System.out.println(28800000 / (1000 * 60 * 60));
     }

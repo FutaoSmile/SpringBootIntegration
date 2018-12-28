@@ -82,7 +82,7 @@ public class RocketMqProducer {
         try {
             //start()只能被执行一次，且必须在发送消息和查询消息之前
             producer.start();
-            LOGGER.info("\nrocketMq Producer start success; \nnameServerAddr:【{}】,producerGroupName:【{}】\n", nameServerAddr, groupName);
+            LOGGER.info("\n\nrocketMq Producer start success; \nnameServerAddr:【{}】,producerGroupName:【{}】\n", nameServerAddr, groupName);
         } catch (MQClientException e) {
             e.printStackTrace();
             LOGGER.error("rocketMq Producer start fail;\nmessage:{}\nerrorMessage:{}\n", e.getMessage(), e.getErrorMessage(), e);

@@ -105,7 +105,7 @@ public class RocketMqConsumer {
         try {
             //订阅主题与tag
             consumer.subscribe(topics, tags);
-            LOGGER.info("\nrocket mq consumer subscribe topics:【{}】 tags:【{}】 success\n", topics, tags);
+            LOGGER.info("\n\nrocket mq consumer subscribe topics:【{}】 tags:【{}】 success\n", topics, tags);
         } catch (MQClientException e) {
             e.printStackTrace();
             LOGGER.error("start rocket mq consumer fail;\nmessage:{}\nerrorMessage:{}\n", e.getMessage(), e.getErrorMessage(), e);

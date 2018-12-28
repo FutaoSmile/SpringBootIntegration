@@ -24,7 +24,6 @@ public class RocketMqConsumerOnOff implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 //        return ON.equals(onOff); //这种方式取不到值
-        System.out.println(ON.equals(onOff));
         return Boolean.valueOf(context.getEnvironment().getProperty("rocketmq.consumer.onOff"));
     }
 
