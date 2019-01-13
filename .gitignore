@@ -69,3 +69,4 @@ out
 .DS_Store
 dump.rdb
 .log
+/bin/

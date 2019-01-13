@@ -1,7 +1,0 @@
-spring:
-  profiles:
-    active: dev
-  application:
-    name: springmvcdemo
-
-author: futao
