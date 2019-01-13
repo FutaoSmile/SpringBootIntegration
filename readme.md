@@ -2,7 +2,9 @@ github [https://github.com/FutaoSmile/springbootFramework]()
 
 gitee [https://gitee.com/FutaoSmile/springboot_framework]()
 
+git添加多远程仓库
 
+`git remote set-url --add origin ssh://git@gitlab.ketongtx.com:9001/futao/springbootFramework.git`
 
 ### # 环境
 * SpringBoot 2.0.5.RELEASE
