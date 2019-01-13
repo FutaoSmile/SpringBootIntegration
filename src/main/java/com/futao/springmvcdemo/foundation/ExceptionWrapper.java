@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
 /**
+ * 异常处理
+ *
  * @author futao
  * Created on 2018/11/6.
  */
-@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
+@ControllerAdvice
+//@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
 public class ExceptionWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWrapper.class);
 

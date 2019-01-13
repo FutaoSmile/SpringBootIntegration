@@ -24,11 +24,16 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * 扩展spring mvc的功能
+ * 如果在该类上标注@EnableWebMvc,将会全面接管springboot对springmvc的配置。（springboot的自动配置全部失效）
+ * 所有的配置都需要由自己实现
+ *
  * @author futao
  * Created on 2018/9/18-15:15.
  */
 @SpringBootConfiguration
 public class WebMvcConfiguration implements WebMvcConfigurer {
+
     @Resource
     private SignInterceptor signInterceptor;
     @Resource

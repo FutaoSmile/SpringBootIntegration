@@ -80,7 +80,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: qzezzeylwgmsgabb
+    password: security
     properties:
       smtp:
         auth: true
@@ -143,10 +143,10 @@ jianshu:
   id: futaosmile
 
 # 线程池配置
-threadpool:
-  corePoolSize: 10
-  maxPoolSize: 200
-  queueCapacity: 10
+#threadpool:
+#  corePoolSize: 10
+#  maxPoolSize: 200
+#  queueCapacity: 10
 
 
 debug: true
@@ -157,7 +157,7 @@ debug: true
 #    org:
 #      hibernate:
 #        SQL: DEBUG
-#        type:
+#        ES_TYPE:
 #          descriptor:
 #            sql:
 #              BasicBinder: TRACE

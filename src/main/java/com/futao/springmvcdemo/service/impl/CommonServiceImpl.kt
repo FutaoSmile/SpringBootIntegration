@@ -12,7 +12,7 @@
 //    open fun <T : BaseEntity> T.generatorCreateTableSql() {
 //        val append = StringBuilder().append("CREATE TABLE `$tablePrefix${this::class.java.simpleName.toLowerCase()}` (")
 //        this::class.java.fields.forEach { field ->
-//            val javaType = field.type
+//            val javaType = field.ES_TYPE
 //            var sqlType = ""
 //            if (javaType == String.javaClass) {
 //

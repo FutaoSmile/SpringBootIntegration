@@ -11,7 +11,6 @@ import org.apache.commons.codec.binary.Hex
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.lang.StringBuilder
 import java.security.MessageDigest
 import java.text.DecimalFormat
 import java.util.*
@@ -47,9 +46,9 @@ fun String.md5(): String? {
 fun <T, R> KFunction1<T, R>.getFieldName(): String {
     val name = this.name
     return if (name.startsWith("get") || name.startsWith("set")) {
-        name.substring(3).toLowerCase()
+        name[3].toLowerCase() + name.substring(4)
     } else if (name.startsWith("is")) {
-        name.substring(2).toLowerCase()
+        name[2].toLowerCase() + name.substring(3)
     } else {
         throw LogicException.le(ErrorMessage.FIELD_NO_GETTER_OR_SETTER)
     }

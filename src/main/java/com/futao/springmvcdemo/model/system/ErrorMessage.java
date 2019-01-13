@@ -17,6 +17,7 @@ public final class ErrorMessage {
     public static final String CONTAIN_ILLEGAL_PARAMETER = "00002_评论中包含敏感词汇";
     public static final String ROLE_NOT_EXIST = "00003_角色信息不存在";
     public static final String ROLE_NOT_ALLOW = "00004_您当前的角色无此权限";
+    public static final String PROPERTIES_NOT_EXISTS = "00005_配置文件%s不存在";
 
     public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";
     public static final String DESERIALIZER_FAIL = "01009_反序列化失败";

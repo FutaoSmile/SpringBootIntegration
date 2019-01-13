@@ -1,5 +1,11 @@
 package com.futao.springmvcdemo.service.impl;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
@@ -76,9 +82,43 @@ public class StatisticServiceImpl implements StatisticService {
         return map;
     }
 
+    private static void initFlowRules() {
+        List<FlowRule> rules = new ArrayList<>();
+        FlowRule rule = new FlowRule();
+        //资源名
+        rule.setResource("StatisticService");
+        //限流阈值类型，此处为qps类型
+        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+        //限流阈值，表示每秒钟通过5次请求
+        rule.setCount(2);
+        //将定义好的rule放在List中
+        rules.add(rule);
+        FlowRuleManager.loadRules(rules);
+    }
+
     @Override
-    @Cacheable("apiList")
+//    @SentinelResource(value = "StatisticService", entryType = EntryType.OUT, blockHandler = "", blockHandlerClass = {}, fallback = "")
+//    @Cacheable("apiList")
     public ArrayList<ApiControllerDescription> apiList() {
+        initFlowRules();
+        while (true) {
+            Entry entry = null;
+            try {
+                entry = SphU.entry("StatisticService");
+                System.out.println("-----------------hello world");
+                a();
+            } catch (BlockException e1) {
+                System.out.println("================================block!" + e1.getMessage());
+            } finally {
+                if (entry != null) {
+                    entry.exit();
+                }
+            }
+        }
+
+    }
+
+    private ArrayList<ApiControllerDescription> a() {
         //获取所以标记有RestController注解的类
         Set<Class<?>> controllerClassSet = new Reflections("com.futao.springmvcdemo.controller").getTypesAnnotatedWith(RestController.class);
         //容器

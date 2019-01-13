@@ -1,16 +1,18 @@
 package com.futao.springmvcdemo.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.futao.springmvcdemo.dao.UserDao;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.UserStatusEnum;
-import com.futao.springmvcdemo.model.system.*;
+import com.futao.springmvcdemo.model.system.Constant;
+import com.futao.springmvcdemo.model.system.ErrorMessage;
+import com.futao.springmvcdemo.model.system.MailmSingle;
+import com.futao.springmvcdemo.model.system.RedisKeySet;
 import com.futao.springmvcdemo.service.MailService;
 import com.futao.springmvcdemo.service.UUIDService;
 import com.futao.springmvcdemo.service.UserService;
 import com.futao.springmvcdemo.utils.CommonUtilsKt;
+import com.futao.springmvcdemo.utils.PageResultUtils;
 import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ import static com.futao.springmvcdemo.utils.TimeUtilsKt.currentTimeStamp;
  */
 @Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
 @Service
-public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService, IService<User> {
+public class UserServiceImpl implements UserService {
     /**
      * 密码加盐
      */
@@ -152,16 +154,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Cacheable(value = "userList")
     @Override
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
-//        PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
-//        String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
-//                .orderBy(orderBy)
-//                .page(pageNum, pageSize)
-//                .getSql();
-//        List<User> list = userDao.list(sql);
+        PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
+        String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
+                .orderBy(orderBy)
+                .page(pageNum, pageSize)
+                .getSql();
+        List<User> list = userDao.list(sql);
         User user = new User();
 
-        List<User> list = this.list();
-        redisTemplate.opsForValue().set("aaa", list);
+//        List<User> list = this.list();
+        redisTemplate.opsForValue().set("userList", list);
         return list;
 
     }

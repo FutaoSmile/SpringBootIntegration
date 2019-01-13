@@ -4,7 +4,7 @@ spring:
     redis:
       use-key-prefix: true
       cache-null-values: true
-      time-to-live: 5s
+  #      time-to-live: 5s
   servlet:
     # 设置文件上传与下载的文件大小限制
     multipart:
@@ -24,13 +24,11 @@ spring:
       packagesToScan: com.futao.springmvcdemo.model
     hibernate:
       ddl-auto: update
-  #  data:
-  #    # 全文检索 elasticsearch
-  #    elasticsearch:
-  #      cluster-name: elasticsearch-service #节点名称
-  #      cluster-nodes: 127.0.0.1:9300 #节点地址
-  #      repositories:
-  #        enabled: true
+  data:
+    # 全文检索 elasticsearch
+    elasticsearch:
+      cluster-name: elasticsearch-service #节点名称
+      cluster-nodes: 127.0.0.1:9300 #节点地址
   # 数据源
   datasource:
     url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8
@@ -71,7 +69,9 @@ spring:
         max-idle: 8
     timeout: 10s
   thymeleaf:
-    cache: true
+    # 模板引擎如果要实时刷新需要1.禁用缓存2.页面修改后需要Control+F9重新编译该页面
+    # 页面缓存
+    cache: false
     prefix:classpath: /templates/
     mode: HTML
   # 发邮件
@@ -79,7 +79,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: qzezzeylwgmsgabb
+    password: security
     properties:
       smtp:
         auth: true
@@ -88,6 +88,8 @@ spring:
           required: true
   mvc:
     dispatch-options-request: false
+
+
 #      mail:
 #        smtp:
 #          ssl:
@@ -142,28 +144,34 @@ jianshu:
   id: futaosmile
 
 # 线程池配置
-threadpool:
-  corePoolSize: 10
-  maxPoolSize: 200
-  queueCapacity: 10
+threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
 
+
+
+# springboot默认输出的是>=info级别的日志
 
 #debug: true
 #logging:
-#  file: \User\futao\src\backend\fun\springboot_framework\src\main\log666.log
+# 不指定路径则在当前项目根目录下生成该日志文件
+#  file: logback-1.log
+# 日志目录，与logging.file同时存在则取file的配置
+#  pattern:
+#    console:
+
+
+#  path:
 #  level:
 #    root: info
 #    org:
 #      hibernate:
 #        SQL: DEBUG
-#        type:
+#        ES_TYPE:
 #          descriptor:
 #            sql:
 #              BasicBinder: TRACE
 
 # [日志打印出来不好看.xml]logback-spring
-#log:
-#  path: logs
+
 
 
 futao:
@@ -172,14 +180,50 @@ futao:
   sessionInvalidateSecond: 1800
 
 # mybatis-plus插件
-mybatis-plus:
-  typeAliasesPackage: com.futao.springmvcdemo.model.entity
-  global-config:
-    db-config:
-      #      大写
-      capital-mode: false
-      db-type: mysql
-      #      查询的时候并不会带上
-      table-prefix: futao_
-      table-underline: false
+#mybatis-plus:
+#  typeAliasesPackage: com.futao.springmvcdemo.model.entity
+#  global-config:
+#    db-config:
+#      #      大写
+#      capital-mode: false
+#      db-type: mysql
+#      #      查询的时候并不会带上
+#      table-prefix: futao_
+#      table-underline: false
 
+
+
+# 字符串：可以不加引号    k: v  'v \n'单引号会转义，"v \n"双引号不会转义，输出换行
+
+# 对象属性与map也可以这样写：threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
+
+# 数组(List,Set)
+#pets:
+#  - cat
+#  - dog
+#  - pig
+#行内写法: pets: [cat,dog,pig]
+
+# map
+#kv:
+#  k1: vq
+#  k2: v2
+#行内写法 kv: {k1: v1,k2: v2}
+
+# @Value与@ConfigurationProperties
+# @ConfigurationProperties支持松散语法，支持批量注入，支持JSR303校验@Validated，支持复杂类型map,list，默认从全局配置文件中获取值
+
+# @PropertySource(加载指定的配置文件)
+# @ImportResource(导入Spring的配置文件，使配置文件生效)
+
+# 随机数 ${random.uuid}
+# ${person.hello:你好} 如果person.hello没有值则用默认值"你好"代替
+
+
+# 配置文件加载原则：越细越优先(待profile优先于不带profile的)
+# 配置文件优先级（降序，上面的配置会覆盖下面的配置，但是所有的配置会形成互补配置):
+# -file: ./config/
+# -file: ./
+# classpath: /config/
+# classpath: /
+# 也可以通过命令行的形式修改：spring.config.location=xxx

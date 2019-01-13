@@ -1,6 +1,6 @@
 package com.futao.springmvcdemo.foundation.configuration.mq.rocket;
 
-import com.futao.springmvcdemo.service.impl.MQConsumeMsgListenerProcessor;
+import com.futao.springmvcdemo.foundation.configuration.mq.rocket.kt.MQConsumeMsgListenerProcessor;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;

@@ -37,10 +37,16 @@ public class LogicException extends RuntimeException {
         this.errorMsg = errorMsg.substring(6);
     }
 
+    private LogicException(String code, String errorMsg) {
+        super(errorMsg);
+        this.code = code;
+        this.errorMsg = errorMsg;
+    }
+
     /**
      * 抛出逻辑异常
      *
-     * @param errorMsg
+     * @param errorMsg 异常信息
      * @return
      */
     public static LogicException le(String errorMsg) {
@@ -50,11 +56,22 @@ public class LogicException extends RuntimeException {
     /**
      * 抛出逻辑异常，带有占位符
      *
-     * @param errorMsg
-     * @param args
+     * @param errorMsg 错误详情
+     * @param args     替换占位符内的内容
      * @return
      */
-    public static LogicException le(String errorMsg, String... args) {
-        return new LogicException(String.format(errorMsg, (Object[]) args));
+    public static LogicException le(String errorMsg, Object[] args) {
+        return new LogicException(String.format(errorMsg, args));
+    }
+
+    /**
+     * 抛出逻辑异常
+     *
+     * @param code     错误码
+     * @param errorMsg 错误详情
+     * @return
+     */
+    public static LogicException le(String code, String errorMsg) {
+        return new LogicException(code, errorMsg);
     }
 }

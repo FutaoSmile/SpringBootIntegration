@@ -51,7 +51,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
         String uuid = UUID.randomUUID().toString();
-        logger.info("请求(id=" + uuid + ")开始：" + "开始时间：" + startTime);
+        logger.info("请求(id={})开始：开始时间：{}", uuid, startTime);
         request.setAttribute("startTime", startTime);
         request.setAttribute("uuid", uuid);
         if (handler instanceof HandlerMethod) {
@@ -60,15 +60,17 @@ public class RequestLogInterceptor implements HandlerInterceptor {
             if (ObjectUtils.allNotNull(restController)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n")
-                        .append("From: " + request.getRemoteHost() + "|" + request.getRemoteAddr() + "|" + request.getRemotePort())
+                        .append("From: ").append(request.getRemoteHost()).append("|").append(request.getRemoteAddr()).append("|").append(request.getRemotePort())
                         .append("\n")
-                        .append("请求地址: " + request.getRequestURL())
+                        .append("请求方式: ").append(request.getMethod())
                         .append("\n")
-                        .append("请求sessions: " + getSessionParameters(request.getSession(false)))
+                        .append("请求地址: ").append(request.getRequestURL())
                         .append("\n")
-                        .append("请求参数：" + queryParameters(request))
+                        .append("请求sessions: ").append(getSessionParameters(request.getSession(false)))
                         .append("\n")
-                        .append("请求cookies: " + getCookies(request.getCookies()));
+                        .append("请求参数：").append(queryParameters(request))
+                        .append("\n")
+                        .append("请求cookies: ").append(getCookies(request.getCookies()));
                 logger.info(String.valueOf(sb));
             }
             String methodName = method.getDeclaringClass() + ".< " + method.getName() + " >";
@@ -102,7 +104,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
      * @param request
      * @return
      */
-    private String queryParameters(HttpServletRequest request) {
+    public static String queryParameters(HttpServletRequest request) {
         Map<String, String[]> map = request.getParameterMap();
         JSONObject jsonObject = new JSONObject();
         map.forEach((k, v) -> jsonObject.put(k, Arrays.toString(v)));
@@ -125,7 +127,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("请求(id=" + request.getAttribute("uuid") + ")结束：" + "本次请求所消耗的时间（毫秒）：" + ((System.currentTimeMillis() - (Long.valueOf(request.getAttribute("startTime").toString())))));
+        logger.info("请求(id={})结束：本次请求所消耗的时间（毫秒）：{}", request.getAttribute("uuid"), ((System.currentTimeMillis() - (Long.valueOf(request.getAttribute("startTime").toString())))));
     }
 
     public ConcurrentHashMap<String, AtomicInteger> getApiRequestStatistic() {

@@ -1,7 +1,6 @@
 package com.futao.springmvcdemo.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.enums.UserSexEnum;
 import com.futao.springmvcdemo.model.enums.UserStatusEnum;
@@ -20,7 +19,7 @@ import javax.validation.constraints.Size;
  */
 @Validated
 @AllArgsConstructor
-@TableName(value = "futao_user")
+//@TableName(value = "futao_user")
 public class User extends BaseEntity {
 
     /**

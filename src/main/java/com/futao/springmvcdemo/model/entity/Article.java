@@ -1,8 +1,6 @@
 package com.futao.springmvcdemo.model.entity;
 
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * @author futao
@@ -13,8 +11,12 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * row=document
  * colnum=field
  */
-@Document(indexName = "futao", type = "article")
+@Document(indexName = Article.ES_INDEX_NAME, type = Article.ES_TYPE)
 public class Article extends BaseEntity {
+
+    public static final String ES_TYPE = "article";
+    public static final String ES_INDEX_NAME = "futao";
+
     /**
      * 标题
      */
@@ -27,6 +29,16 @@ public class Article extends BaseEntity {
      * 内容
      */
     private String content;
+
+    /**
+     * 作者用户id
+     */
+    private String authorId;
+
+    /**
+     * 浏览量
+     */
+    private int visitTimes;
 
     public String getTitle() {
         return title;
@@ -50,5 +62,21 @@ public class Article extends BaseEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public int getVisitTimes() {
+        return visitTimes;
+    }
+
+    public void setVisitTimes(int visitTimes) {
+        this.visitTimes = visitTimes;
     }
 }

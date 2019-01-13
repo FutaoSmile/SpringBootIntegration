@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.0.5.RELEASE'
+        sentinelVersion = '1.4.0'
     }
     repositories {
         mavenCentral()
@@ -55,7 +56,7 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.2.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.2.2'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
-//    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.21'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
@@ -66,6 +67,7 @@ dependencies {
     compile('org.apache.maven.plugins:maven-javadoc-plugin:3.0.0')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
 //    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    //模板引擎
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 //    compile group: 'com.alibaba.rocketmq', name: 'rocketmq-client', version: '3.6.2.Final'
 //    compile 'org.apache.rocketmq:spring-boot-starter-rocketmq:1.0.0-SNAPSHOT'
@@ -89,11 +91,22 @@ dependencies {
     compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
 //    compile group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
-    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.6'
+//    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.6'
     // springSession redis管理session
 //    compile group: 'org.springframework.session', name: 'spring-session-data-redis'
 //    compile group: 'com.alibaba', name: 'easyexcel', version: '1.1.1'
+    // 配置文件处理器
     compile('org.springframework.boot:spring-boot-configuration-processor')
+//    compile('de.codecentric:spring-boot-admin-server')
+//    compile('de.codecentric:spring-boot-admin-server-ui')
+    // 阿里巴巴Sentinel限流
+    compile('com.alibaba.csp:sentinel-core:1.4.0')
+    // 阿里巴巴Sentinel限流注解式
+    compile('com.alibaba.csp:sentinel-annotation-aspectj:1.4.0')
+    // sentinel与控制台通讯
+    compile('com.alibaba.csp:sentinel-transport-simple-http:1.4.0')
+
+
 }
 
 compileKotlin {

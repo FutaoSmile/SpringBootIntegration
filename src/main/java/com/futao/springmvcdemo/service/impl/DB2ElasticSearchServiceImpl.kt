@@ -8,7 +8,6 @@ import com.futao.springmvcdemo.service.DB2ElasticSearchService
 import org.reflections.Reflections
 import org.slf4j.LoggerFactory
 import org.springframework.data.elasticsearch.annotations.Document
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate
 import org.springframework.stereotype.Service
 import javax.annotation.Resource
 
@@ -36,7 +35,7 @@ open class DB2ElasticSearchServiceImpl : DB2ElasticSearchService {
                 //数据同步
 //                articleSearchDao.saveAll(articleDao.list())
             } else {
-                throw LogicException.le(ErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, it.name)
+                throw LogicException.le(ErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, arrayOf(it.name))
             }
         }
 

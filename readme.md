@@ -124,6 +124,7 @@ src
 * zxing二维码
 * hashMap原理
 * gradle profile 根据不同用户读取不同的配置文件
+* http://graphql.cn/
 ```
 报错内容:
 
@@ -175,7 +176,7 @@ collation-server=utf8mb4_unicode_ci
 
 ### # Rocketmq
 * 启动nameserver ` ~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqnamesrv`
-* 启动broker `~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true’`
+* 启动broker `~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true`
 * 启动console `java -jar ./docs/jars/rocketmq-console-ng-1.0.0.jar`
 * 如果没装rocketmq，可关闭该功能(项目中使用到rocketmq的地方都将被关闭)。关闭方法: 配置文件:`rocketmq.consumer.onOff:off,rocketmq.producer.onOff:off`
 
@@ -187,3 +188,13 @@ collation-server=utf8mb4_unicode_ci
     * 如果依赖生产者，则需要需要标注`@Conditional(RocketMqProducerOnOff::class)`
     * 如果依赖消费者，则需要标注`@Conditional(RocketMqConsumerOnOff::class)`
 否则项目启不起来
+
+
+### # 阿里巴巴限流工具 Sentinel 控制台
+* https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D
+* https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0
+* 启动 `java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar ./docs/jars/sentinel-dashboard.jar`
+
+如果出现下载不了jar包的情况，把toggle offline mode关掉
+
+https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/reference/htmlsingle/

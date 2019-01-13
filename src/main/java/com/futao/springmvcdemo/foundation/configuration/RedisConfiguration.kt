@@ -52,6 +52,7 @@ open class RedisConfiguration : CachingConfigurerSupport() {
     /**
      * 自定义序列化
      * 这里的FastJsonRedisSerializer引用的自己定义的
+     * 不自定义的话redisTemplate会乱码
      */
     @Bean
     open fun redisTemplate(factory: RedisConnectionFactory): RedisTemplate<String, Any> {

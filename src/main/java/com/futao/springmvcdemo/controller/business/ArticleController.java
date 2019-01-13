@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
  * @author futao
  * Created on 2018/10/20.
  */
-@ApiIgnore
+//@ApiIgnore
 @Api("文章")
 @RestController
 @RequestMapping(path = "article", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -37,9 +36,10 @@ public class ArticleController {
     public SingleValueResult add(
             @RequestParam("title") String title,
             @RequestParam("desc") String desc,
-            @RequestParam("content") String content
+            @RequestParam("content") String content,
+            @RequestParam("visitTime") int visitTime
     ) {
-        articleService.add(title, desc, content);
+        articleService.add(title, desc, content, visitTime);
         return new SingleValueResult("success");
     }
 
@@ -63,7 +63,12 @@ public class ArticleController {
      */
     @ApiOperation("全文检索")
     @GetMapping("search")
-    public List<Article> search(@RequestParam("key") String key) {
-        return articleService.search(key);
+    public List<Article> search(@RequestParam("key") String key,
+                                @RequestParam("from") int fromRange,
+                                @RequestParam("to") int toRange,
+                                @RequestParam("from") int from,
+                                @RequestParam("size") int size
+    ) {
+        return articleService.search(key, fromRange, toRange, size, from);
     }
 }

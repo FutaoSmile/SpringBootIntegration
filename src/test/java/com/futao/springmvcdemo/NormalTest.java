@@ -12,6 +12,9 @@ import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
+import com.futao.springmvcdemo.smart4j.annotation.SmartService;
+import com.futao.springmvcdemo.smart4j.foundation.ClassHelper;
+import com.futao.springmvcdemo.smart4j.foundation.ClassUtils;
 import com.futao.springmvcdemo.suit.A;
 import com.futao.springmvcdemo.suit.B;
 import com.futao.springmvcdemo.suit.CC;
@@ -38,6 +41,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author futao
@@ -45,13 +49,80 @@ import java.util.*;
  */
 public class NormalTest {
 
+    @Test
+    public void test48() {
+        String a = "1234567";
+        System.out.println(a.substring(4, 4));
+    }
+
+    @Test
+    public void test47() {
+        Integer a = 1;
+        Integer b = Integer.parseInt("1");
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
+        System.out.println(a.equals(1));
+        System.out.println(a.equals(map.get("1")));
+        System.out.println(b.equals(1));
+        System.out.println(b.equals(map.get("1")));
+    }
+
+    @Test
+    public void test46() {
+        List<String> list1 = new ArrayList<>();
+        list1.add("1");
+        list1.add("2");
+        list1.add("3");
+        List<String> list2 = new ArrayList<>();
+        list2.add("1");
+        list2.add("2");
+        System.out.println(list1.stream().filter(l1 -> !list2.contains(l1)).collect(Collectors.toList()));
+
+        System.out.println(list1.stream().filter(l1 -> list2.indexOf(l1) < 0).collect(Collectors.toList()));
+    }
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NormalTest.class);
+
+    @Test
+    public void test45() {
+        System.out.println(ClassHelper.getBeans());
+        System.out.println(ClassHelper.getClassSetByAnn(SmartService.class));
+    }
+
+
+    @Test
+    public void test44() {
+        Set<Class<?>> set = ClassUtils.getClassSet("com.futao.springmvcdemo");
+        set.forEach(System.out::println);
+    }
+
+    @Test
+    public void test43() {
+        //都是全部替换
+        String a = "222";
+        //可替换字符与字符串
+        System.out.println(a.replace("2", "3"));
+        //可写正则表达式
+        System.out.println(a.replaceAll("2", "3"));
+    }
+
+    @Test
+    public void test42() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        System.out.println(classLoader);
+        ClassLoader classLoader1 = classLoader.getParent();
+        System.out.println(classLoader1);
+        ClassLoader loader = classLoader1.getParent();
+        System.out.println(loader);
+    }
+
 
     @Test
     public void test41() {
-//        String[] actuator = new String[]{"1", "2"};
-//        Arrays.asList(actuator).add(1, "2");
-        System.out.println(Calendar.getInstance().getTimeZone());
-        System.out.println(28800000 / (1000 * 60 * 60));
+        String a = "12345";
+        System.out.println(a.substring(2));     //345
+        System.out.println(a.substring(2, 4));  //34
     }
 
 
@@ -177,8 +248,6 @@ public class NormalTest {
     }
 
 
-    Logger logger = LoggerFactory.getLogger(NormalTest.class);
-
     @Test
     public void test29() {
         String a = "123";
@@ -192,7 +261,7 @@ public class NormalTest {
         try {
             throw new NullPointerException("kongzhicheng");
         } catch (Exception e) {
-            logger.error("发生了异常{},{}", 6666, 7777, e);
+            LOGGER.error("发生了异常{},{}", 6666, 7777, e);
         }
     }
 
@@ -208,7 +277,7 @@ public class NormalTest {
                 "11\n" +
                 "1");
 
-        logger.error("1\n" +
+        LOGGER.error("1\n" +
                 "11\n" +
                 "111\n" +
                 "1111\n" +
@@ -218,7 +287,7 @@ public class NormalTest {
                 "11\n" +
                 "1");
 
-        logger.warn("1\n" +
+        LOGGER.warn("1\n" +
                 "11\n" +
                 "111\n" +
                 "1111\n" +
@@ -464,10 +533,10 @@ public class NormalTest {
         String a = "{'1':12}";
         System.out.println(JSONObject.parseObject(a).isEmpty());
 
-        logger.info("----");
-        logger.debug("-----");
-        logger.error("-----");
-        logger.warn("-----");
+        LOGGER.info("----");
+        LOGGER.debug("-----");
+        LOGGER.error("-----");
+        LOGGER.warn("-----");
     }
 
     @Test

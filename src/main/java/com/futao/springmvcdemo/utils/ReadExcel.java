@@ -25,7 +25,7 @@ public class ReadExcel {
     private static final String EXCEL_XLSX = "xlsx";
     private static final String TABLE_NAME = "Table name:";
     private static final String FIELD_NAME = "FieldName";
-    private static final String TYPE = "type";
+    private static final String TYPE = "TYPE";
     private static final String LENGTH = "Length";
     private static final String DECIMAL_LENGTH = "DecimalLength";
     private static final String NOT_NULL = "NOT_NULL";
