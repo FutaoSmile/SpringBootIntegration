@@ -1,7 +1,13 @@
-github [https://github.com/FutaoSmile/springbootFramework]()
+github 🔗[https://github.com/FutaoSmile/springbootFramework]()
 
-gitee [https://gitee.com/FutaoSmile/springboot_framework]()
+gitee 🔗 [https://gitee.com/FutaoSmile/springboot_framework]()
 
+<p align="center">
+
+![https://img.shields.io/badge/jdk-v1.8-green.svg](https://img.shields.io/badge/jdk-v1.8-green.svg)
+![https://img.shields.io/badge/version-v0.0.1--SNAPSHOT-green.svg](https://img.shields.io/badge/version-v0.0.1--SNAPSHOT-green.svg)
+
+</p>
 git添加多远程仓库
 
 `git remote set-url --add origin ssh://git@gitlab.ketongtx.com:9001/futao/springbootFramework.git`
@@ -122,7 +128,6 @@ src
 * solr 全文检索框架
 * Excel的导入导出
 * WebSecurity
-
 * Condition接口与@Conditional注解的使用
 * @Enable* 注解原理与@Import注解的使用
 * ImportSelector与ImportBeanDefinitionRegistrar接口的使用
@@ -133,23 +138,21 @@ src
 * hashMap原理
 * gradle profile 根据不同用户读取不同的配置文件
 * http://graphql.cn/
-```
+
 报错内容:
 
 Error running 'ServiceStarter': Command line is too long. Shorten command line for ServiceStarter or also for Application default configuration.
-
 
 
 解法:
 
 修改项目下 .idea\workspace.xml，找到标签 <component name="PropertiesComponent"> ， 在标签里加一行  <property name="dynamic.classpath" value="true" />
 
-```
 
 在项目启动时候选择激活的profile
-java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
+`java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd`
 
-项目依赖的其他jar包放在jars文件夹下
+
 
     /*--------------------------------------------
     |         C O N S T R U C T O R S           |
@@ -159,9 +162,8 @@ java -jar springmvcdemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=prd
     |  A C C E S S O R S / M O D I F I E R S    |
     ============================================*/
 
-需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了
 
-```
+```xml
 # mysql 字符集设置
 [client]
 # 设置mysql客户端默认字符集
@@ -196,6 +198,8 @@ collation-server=utf8mb4_unicode_ci
     * 如果依赖生产者，则需要需要标注`@Conditional(RocketMqProducerOnOff::class)`
     * 如果依赖消费者，则需要标注`@Conditional(RocketMqConsumerOnOff::class)`
 否则项目启不起来
+* 需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了
+* 项目依赖的其他jar包放在jars文件夹下
 
 
 ### # 阿里巴巴限流工具 Sentinel 控制台
