@@ -75,6 +75,8 @@ git添加多远程仓库
 
 > mybatis-plus(待优化)
 [https://mp.baomidou.com/](https://mp.baomidou.com/)
+
+> 国际化
  
 ### # 项目结构
 ```
@@ -137,7 +139,8 @@ src
 * zxing二维码
 * hashMap原理
 * gradle profile 根据不同用户读取不同的配置文件
-* http://graphql.cn/
+* 一种用于 API 的查询语言 [http://graphql.cn/](http://graphql.cn/)
+* 分布式日志收集logstash+kibana
 
 报错内容:
 
@@ -146,7 +149,7 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 
 解法:
 
-修改项目下 .idea\workspace.xml，找到标签 <component name="PropertiesComponent"> ， 在标签里加一行  <property name="dynamic.classpath" value="true" />
+修改项目下 `.idea\workspace.xml`，找到标签 `<component name="PropertiesComponent"> `， 在标签里加一行  `<property name="dynamic.classpath" value="true" />`
 
 
 在项目启动时候选择激活的profile
@@ -205,7 +208,11 @@ collation-server=utf8mb4_unicode_ci
 ### # 阿里巴巴限流工具 Sentinel 控制台
 * https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D
 * https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0
-* 启动 `java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar ./docs/jars/sentinel-dashboard.jar`
+* 注解支持 https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81
+* 启动 `java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar ./docs/console/sentinel-dashboard.jar`
+* 其中 -Dserver.port=8080 用于指定 Sentinel 控制台端口为 8080。
+* springboot项目启动时加入 JVM 参数 -Dcsp.sentinel.dashboard.server=consoleIp:port 指定控制台地址和端口。若启动多个应用，则需要通过 -Dcsp.sentinel.api.port=xxxx 指定客户端监控 API 的端口（默认是 8719）
+* 如果请求的方法上标记了@Cachexxx()注解则Sentinel无效
 
 如果出现下载不了jar包的情况，把toggle offline mode关掉
 

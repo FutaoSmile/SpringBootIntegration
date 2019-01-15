@@ -40,12 +40,12 @@ open class RedisConfiguration : CachingConfigurerSupport() {
     override fun keyGenerator(): KeyGenerator {
         return KeyGenerator { target, method, params ->
             val builder = StringBuilder()
-            builder.append("${target.javaClass.simpleName}-")
-                    .append("${method.name}-")
+            builder.append("${target.javaClass.simpleName}:")
+                    .append("${method.name}:")
             for (param in params) {
-                builder.append("$param-")
+                builder.append("$param:")
             }
-            builder.toString().toLowerCase()
+            builder.toString().substring(0, builder.length).toLowerCase()
         }
     }
 

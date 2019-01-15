@@ -19,7 +19,7 @@ public class RedisKeySet {
      * @return
      */
     public static String gen(String prefix, String key) {
-        return prefix + "-" + key;
+        return prefix + ":" + key;
     }
 
 

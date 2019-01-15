@@ -16,6 +16,7 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -40,6 +41,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private LoginUserInterceptor loginUserInterceptor;
     @Resource
     private RequestLogInterceptor requestLogInterceptor;
+    @Resource
+    private LocaleChangeInterceptor localeChangeInterceptor;
 
     /**
      * 添加拦截器
@@ -53,6 +56,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(loginUserInterceptor).addPathPatterns("/**");
         //  "/**"和"/*"是有区别的
         registry.addInterceptor(signInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(localeChangeInterceptor).addPathPatterns("/**");
     }
 
     /**

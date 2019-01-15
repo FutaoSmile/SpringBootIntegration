@@ -1,4 +1,7 @@
 spring:
+  messages:
+    # 定义国际化文件的文件地址，读取的原则是顺序读取如果存在同名的则读取第一个
+    basename: i18n/login,i18n/errorMessage
   cache:
     type: redis
     redis:
