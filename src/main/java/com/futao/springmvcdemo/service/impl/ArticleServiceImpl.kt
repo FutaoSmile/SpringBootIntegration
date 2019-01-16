@@ -87,9 +87,9 @@ open class ArticleServiceImpl : ArticleService {
                 .setQuery(
                         QueryBuilders
                                 .boolQuery()
-                                .should(QueryBuilders.matchQuery(Article::getContent.getFieldName(), key))
-                                .should(QueryBuilders.matchQuery(Article::getTitle.getFieldName(), key))
-                                .should(QueryBuilders.matchQuery(Article::getDescription.getFieldName(), key))
+                                .should(QueryBuilders.matchQuery(Article::getContent.getFieldName(), key).boost(1f))//权重1f
+                                .should(QueryBuilders.matchQuery(Article::getTitle.getFieldName(), key).boost(2f))
+                                .should(QueryBuilders.matchQuery(Article::getDescription.getFieldName(), key).boost(4f))
 
                 )
                 //范围搜索
@@ -117,7 +117,6 @@ open class ArticleServiceImpl : ArticleService {
 //                .actionGet()
 
                 //TODO("分组查询")某个标签下的数量
-                //TODO("权重")
                 //TODO("平均价格")
                 .hits
         val list: ArrayList<Article> = arrayListOf()

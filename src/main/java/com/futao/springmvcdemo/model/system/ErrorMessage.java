@@ -20,6 +20,10 @@ public final class ErrorMessage {
     public static final String PROPERTIES_NOT_EXISTS = "00005_配置文件%s不存在";
     public static final String VISIT_TOO_FREQUENTLY = "00006_访问太频繁,请稍后再试";
     public static final String I18N_RESOURCE_NOT_FOUND = "00007_获取国际化资源%s失败,请检查您的配置";
+    public static final String GEN_URI_FAIL = "00007_构造请求地址时发生异常";
+    public static final String REQUEST_METHOD_NOT_EXISTS = "00008_请求方式不存在";
+    public static final String REQUEST_FAIL = "00008_请求时发生异常%s";
+
 
     public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";
     public static final String DESERIALIZER_FAIL = "01009_反序列化失败";

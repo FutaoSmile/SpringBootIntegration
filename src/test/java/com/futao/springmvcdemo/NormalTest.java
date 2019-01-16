@@ -18,6 +18,8 @@ import com.futao.springmvcdemo.smart4j.foundation.ClassUtils;
 import com.futao.springmvcdemo.suit.A;
 import com.futao.springmvcdemo.suit.B;
 import com.futao.springmvcdemo.suit.CC;
+import com.futao.springmvcdemo.utils.http.GetRequest;
+import com.futao.springmvcdemo.utils.http.PostRequest;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -48,6 +50,22 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+
+    @Test
+    public void test49() {
+        GetRequest getRequest = new GetRequest();
+        getRequest.addParameter("p1", "123");
+//        getRequest.addParameter("p1","123");
+        getRequest.addParameter("p2", "1233333");
+        getRequest.request("http://localhost:8888/test/get");
+
+        PostRequest postRequest=new PostRequest();
+        User user = new User();
+        user.setUsername("qwaskdh");
+        postRequest.addEntity(user);
+        postRequest.request("http://localhost:8888/test/postObject");
+
+    }
 
     @Test
     public void test48() {
