@@ -1,8 +1,11 @@
 package com.futao.springmvcdemo;
 
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springmvcdemo.annotation.EnableEntity;
 import com.futao.springmvcdemo.model.entity.SystemInformation;
+import com.futao.springmvcdemo.model.system.SentinelResourceEnum;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +22,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
 
@@ -33,7 +38,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.futao.springmvcdemo.dao")      //会将包里面的接口当做mapper配置，之后可以自动引入mapper类
-@EnableCaching
+@EnableCaching  //开启
 @EnableScheduling
 @EnableAsync
 @EnableAspectJAutoProxy
@@ -55,29 +60,16 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
         System.setProperty("es.set.netty.runtime.available.processors", "false");
 
         ConfigurableApplicationContext context = SpringApplication.run(SpringmvcdemoApplication.class, args);
+
         /**
          * redis反序列化
          * 开启fastjson反序列化的autoType
          */
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        //初始化sentinel限流规则
+        initSentinelFlowRules();
     }
 
-    @Scope(value = SCOPE_SINGLETON)
-    @Bean
-    public SystemInformation startTimestamp() {
-        return new SystemInformation(new Timestamp(System.currentTimeMillis()));
-    }
-
-    /**
-     * 开启spring-session redis管理session
-     * We create a RedisConnectionFactory that connects Spring Session to the Redis Server
-     *
-     * @return
-     */
-//    @Bean
-//    public LettuceConnectionFactory connectionFactory() {
-//        return new LettuceConnectionFactory();
-//    }
 
     /**
      * Callback used to run the bean.
@@ -112,4 +104,43 @@ public class SpringmvcdemoApplication implements CommandLineRunner {
                 "//");
     }
 
+
+    /**
+     * 初始化sentinel限流规则
+     */
+    public static void initSentinelFlowRules() {
+        List<FlowRule> rules = new ArrayList<>();
+        FlowRule rule = new FlowRule();
+        //资源名
+        for (SentinelResourceEnum sentinelResource : SentinelResourceEnum.values()) {
+            rule.setResource(sentinelResource.getResourceName());
+            //限流阈值类型
+            rule.setGrade(sentinelResource.getRuleConstant());
+            //限流阈值，表示每秒钟通过n次请求
+            rule.setCount(sentinelResource.getCount());
+            //将定义好的rule放在List中
+            rules.add(rule);
+            System.out.println("加载限流规则" + rule);
+        }
+        FlowRuleManager.loadRules(rules);
+    }
+
+
+    @Scope(value = SCOPE_SINGLETON)
+    @Bean
+    public SystemInformation startTimestamp() {
+        return new SystemInformation(new Timestamp(System.currentTimeMillis()));
+    }
+
+
+    /**
+     * 开启spring-session redis管理session
+     * We create a RedisConnectionFactory that connects Spring Session to the Redis Server
+     *
+     * @return
+     */
+//    @Bean
+//    public LettuceConnectionFactory connectionFactory() {
+//        return new LettuceConnectionFactory();
+//    }
 }

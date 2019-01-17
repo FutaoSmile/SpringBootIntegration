@@ -7,7 +7,7 @@ spring:
     redis:
       use-key-prefix: true
       cache-null-values: true
-  #      time-to-live: 5s
+  #      TIME-to-live: 5s
   servlet:
     # 设置文件上传与下载的文件大小限制
     multipart:

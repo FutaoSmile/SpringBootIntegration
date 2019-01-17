@@ -7,6 +7,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.enums.UserRoleEnum;
@@ -19,7 +20,6 @@ import com.futao.springmvcdemo.suit.A;
 import com.futao.springmvcdemo.suit.B;
 import com.futao.springmvcdemo.suit.CC;
 import com.futao.springmvcdemo.utils.http.GetRequest;
-import com.futao.springmvcdemo.utils.http.PostRequest;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -27,6 +27,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -50,21 +51,52 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest {
+    @Test
+    public void test50() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+
+        System.out.println(Arrays.toString(list.toArray(new String[0])));
+        System.out.println(list);
+    }
 
     @Test
     public void test49() {
-        GetRequest getRequest = new GetRequest();
-        getRequest.addParameter("p1", "123");
-//        getRequest.addParameter("p1","123");
-        getRequest.addParameter("p2", "1233333");
-        getRequest.request("http://localhost:8888/test/get");
+//        GetRequest getRequest = new GetRequest("https://www.cnblogs.com/lingiu/p/3782813.html");
+//        getRequest.addParameter("p1", "123");
+//        getRequest.addParameter("p1", "123");
+//        getRequest.addParameter("p2", "1233333");
+//        System.out.println(getRequest.send());
 
-        PostRequest postRequest=new PostRequest();
-        User user = new User();
-        user.setUsername("qwaskdh");
-        postRequest.addEntity(user);
-        postRequest.request("http://localhost:8888/test/postObject");
+//        String u = "http://localhost:8888/test";
+//
+//        PostRequest postRequest = new PostRequest(u + "/postObject");
+//        postRequest.addHeader(HttpHeaders.ACCEPT_ENCODING, MediaType.APPLICATION_JSON_UTF8_VALUE);
+//        postRequest.addParameter("p1", "江西");
+//        User user = new User();
+//        user.setUsername("qwaskdh");
+//        postRequest.addEntity(user);
+//        System.out.println(postRequest.send());
+//
+//        DeleteRequest deleteRequest = new DeleteRequest(u + "/deletePathVariable/"+000);
+//        deleteRequest.addParameter("p1","123");
+//        deleteRequest.send();
 
+
+//        String url = "https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2019-02-10&leftTicketDTO.from_station=FCG&leftTicketDTO.to_station=HGH&purpose_codes=ADULT";
+//        String result = new GetRequest(url).send();
+        String url = "http://localhost:8888/test/get";
+
+//        for (int i = 0; i < 5; i++) {
+        GetRequest getRequest = new GetRequest(url);
+        getRequest.addCredentials("123", "123");
+        getRequest.addHeader("5", "6");
+        getRequest.addCookie(new BasicClientCookie("coo", "12313"));
+        getRequest.addParameter("p1", "123132");
+        getRequest.addParameter("p2", "1231344");
+        System.out.println(JSONObject.toJSONString(JSON.parseObject(getRequest.send()), HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+//        }
     }
 
     @Test

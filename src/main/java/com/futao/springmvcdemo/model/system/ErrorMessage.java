@@ -23,6 +23,9 @@ public final class ErrorMessage {
     public static final String GEN_URI_FAIL = "00007_构造请求地址时发生异常";
     public static final String REQUEST_METHOD_NOT_EXISTS = "00008_请求方式不存在";
     public static final String REQUEST_FAIL = "00008_请求时发生异常%s";
+    public static final String GET_RESPONSE_FAIL = "00009_获取响应失败%s";
+    public static final String CLOSE_RESPONSE_FAIL = "00010_关闭response失败%s";
+    public static final String ADD_AUTH_HEAD_FAIL = "00011_request authentication fail %s";
 
 
     public static final String FIELD_NO_GETTER_OR_SETTER = "01008_该字段没有getter或者setter";

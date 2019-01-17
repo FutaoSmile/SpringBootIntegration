@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api("java测试接口")
 @RequestMapping(path = "test")
-public class JavaTest {
+public class JavaTestController {
 
     @GetMapping(path = "get")
     public JSONObject get(@RequestParam("p1") String p1, @RequestParam("p2") int p2) {
@@ -28,8 +28,9 @@ public class JavaTest {
 
     @PostMapping(path = "postObject")
     public User postObject(
-            @RequestBody User user
+            @RequestBody User user, @RequestParam("p1") String p1
     ) {
+        user.setAddress(p1);
         return user;
     }
 

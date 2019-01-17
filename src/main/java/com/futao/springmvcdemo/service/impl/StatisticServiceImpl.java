@@ -1,11 +1,5 @@
 package com.futao.springmvcdemo.service.impl;
 
-import com.alibaba.csp.sentinel.Entry;
-import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
@@ -16,6 +10,8 @@ import com.futao.springmvcdemo.service.StatisticService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +26,8 @@ import java.util.*;
  */
 @Service
 public class StatisticServiceImpl implements StatisticService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StatisticServiceImpl.class);
 
     /**
      * 获取程序中定义的错误码
@@ -82,40 +80,21 @@ public class StatisticServiceImpl implements StatisticService {
         return map;
     }
 
-    private static void initFlowRules() {
-        List<FlowRule> rules = new ArrayList<>();
-        FlowRule rule = new FlowRule();
-        //资源名
-        rule.setResource("StatisticService");
-        //限流阈值类型，此处为qps类型
-        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        //限流阈值，表示每秒钟通过5次请求
-        rule.setCount(2);
-        //将定义好的rule放在List中
-        rules.add(rule);
-        FlowRuleManager.loadRules(rules);
-    }
 
     @Override
-//    @SentinelResource(value = "StatisticService", entryType = EntryType.OUT, blockHandler = "", blockHandlerClass = {}, fallback = "")
 //    @Cacheable("apiList")
     public ArrayList<ApiControllerDescription> apiList() {
-        initFlowRules();
-        while (true) {
-            Entry entry = null;
-            try {
-                entry = SphU.entry("StatisticService");
-                System.out.println("-----------------hello world");
-                a();
-            } catch (BlockException e1) {
-                System.out.println("================================block!" + e1.getMessage());
-            } finally {
-                if (entry != null) {
-                    entry.exit();
-                }
-            }
-        }
-
+//        Entry entry = null;
+//        try {
+//            entry = SphU.entry("apiList");
+        return a();
+//        } catch (BlockException e1) {
+//            throw LogicException.le(ErrorMessage.VISIT_TOO_FREQUENTLY);
+//        } finally {
+//            if (entry != null) {
+//                entry.exit();
+//            }
+//        }
     }
 
     private ArrayList<ApiControllerDescription> a() {

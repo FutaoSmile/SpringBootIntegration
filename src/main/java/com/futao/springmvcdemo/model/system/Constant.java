@@ -29,4 +29,10 @@ public final class Constant {
      */
     public static final int SERVICE_TIMEOUT_TIME = 2;
 
+    public static class RequestConst {
+        public static final int CONNECTION_REQUEST_TIMEOUT = 5000;
+        public static final int CONNECT_TIMEOUT = 5000;
+        public static final int SOCKET_TIMEOUT = 5000;
+    }
+
 }

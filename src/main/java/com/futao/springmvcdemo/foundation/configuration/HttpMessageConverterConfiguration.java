@@ -24,6 +24,12 @@ import java.nio.charset.StandardCharsets;
  */
 @Service
 public class HttpMessageConverterConfiguration extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
+    public static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
+            SerializerFeature.PrettyFormat
+            , SerializerFeature.SkipTransientField
+            , SerializerFeature.WriteEnumUsingName
+            , SerializerFeature.WriteDateUseDateFormat
+    };
 
     @Override
     protected boolean supports(Class<?> clazz) {
@@ -59,12 +65,7 @@ public class HttpMessageConverterConfiguration extends AbstractHttpMessageConver
     public void write(Object o, Type type, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         //字段上标记的@JSONField(format="")无效.....
         JSON.DEFFAULT_DATE_FORMAT = TimeUtilsKt.yyyyMMddHHmmss;
-        SerializerFeature[] serializerFeatures = new SerializerFeature[]{
-                SerializerFeature.PrettyFormat
-                , SerializerFeature.SkipTransientField
-                , SerializerFeature.WriteEnumUsingName
-                , SerializerFeature.WriteDateUseDateFormat
-        };
-        outputMessage.getBody().write(JSON.toJSONString(o, serializerFeatures).getBytes(StandardCharsets.UTF_8));
+
+        outputMessage.getBody().write(JSON.toJSONString(o, SERIALIZER_FEATURES).getBytes(StandardCharsets.UTF_8));
     }
 }

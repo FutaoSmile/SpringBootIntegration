@@ -62,13 +62,13 @@ public class HttpClientTest {
         //请求配置
         RequestConfig requestConfig = RequestConfig.custom()
                 //时间如果设置为-1或者不设置(默认-1)则没有超时时间，详见默认配置
-                //the Connection Manager Timeout (http.connection-manager.timeout) – the time to wait for a connection from the connection manager/pool
+                //the Connection Manager Timeout (http.connection-manager.timeout) – the TIME to wait for a connection from the connection manager/pool
                 //指从连接池获取到连接的超时时间，如果是非连接池的话，该参数暂时没有发现有什么用处
                 .setConnectionRequestTimeout(1000)
-                //the time to establish the connection with the remote host
+                //the TIME to establish the connection with the remote host
                 //与远程主机建立连接的超时时间
                 .setConnectTimeout(1000)
-                //the time waiting for data – after the connection was established; maximum time of inactivity between two data packets
+                //the TIME waiting for data – after the connection was established; maximum TIME of inactivity between two data packets
                 //等待数据的时间-在建立连接之后；两个数据包之间的最长非活动时间
                 .setSocketTimeout(1000)
                 .build();

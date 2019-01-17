@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.foundation;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
@@ -18,9 +19,9 @@ import javax.validation.ConstraintViolationException;
  *
  * @author futao
  * Created on 2018/11/6.
+ * //@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
  */
 @ControllerAdvice
-//@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
 public class ExceptionWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWrapper.class);
 
@@ -81,6 +82,20 @@ public class ExceptionWrapper {
             result.setCode(RestResult.NOT_RE_WRITE_ERROR_MESSAGE);
             result.setErrorMessage(message);
         }
+        return JSONObject.toJSON(result);
+    }
+
+
+    /**
+     * 限流Sentinel异常
+     *
+     * @param e 异常
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(BlockException.class)
+    public Object blockException(BlockException e) {
+        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.VISIT_TOO_FREQUENTLY);
         return JSONObject.toJSON(result);
     }
 }

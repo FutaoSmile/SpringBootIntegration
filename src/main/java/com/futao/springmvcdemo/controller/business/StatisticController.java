@@ -1,16 +1,20 @@
 package com.futao.springmvcdemo.controller.business;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.annotation.Role;
 import com.futao.springmvcdemo.annotation.impl.interceptor.RequestLogInterceptor;
 import com.futao.springmvcdemo.annotation.listener.OnlineHttpSessionListener;
+import com.futao.springmvcdemo.controller.SentinelAnn;
 import com.futao.springmvcdemo.model.entity.ApiControllerDescription;
 import com.futao.springmvcdemo.model.entity.SingleValueResult;
 import com.futao.springmvcdemo.model.entity.SystemInformation;
 import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessageFields;
 import com.futao.springmvcdemo.service.StatisticService;
+import com.futao.springmvcdemo.service.notbusiness.I18nService;
+import com.futao.springmvcdemo.service.notbusiness.SentinelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -72,6 +76,7 @@ public class StatisticController {
      *
      * @return
      */
+    @SentinelAnn(resource = "niubi")
     @ApiOperation("统计所有的错误码")
     @GetMapping("errorMessages")
     public List<ErrorMessageFields> errorMessages() throws IllegalAccessException {
@@ -87,6 +92,7 @@ public class StatisticController {
      */
     @ApiOperation("统计所有的枚举类信息")
     @GetMapping("enumList")
+    @SentinelResource(value = "STATISTIC_ENUM")
     public Map<String, JSONArray> enumList() {
         return statisticService.enumList();
     }
@@ -99,7 +105,10 @@ public class StatisticController {
      */
     @ApiOperation("统计系统中所有的api")
     @GetMapping(path = "apiList")
-    public ArrayList<ApiControllerDescription> apiList() {
+    @SentinelResource(value = "STATISTIC_API_LIST", blockHandler = "handler", blockHandlerClass = {SentinelService.class})
+    public ArrayList<ApiControllerDescription> apiList() throws InterruptedException {
+        System.out.println(I18nService.getMessage("welcome"));
+        System.out.println(I18nService.getMessage("test"));
         return statisticService.apiList();
     }
 
