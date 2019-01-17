@@ -63,7 +63,7 @@ public class HttpMessageConverterConfiguration extends AbstractHttpMessageConver
 
     @Override
     public void write(Object o, Type type, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-        //字段上标记的@JSONField(format="")无效.....
+        //TODO(字段上标记的@JSONField(format="")无效.....)
         JSON.DEFFAULT_DATE_FORMAT = TimeUtilsKt.yyyyMMddHHmmss;
 
         outputMessage.getBody().write(JSON.toJSONString(o, SERIALIZER_FEATURES).getBytes(StandardCharsets.UTF_8));

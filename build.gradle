@@ -105,6 +105,7 @@ dependencies {
     compile('com.alibaba.csp:sentinel-annotation-aspectj:1.4.0')
     // sentinel与控制台通讯
     compile('com.alibaba.csp:sentinel-transport-simple-http:1.4.0')
+    compile('org.springframework.boot:spring-boot-starter-security')
 
 
 }

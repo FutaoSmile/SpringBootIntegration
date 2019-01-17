@@ -39,6 +39,8 @@ import static com.futao.springmvcdemo.model.system.ErrorMessage.GEN_URI_FAIL;
 
 /**
  * 请求基类
+ * <p>
+ * 基于教程-https://www.baeldung.com/httpclient-guide
  *
  * @author futao
  * Created on 2019-01-16.

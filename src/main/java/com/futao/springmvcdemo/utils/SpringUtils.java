@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.service.notbusiness;
+package com.futao.springmvcdemo.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

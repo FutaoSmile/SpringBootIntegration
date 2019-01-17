@@ -2,6 +2,7 @@ package com.futao.springmvcdemo.service.notbusiness;
 
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
+import com.futao.springmvcdemo.utils.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.NoSuchMessageException;
@@ -24,8 +25,8 @@ public class I18nService {
      * Resource private MessageSource messageSource;
      * return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
      *
-     * @param code
-     * @return
+     * @param code k
+     * @return v
      */
     public static String getMessage(String code) {
         try {

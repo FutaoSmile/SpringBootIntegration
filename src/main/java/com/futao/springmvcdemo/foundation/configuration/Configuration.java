@@ -18,6 +18,8 @@ public class Configuration {
 
     /**
      * 国际化，设置默认的语言为中文
+     * 将用户的区域信息存在session
+     * 也可以存在cookie,由客户端保存   {@link org.springframework.web.servlet.i18n.CookieLocaleResolver}
      *
      * @return
      */
@@ -39,5 +41,6 @@ public class Configuration {
         lci.setParamName("lang");
         return lci;
     }
+
 
 }
