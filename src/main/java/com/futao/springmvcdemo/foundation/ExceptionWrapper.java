@@ -123,7 +123,7 @@ public class ExceptionWrapper extends DefaultHandlerExceptionResolver {
             result.setCode("400");
             result.setErrorMessage("参数" + ((MissingServletRequestParameterException) e).getParameterName() + "可不能忘传呀~");
         } else if (e instanceof NoHandlerFoundException) {
-            //TODO("404目前没有拦截到，其他的OK")
+            //TODO("404目前没有拦截到，其他的OK~")
             result.setCode("404");
             result.setErrorMessage("啊哦~您请求的地址" + ((NoHandlerFoundException) e).getRequestURL() + "还未开发呢~");
         } else {
