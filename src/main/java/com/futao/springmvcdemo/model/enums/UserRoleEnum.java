@@ -4,9 +4,10 @@ import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 
 /**
+ * 角色
+ *
  * @author futao
  * Created on 2018/9/19-14:41.
- * 角色
  */
 public enum UserRoleEnum {
     /**

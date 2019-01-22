@@ -40,6 +40,12 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     /**
      * controller执行之前
+     * getRemoteAddr（）是获得客户端的ip地址
+     * getRemoteHost（）是获得客户端的主机名
+     * 获取客户端的IP地址的方法是：request.getRemoteAddr()，这种方法在大部分情况下都是有效的。但是在通过了Apache,Squid等反向代理软件就不能获取到客户端的真实IP地址了（比如负载均衡处理）。
+     * return request.getHeader("x-forwarded-for");
+     * 此处，获取ip,当x-forwarded-for为null时，表示请求没有经过处理，此时调用getRemoteAddr（）和getRemoteHost（）都可获取真实ip
+     * 反之，则getHeader（"x-forwarded-for"）为真实的ip。
      *
      * @param request
      * @param response
@@ -60,7 +66,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
             if (ObjectUtils.allNotNull(restController)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n")
-                        .append("From: ").append(request.getRemoteHost()).append("|").append(request.getRemoteAddr()).append("|").append(request.getRemotePort())
+                        .append("From: ").append(request.getRemoteHost()).append("|").append(request.getHeaders("x-forwarded-for") == null ? request.getRemoteAddr() : request.getHeaders("x-forwarded-for")).append("|").append(request.getRemotePort())
                         .append("\n")
                         .append("请求方式: ").append(request.getMethod())
                         .append("\n")

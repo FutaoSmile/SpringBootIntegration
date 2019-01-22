@@ -143,7 +143,7 @@ src
 * zxing二维码
 * hashMap原理
 * gradle profile 根据不同用户读取不同的配置文件
-* 一种用于 API 的查询语言 [http://graphql.cn/](http://graphql.cn/)
+* 一种用于 API 的查询语言-非常新颖，颠覆以往的认知 [http://graphql.cn/](http://graphql.cn/)
 * 分布式日志收集logstash+kibana
 
 报错内容:
@@ -168,21 +168,6 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
     /*--------------------------------------------
     |  A C C E S S O R S / M O D I F I E R S    |
     ============================================*/
-
-
-```xml
-# mysql 字符集设置
-[client]
-# 设置mysql客户端默认字符集
-default-character-set=utf8mb4
-[mysql]
-# 设置mysql客户端默认字符集
-default-character-set=utf8mb4
-[mysqld]
-character-set-server=utf8mb4
-collation-server=utf8mb4_unicode_ci
-
-```
 
 ### # 开发者profile的解决方案:
 [使用gradle构建的springboot项目在IDEA根据不同的开发人员读取不同的配置文件](https://www.jianshu.com/p/27abbeccbebe)

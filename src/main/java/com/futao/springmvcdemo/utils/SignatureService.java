@@ -20,17 +20,16 @@ public class SignatureService {
     public static String signature(Map<String, String> packageParams, String appserect) {
 
         SortedMap<String, String> sortedMap = new TreeMap<>(packageParams);
-        StringBuffer sb = new StringBuffer();
-        Iterator<String> iterator = sortedMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = String.valueOf(iterator.next());
+        StringBuilder sb = new StringBuilder();
+        for (String s : sortedMap.keySet()) {
+            String key = String.valueOf(s);
             String value = String.valueOf(packageParams.get(key));
-            if (null != value && !"sign".equals(key) && !value.equals("null") && !"".equals(value)) {
-                sb.append(key + value);
+            if (null != value && !"sign".equals(key) && !"null".equals(value) && !"".equals(value)) {
+                sb.append(key).append(value);
             }
         }
         String signString = sb.toString() + appserect;
-        return CommonUtilsKt.md5(signString).toUpperCase();
+        return Objects.requireNonNull(CommonUtilsKt.md5(signString)).toUpperCase();
     }
 
     public static boolean signatureVerify(Map<String, String> packageParams, String appserect) {

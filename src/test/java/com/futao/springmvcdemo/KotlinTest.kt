@@ -17,13 +17,6 @@ class KotlinTest {
     fun test9() {
         println(parseStringToTwoDecimalStr(""))
     }
-
-    @Test
-    fun test8() {
-        val httpUtils = HttpRequestUtils()
-        httpUtils.request()
-    }
-
     @Test
     fun test7() {
 //        val connection = URL("https://www.baidu.com").openConnection()

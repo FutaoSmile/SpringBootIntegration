@@ -50,7 +50,51 @@ import java.util.stream.Collectors;
  * @author futao
  * Created on 2018/9/18-10:37.
  */
-public class NormalTest {
+public class NormalTest implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println(666);
+    }
+
+    @Test
+    public void test52() {
+        User user1 = new User();
+        user1.setAddress("111");
+        User user2 = new User();
+        user2.setAddress("2222");
+        /*
+        结果并不会改变user1和user2的引用
+        原因是：
+        调用t52()的时候，传的是user1和user2的两个`引用的拷贝`
+        所以在t52()方法中交换引用地址只是改变了t52()中两个拷贝的引用的引用地址
+        并不会改变test52()方法中对对象的引用
+        但是如果在t52()中对user1或user2的属性进行改动的话是会有效果的，因为t52()和test52()中指向的是同一个地址
+         */
+        t52(user1, user2);
+        System.out.println(user1 + "" + user2);
+        //关闭钩
+        Runtime.getRuntime().addShutdownHook(new Thread(new NormalTest()));
+    }
+
+    private void t52(User user1, User user2) {
+        User user = user1;
+        user1 = user2;
+        user2 = user;
+    }
+
+    String bb;
+
+    @Test
+    public void test51() {
+        Integer a = 123;            //自动装箱，会由编译器编译成Integer.valueOf(123)
+        int b = a;                  //自动拆箱，会由编译器编译成a.intValue()
+        int c = new Integer(19);
+        String cc = null;
+//        System.out.println(cc.length());
+//        System.out.println(bb.length());
+    }
+
     @Test
     public void test50() {
         ArrayList<String> list = new ArrayList<>();
@@ -59,6 +103,8 @@ public class NormalTest {
 
         System.out.println(Arrays.toString(list.toArray(new String[0])));
         System.out.println(list);
+
+
     }
 
     @Test
@@ -608,4 +654,6 @@ public class NormalTest {
         System.out.println((String) a);
         System.out.println(String.valueOf(a));
     }
+
+
 }

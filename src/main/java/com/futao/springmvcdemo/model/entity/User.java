@@ -6,6 +6,7 @@ import com.futao.springmvcdemo.model.enums.UserSexEnum;
 import com.futao.springmvcdemo.model.enums.UserStatusEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ import javax.validation.constraints.Size;
 @Validated
 @AllArgsConstructor
 //@TableName(value = "futao_user")
+@ToString
 public class User extends BaseEntity {
 
     /**
@@ -151,18 +153,26 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
+
+    //3.必须执行完代码块才执行构造方法
+
+    /**
+     * 2.实例代码块与实例代码块之间根据代码书写顺序依次执行
+     */ {
+        System.out.println("{}");
+    }
+
+
+    /**
+     * 1.静态代码块优先于实例代码块
+     */
+    static {
+        System.out.println("static{}");
+    }
+
     @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", age='" + age + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", status=" + status +
-                ", sex=" + sex +
-                ", role=" + role +
-                '}';
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("9999999999999");
     }
 }

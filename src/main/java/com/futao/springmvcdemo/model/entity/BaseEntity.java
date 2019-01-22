@@ -1,5 +1,7 @@
 package com.futao.springmvcdemo.model.entity;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -8,6 +10,7 @@ import java.sql.Timestamp;
  * Created on 2018/9/22-15:17.
  * 实体基类
  */
+@ToString
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 7360778825666258407L;
@@ -46,14 +49,5 @@ public class BaseEntity implements Serializable {
 
     public void setLastModifyTime(Timestamp lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "id='" + id + '\'' +
-                ", createTime=" + createTime +
-                ", lastModifyTime=" + lastModifyTime +
-                '}';
     }
 }
