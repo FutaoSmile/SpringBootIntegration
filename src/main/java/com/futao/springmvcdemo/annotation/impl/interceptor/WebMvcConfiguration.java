@@ -8,13 +8,6 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.validation.MessageCodesResolver;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
@@ -57,57 +50,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         //  "/**"和"/*"是有区别的
         registry.addInterceptor(signInterceptor).addPathPatterns("/**");
         registry.addInterceptor(localeChangeInterceptor).addPathPatterns("/**");
-    }
-
-    /**
-     * Helps with configuring HandlerMappings path matching options such as trailing slash match,
-     * suffix registration, path matcher and path helper.
-     * Configured path matcher and path helper instances are shared for:
-     * <ul>
-     * <li>RequestMappings</li>
-     * <li>ViewControllerMappings</li>
-     * <li>ResourcesMappings</li>
-     * </ul>
-     *
-     * @param configurer
-     * @since 4.0.3
-     */
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-
-    }
-
-    /**
-     * Configure content negotiation options.
-     *
-     * @param configurer
-     */
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-
-    }
-
-    /**
-     * Configure asynchronous request handling options.
-     *
-     * @param configurer
-     */
-    @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-
-    }
-
-    /**
-     * Configure a handler to delegate unhandled requests by forwarding to the
-     * Servlet container's "default" servlet. A common use case for this is when
-     * the DispatcherServlet is mapped to "/" thus overriding the
-     * Servlet container's default handling of static resources.
-     *
-     * @param configurer
-     */
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-
     }
 
     /**
@@ -188,59 +130,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * Configure simple automated controllers pre-configured with the response
-     * status code and/or a view to render the response body. This is useful in
-     * cases where there is no need for custom controller logic -- e.g. render a
-     * home page, perform simple site URL redirects, return a 404 status with
-     * HTML content, a 204 with no content, and more.
-     *
-     * @param registry
-     */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-
-    }
-
-    /**
-     * Configure view resolvers to translate String-based view names returned from
-     * controllers into concrete {@link View}
-     * implementations to perform rendering with.
-     *
-     * @param registry
-     * @since 4.1
-     */
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-
-    }
-
-    /**
-     * Add resolvers to support custom controller method argument types.
-     * <p>This does not override the built-in support for resolving handler
-     * method arguments. To customize the built-in support for argument
-     * resolution, configure RequestMappingHandlerAdapter directly.
-     *
-     * @param resolvers initially an empty list
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-
-    }
-
-    /**
-     * Add handlers to support custom controller method return value types.
-     * <p>Using this option does not override the built-in support for handling
-     * return values. To customize the built-in support for handling return
-     * values, configure RequestMappingHandlerAdapter directly.
-     *
-     * @param handlers initially an empty list
-     */
-    @Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-
-    }
-
-    /**
      * Configure the {@link HttpMessageConverter}s to use for reading or writing
      * to the body of the request or response. If no converters are added, a
      * default list of converters is registered.
@@ -258,49 +147,4 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //        暂时无效
     }
 
-    /**
-     * A hook for extending or modifying the list of converters after it has been
-     * configured. This may be useful for example to allow default converters to
-     * be registered and then insert a custom converter through this method.
-     *
-     * @param converters the list of configured converters to extend.
-     * @since 4.1.3
-     */
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-    }
-
-
-    @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-
-    }
-
-
-    @Override
-    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-
-    }
-
-    /**
-     * Provide a custom {@link Validator} instead of the one created by default.
-     * The default implementation, assuming JSR-303 is on the classpath, is:
-     * {@link OptionalValidatorFactoryBean}.
-     * Leave the return value as {@code null} to keep the default.
-     */
-    @Override
-    public Validator getValidator() {
-        return null;
-    }
-
-    /**
-     * Provide a custom {@link MessageCodesResolver} for building message codes
-     * from data binding and validation error codes. Leave the return value as
-     * {@code null} to keep the default.
-     */
-    @Override
-    public MessageCodesResolver getMessageCodesResolver() {
-        return null;
-    }
 }

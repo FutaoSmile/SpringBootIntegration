@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ import javax.validation.ConstraintViolationException;
  * //@ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
  */
 @ControllerAdvice
-public class ExceptionWrapper extends DefaultHandlerExceptionResolver {
+public class ExceptionWrapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWrapper.class);
 
     /**
@@ -106,6 +105,7 @@ public class ExceptionWrapper extends DefaultHandlerExceptionResolver {
 
 
     /**
+     * 处理400,404,405,500等问题
      * 详情{@link org.springframework.web.servlet.DispatcherServlet#noHandlerFound}
      *
      * @param e
@@ -113,22 +113,25 @@ public class ExceptionWrapper extends DefaultHandlerExceptionResolver {
      */
     @ResponseBody
     @ExceptionHandler(ServletException.class)
-    public Object notFoundException(ServletException e) {
+    public Object notFoundException(ServletException e, HttpServletResponse response) {
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.VISIT_TOO_FREQUENTLY);
 
         if (e instanceof HttpRequestMethodNotSupportedException) {
             result.setCode("405");
             result.setErrorMessage("当前接口是不支持" + ((HttpRequestMethodNotSupportedException) e).getMethod() + "方法的哟~");
+            response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         } else if (e instanceof MissingServletRequestParameterException) {
             result.setCode("400");
             result.setErrorMessage("参数" + ((MissingServletRequestParameterException) e).getParameterName() + "可不能忘传呀~");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else if (e instanceof NoHandlerFoundException) {
-            //TODO("404目前没有拦截到，其他的OK~")
             result.setCode("404");
             result.setErrorMessage("啊哦~您请求的地址" + ((NoHandlerFoundException) e).getRequestURL() + "还未开发呢~");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
             result.setCode("500");
             result.setErrorMessage("服务器暂时不可用，给我一首歌的时间。我们正在紧急修复中~");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return JSONObject.toJSON(result);
     }

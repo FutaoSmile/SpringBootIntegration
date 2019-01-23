@@ -131,6 +131,15 @@ public class RequestLogInterceptor implements HandlerInterceptor {
 
     }
 
+    /**
+     * 还可以在这个地方根据response.getStatus来处理404，500等问题
+     *
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         logger.info("请求(id={})结束：本次请求所消耗的时间（毫秒）：{}", request.getAttribute("uuid"), ((System.currentTimeMillis() - (Long.valueOf(request.getAttribute("startTime").toString())))));

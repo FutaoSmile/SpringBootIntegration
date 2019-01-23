@@ -21,14 +21,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 对请求标记了LoginUser的方法进行拦截
+ *
  * @author futao
  * Created on 2018/9/19-14:44.
- * 对请求标记了LoginUser的方法进行拦截
  */
 @Component
 public class LoginUserInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginUserInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginUserInterceptor.class);
 
     @Resource
     private ThreadLocalUtils<User> threadLocalUtils;
@@ -58,11 +59,11 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
                     String loginUserId = (String) session.getAttribute(Constant.LOGIN_USER_SESSION_KEY);
                     if (ObjectUtils.allNotNull(loginUserId)) {
                         User currentUser = userService.getUserById(loginUserId);
-                        System.out.println("当前登陆用户为：" + currentUser);
+                        LOGGER.info("当前登陆用户为：" + currentUser);
                         //将当前用户的信息存入threadLocal中
                         threadLocalUtils.set(currentUser);
                     } else {
-                        System.out.println("用户不存在");
+                        LOGGER.info("用户不存在");
                         return false;
                     }
                 } else {//session为空，用户未登录
