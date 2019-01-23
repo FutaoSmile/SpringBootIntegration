@@ -30,8 +30,8 @@ public class HibernateConfiguration {
     @Value("${spring.jpa.show-sql}")
     private Boolean showSql;
 
-    @Value("${spring.jpa.hibernate.hbm2ddl.auto}")
-    private String hb2ddlAuto;
+//    @Value("${spring.jpa.hibernate.hbm2ddl.auto}")
+//    private String hb2ddlAuto;
 //
 //    @Bean
 //    public LocalSessionFactoryBean sessionFactory() {

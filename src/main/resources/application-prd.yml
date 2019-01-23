@@ -1,4 +1,7 @@
 spring:
+  messages:
+    # 定义国际化文件的文件地址，读取的原则是顺序读取如果存在同名的则读取第一个
+    basename: i18n/login,i18n/errorMessage
   cache:
     type: redis
     redis:
@@ -89,6 +92,9 @@ spring:
           required: true
   mvc:
     dispatch-options-request: false
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
 #      mail:
 #        smtp:
 #          ssl:
@@ -143,10 +149,9 @@ jianshu:
   id: futaosmile
 
 # 线程池配置
-#threadpool:
-#  corePoolSize: 10
-#  maxPoolSize: 200
-#  queueCapacity: 10
+threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
+
+
 
 
 debug: true
