@@ -66,7 +66,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
             if (ObjectUtils.allNotNull(restController)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append("\n")
-                        .append("From: ").append(request.getRemoteHost()).append("|").append(request.getHeaders("x-forwarded-for") == null ? request.getRemoteAddr() : request.getHeaders("x-forwarded-for")).append("|").append(request.getRemotePort())
+                        .append("From: ").append(request.getRemoteHost()).append("|").append(request.getHeaders("x-forwarded-for") == null ? request.getRemoteAddr() : request.getHeader("x-forwarded-for")).append("|").append(request.getRemotePort())
                         .append("\n")
                         .append("请求方式: ").append(request.getMethod())
                         .append("\n")

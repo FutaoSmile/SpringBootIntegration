@@ -2,6 +2,7 @@ package com.futao.springmvcdemo.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
 import javax.servlet.http.Cookie;
@@ -23,7 +24,7 @@ public final class RequestUtils {
      */
     public static String getCookies(Cookie[] cookies) {
         JSONObject jsonObject = new JSONObject();
-        if (ObjectUtils.allNotNull(cookies)) {
+        if (ArrayUtils.isNotEmpty(cookies)) {
             for (Cookie cookie : cookies) {
                 jsonObject.put(cookie.getName(), cookie.getValue());
             }

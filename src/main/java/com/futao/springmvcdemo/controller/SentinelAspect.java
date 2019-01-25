@@ -58,7 +58,7 @@ public class SentinelAspect {
             entry = SphU.entry("niubi");
             return point.proceed();
         } catch (BlockException e1) {
-            throw LogicException.le(ErrorMessage.VISIT_TOO_FREQUENTLY);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
         } finally {
             if (entry != null) {
                 entry.exit();

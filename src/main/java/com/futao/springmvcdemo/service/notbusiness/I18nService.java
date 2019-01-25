@@ -33,7 +33,7 @@ public class I18nService {
             return SpringUtils.getContext().getMessage(code, null, LocaleContextHolder.getLocale());
         } catch (NoSuchMessageException e) {
             LOGGER.error("获取国际化资源{}失败" + e.getMessage(), code, e);
-            throw LogicException.le(ErrorMessage.I18N_RESOURCE_NOT_FOUND, new String[]{code});
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.I18N_RESOURCE_NOT_FOUND, new String[]{code});
         }
     }
 }

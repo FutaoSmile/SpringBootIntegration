@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.controller;
 
+import com.futao.springmvcdemo.foundation.ApplicationException;
 import com.futao.springmvcdemo.foundation.LogicException;
 import com.futao.springmvcdemo.foundation.configuration.HibernateValidatorConfiguration;
 import com.futao.springmvcdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff;
@@ -35,7 +36,7 @@ public class ExceptionTestController {
     @ApiOperation("业务逻辑异常")
     @GetMapping(path = "logicException")
     public void logicException() {
-        throw LogicException.le(ErrorMessage.LOGIC_EXCEPTION);
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.LOGIC_EXCEPTION);
     }
 
     /**
@@ -78,5 +79,14 @@ public class ExceptionTestController {
         user.setEmail(param);
 
         HibernateValidatorConfiguration.validate(user);
+    }
+
+    /**
+     * applicationException
+     */
+    @PostMapping("applicationException")
+    @ApiOperation("applicationException测试")
+    public void applicationException() {
+        throw ApplicationException.le("ApplicationException");
     }
 }

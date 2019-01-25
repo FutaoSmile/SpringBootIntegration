@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author futao
@@ -43,7 +46,7 @@ public class UserController {
     @PostMapping("sendRegisterEmailVerifyCode")
     public SingleValueResult sendRegisterEmailVerifyCode(
             @RequestParam("email")
-            @Email(message = ErrorMessage.EMAIL_ILLEGAL)
+            @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
                     String email
     ) {
         userService.sendRegisterEmailVerifyCode(email);
@@ -67,23 +70,23 @@ public class UserController {
              * 是流的形式读取，那么流读了一次就没有了
              * */
             @RequestParam("username")
-            @Size(min = 2, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
+            @Size(min = 2, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL)
                     String username,
             @RequestParam("age")
-            @Max(value = 300, message = ErrorMessage.AGE_ERROR)
+            @Max(value = 300, message = ErrorMessage.LogicErrorMessage.AGE_ERROR)
                     int age,
-            @Size(max = 11, message = ErrorMessage.MOBILE_LEN_ILLEGAL)
+            @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
             @RequestParam("mobile")
                     String mobile,
             @RequestParam("email")
-            @Email(message = ErrorMessage.EMAIL_ILLEGAL)
+            @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
                     String email,
-            @Size(max = 100, message = ErrorMessage.ADDRESS_LEN_TOO_LARGE)
+            @Size(max = 100, message = ErrorMessage.LogicErrorMessage.ADDRESS_LEN_TOO_LARGE)
             @IllegalValueCheck(forbidden = "LOL")
             @RequestParam("address")
                     String address,
             @RequestParam("password")
-            @Size(min = 8, message = ErrorMessage.PASSWORD_LEN)
+            @Size(min = 8, message = ErrorMessage.LogicErrorMessage.PASSWORD_LEN)
                     String password,
             @RequestParam("sex")
                     int sex,

@@ -30,7 +30,7 @@ public @interface IllegalValueCheck {
      *
      * @return
      */
-    String message() default ErrorMessage.CONTAIN_ILLEGAL_PARAMETER;
+    String message() default ErrorMessage.LogicErrorMessage.CONTAIN_ILLEGAL_PARAMETER;
 
     Class<?>[] groups() default {};
 

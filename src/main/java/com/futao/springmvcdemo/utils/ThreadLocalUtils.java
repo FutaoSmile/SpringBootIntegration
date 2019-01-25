@@ -30,7 +30,7 @@ public class ThreadLocalUtils<T> {
     public T get() {
         T t = threadLocal.get();
         if (t == null) {
-            throw LogicException.le(ErrorMessage.NOT_LOGIN);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);
         }
         return t;
     }

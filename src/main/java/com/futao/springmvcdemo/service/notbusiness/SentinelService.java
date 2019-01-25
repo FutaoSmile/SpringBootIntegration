@@ -20,6 +20,6 @@ public final class SentinelService {
      * @return
      */
     public static ArrayList<ApiControllerDescription> handler(BlockException ex) {
-        throw LogicException.le(ErrorMessage.VISIT_TOO_FREQUENTLY);
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
     }
 }

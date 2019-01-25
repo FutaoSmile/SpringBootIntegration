@@ -1,6 +1,5 @@
 package com.futao.springmvcdemo.foundation.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +7,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class HibernateConfiguration {
 
-    @Autowired
+    @Resource
     private DataSource dataSource;
 
     @Value("${spring.jpa.entitymanager.packagesToScan}")
@@ -30,8 +30,8 @@ public class HibernateConfiguration {
     @Value("${spring.jpa.show-sql}")
     private Boolean showSql;
 
-//    @Value("${spring.jpa.hibernate.hbm2ddl.auto}")
-//    private String hb2ddlAuto;
+    @Value("${spring.jpa.hibernate.hbm2ddl.auto}")
+    private String hb2ddlAuto;
 //
 //    @Bean
 //    public LocalSessionFactoryBean sessionFactory() {

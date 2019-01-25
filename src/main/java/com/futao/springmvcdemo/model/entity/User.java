@@ -27,7 +27,7 @@ public class User extends BaseEntity {
     /**
      * 用户名
      */
-    @Size(min = 3, max = 8, message = ErrorMessage.USERNAME_LEN_ILLEGAL)
+    @Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL)
     private String username;
 
     /**
@@ -45,7 +45,7 @@ public class User extends BaseEntity {
     /**
      * 手机号
      */
-    @Size(max = 11, message = ErrorMessage.MOBILE_LEN_ILLEGAL)
+    @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
     private String mobile;
 
     /**

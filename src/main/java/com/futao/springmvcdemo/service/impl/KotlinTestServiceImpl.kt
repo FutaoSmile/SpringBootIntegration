@@ -33,7 +33,7 @@ open class KotlinTestServiceImpl : KotlinTestService {
 
 
     override fun exception() {
-        throw LogicException.le(ErrorMessage.LOGIC_EXCEPTION)
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.LOGIC_EXCEPTION)
     }
 
     @Resource

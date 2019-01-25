@@ -35,7 +35,7 @@ open class DB2ElasticSearchServiceImpl : DB2ElasticSearchService {
                 //数据同步
 //                articleSearchDao.saveAll(articleDao.list())
             } else {
-                throw LogicException.le(ErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, arrayOf(it.name))
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, arrayOf(it.name))
             }
         }
 

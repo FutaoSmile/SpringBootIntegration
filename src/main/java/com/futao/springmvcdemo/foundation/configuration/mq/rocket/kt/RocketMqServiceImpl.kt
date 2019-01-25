@@ -54,10 +54,10 @@ open class RocketMqServiceImpl {
 //    @Bean
     fun producer(): DefaultMQProducer {
         if (this.producerGroupName.isEmpty()) {
-            throw LogicException.le(ErrorMessage.ROCKET_MQ_PRODUCER_GROUP_NAME_EMPTY)
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.ROCKET_MQ_PRODUCER_GROUP_NAME_EMPTY)
         }
         if (this.producerNamesrvAddr.isEmpty()) {
-            throw LogicException.le(ErrorMessage.ROCKET_MQ_PRODUCER_NAME_SERVER_EMPTY)
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.ROCKET_MQ_PRODUCER_NAME_SERVER_EMPTY)
         }
         val defaultMQProducer = DefaultMQProducer(producerGroupName)
         defaultMQProducer.namesrvAddr = producerNamesrvAddr
@@ -110,13 +110,13 @@ open class RocketMqServiceImpl {
         val topic = Constant.ROCKET_MQ_TOPIC_MAIL
         val tag = Constant.ROCKET_MQ_TAG_MAIL_REGISTER
         if (this.consumerGroupName.isEmpty()) {
-            throw LogicException.le(ErrorMessage.ROCKET_MQ_CONSUMER_GROUP_NAME_EMPTY)
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.ROCKET_MQ_CONSUMER_GROUP_NAME_EMPTY)
         }
         if (this.consumerNamesrvAddr.isEmpty()) {
-            throw LogicException.le(ErrorMessage.ROCKET_MQ_PRODUCER_NAME_SERVER_EMPTY)
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.ROCKET_MQ_PRODUCER_NAME_SERVER_EMPTY)
         }
         if (this.topics.isEmpty()) {
-            throw LogicException.le(ErrorMessage.ROCKET_MQ_CONSUMER_TOPICS_EMPTY)
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.ROCKET_MQ_CONSUMER_TOPICS_EMPTY)
         }
         try {
             //DefaultMQPushConsumer DefaultMQPullConsumer

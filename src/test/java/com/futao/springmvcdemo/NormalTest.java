@@ -52,6 +52,14 @@ import java.util.stream.Collectors;
  */
 public class NormalTest implements Runnable {
 
+    @Test
+    public void test53() {
+        List<Map<String, Object>> list = null;
+        for (Map<String, Object> stringObjectMap : list) {
+            System.out.println("-");
+        }
+    }
+
     @Override
     public void run() {
         System.out.println(666);
@@ -464,7 +472,7 @@ public class NormalTest implements Runnable {
 
     @Test
     public void test20() {
-        throw LogicException.le(ErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, "111");
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.REBUILD_ELASTICSEARCH_FAIL_ENTITY_MUST_EXTENDS_BASE_ENTITY, "111");
     }
 
     @Test

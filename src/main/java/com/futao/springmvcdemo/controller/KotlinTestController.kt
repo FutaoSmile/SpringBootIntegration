@@ -132,13 +132,13 @@ open class KotlinTestController {
     @GetMapping("sendMailMq")
     @ApiOperation("消息队列发送邮件")
     open fun sendMailMq() {
-        val mailM = MailM().apply {
+        MailM().apply {
             to = arrayOf("1185172056@qq.com")
             cc = arrayOf("taof@wicrenet.com")
             subject = "消息队列"
             content = "<h1>您好，RocketMq</h1>"
         }
-//        mailService.sendMq(mailM)
+//        mailService.sendHtmlEmail(mailM)
     }
 
     @Resource

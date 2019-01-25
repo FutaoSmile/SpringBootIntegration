@@ -14,7 +14,7 @@ import java.util.Locale;
  * Created on 2019-01-15.
  */
 @org.springframework.context.annotation.Configuration
-public class Configuration {
+public class MyConfiguration {
 
     /**
      * 国际化，设置默认的语言为中文

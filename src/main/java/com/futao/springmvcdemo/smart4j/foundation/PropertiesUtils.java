@@ -53,7 +53,7 @@ public class PropertiesUtils {
             InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propertiesFileName);
             //文件不存在
             if (inputStream == null) {
-                throw LogicException.le(ErrorMessage.PROPERTIES_NOT_EXISTS, new Object[]{propertiesFileName});
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.PROPERTIES_NOT_EXISTS, new Object[]{propertiesFileName});
             }
             try {
                 Properties properties = new Properties();

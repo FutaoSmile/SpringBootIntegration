@@ -5,7 +5,7 @@ package com.futao.springmvcdemo.foundation;
  * Created on 2018/9/20-15:22.
  * 业务逻辑异常类
  */
-public class LogicException extends RuntimeException {
+public class LogicException extends ApplicationException {
     /**
      * 异常信息
      */

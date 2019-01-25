@@ -46,7 +46,7 @@ public class RoleInterceptor {
         User user = userService.currentUser();
         //未登录
         if (user == null) {
-            throw LogicException.le(ErrorMessage.NOT_LOGIN);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);
         }
         //注解打在方法上
         Role annotation = ((MethodSignature) point.getSignature()).getMethod().getAnnotation(Role.class);
@@ -56,7 +56,7 @@ public class RoleInterceptor {
         }
         if (annotation != null) {
             if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
-                throw LogicException.le(ErrorMessage.ROLE_NOT_ALLOW);
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);
             }
         }
     }

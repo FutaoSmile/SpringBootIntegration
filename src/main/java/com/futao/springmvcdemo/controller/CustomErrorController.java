@@ -3,7 +3,6 @@ package com.futao.springmvcdemo.controller;
 import org.apache.http.HttpStatus;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created on 2019-01-23.
  */
 @ApiIgnore
-@Controller
+//@Controller
 public class CustomErrorController implements ErrorController {
 
     @RequestMapping("/error")

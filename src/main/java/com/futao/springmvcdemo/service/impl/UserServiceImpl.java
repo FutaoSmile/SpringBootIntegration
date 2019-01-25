@@ -99,16 +99,16 @@ public class UserServiceImpl implements UserService {
         Object o = redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email));
         //检查是否过期
         if (o == null) {
-            throw LogicException.le(ErrorMessage.VERIFY_CODE_EXPIRED);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.VERIFY_CODE_EXPIRED);
         }
         //检查是否正确
         if (!verifyCode.equals(o.toString())) {
-            throw LogicException.le(ErrorMessage.VERIFY_CODE_ERROR);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.VERIFY_CODE_ERROR);
         }
 
         //检查该邮箱是否已经被注册
         if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
-            throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_EXIST);
         }
         //更新账号信息与状态
         userDao.registerByEmail(username, CommonUtilsKt.md5(password + PWD_SALT), age, mobile, address, UserStatusEnum.NORMAL.getCode(), sex, email);
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
             session.setMaxInactiveInterval(sessionInvalidateSecond);
             return user;
         } else {
-            throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);
         }
     }
 
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
             session.setMaxInactiveInterval(sessionInvalidateSecond);
             return byUserNameAndPwd;
         } else {
-            throw LogicException.le(ErrorMessage.MOBILE_OR_PWD_ERROR);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);
         }
     }
 
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
     public void sendRegisterEmailVerifyCode(String email) {
         //1.检查该邮箱是否已经被注册
         if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
-            throw LogicException.le(ErrorMessage.EMAIL_ALREADY_EXIST);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_EXIST);
         }
 
         //2.预注册，用户表生成一条数据，存储email
@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService {
         userDao.preRegister(UUIDService.get(), email, UserStatusEnum.PRE_REGISTER.getCode(), currentTimeStamp, currentTimeStamp);
         //3.判断是否已经发送了邮件且未过期
         if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email)) != null) {
-            throw LogicException.le(ErrorMessage.EMAIL_ALREADY_SEND);
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_SEND);
         }
         String verifyCode = CommonUtilsKt.numVerifyCode(6);
 

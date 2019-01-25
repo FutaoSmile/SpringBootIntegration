@@ -20,12 +20,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @ControllerAdvice(basePackages = "com.futao.springmvcdemo.controller")
 public class RestResultWrapper implements ResponseBodyAdvice<Object> {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestResultWrapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestResultWrapper.class);
 
     /**
      * 可指定针对某些返回值的类型才进行rest风格的封装
      *
-     * @param returnType
+     * @param returnType    返回值类型
      * @param converterType
      * @return
      */

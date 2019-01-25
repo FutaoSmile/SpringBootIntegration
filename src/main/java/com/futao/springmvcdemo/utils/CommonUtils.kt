@@ -50,7 +50,7 @@ fun <T, R> KFunction1<T, R>.getFieldName(): String {
     } else if (name.startsWith("is")) {
         name[2].toLowerCase() + name.substring(3)
     } else {
-        throw LogicException.le(ErrorMessage.FIELD_NO_GETTER_OR_SETTER)
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.FIELD_NO_GETTER_OR_SETTER)
     }
 }
 
@@ -128,7 +128,7 @@ fun parseStringToTwoDecimalStr(str: String): String? {
         val double = java.lang.Double.parseDouble(str)
         return DecimalFormat("0.00").format(double)
     } catch (e: Exception) {
-        throw LogicException.le(ErrorMessage.PARSE_TO_DOUBLE_FAIL)
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.PARSE_TO_DOUBLE_FAIL)
     }
 }
 

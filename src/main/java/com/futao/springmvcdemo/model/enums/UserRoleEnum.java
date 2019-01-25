@@ -47,6 +47,6 @@ public enum UserRoleEnum {
         } else if (roleType == UserRoleEnum.ADMIN.getType()) {
             return UserRoleEnum.ADMIN;
         }
-        throw LogicException.le(ErrorMessage.ROLE_NOT_EXIST);
+        throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_EXIST);
     }
 }

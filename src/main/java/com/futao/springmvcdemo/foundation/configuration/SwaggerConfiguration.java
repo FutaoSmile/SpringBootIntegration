@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("SpringBoot项目中使用Swagger2来构建RESTfull APIs")
                 .description("描述：用来介绍服务端所有的API接口信息")
-                .termsOfServiceUrl("http://localhost:8080")
+                .termsOfServiceUrl("http://localhost:8888")
                 .version("1.0.0")
                 .build();
     }
