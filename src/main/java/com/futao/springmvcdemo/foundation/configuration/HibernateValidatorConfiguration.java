@@ -1,7 +1,6 @@
 package com.futao.springmvcdemo.foundation.configuration;
 
 import com.futao.springmvcdemo.foundation.LogicException;
-import com.futao.springmvcdemo.model.system.RestResult;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,8 +36,7 @@ public class HibernateValidatorConfiguration {
         return processor;
     }
 
-    @Bean
-    public static Validator validator() {
+    private static Validator validator() {
         return Validation
                 .byProvider(HibernateValidator.class)
                 .configure()

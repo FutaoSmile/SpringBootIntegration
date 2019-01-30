@@ -11,6 +11,20 @@ import java.util.concurrent.TimeUnit;
  * Created on 2019-01-16.
  */
 public class Snippets {
+
+    @Test
+    public void test2() {
+        outer:
+        for (int i = 0; i < 100; i++) {
+            in:
+            for (int j = 0; j < 100; j++) {
+                if (i == 1) {
+                    break outer;
+                }
+                break in;
+            }
+        }
+    }
 //    @Test
 //    public void test2() {
 //        TimerTask task = new TimerTask() {

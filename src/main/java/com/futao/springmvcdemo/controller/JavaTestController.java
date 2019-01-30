@@ -2,8 +2,17 @@ package com.futao.springmvcdemo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.model.entity.User;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
+import com.futao.springmvcdemo.model.enums.UserStatusEnum;
+import com.futao.springmvcdemo.service.ExportExcelService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author futao
@@ -57,5 +66,47 @@ public class JavaTestController {
     ) {
         JSONObject jsonObject = new JSONObject();
         return jsonObject.fluentPut("p1", p1).fluentPut("id", p2);
+    }
+
+
+    @Resource
+    private ExportExcelService exportExcelService;
+
+    @GetMapping(path = "exportExcel")
+    public void exportExcel(
+            @RequestParam("fileName") String fileName,
+            HttpServletResponse response) {
+        User user = new User("没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
+        Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRole(), user.getAddress(), user.getMobile(), user.getEmail()};
+        ArrayList<Object[]> list = new ArrayList<>();
+        list.add(object);
+        list.add(object);
+        list.add(object);
+        list.add(object);
+        list.add(object);
+        list.add(object);
+        list.add(object);
+
+        String[] head = new String[]{"姓名", "年龄", "角色", "地址", "电话", "邮箱"};
+        exportExcelService.export(fileName, "我是sheet", head, list, response);
+    }
+
+    @GetMapping(path = "exportExcelObj")
+    public void exportExcelObj(
+            @RequestParam("fileName") String fileName,
+            HttpServletResponse response) throws NoSuchMethodException {
+        String[] head = new String[]{"姓名", "年龄", "角色", "地址", "电话", "邮箱"};
+        Method[] methods = new Method[]{User.class.getMethod("getUsername"), User.class.getMethod("getAge")};
+        User user = new User();
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        users.add(user);
+        user.setUsername("我是");
+        user.setAge("121");
+        exportExcelService.export(fileName, "我是sheet", head, methods, users, response);
     }
 }

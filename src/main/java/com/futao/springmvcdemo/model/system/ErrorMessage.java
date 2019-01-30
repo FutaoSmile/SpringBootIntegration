@@ -15,6 +15,9 @@ public final class ErrorMessage {
     public static class ApplicationException {
         public static final String SYSTEM_EXCEPTION = "系统繁忙，请稍后再试";
         public static final String INIT_OBJ_FAIL = "实例化%s失败";
+        public static final String EXPORT_EXCEL_FAIL = "导出excel时发生异常";
+        public static final String CLOSE_OUTPUT_STREAM_FAIL = "关闭输出流时发生异常";
+        public static final String INVOKE_METHOD_FAIL = "执行方法时发生异常";
     }
 
     public static class LogicErrorMessage {

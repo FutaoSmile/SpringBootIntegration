@@ -5,7 +5,6 @@ import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.enums.UserSexEnum;
 import com.futao.springmvcdemo.model.enums.UserStatusEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
-import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
@@ -19,7 +18,6 @@ import javax.validation.constraints.Size;
  * 用户实体
  */
 @Validated
-@AllArgsConstructor
 //@TableName(value = "futao_user")
 @ToString
 public class User extends BaseEntity {
@@ -77,9 +75,6 @@ public class User extends BaseEntity {
      * {@link UserRoleEnum}
      */
     private int role;
-
-    public User() {
-    }
 
     public String getUsername() {
         return username;
@@ -154,8 +149,6 @@ public class User extends BaseEntity {
     }
 
 
-    //3.必须执行完代码块才执行构造方法
-
     /**
      * 2.实例代码块与实例代码块之间根据代码书写顺序依次执行
      */ {
@@ -174,5 +167,21 @@ public class User extends BaseEntity {
     protected void finalize() throws Throwable {
         super.finalize();
         System.out.println("9999999999999");
+    }
+
+    //3.必须执行完代码块才执行构造方法
+    public User(@Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL) String username, String password, String age, @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL) String mobile, @Email String email, @NotNull String address, int status, int sex, int role) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.mobile = mobile;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.sex = sex;
+        this.role = role;
+    }
+
+    public User() {
     }
 }
