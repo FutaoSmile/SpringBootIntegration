@@ -314,7 +314,8 @@ public abstract class AbstractBaseRequest {
         StringBuilder sb = new StringBuilder();
         if (requestBase != null) {
             //记录请求地址
-            sb.append("请求地址:").append(requestBase.getURI()).append("\n")
+            sb.append("\n")
+                    .append("请求地址:").append(requestBase.getURI()).append("\n")
                     .append("请求头:").append(Arrays.toString(requestBase.getAllHeaders())).append("\n")
                     .append("请求方式:").append(requestBase.getMethod()).append("\n")
                     .append("请求体:").append(this.entity).append("\n")

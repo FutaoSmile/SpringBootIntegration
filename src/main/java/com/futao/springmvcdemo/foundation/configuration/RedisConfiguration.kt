@@ -45,7 +45,7 @@ open class RedisConfiguration : CachingConfigurerSupport() {
             for (param in params) {
                 builder.append("$param:")
             }
-            builder.toString().substring(0, builder.length).toLowerCase()
+            builder.toString().substring(0, builder.length - 1).toLowerCase()
         }
     }
 

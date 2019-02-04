@@ -53,6 +53,24 @@ import java.util.stream.Collectors;
 public class NormalTest implements Runnable {
 
     @Test
+    public void test55() {
+        String a = "123";
+        System.out.println(a.substring(0, a.length()-1));
+    }
+
+    @Test
+    public void test54() {
+        GetRequest request = new GetRequest("https://www.jianshu.com/author/notes/40412959/content");
+//        request.addCookie(new BasicClientCookie("__yadk_uid","WNy4Sks43han6BYCdeiAYlWEVSWKwjoV"));
+        request.addCookie(new BasicClientCookie("remember_user_token", "=W1sxODQ2NjIzXSwiJDJhJDEwJGJ6NU1MMWc1MkQzNnFNV09mbFlqUnUiLCIxNTQ4NDA1MzEyLjk4OTY2OTMiXQ%3D%3D--1804919d97540ad447ce74d519aee6de37127944"));
+//        request.addCookie(new BasicClientCookie("__yadk_uid","WNy4Sks43han6BYCdeiAYlWEVSWKwjoV"));
+//        request.addCookie(new BasicClientCookie("__yadk_uid","WNy4Sks43han6BYCdeiAYlWEVSWKwjoV"));
+//        request.addCookie(new BasicClientCookie("__yadk_uid","WNy4Sks43han6BYCdeiAYlWEVSWKwjoV"));
+//        System.out.println(request.send());
+        request.send();
+    }
+
+    @Test
     public void test53() {
         List<Map<String, Object>> list = null;
         for (Map<String, Object> stringObjectMap : list) {
