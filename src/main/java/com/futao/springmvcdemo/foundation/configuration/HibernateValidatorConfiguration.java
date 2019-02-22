@@ -4,11 +4,14 @@ import com.futao.springmvcdemo.foundation.LogicException;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -32,10 +35,52 @@ public class HibernateValidatorConfiguration {
     @Bean
     public MethodValidationPostProcessor methodValidationPostProcessor() {
         MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
-        processor.setValidator(validator());
+        processor.setValidator(getValidator());
         return processor;
     }
 
+
+    /**
+     * 手动触发校验，可直接在需要校验对象的地方调用这个方法
+     * 对于重写了message的提示信息，直接返回该message
+     * 对于没有重写message的系统默认提示信息，返回某个字段-违反了某个规则的message格式返回
+     *
+     * @param obj
+     */
+    public static void validate(Object obj) {
+        Set<ConstraintViolation<Object>> constraintViolations = localValidatorFactoryBean.validate(obj);
+        if (constraintViolations.size() > 0) {
+            String message = constraintViolations.iterator().next().getMessage();
+            throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + " " + message);
+        }
+    }
+
+
+    /**
+     * 获取Validator
+     *
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(getMessageSource());
+        validator.setProviderClass(HibernateValidator.class);
+        Properties properties = new Properties();
+        //设置快速返回模式
+        properties.setProperty("hibernate.validator.fail_fast", "true");
+        validator.setValidationProperties(properties);
+        localValidatorFactoryBean = validator;
+        return validator;
+    }
+
+
+    /**
+     * 获取Validator的简单写法，但是这种方式无法设置messageSource，无法实现国际化
+     *
+     * @return
+     */
     private static Validator validator() {
         return Validation
                 .byProvider(HibernateValidator.class)
@@ -46,18 +91,20 @@ public class HibernateValidatorConfiguration {
                 .getValidator();
     }
 
+
     /**
-     * 手动触发校验，可直接在需要校验对象的地方调用这个方法
-     * 对于重写了message的提示信息，直接返回该message
-     * 对于没有重写message的系统默认提示信息，返回某个字段-违反了某个规则的message格式返回
+     * 获取国际化资源
      *
-     * @param obj
+     * @return
      */
-    public static void validate(Object obj) {
-        Set<ConstraintViolation<Object>> constraintViolations = validator().validate(obj);
-        if (constraintViolations.size() > 0) {
-            String message = constraintViolations.iterator().next().getMessage();
-            throw LogicException.le(message.contains("_") ? message : "notSet" + constraintViolations.iterator().next().getPropertyPath() + " " + message);
-        }
+    private ResourceBundleMessageSource getMessageSource() {
+        ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+        resourceBundleMessageSource.setDefaultEncoding("UTF-8");
+        resourceBundleMessageSource.setBasenames("i18n/errorMessage");
+        return resourceBundleMessageSource;
     }
+
+    private static LocalValidatorFactoryBean localValidatorFactoryBean;
+
+
 }

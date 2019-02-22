@@ -18,6 +18,7 @@ public final class ErrorMessage {
         public static final String EXPORT_EXCEL_FAIL = "导出excel时发生异常";
         public static final String CLOSE_OUTPUT_STREAM_FAIL = "关闭输出流时发生异常";
         public static final String INVOKE_METHOD_FAIL = "执行方法时发生异常";
+        public static final String ENUM_MUST_IMPL_IENUM = "使用@EnumStatus(EnumClass.class)注解之前，您的枚举类EnumClass必须实现IEnum接口";
     }
 
     public static class LogicErrorMessage {
@@ -66,5 +67,7 @@ public final class ErrorMessage {
         public static final String ADDRESS_LEN_TOO_LARGE = "01019_地址过长";
         public static final String VERIFY_CODE_EXPIRED = "01020_验证码已过期";
         public static final String VERIFY_CODE_ERROR = "01021_验证码不正确";
+        public static final String ENUM_NOT_ALLOW = "01022_不是合法的枚举类型";
+
     }
 }

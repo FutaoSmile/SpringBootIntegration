@@ -1,6 +1,7 @@
 package com.futao.springmvcdemo.model.enums;
 
 import com.futao.springmvcdemo.foundation.LogicException;
+import com.futao.springmvcdemo.model.enums.face.IEnum;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 
 /**
@@ -9,7 +10,7 @@ import com.futao.springmvcdemo.model.system.ErrorMessage;
  * @author futao
  * Created on 2018/9/19-14:41.
  */
-public enum UserRoleEnum {
+public enum UserRoleEnum implements IEnum {
     /**
      * 普通登录用户
      */
@@ -49,4 +50,8 @@ public enum UserRoleEnum {
         }
         throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_EXIST);
     }
-}
+
+    @Override
+    public String getStatus() {
+        return String.valueOf(this.type);
+    }}

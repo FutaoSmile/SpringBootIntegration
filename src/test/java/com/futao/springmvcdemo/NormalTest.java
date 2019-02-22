@@ -16,9 +16,9 @@ import com.futao.springmvcdemo.model.system.RestResult;
 import com.futao.springmvcdemo.smart4j.annotation.SmartService;
 import com.futao.springmvcdemo.smart4j.foundation.ClassHelper;
 import com.futao.springmvcdemo.smart4j.foundation.ClassUtils;
-import com.futao.springmvcdemo.suit.A;
-import com.futao.springmvcdemo.suit.B;
-import com.futao.springmvcdemo.suit.CC;
+import com.futao.springmvcdemo.suit.a.A;
+import com.futao.springmvcdemo.suit.a.B;
+import com.futao.springmvcdemo.suit.a.CC;
 import com.futao.springmvcdemo.utils.http.GetRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +39,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -53,9 +55,56 @@ import java.util.stream.Collectors;
 public class NormalTest implements Runnable {
 
     @Test
+    public void test58() throws UnsupportedEncodingException {
+        String encode = URLEncoder.encode("https://www.baidu.com?a=hahha1&name=诶我擦哦");
+        encode = "https://www.baidu.com?a=hahha1&name=诶我擦哦";
+        System.out.println(encode);
+        System.out.println(URLDecoder.decode(encode, "UTF-8"));
+    }
+
+    @Test
+    public void test57() throws CloneNotSupportedException {
+        User user = new User();
+        user.setAge("121");
+        User user1 = new User();
+        user1.setAge("111");
+        User[] users = new User[2];
+        users[0] = user;
+        users[1] = user1;
+        System.out.println(Arrays.toString(users));
+        Arrays.sort(users);
+        System.out.println(Arrays.toString(users));
+        System.out.println(user.hashCode());
+        System.out.println(user.clone().hashCode());
+    }
+
+
+    @Test
+    public void test56() throws NoSuchFieldException, IllegalAccessException {
+        User user = new User();
+        user.setAge("18");
+        System.out.println(user);
+        Class<User> userClass = User.class;
+
+        Field ageField = user.getClass().getDeclaredField("age");
+        ageField.setAccessible(true);
+        System.out.println(ageField.get(user));
+
+
+        System.out.println(user);
+        ageField.set(user, "11");
+        System.out.println(user);
+
+        for (int i = 1; i < 20; i++) {
+            System.out.println(Math.sqrt(i));
+        }
+
+    }
+
+    @Test
     public void test55() {
         String a = "123";
-        System.out.println(a.substring(0, a.length()-1));
+        System.out.println(a.substring(0, a.length() - 1));
     }
 
     @Test

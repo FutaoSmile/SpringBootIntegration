@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
+ * 用户角色权限拦截
+ *
  * @author futao
  * Created on 2018-12-13.
  */
@@ -41,6 +43,11 @@ public class RoleInterceptor {
 
     }
 
+    /**
+     * 进入方法之前执行
+     *
+     * @param point
+     */
     @Before("pointCut()")
     public void checkUserRole(JoinPoint point) {
         User user = userService.currentUser();

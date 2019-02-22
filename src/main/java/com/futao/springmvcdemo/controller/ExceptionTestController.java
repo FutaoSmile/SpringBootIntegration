@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -71,12 +70,11 @@ public class ExceptionTestController {
     @PostMapping("validatorTest")
     public void validatorTest(
             @RequestParam("param")
-            @Email
             @NotNull
-                    String param
+                    int param
     ) {
         User user = new User();
-        user.setEmail(param);
+        user.setStatus(param);
 
         HibernateValidatorConfiguration.validate(user);
     }

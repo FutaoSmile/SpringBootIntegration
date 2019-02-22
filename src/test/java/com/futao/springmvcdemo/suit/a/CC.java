@@ -1,4 +1,4 @@
-package com.futao.springmvcdemo.suit;
+package com.futao.springmvcdemo.suit.a;
 
 /**
  * @author futao

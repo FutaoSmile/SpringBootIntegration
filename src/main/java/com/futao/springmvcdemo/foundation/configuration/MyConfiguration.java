@@ -2,8 +2,8 @@ package com.futao.springmvcdemo.foundation.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
@@ -25,7 +25,7 @@ public class MyConfiguration {
      */
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
+        CookieLocaleResolver slr = new CookieLocaleResolver();
         slr.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
         return slr;
     }
@@ -41,6 +41,4 @@ public class MyConfiguration {
         lci.setParamName("lang");
         return lci;
     }
-
-
 }

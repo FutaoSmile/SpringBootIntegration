@@ -1,6 +1,6 @@
 package com.futao.springmvcdemo.annotation;
 
-import com.futao.springmvcdemo.annotation.impl.IllegalValueCheckImpl;
+import com.futao.springmvcdemo.annotation.impl.EnumStatusImpl;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 
 import javax.validation.Constraint;
@@ -8,30 +8,29 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 敏感词检测注解
+ * 枚举值合法性验证标记
  *
  * @author futao
- * Created on 2018/9/25.
+ * Created on 2019-02-22.
  */
-@Constraint(validatedBy = IllegalValueCheckImpl.class)      //关联解析类, 校验逻辑
-@Target(value = {ElementType.PARAMETER})
+@Constraint(validatedBy = EnumStatusImpl.class)
+@Target(value = {ElementType.PARAMETER, ElementType.FIELD})
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
-public @interface IllegalValueCheck {
-
+public @interface EnumStatus {
     /**
-     * 拦截的字符串
+     * 限定范围
      *
      * @return
      */
-    String forbidden() default "mmp";
+    Class value();
 
     /**
      * 验证不通过时的错误提示信息
      *
      * @return
      */
-    String message() default ErrorMessage.LogicErrorMessage.CONTAIN_ILLEGAL_PARAMETER;
+    String message() default ErrorMessage.LogicErrorMessage.ENUM_NOT_ALLOW;
 
     Class<?>[] groups() default {};
 

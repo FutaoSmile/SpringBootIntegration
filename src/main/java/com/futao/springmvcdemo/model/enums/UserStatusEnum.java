@@ -1,12 +1,14 @@
 package com.futao.springmvcdemo.model.enums;
 
+import com.futao.springmvcdemo.model.enums.face.IEnum;
+
 /**
  * 用户状态
  *
  * @author futao
  * Created on 2018-12-11.
  */
-public enum UserStatusEnum {
+public enum UserStatusEnum implements IEnum {
     /**
      * 0=预注册
      */
@@ -36,4 +38,9 @@ public enum UserStatusEnum {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String getStatus() {
+        return String.valueOf(this.code);
     }}

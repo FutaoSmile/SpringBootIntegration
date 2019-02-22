@@ -1,6 +1,8 @@
 package com.futao.springmvcdemo.model.entity;
 
 
+import com.futao.springmvcdemo.annotation.EnumStatus;
+import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 
 /**
  * @author futao
@@ -17,6 +19,7 @@ public class Role extends BaseEntity {
     /**
      * 角色描述
      */
+    @EnumStatus(UserRoleEnum.class)
     private String roleDescription;
 
 

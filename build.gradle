@@ -2,6 +2,8 @@ buildscript {
     ext {
         springBootVersion = '2.0.5.RELEASE'
         sentinelVersion = '1.4.0'
+        rocketmqVersion = '4.3.0'
+        swagger2Version = '2.2.2'
     }
     repositories {
         mavenCentral()
@@ -53,8 +55,8 @@ dependencies {
     compile group: 'com.alibaba', name: 'druid', version: '1.1.10'
     compile group: 'joda-time', name: 'joda-time', version: '2.10'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.49'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.2.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.2.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "${swagger2Version}"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "${swagger2Version}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.21'
@@ -73,7 +75,7 @@ dependencies {
 //    compile 'org.apache.rocketmq:spring-boot-starter-rocketmq:1.0.0-SNAPSHOT'
 
 
-    compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: '4.3.0'
+    compile group: 'org.apache.rocketmq', name: 'rocketmq-client', version: "${rocketmqVersion}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-elasticsearch'
 //    compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.14')
     compile('org.elasticsearch.client:transport:5.6.11')
@@ -101,11 +103,11 @@ dependencies {
 //    compile('de.codecentric:spring-boot-admin-server')
 //    compile('de.codecentric:spring-boot-admin-server-ui')
     // 阿里巴巴Sentinel限流
-    compile('com.alibaba.csp:sentinel-core:1.4.0')
+    compile("com.alibaba.csp:sentinel-core:${sentinelVersion}")
     // 阿里巴巴Sentinel限流注解式
-    compile('com.alibaba.csp:sentinel-annotation-aspectj:1.4.0')
+    compile("com.alibaba.csp:sentinel-annotation-aspectj:${sentinelVersion}")
     // sentinel与控制台通讯
-    compile('com.alibaba.csp:sentinel-transport-simple-http:1.4.0')
+    compile("com.alibaba.csp:sentinel-transport-simple-http:${sentinelVersion}")
 //    compile('org.springframework.boot:spring-boot-starter-security')
     compile 'com.graphql-java:graphql-java:11.0'
 

@@ -1,12 +1,14 @@
 package com.futao.springmvcdemo.model.enums;
 
+import com.futao.springmvcdemo.model.enums.face.IEnum;
+
 /**
  * @author futao
  * Created on 2018-12-11.
  * <p>
  * 用户性别
  */
-public enum UserSexEnum {
+public enum UserSexEnum implements IEnum {
     /**
      * 0=未知
      */
@@ -35,4 +37,9 @@ public enum UserSexEnum {
     public String getDescription() {
         return description;
     }
-}
+
+    @Override
+    public String getStatus() {
+        return String.valueOf(this.code);
+    }}
+

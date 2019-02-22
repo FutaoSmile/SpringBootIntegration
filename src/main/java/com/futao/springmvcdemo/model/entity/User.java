@@ -1,6 +1,7 @@
 package com.futao.springmvcdemo.model.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.futao.springmvcdemo.annotation.EnumStatus;
 import com.futao.springmvcdemo.model.enums.UserRoleEnum;
 import com.futao.springmvcdemo.model.enums.UserSexEnum;
 import com.futao.springmvcdemo.model.enums.UserStatusEnum;
@@ -20,12 +21,12 @@ import javax.validation.constraints.Size;
 @Validated
 //@TableName(value = "futao_user")
 @ToString
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Comparable<User>, Cloneable {
 
     /**
      * 用户名
      */
-    @Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL)
+//    @Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL)
     private String username;
 
     /**
@@ -43,24 +44,25 @@ public class User extends BaseEntity {
     /**
      * 手机号
      */
-    @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
+//    @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
     private String mobile;
 
     /**
      * 用户邮箱
      */
-    @Email
+//    @Email
     private String email;
     /**
      * 用户地址
      */
-    @NotNull
+//    @NotNull
     private String address;
 
     /**
      * {@link UserStatusEnum}
      * 用户状态
      */
+    @EnumStatus(UserStatusEnum.class)
     private int status;
 
     /**
@@ -183,5 +185,20 @@ public class User extends BaseEntity {
     }
 
     public User() {
+    }
+
+    @Override
+    public int compareTo(@org.jetbrains.annotations.NotNull User o) {
+        if (Integer.valueOf(this.getAge()) > Integer.valueOf(o.getAge())) {
+            return 1;
+        } else if (Integer.valueOf(this.getAge()).intValue() == Integer.valueOf(o.getAge()).intValue()) {
+            return 0;
+        }
+        return -1;
+    }
+
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
     }
 }

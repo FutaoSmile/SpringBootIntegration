@@ -44,9 +44,10 @@ public class UserServiceImpl implements UserService {
     /**
      * 密码加盐
      */
-    public static final String PWD_SALT = "nobug666";
+    private static final String PWD_SALT = "nobug666";
+
     @Resource
-    private ThreadLocalUtils threadLocalUtils;
+    private ThreadLocalUtils<User> threadLocalUtils;
 
     @Autowired
     private UserDao userDao;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User currentUser() {
-        return (User) threadLocalUtils.get();
+        return threadLocalUtils.get();
     }
 
     @Override
