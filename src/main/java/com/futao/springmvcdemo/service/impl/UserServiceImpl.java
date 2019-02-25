@@ -17,7 +17,6 @@ import com.futao.springmvcdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -152,7 +151,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Cacheable(value = "userList")
+//    @Cacheable(value = "userList")
     @Override
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();

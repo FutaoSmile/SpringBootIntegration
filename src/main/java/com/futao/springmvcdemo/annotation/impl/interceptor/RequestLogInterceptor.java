@@ -142,7 +142,8 @@ public class RequestLogInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("请求(id={})结束：本次请求所消耗的时间（毫秒）：{}", request.getAttribute("uuid"), ((System.currentTimeMillis() - (Long.valueOf(request.getAttribute("startTime").toString())))));
+        long currentTimeMillis = System.currentTimeMillis();
+        logger.info("请求(id={})结束:结束时间:{}：本次请求所消耗的时间（毫秒）：{}", request.getAttribute("uuid"), currentTimeMillis, ((currentTimeMillis - (Long.valueOf(request.getAttribute("startTime").toString())))));
     }
 
     public ConcurrentHashMap<String, AtomicInteger> getApiRequestStatistic() {

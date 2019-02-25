@@ -1,5 +1,6 @@
 package com.futao.springmvcdemo.annotation.impl.interceptor;
 
+import com.futao.springmvcdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.SystemConfiguration;
 import com.futao.springmvcdemo.utils.TimeUtilsKt;
@@ -39,6 +40,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private RequestLogInterceptor requestLogInterceptor;
     @Resource
     private LocaleChangeInterceptor localeChangeInterceptor;
+    @Resource
+    private HttpMessageConverterConfiguration httpMessageConverterConfiguration;
 
     /**
      * 添加拦截器
@@ -134,22 +137,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .maxAge(SystemConfiguration.ORIGIN_MAX_AGE);
     }
 
-    /**
-     * Configure the {@link HttpMessageConverter}s to use for reading or writing
-     * to the body of the request or response. If no converters are added, a
-     * default list of converters is registered.
-     * <p><strong>Note</strong> that adding converters to the list, turns off
-     * default converter registration. To simply add a converter without impacting
-     * default registration, consider using the method
-     * {@link #extendMessageConverters(List)} instead.
-     *
-     * @param converters initially an empty list of converters
-     */
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        converters.add(messageConvertConfiguration);
-//        converters.add(fastJsonHttpMessageConverter);
-//        暂时无效
-    }
 
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(httpMessageConverterConfiguration);
+    }
 }

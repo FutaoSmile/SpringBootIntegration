@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- mapper 为根元素节点， 一个namespace对应一个dao -->
+<mapper namespace="com.futao.springmvcdemo.dao.UserDao">
+
+    <insert id="addUser" parameterType="com.futao.springmvcdemo.model.entity.User">
+        insert into `futao_user`(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`, `createtime`,
+                                 `lastmodifytime`)
+        values (#{id}, #{username}, #{password}, #{age}, #{mobile}, #{email}, #{address}, #{createtime},
+                #{lastmodifytime})
+    </insert>
+
+    <select id="getUserByMobile" resultType="com.futao.springmvcdemo.model.entity.User">
+        select `id`,`createTime`
+        from `futao_user`
+        where mobile = #{mobile}
+    </select>
+
+    <resultMap id="userDO" type="com.futao.springmvcdemo.model.entity.User">
+    </resultMap>
+
+    <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）
+      将要传入语句的参数的完全限定类名或别名， 如果不配置，mybatis会通过ParameterHandler 根据参数类型默认选择合适的typeHandler进行处理
+      parameterType 主要指定参数类型，可以是int, short, long, string等类型，也可以是复杂类型（如对象） -->
+
+
+    <!-- 3. flushCache （可选配置，默认配置为true）
+      将其设置为 true，任何时候只要语句被调用，都会导致本地缓存和二级缓存都会被清空，默认值：true（对应插入、更新和删除语句） -->
+
+    <!-- 4. statementType （可选配置，默认配置为PREPARED）
+      STATEMENT，PREPARED 或 CALLABLE 的一个。这会让 MyBatis 分别使用 Statement，PreparedStatement 或 CallableStatement，默认值：PREPARED。 -->
+
+    <!-- 5. keyProperty (可选配置， 默认为unset)
+      （仅对 insert 和 update 有用）唯一标记一个属性，MyBatis 会通过 getGeneratedKeys 的返回值或者通过 insert 语句的 selectKey 子元素设置它的键值，默认：unset。如果希望得到多个生成的列，也可以是逗号分隔的属性名称列表。 -->
+
+    <!-- 6. keyColumn     (可选配置)
+      （仅对 insert 和 update 有用）通过生成的键值设置表中的列名，这个设置仅在某些数据库（像 PostgreSQL）是必须的，当主键列不是表中的第一列的时候需要设置。如果希望得到多个生成的列，也可以是逗号分隔的属性名称列表。 -->
+
+    <!-- 7. useGeneratedKeys (可选配置， 默认为false)
+      （仅对 insert 和 update 有用）这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键（比如：像 MySQL 和 SQL Server 这样的关系数据库管理系统的自动递增字段），默认值：false。  -->
+
+    <!-- 8. timeout  (可选配置， 默认为unset, 依赖驱动)
+      这个设置是在抛出异常之前，驱动程序等待数据库返回请求结果的秒数。默认值为 unset（依赖驱动）。 -->
+
+    <!--有时候我们并不想应用所有的条件，而只是想从多个选项中选择一个。而使用if标签时，只要test中的表达式为 true，就会执行 if 标签中的条件。MyBatis 提供了 choose 元素。if标签是与(and)的关系，而 choose 是或(or)的关系。
+
+choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则 choose 结束。当 choose 中所有 when 的条件都不满则时，则执行 otherwise 中的sql。类似于Java 的 switch 语句，choose 为 switch，when 为 case，otherwise 则为 default。-->
+</mapper>

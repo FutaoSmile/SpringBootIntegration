@@ -1,7 +1,10 @@
 package com.futao.springmvcdemo.dao;
 
 import com.futao.springmvcdemo.model.entity.User;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.mapstruct.Mapper;
 
 import java.sql.Timestamp;
@@ -55,9 +58,6 @@ public interface UserDao {
      * @param age      年龄
      * @return
      */
-    @Insert("insert " +
-            "into futao_user(id,username,password,age,mobile,email,address,createtime,lastmodifytime) " +
-            "values(#{id},#{username},#{password},#{age},#{mobile},#{email},#{address},#{createtime},#{lastmodifytime})")
     int addUser(@Param("id") String id, @Param("username") String username, @Param("password") String password, @Param("age") String age,
                 @Param("mobile") String mobile, @Param("email") String email, @Param("address") String address,
                 @Param("createtime") Timestamp createTime, @Param("lastmodifytime") Timestamp lastmodifytime);
@@ -68,12 +68,6 @@ public interface UserDao {
      * @param mobile 用户手机号
      * @return
      */
-    @Select("select " +
-            "* " +
-            "from " +
-            "futao_user " +
-            "where " +
-            "mobile=#{mobile}")
     User getUserByMobile(@Param("mobile") String mobile);
 
     /**

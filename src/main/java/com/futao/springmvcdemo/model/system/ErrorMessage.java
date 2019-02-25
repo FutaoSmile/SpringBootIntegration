@@ -21,6 +21,11 @@ public final class ErrorMessage {
         public static final String ENUM_MUST_IMPL_IENUM = "使用@EnumStatus(EnumClass.class)注解之前，您的枚举类EnumClass必须实现IEnum接口";
     }
 
+    /**
+     * 命名规范：操作对象_属性_描述
+     * 例如:USER_SEX_ENUM_ILLEGAL
+     * USER_MOBILE_LEN_TOO_LONG
+     */
     public static class LogicErrorMessage {
         public static final String NOT_LOGIN = "00001_您还未登陆或者登陆已超时，请重新登陆";
         public static final String CONTAIN_ILLEGAL_PARAMETER = "00002_评论中包含敏感词汇";
@@ -68,6 +73,11 @@ public final class ErrorMessage {
         public static final String VERIFY_CODE_EXPIRED = "01020_验证码已过期";
         public static final String VERIFY_CODE_ERROR = "01021_验证码不正确";
         public static final String ENUM_NOT_ALLOW = "01022_不是合法的枚举类型";
+
+        public static final String USER_SEX_ENUM_ILLEGAL = "01023_用户性别不合法";
+        public static final String USER_STATUS_ENUM_ILLEGAL = "01023_用户状态不合法";
+        public static final String USER_ROLE_ENUM_ILLEGAL = "01023_用户角色不合法";
+
 
     }
 }
