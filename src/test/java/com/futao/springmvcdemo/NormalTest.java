@@ -19,6 +19,7 @@ import com.futao.springmvcdemo.smart4j.foundation.ClassUtils;
 import com.futao.springmvcdemo.suit.a.A;
 import com.futao.springmvcdemo.suit.a.B;
 import com.futao.springmvcdemo.suit.a.CC;
+import com.futao.springmvcdemo.utils.DateTools;
 import com.futao.springmvcdemo.utils.http.GetRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,6 +54,32 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test60() {
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.DAY, 1));
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.SECOND, 1));
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.MIN, 1));
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.HOUR, 1));
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.MONTH, 1));
+        System.out.println(DateTools.afterSomeTime("2019-11-11 11:11:11", DateTools.TimeTypeEnum.YEAR, 1));
+    }
+
+    @Test
+    public void test59() {
+        System.out.println(test59b());
+    }
+
+    /**
+     * 先执行try中的return，将返回值临时存起来，然后执行finally，如果finally中有return，则返回finally中return的值。否则返回try中return的值
+     *
+     * @return
+     */
+    public int test59b() {
+        Exception exception = new Exception();
+        StackTraceElement[] stackTrace = exception.getStackTrace();
+        return 0;
+    }
 
     @Test
     public void test58() throws UnsupportedEncodingException {

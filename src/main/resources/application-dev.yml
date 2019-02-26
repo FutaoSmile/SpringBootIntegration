@@ -34,7 +34,7 @@ spring:
       cluster-nodes: 127.0.0.1:9300 #节点地址
   # 数据源
   datasource:
-    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/springmvcdemo?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456789
     driver-class-name: com.mysql.jdbc.Driver

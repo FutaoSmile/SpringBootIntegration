@@ -14,7 +14,7 @@
     </insert>
 
     <select id="getUserByMobile" resultType="com.futao.springmvcdemo.model.entity.User">
-        select `id`,`createTime`
+        select `id`, `createTime`
         from `futao_user`
         where mobile = #{mobile}
     </select>
@@ -45,7 +45,26 @@
     <!-- 8. timeout  (可选配置， 默认为unset, 依赖驱动)
       这个设置是在抛出异常之前，驱动程序等待数据库返回请求结果的秒数。默认值为 unset（依赖驱动）。 -->
 
+    <!--choose-->
+
     <!--有时候我们并不想应用所有的条件，而只是想从多个选项中选择一个。而使用if标签时，只要test中的表达式为 true，就会执行 if 标签中的条件。MyBatis 提供了 choose 元素。if标签是与(and)的关系，而 choose 是或(or)的关系。
 
-choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则 choose 结束。当 choose 中所有 when 的条件都不满则时，则执行 otherwise 中的sql。类似于Java 的 switch 语句，choose 为 switch，when 为 case，otherwise 则为 default。-->
+       choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则 choose 结束。当 choose 中所有 when 的条件都不满则时，则执行 otherwise 中的sql。类似于Java 的 switch 语句，choose 为 switch，when 为 case，otherwise 则为 default。-->
+
+    <!--set-->
+
+    <!--set标签可以去掉最后一个逗号-->
+    <!--　<set>
+
+　　　　　　<if test="name != null and name.length()>0">name = #{name},</if>
+
+　　　　　　<if test="gender != null and gender.length()>0">gender = #{gender},</if>
+
+　　　　</set>
+       范围内的最后一个逗号会被自动去掉
+-->
+
+    <!--where-->
+
+
 </mapper>

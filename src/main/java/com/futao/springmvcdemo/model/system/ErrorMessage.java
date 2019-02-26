@@ -19,6 +19,7 @@ public final class ErrorMessage {
         public static final String CLOSE_OUTPUT_STREAM_FAIL = "关闭输出流时发生异常";
         public static final String INVOKE_METHOD_FAIL = "执行方法时发生异常";
         public static final String ENUM_MUST_IMPL_IENUM = "使用@EnumStatus(EnumClass.class)注解之前，您的枚举类EnumClass必须实现IEnum接口";
+        public static final String DATE_PARSE_FAIL = "时间转换异常";
     }
 
     /**

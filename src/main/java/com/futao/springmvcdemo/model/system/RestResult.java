@@ -1,10 +1,10 @@
 package com.futao.springmvcdemo.model.system;
 
+import com.futao.springmvcdemo.utils.DateTools;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
 
@@ -49,7 +49,7 @@ public class RestResult {
      */
     private Object errorMessage;
     /**
-     * 服务器当前时间（便于查找定位请求时间，因为实际开发过程中服务器时间可能跟本地时间不一致，加上这个时间戳便于日后定位）
+     * 服务器当前时间（便于查找定位请求时间，因为实际开发过程中服务器时间可能跟本地时间不一致，加上这个时间戳便于后期定位）
      */
     private Timestamp serverTime;
 
@@ -58,6 +58,6 @@ public class RestResult {
         this.code = code;
         this.data = data;
         this.errorMessage = errorMessage;
-        this.serverTime = new Timestamp(new DateTime().getMillis());
+        this.serverTime = DateTools.currentTimeStamp();
     }
 }

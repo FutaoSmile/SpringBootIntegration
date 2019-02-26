@@ -1,13 +1,8 @@
 package com.futao.springmvcdemo.annotation.impl.interceptor;
 
 import com.futao.springmvcdemo.foundation.configuration.HttpMessageConverterConfiguration;
-import com.futao.springmvcdemo.model.entity.User;
 import com.futao.springmvcdemo.model.system.SystemConfiguration;
-import com.futao.springmvcdemo.utils.TimeUtilsKt;
-import org.joda.time.DateTime;
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.format.Formatter;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,10 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 扩展spring mvc的功能
@@ -58,48 +50,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor).addPathPatterns("/**");
     }
 
-    /**
-     * 不起作用，无效
-     * <p>
-     * Add Converter and {@link Formatter}s in addition to the ones
-     * registered by default.
-     *
-     * @param registry
-     */
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        Formatter<Timestamp> timestampFormatter = new Formatter<Timestamp>() {
-            @Override
-            public Timestamp parse(String text, Locale locale) throws ParseException {
-                System.out.println("parse 时间转换器");
-                DateTime dateTime = TimeUtilsKt.toDateTime(text);
-                return TimeUtilsKt.toTimestamp(dateTime);
-            }
-
-            @Override
-            public String print(Timestamp object, Locale locale) {
-                System.out.println("print 时间转换器");
-                return null;
-            }
-        };
-        registry.addFormatter(timestampFormatter);
-        registry.addFormatterForFieldType(Timestamp.class, timestampFormatter);
-
-        Formatter<User> userFormatter = new Formatter<User>() {
-            @Override
-            public User parse(String text, Locale locale) throws ParseException {
-                System.out.println("=================");
-                return null;
-            }
-
-            @Override
-            public String print(User object, Locale locale) {
-                System.out.println("-------------");
-                return null;
-            }
-        };
-        registry.addFormatter(userFormatter);
-    }
 
     /**
      * 添加静态资源映射
@@ -122,6 +72,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
+     * 跨域的第三种解决方案
      * Configure cross origin requests processing.
      *
      * @param registry

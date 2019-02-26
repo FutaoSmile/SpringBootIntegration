@@ -1,7 +1,6 @@
 package com.futao.springmvcdemo.foundation;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.fastjson.JSONObject;
 import com.futao.springmvcdemo.model.system.ErrorMessage;
 import com.futao.springmvcdemo.model.system.RestResult;
 import org.slf4j.Logger;
@@ -42,7 +41,7 @@ public class ExceptionWrapper {
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationException.SYSTEM_EXCEPTION);
         //对系统级异常进行日志记录
         LOGGER.error("系统异常:" + e.getMessage(), e);
-        return JSONObject.toJSON(result);
+        return result;
     }
 
     /**
@@ -58,7 +57,7 @@ public class ExceptionWrapper {
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationException.SYSTEM_EXCEPTION);
         result.setCode(e.getCode());
         result.setErrorMessage(e.getErrorMsg());
-        return JSONObject.toJSON(result);
+        return result;
     }
 
 
@@ -81,7 +80,7 @@ public class ExceptionWrapper {
             result.setCode(RestResult.NOT_RE_WRITE_ERROR_MESSAGE);
             result.setErrorMessage(message);
         }
-        return JSONObject.toJSON(result);
+        return result;
     }
 
 
@@ -94,7 +93,7 @@ public class ExceptionWrapper {
     @ExceptionHandler(BlockException.class)
     public Object blockException(BlockException e) {
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
-        return JSONObject.toJSON(result);
+        return result;
     }
 
 
@@ -127,7 +126,7 @@ public class ExceptionWrapper {
             result.setErrorMessage("服务器暂时不可用，给我一首歌的时间。我们正在紧急修复中~");
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-        return JSONObject.toJSON(result);
+        return result;
     }
 
 }
