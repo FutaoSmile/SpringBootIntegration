@@ -3,24 +3,28 @@
         PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<!-- mapper 为根元素节点， 一个namespace对应一个dao -->
-<mapper namespace="com.futao.springmvcdemo.dao.UserDao">
+<!-- com.futao.springbootdemoo.mapper 为根元素节点， 一个namespace对应一个dao -->
+<mapper namespace="com.futao.springbootdemo.dao.UserDao">
 
-    <insert id="addUser" parameterType="com.futao.springmvcdemo.model.entity.User">
-        insert into `futao_user`(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`, `createtime`,
-                                 `lastmodifytime`)
+    <insert id="addUser" parameterType="com.futao.springbootdemo.model.entity.User">
+        insert into futao_user(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`, `createtime`,
+                               `lastmodifytime`)
         values (#{id}, #{username}, #{password}, #{age}, #{mobile}, #{email}, #{address}, #{createtime},
                 #{lastmodifytime})
     </insert>
 
-    <select id="getUserByMobile" resultType="com.futao.springmvcdemo.model.entity.User">
+    <select id="getUserByMobile" resultType="com.futao.springbootdemo.model.entity.User">
         select `id`, `createTime`
-        from `futao_user`
+        from futao_user
         where mobile = #{mobile}
     </select>
 
-    <resultMap id="userDO" type="com.futao.springmvcdemo.model.entity.User">
-    </resultMap>
+    <select id="getUserByMobileAndPwd" resultType="com.futao.springbootdemo.model.entity.User">
+        select *
+        from springmvcdemo.futao_user
+        where mobile = #{mobile}
+          and password = #{password}
+    </select>
 
     <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）
       将要传入语句的参数的完全限定类名或别名， 如果不配置，mybatis会通过ParameterHandler 根据参数类型默认选择合适的typeHandler进行处理

@@ -1,10 +1,7 @@
 package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
  * @author futao
  * Created on 2018/9/20-16:00.
  */
-//@Mapper
+@Mapper
 public interface UserDao {
 
 //    /**

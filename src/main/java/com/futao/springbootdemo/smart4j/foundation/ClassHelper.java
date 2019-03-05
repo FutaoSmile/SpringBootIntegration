@@ -5,7 +5,6 @@ import com.futao.springbootdemo.smart4j.annotation.SmartService;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 类操作助手类
@@ -39,7 +38,7 @@ public class ClassHelper {
      * @return
      */
     public static Set<Class<?>> getClassSetByAnn(Class annotation) {
-        return CLASS_SET.stream().filter(it -> it.isAnnotationPresent(annotation)).collect(Collectors.toSet());
+        return (Set<Class<?>>) CLASS_SET.stream().filter(it -> it.isAnnotationPresent(annotation));
     }
 
     /**

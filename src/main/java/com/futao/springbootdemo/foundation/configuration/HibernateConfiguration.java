@@ -1,11 +1,8 @@
 package com.futao.springbootdemo.foundation.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -14,8 +11,8 @@ import javax.sql.DataSource;
  * @author futao
  * Created on ${date}.
  */
-@Configuration
-@EnableTransactionManagement
+//@Configuration
+//@EnableTransactionManagement
 public class HibernateConfiguration {
 
     @Resource
@@ -52,7 +49,7 @@ public class HibernateConfiguration {
      *
      * @return
      */
-    @Bean
+//    @Bean
     public PlatformTransactionManager transactionManage() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setDataSource(dataSource);

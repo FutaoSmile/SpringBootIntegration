@@ -7,9 +7,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
+ * 敏感词检测
+ *
  * @author futao
  * Created on 2018/9/25.
- * 敏感词检测
  */
 public class IllegalValueCheckImpl implements ConstraintValidator<IllegalValueCheck, String> {
     private String forbidden;
