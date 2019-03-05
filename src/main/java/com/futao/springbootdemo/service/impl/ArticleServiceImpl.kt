@@ -3,12 +3,14 @@ package com.futao.springbootdemo.service.impl
 import com.alibaba.fastjson.JSONObject
 import com.futao.springbootdemo.dao.ArticleDao
 import com.futao.springbootdemo.dao.impl.ArticleSearchDao
+import com.futao.springbootdemo.foundation.configuration.HibernateValidatorConfiguration
 import com.futao.springbootdemo.model.entity.Article
 import com.futao.springbootdemo.model.entity.User
 import com.futao.springbootdemo.service.ArticleService
-import com.futao.springbootdemo.service.UUIDService
+import com.futao.springbootdemo.service.UserService
+import com.futao.springbootdemo.utils.ServiceTools
 import com.futao.springbootdemo.utils.getFieldName
-import com.futao.springbootdemo.utils.setCreateAndLastModifyTime
+import com.futao.springbootdemo.utils.setCreateAndLastModifyTimeNow
 import org.apache.commons.lang3.StringUtils
 import org.elasticsearch.client.Client
 import org.elasticsearch.index.query.QueryBuilders
@@ -25,7 +27,7 @@ import javax.annotation.Resource
 @Service
 open class ArticleServiceImpl : ArticleService {
     @Resource
-    private lateinit var articleMapper: ArticleDao
+    private lateinit var articleDao: ArticleDao
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
 
@@ -34,17 +36,23 @@ open class ArticleServiceImpl : ArticleService {
 
     @Resource
     private lateinit var elastic: Client
+    @Resource
+    private lateinit var userService: UserService
 
-    override fun add(title: String, desc: String, content: String, user: User) {
-//        if (articleMapper.add(uuid(), title, desc, content, currentTimeStamp(), currentTimeStamp()) < 1) {
+    override fun add(title: String, desc: String, content: String, user: User): Article {
+//        if (articleDao.add(uuid(), title, desc, content, currentTimeStamp(), currentTimeStamp()) < 1) {
 //            throw LogicException.le(ErrorMessage.ADD_ARTICLE_FAIL)
 //        }
-        elasticsearch.save(Article().apply {
-            id = UUIDService.get()
-            setTitle(title)
-            description = desc
-            setContent(content)
-        }.setCreateAndLastModifyTime())
+//        elasticsearch.save(Article().apply {
+//            id = UUIDService.get()
+//            setTitle(title)
+//            description = desc
+//            setContent(content)
+//        }.setCreateAndLastModifyTimeNow())
+        val article = Article(title, desc, content, userService.currentUser(), 0).setCreateAndLastModifyTimeNow()
+        HibernateValidatorConfiguration.validate(article)
+        articleDao.add(article)
+        return article
     }
 
     //    @Cacheable(value = ["article"])
@@ -65,7 +73,7 @@ open class ArticleServiceImpl : ArticleService {
 //            elasticsearch.saveAll(list)
             list
         } else {
-            val list = articleMapper.list()
+            val list = articleDao.list()
             opsForValue.set("articlelist", list)
 //            elasticsearch.saveAll(list)
             list
@@ -134,6 +142,10 @@ open class ArticleServiceImpl : ArticleService {
     }
 
     override fun getById(id: String): Article? {
-        return articleMapper.getById(id)
+        return ServiceTools.checkSingleResultNull(articleDao.getById(id))
+    }
+
+    override fun my(): MutableList<Article>? {
+        return articleDao.byUser(userService.currentUser())
     }
 }

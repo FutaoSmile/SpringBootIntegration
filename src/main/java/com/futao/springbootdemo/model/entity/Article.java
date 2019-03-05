@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 /**
  * @author futao
@@ -50,6 +51,26 @@ public class Article extends BaseEntity {
      * 浏览量
      */
     private int visitTimes;
+
+    public Article(String id, Timestamp createTime, Timestamp lastModifyTime, @Length(min = 1, max = 20) String title, @Length(max = 200) String description, @Length(min = 1, max = 5000) String content, @NotNull User author, int visitTimes) {
+        super(id, createTime, lastModifyTime);
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.author = author;
+        this.visitTimes = visitTimes;
+    }
+
+    public Article() {
+    }
+
+    public Article(@Length(min = 1, max = 20) String title, @Length(max = 200) String description, @Length(min = 1, max = 5000) String content, @NotNull User author, int visitTimes) {
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.author = author;
+        this.visitTimes = visitTimes;
+    }
 
     public String getTitle() {
         return title;

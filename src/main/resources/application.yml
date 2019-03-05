@@ -5,3 +5,8 @@ spring:
     name: springbootdemo
 
 author: futao
+
+logging:
+  level:
+    #    show sql
+    com.futao.springbootdemo.dao: debug

@@ -2,7 +2,6 @@ package com.futao.springbootdemo.controller.business;
 
 import com.futao.springbootdemo.annotation.LoginUser;
 import com.futao.springbootdemo.model.entity.Article;
-import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.service.ArticleService;
 import com.futao.springbootdemo.service.UserService;
 import io.swagger.annotations.Api;
@@ -37,13 +36,12 @@ public class ArticleController {
     @LoginUser
     @ApiOperation("新增文章")
     @PostMapping(path = "add")
-    public SingleValueResult add(
+    public Article add(
             @RequestParam("title") String title,
             @RequestParam("desc") String desc,
             @RequestParam("content") String content
     ) {
-        articleService.add(title, desc, content, userService.currentUser());
-        return new SingleValueResult("success");
+        return articleService.add(title, desc, content, userService.currentUser());
     }
 
     /**
@@ -84,5 +82,12 @@ public class ArticleController {
                                 @RequestParam("size") int size
     ) {
         return articleService.search(key, fromRange, toRange, size, from);
+    }
+
+    @ApiOperation("我发表的文章列表")
+    @GetMapping("my")
+    @LoginUser
+    public List<Article> my() {
+        return articleService.my();
     }
 }

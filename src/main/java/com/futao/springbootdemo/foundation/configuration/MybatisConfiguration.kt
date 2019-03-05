@@ -10,6 +10,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.annotation.TransactionManagementConfigurer
+import java.util.*
 import javax.annotation.Resource
 import javax.sql.DataSource
 
@@ -50,6 +51,9 @@ open class MybatisConfiguration : TransactionManagementConfigurer {
         sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources(packageSearchPath))
         // 设置typeAlias 包扫描路径
         sqlSessionFactoryBean.setTypeAliasesPackage("com.futao.springbootdemo.model.entity")
+        val properties = Properties()
+        properties["logImpl"] = "org.apache.ibatis.logging.stdout.StdOutImpl"
+        sqlSessionFactoryBean.setConfigurationProperties(properties)
         return sqlSessionFactoryBean
     }
 

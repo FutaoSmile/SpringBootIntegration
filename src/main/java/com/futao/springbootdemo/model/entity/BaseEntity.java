@@ -1,5 +1,6 @@
 package com.futao.springbootdemo.model.entity;
 
+import com.futao.springbootdemo.service.UUIDService;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class BaseEntity implements Serializable {
     /**
      * 唯一主键id
      */
-    private String id;
+    private String id = UUIDService.get();
     /**
      * 创建时间
      */

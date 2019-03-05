@@ -38,6 +38,7 @@
         <typeAlias alias="linkedList" type="java.util.LinkedList"/>
         <typeAlias alias="string" type="java.lang.String"/>
 
-        <typeAlias alias="article" type="com.futao.springbootdemo.model.entity.Article"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.Article" alias="article"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.User" alias="user"/>
     </typeAliases>
 </configuration>

@@ -1,31 +1,27 @@
 package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.Article;
+import com.futao.springbootdemo.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
+ * 文章
+ *
  * @author futao
  * Created on 2018/10/20.
- * 文章
  */
 @Mapper
 public interface ArticleDao {
-//    @Insert("insert " +
-//            "into futao_article(id,title,description,content,createtime,lastmodifytime) " +
-//            "values(#{id},#{title},#{description},#{content},#{crateTime},#{lastModifyTime})")
-//    int add(@Param("id") String id,
-//            @Param("title") String title,
-//            @Param("description") String desc,
-//            @Param("content") String content,
-//            @Param("crateTime") Timestamp createTime,
-//            @Param("lastModifyTime") Timestamp lastModifyTime
-//    );
 
-    //    @Select("select * " +
-//            "from futao_article")
+    void add(Article article);
 
+    /**
+     * 查询列表
+     *
+     * @return
+     */
     List<Article> list();
 
     /**
@@ -35,4 +31,12 @@ public interface ArticleDao {
      * @return
      */
     Article getById(String id);
+
+    /**
+     * 查询用户发表的文章列表
+     *
+     * @param user 用户
+     * @return
+     */
+    List<Article> byUser(User user);
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.futao.springbootdemo.dao.ArticleDao">
+
+
+    <insert id="add" parameterType="article">
+        insert into springmvcdemo.futao_article (id, title, description, content, author, visit_times, create_time,
+                                                 last_modify_time)
+        values (#{id}, #{title}, #{description}, #{content}, #{author.id}, #{visitTimes}, #{createTime},
+                #{lastModifyTime})
+    </insert>
+
+    <select id="getById" parameterType="java.lang.String" resultType="article">
+        select id,
+               title,
+               description,
+               content,
+               author,
+               visit_times,
+               create_time,
+               last_modify_time
+        from springmvcdemo.futao_article
+        where id = #{value}
+    </select>
+
+    <select id="list" resultType="com.futao.springbootdemo.model.entity.Article">
+        select a.id               as aId,
+               a.title,
+               a.description,
+               a.content,
+               a.create_time      as aCreateTime,
+               a.last_modify_time as aLastModifyTime,
+               u.id               as uId,
+               username
+        from springmvcdemo.futao_article a
+                 left join springmvcdemo.futao_user u on a.author = u.id
+    </select>
+
+    <select id="byUser" parameterType="user" resultMap="articleResultMap" useCache="true">
+        select a.id               as aId,
+               a.title,
+               a.description,
+               a.content,
+               a.create_time      as aCreateTime,
+               a.last_modify_time as aLastModifyTime,
+               u.id               as uId,
+               username
+        from springmvcdemo.futao_article a
+                 left join springmvcdemo.futao_user u on a.author = u.id
+        where author = #{id}
+    </select>
+
+
+    <resultMap id="articleResultMap" type="article">
+        <id property="id" column="aId"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="aCreateTime"/>
+        <result property="lastModifyTime" column="aLastModifyTime"/>
+        <association property="author" column="author" javaType="user">
+            <id property="id" column="uId"/>
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+
+</mapper>

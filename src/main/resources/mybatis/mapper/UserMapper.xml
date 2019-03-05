@@ -7,15 +7,16 @@
 <mapper namespace="com.futao.springbootdemo.dao.UserDao">
 
     <insert id="addUser" parameterType="com.futao.springbootdemo.model.entity.User">
-        insert into futao_user(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`, `createtime`,
-                               `lastmodifytime`)
+        insert into springmvcdemo.futao_user(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`,
+                                             `create_time`,
+                                             `last_modify_time`)
         values (#{id}, #{username}, #{password}, #{age}, #{mobile}, #{email}, #{address}, #{createtime},
                 #{lastmodifytime})
     </insert>
 
     <select id="getUserByMobile" resultType="com.futao.springbootdemo.model.entity.User">
         select `id`, `createTime`
-        from futao_user
+        from springmvcdemo.futao_user
         where mobile = #{mobile}
     </select>
 
@@ -24,6 +25,12 @@
         from springmvcdemo.futao_user
         where mobile = #{mobile}
           and password = #{password}
+    </select>
+
+    <select id="getUserById" resultType="user">
+        select *
+        from springmvcdemo.futao_user
+        where id = #{id}
     </select>
 
     <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）

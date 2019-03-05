@@ -71,13 +71,7 @@ public interface UserDao {
      * @param id
      * @return
      */
-    @Select("select " +
-            "id,createTime,lastModifyTime,username,age,mobile,email,address,role " +
-            "from " +
-            "futao_user " +
-            "where " +
-            "id=#{id}")
-    User getUserById(@Param("id") String id);
+    User getUserById(String id);
 
 
     /**

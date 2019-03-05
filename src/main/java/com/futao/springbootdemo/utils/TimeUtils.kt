@@ -15,7 +15,7 @@ import java.util.*
 /**
  * 为实体赋值当前时间
  */
-fun <T : BaseEntity> T.setCreateAndLastModifyTime(): T {
+fun <T : BaseEntity> T.setCreateAndLastModifyTimeNow(): T {
     var currentTimeStamp = currentTimeStamp()
     this.createTime = currentTimeStamp
     this.lastModifyTime = currentTimeStamp
