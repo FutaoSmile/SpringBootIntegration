@@ -2,6 +2,6 @@ spring:
   profiles:
     active: dev
   application:
-    name: springmvcdemo
+    name: springbootdemo
 
 author: futao

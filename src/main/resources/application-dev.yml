@@ -24,7 +24,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     entitymanager:
-      packagesToScan: com.futao.springmvcdemo.model
+      packagesToScan: com.futao.springbootdemo.model
     hibernate:
       ddl-auto: update
   data:
@@ -141,6 +141,10 @@ server:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  typeAliasesPackage: com.futao.springbootdemo.model.entity
+  config-location: classpath:mybatis/mybatis-config.xml
 
 # 在线人数缩放比例
 onlinePeopleQuantityScale: 2
@@ -186,7 +190,7 @@ futao:
 
 # mybatis-plus插件
 #mybatis-plus:
-#  typeAliasesPackage: com.futao.springmvcdemo.model.entity
+#  typeAliasesPackage: com.futao.springbootdemo.model.entity
 #  global-config:
 #    db-config:
 #      #      大写

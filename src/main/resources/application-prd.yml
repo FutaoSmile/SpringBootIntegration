@@ -24,7 +24,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     entitymanager:
-      packagesToScan: com.futao.springmvcdemo.model
+      packagesToScan: com.futao.springbootdemo.model
     hibernate:
       ddl-auto: update
   #    data:
@@ -179,7 +179,7 @@ futao:
 
 # mybatis-plus插件
 mybatis-plus:
-  typeAliasesPackage: com.futao.springmvcdemo.model.entity
+  typeAliasesPackage: com.futao.springbootdemo.model.entity
   global-config:
     db-config:
       #      大写

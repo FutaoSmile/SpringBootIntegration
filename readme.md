@@ -87,7 +87,7 @@ git添加多远程仓库
 src
 |-main 源代码
     |-java java代码
-        |-com.futao.springmvcdemo
+        |-com.futao.springbootdemo
             |-annotaion 项目用到的自定义注解
             |-controller 接口
             |-dao 持久层
