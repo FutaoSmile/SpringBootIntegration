@@ -232,3 +232,8 @@ futao:
 # classpath: /config/
 # classpath: /
 # 也可以通过命令行的形式修改：spring.config.location=xxx
+
+
+# 系统配置
+systemconfig:
+  enableSwagger: true

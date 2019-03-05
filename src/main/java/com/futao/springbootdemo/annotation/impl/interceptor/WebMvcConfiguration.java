@@ -1,7 +1,7 @@
 package com.futao.springbootdemo.annotation.impl.interceptor;
 
 import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
-import com.futao.springbootdemo.model.system.SystemConfiguration;
+import com.futao.springbootdemo.model.system.SystemConfig;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -35,6 +35,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Resource
     private HttpMessageConverterConfiguration httpMessageConverterConfiguration;
 
+    @Resource
+    private SystemConfig systemConfig;
+
     /**
      * 添加拦截器
      * addInterceptor()的顺序需要严格按照程序的执行的顺序
@@ -65,7 +68,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        if (systemConfig.isEnableSwagger()) {
+            registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        }
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
@@ -84,8 +89,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedMethods("*")
                 .allowedHeaders("Content-Type")
-                .allowedOrigins(SystemConfiguration.ALLOW_ORIGINS)
-                .maxAge(SystemConfiguration.ORIGIN_MAX_AGE);
+                .allowedOrigins(SystemConfig.ALLOW_ORIGINS)
+                .maxAge(SystemConfig.ORIGIN_MAX_AGE);
     }
 
 
