@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <settings>
+        <setting name="callSettersOnNulls" value="true"/>
+
+        <setting name="cacheEnabled" value="true"/>
+
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <setting name="aggressiveLazyLoading" value="true"/>
+
+        <setting name="multipleResultSetsEnabled" value="true"/>
+
+        <setting name="useColumnLabel" value="true"/>
+
+        <setting name="useGeneratedKeys" value="false"/>
+
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+
+        <!--数据库下划线转驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <setting name="localCacheScope" value="SESSION"/>
+
+        <setting name="jdbcTypeForNull" value="NULL"/>
+
+    </settings>
+
     <typeAliases>
+        <typeAlias alias="int" type="java.lang.Integer"/>
+        <typeAlias alias="long" type="java.lang.Long"/>
+        <typeAlias alias="hashMap" type="java.util.HashMap"/>
+        <typeAlias alias="linkedHashMap" type="java.util.LinkedHashMap"/>
+        <typeAlias alias="arrayList" type="java.util.ArrayList"/>
+        <typeAlias alias="linkedList" type="java.util.LinkedList"/>
+        <typeAlias alias="string" type="java.lang.String"/>
+
+        <typeAlias alias="article" type="com.futao.springbootdemo.model.entity.Article"/>
     </typeAliases>
 </configuration>

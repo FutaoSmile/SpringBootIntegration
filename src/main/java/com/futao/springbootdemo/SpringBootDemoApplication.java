@@ -38,7 +38,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.futao.springbootdemo.dao")      //会将包里面的接口当做mapper配置，之后可以自动引入mapper类
-@EnableCaching  //开启
+@EnableCaching  //开启缓存
 @EnableScheduling
 @EnableAsync
 @EnableAspectJAutoProxy

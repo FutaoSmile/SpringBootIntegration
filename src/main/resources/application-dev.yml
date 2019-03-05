@@ -141,10 +141,6 @@ server:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-  mapper-locations: classpath*:mybatis/mapper/*.xml
-  typeAliasesPackage: com.futao.springbootdemo.model.entity
-  config-location: classpath:mybatis/mybatis-config.xml
 
 # 在线人数缩放比例
 onlinePeopleQuantityScale: 2

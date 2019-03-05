@@ -3,6 +3,9 @@ package com.futao.springbootdemo.foundation.configuration
 import org.mybatis.spring.SqlSessionFactoryBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver
+import org.springframework.core.io.support.ResourcePatternResolver
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
@@ -37,9 +40,17 @@ open class MybatisConfiguration : TransactionManagementConfigurer {
 
     @Bean(name = ["sqlSessionFactory"])
     open fun sqlSessionFactory(): SqlSessionFactoryBean {
-        val factoryBean = SqlSessionFactoryBean()
-        factoryBean.setDataSource(dataSource)
-        return factoryBean
+        val sqlSessionFactoryBean = SqlSessionFactoryBean()
+        sqlSessionFactoryBean.setDataSource(dataSource)
+        // 设置mybatis configuration 扫描路径
+        sqlSessionFactoryBean.setConfigLocation(ClassPathResource("/mybatis/mybatis-config.xml"))
+        // 添加mapper 扫描路径
+        val pathMatchingResourcePatternResolver = PathMatchingResourcePatternResolver()
+        val packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/mybatis/mapper/*.xml"
+        sqlSessionFactoryBean.setMapperLocations(pathMatchingResourcePatternResolver.getResources(packageSearchPath))
+        // 设置typeAlias 包扫描路径
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.futao.springbootdemo.model.entity")
+        return sqlSessionFactoryBean
     }
 
     //    @Bean(name = ["transactionManager"])
