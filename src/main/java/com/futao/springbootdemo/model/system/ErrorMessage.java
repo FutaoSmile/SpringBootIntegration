@@ -20,6 +20,11 @@ public final class ErrorMessage {
         public static final String INVOKE_METHOD_FAIL = "执行方法时发生异常";
         public static final String ENUM_MUST_IMPL_IENUM = "使用@EnumStatus(EnumClass.class)注解之前，您的枚举类EnumClass必须实现IEnum接口";
         public static final String DATE_PARSE_FAIL = "时间转换异常";
+        public static final String NOT_FOUND = "您请求的地址还未开发呢~";
+        public static final String METHOD_NOT_ALLOWED = "当前接口是不支持[%s]提交方式的哟~";
+        public static final String BAD_REQUEST = "参数[%s]是必传的~";
+        public static final String SERVER_ERROR = "服务暂时不可用。正在紧急修复中~";
+
     }
 
     /**

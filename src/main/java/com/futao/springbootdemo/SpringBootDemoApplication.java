@@ -19,6 +19,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Timestamp;
@@ -46,7 +47,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @EnableEntity
 //@EnableWebSocketMessageBroker
 @EnableTransactionManagement
-//@EnableRedisHttpSession
+@EnableRedisHttpSession
 @EnableConfigurationProperties
 public class SpringBootDemoApplication implements CommandLineRunner {
 

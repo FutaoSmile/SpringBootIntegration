@@ -106,24 +106,26 @@ public class ExceptionWrapper {
      * @return
      */
     @ExceptionHandler(ServletException.class)
-    public Object notFoundException(ServletException e, HttpServletResponse response) {
+    public Object httpException(ServletException e, HttpServletResponse response) {
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
 
         if (e instanceof HttpRequestMethodNotSupportedException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_METHOD_NOT_ALLOWED));
-            result.setErrorMessage("当前接口是不支持" + ((HttpRequestMethodNotSupportedException) e).getMethod() + "方法的哟~");
+            result.setErrorMessage(String.format(ErrorMessage.ApplicationException.METHOD_NOT_ALLOWED, ((HttpRequestMethodNotSupportedException) e).getMethod()));
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         } else if (e instanceof MissingServletRequestParameterException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_BAD_REQUEST));
-            result.setErrorMessage("参数" + ((MissingServletRequestParameterException) e).getParameterName() + "可不能忘传呀~");
+            result.setErrorMessage(String.format(ErrorMessage.ApplicationException.BAD_REQUEST, ((MissingServletRequestParameterException) e).getParameterName()));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else if (e instanceof NoHandlerFoundException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_NOT_FOUND));
-            result.setErrorMessage("啊哦~您请求的地址" + ((NoHandlerFoundException) e).getRequestURL() + "还未开发呢~");
+            //url目前获取不到，都是/error
+            //result.setErrorMessage(String.format(ErrorMessage.ApplicationException.NOT_FOUND, ((NoHandlerFoundException) e).getRequestURL()));
+            result.setErrorMessage(ErrorMessage.ApplicationException.NOT_FOUND);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
             result.setCode(String.valueOf(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-            result.setErrorMessage("服务器暂时不可用，给我一首歌的时间。我们正在紧急修复中~");
+            result.setErrorMessage(ErrorMessage.ApplicationException.SERVER_ERROR);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return result;
