@@ -7,9 +7,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
+ * 实体基类
+ *
  * @author futao
  * Created on 2018/9/22-15:17.
- * 实体基类
  */
 @ToString
 public class BaseEntity implements Serializable {

@@ -1,9 +1,10 @@
 package com.futao.springbootdemo.foundation;
 
 /**
+ * v
+ *
  * @author futao
  * Created on 2018/9/20-15:22.
- * 业务逻辑异常类
  */
 public class LogicException extends ApplicationException {
     /**

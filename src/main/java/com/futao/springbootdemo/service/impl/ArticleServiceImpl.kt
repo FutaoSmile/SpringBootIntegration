@@ -49,7 +49,7 @@ open class ArticleServiceImpl : ArticleService {
 //            description = desc
 //            setContent(content)
 //        }.setCreateAndLastModifyTimeNow())
-        val article = Article(title, desc, content, userService.currentUser(), 0).setCreateAndLastModifyTimeNow()
+        val article = Article(title, desc, content, userService.currentUser(), 0, null).setCreateAndLastModifyTimeNow()
         HibernateValidatorConfiguration.validate(article)
         articleDao.add(article)
         return article
@@ -142,7 +142,7 @@ open class ArticleServiceImpl : ArticleService {
     }
 
     override fun getById(id: String): Article? {
-        return ServiceTools.checkSingleResultNull(articleDao.getById(id))
+        return ServiceTools.checkResultNullAndThrow(articleDao.getById(id))
     }
 
     override fun my(): MutableList<Article>? {

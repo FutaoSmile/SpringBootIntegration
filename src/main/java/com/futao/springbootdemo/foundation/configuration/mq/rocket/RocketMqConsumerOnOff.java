@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.stereotype.Component;
 
 /**
  * rocket mq 消费者开关
@@ -13,6 +14,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * Created ON 2018-12-27.
  */
 @Order(100)
+@Component
 @ConfigurationProperties(prefix = "rocketmq.consumer")
 public class RocketMqConsumerOnOff implements Condition {
 

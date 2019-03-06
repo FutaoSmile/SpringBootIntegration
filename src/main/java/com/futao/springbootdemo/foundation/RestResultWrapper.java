@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
+ * 返回Rest风格的数据
+ *
  * @author futao
  * Created on 2018/9/22-20:24.
- * 返回Rest风格的数据
  */
 @ControllerAdvice(basePackages = "com.futao.springbootdemo.controller")
 public class RestResultWrapper implements ResponseBodyAdvice<Object> {

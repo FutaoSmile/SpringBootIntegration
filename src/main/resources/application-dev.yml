@@ -236,4 +236,5 @@ futao:
 
 # 系统配置
 systemconfig:
-  enableSwagger: true
+  enableSwagger: false
+  enableDruidServlet: false

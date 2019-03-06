@@ -19,6 +19,8 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
 
 /**
+ * 订单
+ *
  * @author futao
  * Created on 2018/11/20.
  */

@@ -13,6 +13,9 @@ import javax.validation.ConstraintValidatorContext;
  * Created on 2018/9/25.
  */
 public class IllegalValueCheckImpl implements ConstraintValidator<IllegalValueCheck, String> {
+    /**
+     * 禁止的词汇
+     */
     private String forbidden;
 
     /**
@@ -29,8 +32,8 @@ public class IllegalValueCheckImpl implements ConstraintValidator<IllegalValueCh
     /**
      * 检验逻辑
      *
-     * @param value
-     * @param context
+     * @param value   用户输入的数据
+     * @param context 上下文
      * @return
      */
     @Override

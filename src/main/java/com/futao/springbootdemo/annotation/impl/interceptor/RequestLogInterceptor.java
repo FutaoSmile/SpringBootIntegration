@@ -25,9 +25,10 @@ import static com.futao.springbootdemo.utils.RequestUtils.getCookies;
 import static com.futao.springbootdemo.utils.RequestUtils.getSessionParameters;
 
 /**
+ * 请求controller记录日志，以及接口请求时间记录
+ *
  * @author futao
  * Created on 2018/9/20-12:12.
- * 请求controller记录日志，以及接口请求时间记录
  */
 @Component
 public class RequestLogInterceptor implements HandlerInterceptor {
@@ -36,7 +37,7 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     /**
      * 统计接口请求次数请求
      */
-    private ConcurrentHashMap<String, AtomicInteger> apiRequestStatistic = new ConcurrentHashMap();
+    private ConcurrentHashMap<String, AtomicInteger> apiRequestStatistic = new ConcurrentHashMap<>();
 
     /**
      * controller执行之前
@@ -47,10 +48,10 @@ public class RequestLogInterceptor implements HandlerInterceptor {
      * 此处，获取ip,当x-forwarded-for为null时，表示请求没有经过处理，此时调用getRemoteAddr（）和getRemoteHost（）都可获取真实ip
      * 反之，则getHeader（"x-forwarded-for"）为真实的ip。
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @return
+     * @param request  请求
+     * @param response 响应
+     * @param handler  拦截的对象
+     * @return 是否放行
      * @throws Exception
      */
     @Override
@@ -93,8 +94,8 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     /**
      * 获取queryString中的数据
      *
-     * @param request
-     * @return
+     * @param request 请求
+     * @return 请求参数
      * @throws UnsupportedEncodingException
      */
     private String queryString(HttpServletRequest request) throws UnsupportedEncodingException {
@@ -107,10 +108,10 @@ public class RequestLogInterceptor implements HandlerInterceptor {
      * 使用getParameter代替getQueryString的原因是后者只能拿到url中的参数，对于放在body中的参数是拿不到的
      * 虽然GET和POST方法都可以将参数放在url中，但是POST放在body中的时候，getQueryString拿不到数据
      *
-     * @param request
+     * @param request 请求
      * @return
      */
-    public static String queryParameters(HttpServletRequest request) {
+    private static String queryParameters(HttpServletRequest request) {
         Map<String, String[]> map = request.getParameterMap();
         JSONObject jsonObject = new JSONObject();
         map.forEach((k, v) -> jsonObject.put(k, Arrays.toString(v)));
@@ -120,10 +121,10 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     /**
      * 视图渲染之前
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param modelAndView
+     * @param request      请求
+     * @param response     响应
+     * @param handler      拦截的对象
+     * @param modelAndView 视图与数据
      * @throws Exception
      */
     @Override
@@ -134,10 +135,10 @@ public class RequestLogInterceptor implements HandlerInterceptor {
     /**
      * 还可以在这个地方根据response.getStatus来处理404，500等问题
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
+     * @param request  请求
+     * @param response 响应
+     * @param handler  拦截的对象
+     * @param ex       异常
      * @throws Exception
      */
     @Override

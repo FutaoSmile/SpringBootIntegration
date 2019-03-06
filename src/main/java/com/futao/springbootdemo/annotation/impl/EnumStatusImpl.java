@@ -20,8 +20,14 @@ import java.util.HashMap;
  */
 public class EnumStatusImpl implements ConstraintValidator<EnumStatus, Object> {
 
+    /**
+     * 使用过的枚举缓存
+     */
     private static HashMap<Class, String[]> cache = new HashMap<>();
 
+    /**
+     * 当前枚举状态集合
+     */
     private String[] currentEnumStatus;
 
 

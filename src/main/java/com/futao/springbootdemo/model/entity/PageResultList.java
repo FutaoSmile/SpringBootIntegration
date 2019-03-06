@@ -3,9 +3,10 @@ package com.futao.springbootdemo.model.entity;
 import java.util.Collection;
 
 /**
+ * 分页数据结构
+ *
  * @author futao
  * Created on 2018/10/9.
- * 分页数据结构
  */
 public class PageResultList<T> {
     /**

@@ -5,9 +5,10 @@ import com.futao.springbootdemo.model.system.ErrorMessage;
 import org.springframework.stereotype.Component;
 
 /**
+ * threadLocal工具类
+ *
  * @author futao
  * Created on 2018/9/19-16:52.
- * threadLocal工具类
  */
 @Component
 public class ThreadLocalUtils<T> {

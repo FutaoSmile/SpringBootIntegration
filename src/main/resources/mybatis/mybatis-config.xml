@@ -4,11 +4,14 @@
     <settings>
         <setting name="callSettersOnNulls" value="true"/>
 
+        <!--开启二级缓存-Mapper级别的缓存(一级缓存是默认开启的SqlSession级别的缓存)-->
         <setting name="cacheEnabled" value="true"/>
 
+        <!--懒加载的全局开关-->
         <setting name="lazyLoadingEnabled" value="true"/>
 
-        <setting name="aggressiveLazyLoading" value="true"/>
+        <!--立即加载全局开关-->
+        <setting name="aggressiveLazyLoading" value="false"/>
 
         <setting name="multipleResultSetsEnabled" value="true"/>
 
@@ -40,5 +43,9 @@
 
         <typeAlias type="com.futao.springbootdemo.model.entity.Article" alias="article"/>
         <typeAlias type="com.futao.springbootdemo.model.entity.User" alias="user"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.Tag" alias="tag"/>
     </typeAliases>
+    <plugins>
+        <plugin interceptor="com.futao.springbootdemo.foundation.MybatisInterceptor"></plugin>
+    </plugins>
 </configuration>

@@ -17,13 +17,16 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * 自定义HttpMessageConverter
+ *
  * @author futao
  * Created on 2018-12-20.
- * <p>
- * 自定义HttpMessageConverter
  */
 @Service
 public class HttpMessageConverterConfiguration extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
+    /**
+     * fastJson配置
+     */
     public static final SerializerFeature[] SERIALIZER_FEATURES = new SerializerFeature[]{
             SerializerFeature.PrettyFormat
             , SerializerFeature.SkipTransientField

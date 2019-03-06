@@ -18,9 +18,10 @@ import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 
 /**
+ * 统一异常处理测试接口
+ *
  * @author futao
  * Created on 2018/9/23-0:28.
- * 统一异常处理测试接口
  */
 @RequestMapping(path = "exception", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RestController
@@ -28,6 +29,9 @@ import javax.validation.constraints.NotNull;
 @Api("异常示例")
 @Conditional(RocketMqProducerOnOff.class)
 public class ExceptionTestController {
+
+    @Resource
+    private KotlinTestService service;
 
     /**
      * 业务逻辑异常
@@ -47,9 +51,6 @@ public class ExceptionTestController {
         throw new NullPointerException("空指针了，哥门!!!");
     }
 
-
-    @Resource
-    private KotlinTestService service;
 
     /**
      * Service层异常

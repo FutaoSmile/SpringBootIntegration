@@ -1,12 +1,13 @@
 package com.futao.springbootdemo.model.system;
 
 /**
- * @author futao
- * Created on 2018/9/21-15:29.
  * 错误提示集合类
  * 错误码构成：   01程序员编号
  * 001该程序员定义的错误码
  * 后面再跟上错误信息
+ *
+ * @author futao
+ * Created on 2018/9/21-15:29.
  */
 public final class ErrorMessage {
 

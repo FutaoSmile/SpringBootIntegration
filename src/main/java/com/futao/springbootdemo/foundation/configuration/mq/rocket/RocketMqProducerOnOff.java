@@ -4,11 +4,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.stereotype.Component;
 
 /**
  * @author futao
  * Created on 2018-12-27.
  */
+@Component
 @ConfigurationProperties(prefix = "rocketmq.producer")
 public class RocketMqProducerOnOff implements Condition {
 

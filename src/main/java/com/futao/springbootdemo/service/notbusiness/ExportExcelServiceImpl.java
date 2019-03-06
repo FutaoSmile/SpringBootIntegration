@@ -4,7 +4,7 @@ import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.ExportExcelService;
-import com.futao.springbootdemo.utils.CommonUtils;
+import com.futao.springbootdemo.utils.ServiceTools;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 导出excel
+ *
  * @author futao
  * Created on 2019-01-30.
  */
@@ -104,7 +106,7 @@ public class ExportExcelServiceImpl implements ExportExcelService {
         if (columnHeads == null) {
             columnHeads = new String[methods.length];
             for (int i = 0; i < methods.length; i++) {
-                columnHeads[i] = CommonUtils.getFieldName(methods[i]);
+                columnHeads[i] = ServiceTools.getFieldName(methods[i]);
             }
         }
         List<Object[]> dataList = new ArrayList<>();

@@ -11,10 +11,11 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.util.Random;
 
 /**
- * @author futao
- * Created on ${date}.
  * Server Send Event
  * 服务端发送消息
+ *
+ * @author futao
+ * Created on ${date}.
  */
 @RestController
 @RequestMapping(path = "sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

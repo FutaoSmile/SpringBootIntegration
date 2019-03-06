@@ -3,9 +3,10 @@ package com.futao.springbootdemo.model.entity;
 import java.io.Serializable;
 
 /**
+ * 接口方法描述
+ *
  * @author futao
  * Created on 2018-12-19.
- * 接口方法描述
  */
 public class ApiMethodDescription implements Serializable {
     /**

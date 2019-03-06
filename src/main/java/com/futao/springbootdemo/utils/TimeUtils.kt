@@ -7,9 +7,10 @@ import java.sql.Timestamp
 import java.util.*
 
 /**
+ * 时间工具类
+ *
  * @author futao
  * Created on 2018/10/3.
- * 时间工具类
  */
 
 /**

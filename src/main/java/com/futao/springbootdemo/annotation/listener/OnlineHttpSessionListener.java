@@ -9,9 +9,10 @@ import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * HttpSession监听器，统计在线人数
+ *
  * @author futao
  * Created on 2018/10/11.
- * HttpSession监听器，统计在线人数
  */
 @Component
 @WebListener("onlinePeopleQuantity")

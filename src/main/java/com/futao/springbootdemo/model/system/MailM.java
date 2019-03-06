@@ -1,9 +1,10 @@
 package com.futao.springbootdemo.model.system;
 
 /**
+ * 邮件
+ *
  * @author futao
  * Created on 2018/10/18.
- * 邮件
  */
 public class MailM {
     private String[] to;

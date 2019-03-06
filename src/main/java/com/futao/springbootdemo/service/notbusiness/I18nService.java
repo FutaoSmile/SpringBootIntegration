@@ -22,6 +22,7 @@ public class I18nService {
     /**
      * 获取消息
      * 也可以使用下面的方式：
+     *
      * Resource private MessageSource messageSource;
      * return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
      *

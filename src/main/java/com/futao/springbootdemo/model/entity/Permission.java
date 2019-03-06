@@ -2,9 +2,10 @@ package com.futao.springbootdemo.model.entity;
 
 
 /**
+ * 权限
+ *
  * @author futao
  * Created on 2018-12-18.
- * 权限
  */
 //@TableName("futao_permission")
 public class Permission extends BaseEntity {

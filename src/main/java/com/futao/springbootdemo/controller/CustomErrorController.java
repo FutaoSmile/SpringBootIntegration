@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 错误页面处理/主要处理404
+ *
  * @author futao
  * Created on 2019-01-23.
  */

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.futao.springbootdemo.dao.TagDao">
+
+
+    <select id="selectTagByArticleId" resultType="tag">
+        select *
+        from springmvcdemo.futao_tag
+        where id in (select tag_id from springmvcdemo.futao_article_tag where article_id = #{articleId})
+    </select>
+
+</mapper>

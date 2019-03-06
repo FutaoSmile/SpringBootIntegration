@@ -6,16 +6,18 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.util.List;
 
 /**
- * @author futao
- * Created on 2018/10/20.
  * 文章
  * indexName=database
  * type=table
  * row=document
  * colnum=field
+ * <p>
+ *
+ * @author futao
+ * Created on 2018/10/20.
  */
 @EqualsAndHashCode(callSuper = true)
 @Validated
@@ -52,24 +54,30 @@ public class Article extends BaseEntity {
      */
     private int visitTimes;
 
-    public Article(String id, Timestamp createTime, Timestamp lastModifyTime, @Length(min = 1, max = 20) String title, @Length(max = 200) String description, @Length(min = 1, max = 5000) String content, @NotNull User author, int visitTimes) {
-        super(id, createTime, lastModifyTime);
-        this.title = title;
-        this.description = description;
-        this.content = content;
-        this.author = author;
-        this.visitTimes = visitTimes;
-    }
+    /**
+     * 标签
+     */
+    private List<Tag> tagList;
+
 
     public Article() {
     }
 
-    public Article(@Length(min = 1, max = 20) String title, @Length(max = 200) String description, @Length(min = 1, max = 5000) String content, @NotNull User author, int visitTimes) {
+    public Article(@Length(min = 1, max = 20) String title, @Length(max = 200) String description, @Length(min = 1, max = 5000) String content, @NotNull User author, int visitTimes, List<Tag> tagList) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.author = author;
         this.visitTimes = visitTimes;
+        this.tagList = tagList;
+    }
+
+    public static String getEsType() {
+        return ES_TYPE;
+    }
+
+    public static String getEsIndexName() {
+        return ES_INDEX_NAME;
     }
 
     public String getTitle() {
@@ -110,5 +118,13 @@ public class Article extends BaseEntity {
 
     public void setVisitTimes(int visitTimes) {
         this.visitTimes = visitTimes;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
     }
 }

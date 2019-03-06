@@ -5,9 +5,10 @@ import com.futao.springbootdemo.annotation.EnumStatus;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 
 /**
+ * 角色
+ *
  * @author futao
  * Created on 2018-12-11.
- * 角色
  */
 //@TableName("futao_role")
 public class Role extends BaseEntity {

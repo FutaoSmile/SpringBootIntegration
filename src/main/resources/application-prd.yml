@@ -192,3 +192,4 @@ mybatis-plus:
 
 systemconfig:
   enableSwagger: false
+  enableDruidServlet: false

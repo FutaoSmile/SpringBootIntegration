@@ -20,8 +20,8 @@ import javax.annotation.Resource;
  * @author futao
  * Created on 2018-12-27.
  */
-@ConfigurationProperties(prefix = "rocketmq.consumer")
 @Configuration
+@ConfigurationProperties(prefix = "rocketmq.consumer")
 public class RocketMqConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqConsumer.class);

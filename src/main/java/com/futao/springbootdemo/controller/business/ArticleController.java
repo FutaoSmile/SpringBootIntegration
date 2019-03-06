@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 文章操作接口
+ *
  * @author futao
  * Created on 2018/10/20.
  */
@@ -84,6 +86,11 @@ public class ArticleController {
         return articleService.search(key, fromRange, toRange, size, from);
     }
 
+    /**
+     * 我发表的文章列表
+     *
+     * @return
+     */
     @ApiOperation("我发表的文章列表")
     @GetMapping("my")
     @LoginUser

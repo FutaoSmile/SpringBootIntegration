@@ -15,20 +15,25 @@ import java.util.List;
 @Mapper
 public interface ArticleDao {
 
+    /**
+     * 新增文章
+     *
+     * @param article 文章
+     */
     void add(Article article);
 
     /**
      * 查询列表
      *
-     * @return
+     * @return 文章列表
      */
     List<Article> list();
 
     /**
      * 通过id查询文章信息
      *
-     * @param id
-     * @return
+     * @param id 文章id
+     * @return 查询到的文章
      */
     Article getById(String id);
 
@@ -36,7 +41,7 @@ public interface ArticleDao {
      * 查询用户发表的文章列表
      *
      * @param user 用户
-     * @return
+     * @return 文章列表
      */
     List<Article> byUser(User user);
 }

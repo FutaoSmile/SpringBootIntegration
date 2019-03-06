@@ -68,10 +68,4 @@ public class RoleInterceptor {
         }
     }
 
-//    @Around("pointCut()")
-//    public void around(ProceedingJoinPoint point) throws Throwable {
-//        System.out.println(StringUtils.repeat("-", 100));
-//        point.proceed();
-//    }
-
 }

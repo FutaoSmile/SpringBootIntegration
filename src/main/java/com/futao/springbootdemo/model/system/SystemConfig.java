@@ -4,9 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * 系统配置信息
+ *
  * @author futao
  * Created on 2018-12-21.
- * 系统配置信息
  */
 @Component
 @ConfigurationProperties("systemconfig")
@@ -27,7 +28,12 @@ public class SystemConfig {
     /**
      * 是否开启swagger
      */
-    private boolean enableSwagger;
+    private boolean enableSwagger = false;
+
+    /**
+     * 是否开启druidServlet
+     */
+    private boolean enableDruidServlet = false;
 
     public static String[] getAllowOrigins() {
         return ALLOW_ORIGINS;
@@ -43,5 +49,13 @@ public class SystemConfig {
 
     public void setEnableSwagger(boolean enableSwagger) {
         this.enableSwagger = enableSwagger;
+    }
+
+    public boolean isEnableDruidServlet() {
+        return enableDruidServlet;
+    }
+
+    public void setEnableDruidServlet(boolean enableDruidServlet) {
+        this.enableDruidServlet = enableDruidServlet;
     }
 }

@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * springmvc拦截器适配器,或者实现HandlerInterceptor
+ *
  * @author futao
  * Created on 2018/9/18-14:49.
- * springmvc拦截器适配器,或者实现HandlerInterceptor
  */
 @Component
 public class SignInterceptor extends HandlerInterceptorAdapter {
     /**
      * 请求到达controller之前
      *
-     * @param request
-     * @param response
-     * @param handler
+     * @param request  请求
+     * @param response 响应
+     * @param handler  拦截的对象
      * @return true继续执行controller，false不执行controller
      * @throws Exception
      */

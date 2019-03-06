@@ -15,9 +15,10 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 /**
+ * 用户实体
+ *
  * @author futao
  * Created on 2018/9/20-15:39.
- * 用户实体
  */
 @Validated
 //@TableName(value = "futao_user")

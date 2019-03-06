@@ -94,6 +94,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
 
+    /**
+     * 自定义httpMessageConvert
+     *
+     * @param converters 转换器集合
+     */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(httpMessageConverterConfiguration);

@@ -1,14 +1,18 @@
 package com.futao.springbootdemo.controller;
 
 import com.alibaba.druid.support.http.StatViewServlet;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 /**
+ * druid连接池管理页面servlet
+ *
  * @author futao
  * Created on 2018/10/11.
  */
+@ConditionalOnProperty(prefix = "systemconfig", name = "enableDruidServlet", havingValue = "true")
 @WebServlet(urlPatterns = "/druid/*",
         initParams = {
 //                @WebInitParam(name = "allow", value = "127.0.0.1"),// IP白名单 (没有配置或者为空，则允许所有访问)

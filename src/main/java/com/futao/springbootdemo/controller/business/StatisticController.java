@@ -30,9 +30,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 统计
+ *
  * @author futao
  * Created on 2018/10/11.
- * 统计
  */
 @Api("统计接口")
 @RestController
@@ -47,6 +48,9 @@ public class StatisticController {
 
     @Resource
     private StatisticService statisticService;
+
+    @Resource
+    private SystemInformation systemInformation;
 
     /**
      * 获取当前在线人数
@@ -112,9 +116,6 @@ public class StatisticController {
         return statisticService.apiList();
     }
 
-
-    @Resource
-    private SystemInformation systemInformation;
 
     /**
      * 系统版本信息

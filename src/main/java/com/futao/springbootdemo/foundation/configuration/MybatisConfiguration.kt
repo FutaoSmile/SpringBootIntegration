@@ -17,12 +17,14 @@ import javax.sql.DataSource
 
 /**
  * Mybatis配置类
- * @author futao
- * Created on ${date}.
+
  *
  * springboot会自动加载spring.datasource.*相关配置
  * 数据源就会自动注入到sqlSessionFactory中
  * sqlSessionFactory会自动注入到Mapper中，对了你一切都不用管了，直接拿起来使用就行了。
+ *
+ *  @author futao
+ * Created on ${date}.
  */
 @Configuration
 @EnableTransactionManagement//加上这个注解，使得支持事务

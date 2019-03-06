@@ -9,9 +9,10 @@ import lombok.ToString;
 import java.sql.Timestamp;
 
 /**
+ * 统一返回Rest风格的数据结构
+ *
  * @author futao
  * Created on 2018/9/22-21:47.
- * 统一返回Rest风格的数据结构
  */
 @NoArgsConstructor
 @Getter

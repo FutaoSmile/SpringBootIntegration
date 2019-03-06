@@ -10,9 +10,10 @@ import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 
 /**
+ * HttpServletRequest请求工具类
+ *
  * @author futao
  * Created on 2018/9/20-13:07.
- * HttpServletRequest请求工具类
  */
 public final class RequestUtils {
 

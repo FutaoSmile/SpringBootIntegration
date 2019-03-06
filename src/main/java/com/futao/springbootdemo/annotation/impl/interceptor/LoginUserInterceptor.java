@@ -39,10 +39,10 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
     /**
      * 在请求到达Controller之前进行拦截并处理
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @return
+     * @param request  请求
+     * @param response 响应
+     * @param handler  拦截的对象
+     * @return 是否放行
      * @throws Exception
      */
     @Override

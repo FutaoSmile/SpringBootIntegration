@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service
 import javax.annotation.Resource
 
 /**
+ * 同步数据库中的数据到es
+ * TODO("待实现，思路：获取@Document标记的类，从数据库中load相应的表")
+ *
  * @author futao
  * Created on 2018/10/25.
  */

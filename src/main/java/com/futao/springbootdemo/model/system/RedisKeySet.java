@@ -1,9 +1,10 @@
 package com.futao.springbootdemo.model.system;
 
 /**
+ * 定义redis中的key值
+ *
  * @author futao
  * Created on 2018-12-11.
- * 定义redis中的key值
  */
 public class RedisKeySet {
     /**

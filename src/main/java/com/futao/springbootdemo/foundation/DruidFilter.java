@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 
 /**
+ * druid过滤请求
+ *
  * @author futao
  * Created on 2018/10/11.
  */

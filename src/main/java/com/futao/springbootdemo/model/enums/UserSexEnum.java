@@ -3,10 +3,10 @@ package com.futao.springbootdemo.model.enums;
 import com.futao.springbootdemo.model.enums.face.IEnum;
 
 /**
+ * 用户性别
+ *
  * @author futao
  * Created on 2018-12-11.
- * <p>
- * 用户性别
  */
 public enum UserSexEnum implements IEnum {
     /**

@@ -7,9 +7,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
+ * 过滤器
+ *
  * @author futao
  * Created on 2018/9/19-15:47.
  */
@@ -26,7 +27,7 @@ public class AppFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         //白名单
-        ArrayList<String> allowOrigins = new ArrayList<>();
+//        ArrayList<String> allowOrigins = new ArrayList<>();
 //        allowOrigins.add("http://localhost:63343");
 //        allowOrigins.add("http://localhost:9527");
 //        allowOrigins.add("http://localhost:8080");
