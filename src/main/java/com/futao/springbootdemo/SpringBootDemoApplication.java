@@ -17,7 +17,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -30,12 +29,13 @@ import java.util.List;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
 
 /**
- * @author futao
  * ServletComponentScan 开启servlet和filter
  * springboot项目在启动的时候如果抛出了Exception的话会导致项目启动失败，且异常信息不会打印出来
  * <p>
  * The @EnableRedisHttpSession annotation
  * creates a Spring Bean with the name of springSessionRepositoryFilter that implements Filter.
+ *
+ * @author futao
  */
 @SpringBootApplication
 @ServletComponentScan
@@ -141,8 +141,8 @@ public class SpringBootDemoApplication implements CommandLineRunner {
      *
      * @return
      */
-    @Bean
-    public LettuceConnectionFactory connectionFactory() {
-        return new LettuceConnectionFactory();
-    }
+//    @Bean
+//    public LettuceConnectionFactory connectionFactory() {
+//        return new LettuceConnectionFactory();
+//    }
 }
