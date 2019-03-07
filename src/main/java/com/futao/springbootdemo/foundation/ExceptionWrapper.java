@@ -5,6 +5,7 @@ import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.model.system.RestResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.TransactionTimedOutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,6 +38,7 @@ public class ExceptionWrapper {
      */
     @ExceptionHandler(value = {Exception.class, ApplicationException.class})
     public Object exceptionHandler(Exception e, HttpServletRequest request, HttpServletResponse response) {
+        printExceptionLog(e);
         //系统级异常，错误码固定为-1，提示语固定为系统繁忙，请稍后再试
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION);
         //对系统级异常进行日志记录
@@ -85,6 +87,19 @@ public class ExceptionWrapper {
 
 
     /**
+     * 请求超时异常
+     *
+     * @param e 异常信息
+     * @return
+     */
+    @ExceptionHandler(TransactionTimedOutException.class)
+    public Object transactionTimedOutException(TransactionTimedOutException e) {
+        printExceptionLog(e);
+        return new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.TRANSACTION_TIME_OUT);
+    }
+
+
+    /**
      * 限流Sentinel异常
      *
      * @param e 异常
@@ -92,6 +107,7 @@ public class ExceptionWrapper {
      */
     @ExceptionHandler(BlockException.class)
     public Object blockException(BlockException e) {
+        printExceptionLog(e);
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
         return result;
     }
@@ -107,6 +123,7 @@ public class ExceptionWrapper {
      */
     @ExceptionHandler(ServletException.class)
     public Object httpException(ServletException e, HttpServletResponse response) {
+        printExceptionLog(e);
         RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
 
         if (e instanceof HttpRequestMethodNotSupportedException) {
@@ -129,6 +146,15 @@ public class ExceptionWrapper {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return result;
+    }
+
+    /**
+     * 记录异常日志
+     *
+     * @param e 异常
+     */
+    private static void printExceptionLog(Exception e) {
+        LOGGER.error(e.getMessage(), e);
     }
 
 }

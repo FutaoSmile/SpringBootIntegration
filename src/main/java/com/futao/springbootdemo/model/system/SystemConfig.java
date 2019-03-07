@@ -1,6 +1,6 @@
 package com.futao.springbootdemo.model.system;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * Created on 2018-12-21.
  */
 @Component
-@ConfigurationProperties("systemconfig")
 public class SystemConfig {
 
     /**
@@ -28,12 +27,19 @@ public class SystemConfig {
     /**
      * 是否开启swagger
      */
+    @Value("${systemconfig.enableSwagger}")
     private boolean enableSwagger = false;
 
     /**
      * 是否开启druidServlet
      */
+    @Value("${systemconfig.enableDruidServlet}")
     private boolean enableDruidServlet = false;
+
+    /**
+     * 通过拦截器打印sql
+     */
+    public static final boolean PRINT_SQL_BY_INTERCEPTOR = true;
 
     public static long getOriginMaxAge() {
         return ORIGIN_MAX_AGE;
@@ -43,15 +49,9 @@ public class SystemConfig {
         return enableSwagger;
     }
 
-    public void setEnableSwagger(boolean enableSwagger) {
-        this.enableSwagger = enableSwagger;
-    }
 
     public boolean isEnableDruidServlet() {
         return enableDruidServlet;
     }
 
-    public void setEnableDruidServlet(boolean enableDruidServlet) {
-        this.enableDruidServlet = enableDruidServlet;
-    }
 }

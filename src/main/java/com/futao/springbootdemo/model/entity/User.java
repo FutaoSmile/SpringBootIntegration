@@ -104,7 +104,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("9999999999999");
+        System.out.println(this.hashCode() + "我被回收啦");
     }
 
     //3.必须执行完代码块才执行构造方法

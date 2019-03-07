@@ -54,6 +54,12 @@ public class RestResult {
      */
     private Timestamp serverTime;
 
+    /**
+     * @param success      请求结果是否成功
+     * @param code         成功/错误码
+     * @param data         请求成功返回的数据/请求异常返回的异常详情
+     * @param errorMessage 请求发生异常时给用户的提示
+     */
     public RestResult(boolean success, String code, Object data, Object errorMessage) {
         this.success = success;
         this.code = code;

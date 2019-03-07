@@ -56,6 +56,12 @@ import java.util.stream.Collectors;
 public class NormalTest implements Runnable {
 
     @Test
+    public void test62() {
+        String a = "11  ???";
+        System.out.println(a.replaceFirst("\\?", "666"));
+    }
+
+    @Test
     public void test61() {
         User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
         System.out.println(user.getId());
