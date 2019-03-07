@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
+
 //    /**
 //     * 查询用户列表
 //     *
@@ -29,9 +30,11 @@ public interface UserDao {
 //            "limit #{start},#{limit}")
 //    List<User> list(@Param("mobile") String mobile, @Param("start") int start, @Param("limit") int limit);
 
+
     /**
      * 查询用户列表
      *
+     * @param sql
      * @return
      */
     @Select("${sql}")
@@ -40,6 +43,7 @@ public interface UserDao {
     /**
      * 按表名查询数据量
      *
+     * @param tableName
      * @return
      */
     @Select("select count(*) from ${tableName}")
@@ -48,9 +52,15 @@ public interface UserDao {
     /**
      * 用户注册
      *
-     * @param id       用户id
-     * @param username 用户名
-     * @param age      年龄
+     * @param id
+     * @param username
+     * @param password
+     * @param age
+     * @param mobile
+     * @param email
+     * @param address
+     * @param createTime
+     * @param lastmodifytime
      * @return
      */
     int addUser(@Param("id") String id, @Param("username") String username, @Param("password") String password, @Param("age") String age,
@@ -83,6 +93,13 @@ public interface UserDao {
      */
     User getUserByMobileAndPwd(@Param("mobile") String mobile, @Param("password") String password);
 
+    /**
+     * 通过用户名与密码查询用户
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @Select("select * " +
             "from " +
             "futao_user " +
@@ -134,6 +151,7 @@ public interface UserDao {
      * @param address
      * @param status
      * @param sex
+     * @param email
      */
     @Update("update futao_user " +
             "set username=#{username},password=#{password},age=#{age},mobile=#{mobile},address=#{address},status=#{status},sex=#{sex} " +

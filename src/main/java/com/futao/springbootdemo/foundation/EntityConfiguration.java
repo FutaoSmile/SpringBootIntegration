@@ -9,6 +9,9 @@ import com.futao.springbootdemo.model.entity.User;
  */
 public class EntityConfiguration {
 
+    /**
+     * @return
+     */
     //    @Bean
     public User getUser() {
         System.out.println("user----");
@@ -17,6 +20,9 @@ public class EntityConfiguration {
         return user;
     }
 
+    /**
+     * @return
+     */
     //    @Bean
     public Article getArticle() {
         System.out.println("article----");

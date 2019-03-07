@@ -2,7 +2,6 @@ package com.futao.springbootdemo.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.sql.Timestamp;
 
@@ -12,7 +11,6 @@ import java.sql.Timestamp;
  */
 @Data
 @AllArgsConstructor
-@Document(indexName = "futao")
 public class MqMessage {
     private String messageId;
     private String content;

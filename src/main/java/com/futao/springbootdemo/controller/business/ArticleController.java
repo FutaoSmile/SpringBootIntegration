@@ -43,7 +43,7 @@ public class ArticleController {
             @RequestParam("desc") String desc,
             @RequestParam("content") String content
     ) {
-        return articleService.add(title, desc, content, userService.currentUser());
+        return articleService.add(title, desc, content, userService.currentLoginUser());
     }
 
     /**

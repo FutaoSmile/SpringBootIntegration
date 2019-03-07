@@ -159,7 +159,7 @@ public class UserController {
     @GetMapping(path = "my")
     public JSONObject my() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("当前的登陆的用户是:", userService.currentUser());
+        jsonObject.put("当前的登陆的用户是:", userService.currentLoginUser());
         return jsonObject;
     }
 

@@ -23,5 +23,15 @@ public interface ExportExcelService {
      */
     void export(String fileName, String sheetName, String[] columnHeads, List<Object[]> data, HttpServletResponse response);
 
+    /**
+     * 导出excel
+     *
+     * @param fileName    文件名
+     * @param sheetName   sheetName
+     * @param columnHeads 列头
+     * @param methods     方法
+     * @param objs        数据
+     * @param response    响应
+     */
     void export(String fileName, String sheetName, String[] columnHeads, Method[] methods, List<?> objs, HttpServletResponse response);
 }

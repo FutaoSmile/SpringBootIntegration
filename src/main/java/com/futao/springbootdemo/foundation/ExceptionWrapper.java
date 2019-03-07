@@ -38,7 +38,7 @@ public class ExceptionWrapper {
     @ExceptionHandler(value = {Exception.class, ApplicationException.class})
     public Object exceptionHandler(Exception e, HttpServletRequest request, HttpServletResponse response) {
         //系统级异常，错误码固定为-1，提示语固定为系统繁忙，请稍后再试
-        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationException.SYSTEM_EXCEPTION);
+        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION);
         //对系统级异常进行日志记录
         LOGGER.error("系统异常:" + e.getMessage(), e);
         return result;
@@ -54,7 +54,7 @@ public class ExceptionWrapper {
      */
     @ExceptionHandler(LogicException.class)
     public Object logicExceptionHandler(LogicException e, HttpServletRequest request, HttpServletResponse response) {
-        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationException.SYSTEM_EXCEPTION);
+        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION);
         result.setCode(e.getCode());
         result.setErrorMessage(e.getErrorMsg());
         return result;
@@ -72,7 +72,7 @@ public class ExceptionWrapper {
     @ExceptionHandler(ConstraintViolationException.class)
     public Object constraintViolationException(ConstraintViolationException e, HttpServletRequest request, HttpServletResponse response) {
         String message = e.getConstraintViolations().iterator().next().getMessage();
-        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationException.SYSTEM_EXCEPTION);
+        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION);
         if (message.contains(ErrorMessage.SEPARATOR)) {
             result.setCode(message.substring(0, 5));
             result.setErrorMessage(message.substring(6));
@@ -111,21 +111,21 @@ public class ExceptionWrapper {
 
         if (e instanceof HttpRequestMethodNotSupportedException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_METHOD_NOT_ALLOWED));
-            result.setErrorMessage(String.format(ErrorMessage.ApplicationException.METHOD_NOT_ALLOWED, ((HttpRequestMethodNotSupportedException) e).getMethod()));
+            result.setErrorMessage(String.format(ErrorMessage.ApplicationErrorMessage.METHOD_NOT_ALLOWED, ((HttpRequestMethodNotSupportedException) e).getMethod()));
             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         } else if (e instanceof MissingServletRequestParameterException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_BAD_REQUEST));
-            result.setErrorMessage(String.format(ErrorMessage.ApplicationException.BAD_REQUEST, ((MissingServletRequestParameterException) e).getParameterName()));
+            result.setErrorMessage(String.format(ErrorMessage.ApplicationErrorMessage.BAD_REQUEST, ((MissingServletRequestParameterException) e).getParameterName()));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else if (e instanceof NoHandlerFoundException) {
             result.setCode(String.valueOf(HttpServletResponse.SC_NOT_FOUND));
             //url目前获取不到，都是/error
-            //result.setErrorMessage(String.format(ErrorMessage.ApplicationException.NOT_FOUND, ((NoHandlerFoundException) e).getRequestURL()));
-            result.setErrorMessage(ErrorMessage.ApplicationException.NOT_FOUND);
+            //result.setErrorMessage(String.format(ErrorMessage.ApplicationErrorMessage.NOT_FOUND, ((NoHandlerFoundException) e).getRequestURL()));
+            result.setErrorMessage(ErrorMessage.ApplicationErrorMessage.NOT_FOUND);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } else {
             result.setCode(String.valueOf(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-            result.setErrorMessage(ErrorMessage.ApplicationException.SERVER_ERROR);
+            result.setErrorMessage(ErrorMessage.ApplicationErrorMessage.SERVER_ERROR);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return result;

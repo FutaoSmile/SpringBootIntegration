@@ -35,10 +35,6 @@ public class SystemConfig {
      */
     private boolean enableDruidServlet = false;
 
-    public static String[] getAllowOrigins() {
-        return ALLOW_ORIGINS;
-    }
-
     public static long getOriginMaxAge() {
         return ORIGIN_MAX_AGE;
     }

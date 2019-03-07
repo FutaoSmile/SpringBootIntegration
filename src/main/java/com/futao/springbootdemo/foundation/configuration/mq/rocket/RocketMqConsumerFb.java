@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Conditional;
 
 import javax.annotation.Resource;
 
+
+//@ConfigurationProperties(prefix = "rocketmq.consumer")
+//@Configuration
+
 /**
  * Rocket Mq 消费者-2
  * 测试下来无效
@@ -19,8 +23,6 @@ import javax.annotation.Resource;
  * @author futao
  * Created on 2018-12-27.
  */
-//@ConfigurationProperties(prefix = "rocketmq.consumer")
-//@Configuration
 public class RocketMqConsumerFb {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RocketMqConsumerFb.class);

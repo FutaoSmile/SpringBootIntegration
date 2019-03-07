@@ -25,7 +25,19 @@ public interface OrderSyncService {
      */
     int add(String erpOrderId);
 
+    /**
+     * 订单同步
+     *
+     * @param times
+     * @return
+     */
     String sync(int times);
 
+    /**
+     * 新增订单
+     *
+     * @param erpOrderId
+     * @param remark
+     */
     void addOrder2(String erpOrderId, String remark);
 }

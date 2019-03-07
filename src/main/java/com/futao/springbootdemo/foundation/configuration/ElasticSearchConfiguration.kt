@@ -16,7 +16,7 @@
 // * 可替代配置文件中的配置
 // */
 //@Configuration
-//@EnableElasticsearchRepositories(basePackages = ["com.futao.springbootdemo.mapper"])
+//@EnableElasticsearchRepositories(basePackages = ["com.futao.springbootdemo.dao"])
 //open class ElasticSearchConfiguration {
 //
 //    @Bean

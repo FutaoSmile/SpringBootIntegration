@@ -13,7 +13,7 @@ public final class ErrorMessage {
 
     public static final String SEPARATOR = "_";
 
-    public static class ApplicationException {
+    public static class ApplicationErrorMessage {
         public static final String SYSTEM_EXCEPTION = "系统繁忙，请稍后再试";
         public static final String INIT_OBJ_FAIL = "实例化%s失败";
         public static final String EXPORT_EXCEL_FAIL = "导出excel时发生异常";

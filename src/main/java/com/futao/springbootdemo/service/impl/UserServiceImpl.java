@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public User currentUser() {
+    public User currentLoginUser() {
         return threadLocalUtils.get();
     }
 
@@ -151,8 +151,15 @@ public class UserServiceImpl implements UserService {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);
         }
     }
-
     //    @Cacheable(value = "userList")
+
+    /**
+     * @param mobile
+     * @param pageNum
+     * @param pageSize
+     * @param orderBy
+     * @return
+     */
     @Override
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();

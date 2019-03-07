@@ -19,7 +19,7 @@ public class ReflectUtils {
             instance = aClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             LOGGER.error("实例化【{}】失败: " + e.getMessage(), aClass, e);
-            throw ApplicationException.le(ErrorMessage.ApplicationException.SYSTEM_EXCEPTION, new String[]{aClass.getName()});
+            throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION, new String[]{aClass.getName()});
         }
         return instance;
     }

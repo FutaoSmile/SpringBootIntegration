@@ -11,13 +11,14 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 
 import java.util.List;
 
+//@Configuration
+//@EnableWebSocketMessageBroker
+
 /**
  * @author futao
  * Created on ${date}.
  * EnableWebSocketMessageBroker注解开启使用STOMP协议来传输基于代理message broker的消息，这时控制器使用@MessageMapping就像使用@RequestMapping一样
  */
-//@Configuration
-//@EnableWebSocketMessageBroker
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {

@@ -7,6 +7,7 @@ import com.futao.springbootdemo.model.enums.UserSexEnum;
 import com.futao.springbootdemo.model.enums.UserStatusEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
@@ -14,15 +15,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
+//@TableName(value = "futao_user")
+
 /**
  * 用户实体
  *
  * @author futao
  * Created on 2018/9/20-15:39.
  */
+@Document(indexName = User.ES_INDEX_NAME, type = User.ES_TYPE)
 @Validated
-//@TableName(value = "futao_user")
 public class User extends BaseEntity implements Comparable<User>, Cloneable {
+
+    public static final String ES_TYPE = "user";
+    public static final String ES_INDEX_NAME = "futao";
 
     /**
      * 用户名

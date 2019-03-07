@@ -50,6 +50,8 @@ public interface OrderDao {
             @Param("createTime") Timestamp createTime, @Param("lastModifyTime") Timestamp lastModifyTime);
 
     /**
+     * 新增订单
+     *
      * @param id
      * @param userId
      * @param erpOrderId

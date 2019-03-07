@@ -3,7 +3,6 @@ package com.futao.springbootdemo.controller
 import com.futao.springbootdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff
 import com.futao.springbootdemo.model.entity.SingleValueResult
 import com.futao.springbootdemo.model.entity.User
-import com.futao.springbootdemo.model.system.MailM
 import com.futao.springbootdemo.service.KotlinTestService
 import com.futao.springbootdemo.service.MailService
 import com.futao.springbootdemo.service.impl.AccessLimitServiceImpl
@@ -132,12 +131,12 @@ open class KotlinTestController {
     @GetMapping("sendMailMq")
     @ApiOperation("消息队列发送邮件")
     open fun sendMailMq() {
-        MailM().apply {
-            to = arrayOf("1185172056@qq.com")
-            cc = arrayOf("taof@wicrenet.com")
-            subject = "消息队列"
-            content = "<h1>您好，RocketMq</h1>"
-        }
+//        MailM().apply {
+//            to = arrayOf("1185172056@qq.com")
+//            cc = arrayOf("taof@wicrenet.com")
+//            subject = "消息队列"
+//            content = "<h1>您好，RocketMq</h1>"
+//        }
 //        mailService.sendHtmlEmail(mailM)
     }
 

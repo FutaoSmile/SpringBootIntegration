@@ -7,12 +7,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+//@Configuration
+//@EnableTransactionManagement
+
 /**
  * @author futao
  * Created on ${date}.
  */
-//@Configuration
-//@EnableTransactionManagement
 public class HibernateConfiguration {
 
     @Resource

@@ -200,9 +200,6 @@ public class NormalTest implements Runnable {
         Integer a = 123;            //自动装箱，会由编译器编译成Integer.valueOf(123)
         int b = a;                  //自动拆箱，会由编译器编译成a.intValue()
         int c = new Integer(19);
-        String cc = null;
-//        System.out.println(cc.length());
-//        System.out.println(bb.length());
     }
 
     @Test

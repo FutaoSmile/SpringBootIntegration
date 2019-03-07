@@ -50,7 +50,7 @@ public class RoleInterceptor {
      */
     @Before("pointCut()")
     public void checkUserRole(JoinPoint point) {
-        User user = userService.currentUser();
+        User user = userService.currentLoginUser();
         //未登录
         if (user == null) {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);

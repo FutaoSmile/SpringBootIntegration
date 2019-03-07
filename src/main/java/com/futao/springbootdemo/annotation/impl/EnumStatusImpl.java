@@ -48,7 +48,7 @@ public class EnumStatusImpl implements ConstraintValidator<EnumStatus, Object> {
                 }
                 currentEnumStatus = cache.get(enumClass);
             } catch (Exception e) {
-                throw ApplicationException.le(ErrorMessage.ApplicationException.ENUM_MUST_IMPL_IENUM);
+                throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.ENUM_MUST_IMPL_IENUM);
             }
         }
     }

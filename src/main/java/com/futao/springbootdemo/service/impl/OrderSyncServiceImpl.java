@@ -50,7 +50,7 @@ public class OrderSyncServiceImpl implements OrderSyncService {
     @Override
     public int add(String erpOrderId) {
         Timestamp currentTimeStamp = currentTimeStamp();
-        return orderDao.add(UUIDService.get(), userService.currentUser().getId(), erpOrderId, currentTimeStamp, currentTimeStamp);
+        return orderDao.add(UUIDService.get(), userService.currentLoginUser().getId(), erpOrderId, currentTimeStamp, currentTimeStamp);
     }
 
     /**
@@ -61,7 +61,7 @@ public class OrderSyncServiceImpl implements OrderSyncService {
      */
     public int addOrder(String erpOrderId) {
         Timestamp currentTimeStamp = currentTimeStamp();
-        return orderDao.addOrder(UUIDService.get(), userService.currentUser().getId(), erpOrderId, currentTimeStamp, currentTimeStamp);
+        return orderDao.addOrder(UUIDService.get(), userService.currentLoginUser().getId(), erpOrderId, currentTimeStamp, currentTimeStamp);
     }
 
 
@@ -93,8 +93,8 @@ public class OrderSyncServiceImpl implements OrderSyncService {
     public void addOrder2(String erpOrderId, String remark) {
         Timestamp currentTimeStamp = currentTimeStamp();
 
-//        orderDao.addOrUpdateByDuplicateKey(UUIDService.get(), userService.currentUser().getId(), erpOrderId, remark, currentTimeStamp, currentTimeStamp);
+//        orderDao.addOrUpdateByDuplicateKey(UUIDService.get(), userService.currentLoginUser().getId(), erpOrderId, remark, currentTimeStamp, currentTimeStamp);
 
-        orderDao.addOrUpdateByReplace(UUIDService.get(), userService.currentUser().getId(), erpOrderId, remark, currentTimeStamp, currentTimeStamp);
+        orderDao.addOrUpdateByReplace(UUIDService.get(), userService.currentLoginUser().getId(), erpOrderId, remark, currentTimeStamp, currentTimeStamp);
     }
 }

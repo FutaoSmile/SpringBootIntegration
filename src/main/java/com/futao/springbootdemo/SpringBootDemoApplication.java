@@ -44,7 +44,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @EnableScheduling
 @EnableAsync
 @EnableAspectJAutoProxy
-//@EnableElasticsearchRepositories(basePackages = "com.futao.springbootdemo")
+//@EnableElasticsearchRepositories(basePackages = "com.futao.springbootdemo.dao")
 @EnableEntity
 //@EnableWebSocketMessageBroker
 @EnableTransactionManagement
