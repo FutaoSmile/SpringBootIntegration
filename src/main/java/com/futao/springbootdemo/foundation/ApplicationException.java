@@ -32,7 +32,7 @@ public class ApplicationException extends RuntimeException {
      * @param errorMsg 异常信息
      * @return
      */
-    public static ApplicationException le(String errorMsg) {
+    public static ApplicationException ae(String errorMsg) {
         return new ApplicationException(errorMsg);
     }
 
@@ -43,7 +43,7 @@ public class ApplicationException extends RuntimeException {
      * @param args     替换占位符内的内容
      * @return
      */
-    public static ApplicationException le(String errorMsg, Object[] args) {
+    public static ApplicationException ae(String errorMsg, Object[] args) {
         return new ApplicationException(String.format(errorMsg, args));
     }
 }

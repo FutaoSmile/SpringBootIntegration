@@ -46,28 +46,55 @@ public class ArticleController {
         return articleService.add(title, desc, content, userService.currentLoginUser());
     }
 
+
     /**
-     * 获取文章详情
+     * 删除文章
      *
-     * @param id
+     * @param id 要删除的文章的id
      * @return
      */
-    @GetMapping("{id}")
-    public Article get(@PathVariable("id") String id) {
-        return articleService.getById(id);
+    @DeleteMapping("${id}")
+    public Article delete(
+            @PathVariable("id") String id
+    ) {
+        return articleService.delete(id);
+    }
+
+    /**
+     * 更新文章
+     *
+     * @param id 要更新的文章的id
+     * @return
+     */
+    @PutMapping("${id}")
+    public Article update(
+            @PathVariable("id") String id
+    ) {
+        return articleService.update(id);
     }
 
 
     /**
-     * 文章列表
+     * 查询文章列表
      *
      * @return
      */
-    @ApiOperation("文章列表")
     @GetMapping("list")
     public List<Article> list() {
         return articleService.list();
     }
+
+    /**
+     * 获取文章详情
+     *
+     * @param id 文章id
+     * @return
+     */
+    @GetMapping("{id}")
+    public Article get(@PathVariable("id") String id) {
+        return articleService.byId(id);
+    }
+
 
     /**
      * 全文检索

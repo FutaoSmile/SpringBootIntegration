@@ -56,6 +56,24 @@ import java.util.stream.Collectors;
 public class NormalTest implements Runnable {
 
     @Test
+    public void test63() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("a", "b");
+        jsonObject.put("b", 11);
+        System.out.println(jsonObject);
+        System.out.println(jsonObject);
+
+        JSONObject object = new JSONObject();
+        object.put("d", "dd");
+        JSONArray objects = new JSONArray();
+        objects.add(object);
+        jsonObject.put("c", objects);
+
+        System.out.println(jsonObject);
+        System.out.println(jsonObject);
+    }
+
+    @Test
     public void test62() {
         String a = "11  ???";
         System.out.println(a.replaceFirst("\\?", "666"));

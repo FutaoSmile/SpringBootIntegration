@@ -181,6 +181,7 @@ public class UserServiceImpl implements UserService {
         return userDao.total("futao_user");
     }
 
+
     /**
      * 发送注册邮件验证码
      *

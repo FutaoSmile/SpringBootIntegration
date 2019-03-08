@@ -93,7 +93,7 @@ public class StatisticServiceImpl implements StatisticService {
 //            entry = SphU.entry("apiList");
         return a();
 //        } catch (BlockException e1) {
-//            throw LogicException.le(ErrorMessage.VISIT_TOO_FREQUENTLY);
+//            throw LogicException.ae(ErrorMessage.VISIT_TOO_FREQUENTLY);
 //        } finally {
 //            if (entry != null) {
 //                entry.exit();

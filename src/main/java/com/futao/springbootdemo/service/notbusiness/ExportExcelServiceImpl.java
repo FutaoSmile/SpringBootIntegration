@@ -80,21 +80,21 @@ public class ExportExcelServiceImpl implements ExportExcelService {
             workbook.write(outputStream);
         } catch (IOException e) {
             LOGGER.error("导出excel异常:" + e.getMessage(), e);
-            throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
+            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
                     LOGGER.error("关闭输出流异常:" + e.getMessage(), e);
-                    throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
+                    throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
                 }
             }
             try {
                 workbook.close();
             } catch (IOException e) {
                 LOGGER.error("关闭输出流异常:" + e.getMessage(), e);
-                throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
+                throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
             }
         }
     }
@@ -117,7 +117,7 @@ public class ExportExcelServiceImpl implements ExportExcelService {
                             rowData[i] = methods[i].invoke(obj);
                         } catch (IllegalAccessException | InvocationTargetException e) {
                             LOGGER.error("执行方法异常");
-                            throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.INVOKE_METHOD_FAIL);
+                            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.INVOKE_METHOD_FAIL);
                         }
                     }
                     dataList.add(rowData);

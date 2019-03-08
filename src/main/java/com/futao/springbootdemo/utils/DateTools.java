@@ -59,7 +59,7 @@ public class DateTools {
             return simpleDateFormat.parse(dateString);
         } catch (ParseException e) {
             LOGGER.error("时间转换异常:", e);
-            throw ApplicationException.le(ErrorMessage.ApplicationErrorMessage.DATE_PARSE_FAIL);
+            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.DATE_PARSE_FAIL);
         }
     }
 

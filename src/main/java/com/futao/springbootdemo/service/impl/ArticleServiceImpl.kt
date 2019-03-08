@@ -26,6 +26,8 @@ import javax.annotation.Resource
  */
 @Service
 open class ArticleServiceImpl : ArticleService {
+
+
     @Resource
     private lateinit var articleDao: ArticleDao
     @Resource
@@ -41,7 +43,7 @@ open class ArticleServiceImpl : ArticleService {
 
     override fun add(title: String, desc: String, content: String, user: User): Article {
 //        if (articleDao.add(uuid(), title, desc, content, currentTimeStamp(), currentTimeStamp()) < 1) {
-//            throw LogicException.le(ErrorMessage.ADD_ARTICLE_FAIL)
+//            throw LogicException.ae(ErrorMessage.ADD_ARTICLE_FAIL)
 //        }
 //        elasticsearch.save(Article().apply {
 //            id = UUIDService.get()
@@ -141,11 +143,20 @@ open class ArticleServiceImpl : ArticleService {
         return list
     }
 
-    override fun getById(id: String): Article? {
+    override fun byId(id: String): Article? {
         return ServiceTools.checkResultNullAndThrow(articleDao.getById(id))
     }
 
     override fun my(): MutableList<Article>? {
         return articleDao.byUser(userService.currentLoginUser())
     }
+
+    override fun update(id: String): Article {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(id: String): Article {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

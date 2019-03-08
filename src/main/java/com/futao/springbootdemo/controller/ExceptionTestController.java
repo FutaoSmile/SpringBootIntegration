@@ -86,6 +86,6 @@ public class ExceptionTestController {
     @PostMapping("applicationException")
     @ApiOperation("applicationException测试")
     public void applicationException() {
-        throw ApplicationException.le("ApplicationErrorMessage");
+        throw ApplicationException.ae("ApplicationErrorMessage");
     }
 }
