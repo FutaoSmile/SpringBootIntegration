@@ -31,16 +31,16 @@ public class FileController {
      */
     @ApiOperation("上传文件")
     @PostMapping(path = "upload")
-    public SingleValueResult upload(
+    public SingleValueResult<String> upload(
             @RequestParam(value = "file") MultipartFile file
     ) {
         try {
             System.out.println(file.getSize());
             FileUtils.writeByteArrayToFile(new File("/Users/futao/src/backend/fun/" + file.getOriginalFilename()), file.getBytes());
-            return new SingleValueResult("上传成功!!!");
+            return new SingleValueResult<>("上传成功!!!");
         } catch (IOException e) {
             e.printStackTrace();
-            return new SingleValueResult("上传失败!!!" + e.getMessage());
+            return new SingleValueResult<>("上传失败!!!" + e.getMessage());
         }
 
     }

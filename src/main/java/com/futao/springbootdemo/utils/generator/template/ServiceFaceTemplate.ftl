@@ -7,7 +7,7 @@ import java.util.List;
 /**
 * ${classDesc}接口定义
 *
-* @author futao
+* @author ${authorName}
 * Created on ${createDate}.
 */
 public interface ${className}Service{

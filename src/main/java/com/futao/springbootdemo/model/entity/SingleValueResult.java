@@ -7,19 +7,19 @@ package com.futao.springbootdemo.model.entity;
  * @author futao
  * Created on 2018/9/25-14:23.
  */
-public class SingleValueResult {
+public class SingleValueResult<T> {
 
-    private Object result;
+    private T result;
 
-    public SingleValueResult(Object result) {
+    public SingleValueResult(T result) {
         this.result = result;
     }
 
-    public Object getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(T result) {
         this.result = result;
     }
 }

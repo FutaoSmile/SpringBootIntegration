@@ -110,8 +110,14 @@ public class CodeGeneratorManager {
         CodeGeneratorManager codeGeneratorManager = new CodeGeneratorManager();
 
         Map<String, Object> dataMap = new HashMap<>(6);
+        /*配置类名*/
         dataMap.put("className", "Address");
-        dataMap.put("classDesc", "地址");
+        /*配置类描述*/
+        dataMap.put("classDesc", "用户地址");
+        /*配置@author*/
+        dataMap.put("authorName", "futao");
+
+
         dataMap.put("createDate", DateTools.dateToString(new Date(), DateTools.yyyyMMdd));
         dataMap.put("controllerPackagePath", getPackagePath(CONTROLLER_PATH));
         dataMap.put("entityPackagePath", getPackagePath(ENTITY_PATH));

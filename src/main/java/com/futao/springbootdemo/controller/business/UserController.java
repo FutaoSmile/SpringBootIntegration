@@ -65,7 +65,7 @@ public class UserController {
      */
     @ApiOperation("通过邮箱注册")
     @PostMapping("registerByEmail")
-    public SingleValueResult registerByEmail(
+    public SingleValueResult<String> registerByEmail(
             /*使用@RequestBody注解需要保证该对象有默认的空的构造函数
              * 是流的形式读取，那么流读了一次就没有了
              * */
@@ -96,7 +96,7 @@ public class UserController {
     ) {
         userService.registerByEmail(username, password, age, mobile, email, address, verifyCode, sex);
 
-        return new SingleValueResult("注册成功");
+        return new SingleValueResult<>("注册成功");
     }
 
 

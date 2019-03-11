@@ -8,7 +8,7 @@ import java.util.List;
 /**
 * ${classDesc}Dao层
 *
-* @author futao
+* @author ${authorName}
 * Created on ${createDate}.
 */
 @Mapper
@@ -16,6 +16,7 @@ public interface ${className}Dao {
 
 /**
 * 新增${classDesc}
+* @param ${className?lower_case} ${classDesc}
 *
 * @return ${classDesc}
 */
@@ -33,7 +34,6 @@ void delete(String id);
 /**
 * 修改${classDesc}
 *
-* @param ${className?lower_case}
 * @param ${className?lower_case} 要修改的${classDesc}
 * @return ${classDesc}
 */

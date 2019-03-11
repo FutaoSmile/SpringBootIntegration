@@ -4,6 +4,7 @@ import ${daoPackagePath}.${className}Dao;
 import ${serviceFacePackagePath}.${className}Service;
 import ${entityPackagePath}.${className};
 import com.futao.springbootdemo.model.system.Constant;
+import com.futao.springbootdemo.utils.ServiceTools;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.Resource;
 import java.util.List;
 import com.futao.springbootdemo.foundation.configuration.HibernateValidatorConfiguration;
-import java.util.List;
 
 
 /**
 * ${classDesc}
 *
-* @author futao
+* @author ${authorName}
 * Created on ${createDate}.
 */
 @Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
@@ -36,6 +36,8 @@ private ${className}Dao ${className?lower_case}Dao;
 public ${className} add(){
 //参数封装成对象
 ${className} ${className?lower_case} = new ${className}();
+//TODO("赋值")
+
 //参数合法性校验
 HibernateValidatorConfiguration.validate(${className?lower_case});
 //调用dao层
@@ -52,7 +54,7 @@ return ${className?lower_case};
 @Override
 public ${className} delete(String id){
 //调用dao层
-${className?lower_case}Dao.delete(${className?lower_case}.getId());
+${className?lower_case}Dao.delete(${className?lower_case}Dao.getId());
 return ${className?lower_case};
 }
 
@@ -83,8 +85,7 @@ return ${className?lower_case};
 @Override
 public List<${className}> list(){
 //调用dao层
-${className?lower_case}Dao.list(${className?lower_case});
-return ${className?lower_case};
+return ${className?lower_case}Dao.list();
 }
 
 
@@ -97,8 +98,7 @@ return ${className?lower_case};
 @Override
 public ${className} byId(String id){
 //调用dao层
-${className?lower_case}Dao.byId(${className?lower_case}.getId());
-return ${className?lower_case};
+return ${className?lower_case}Dao.byId(id);
 }
 
 

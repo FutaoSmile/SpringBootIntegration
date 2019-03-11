@@ -148,7 +148,7 @@ open class KotlinTestController {
      */
     @RequestMapping("rate")
     @ApiOperation("接口限流测试-令牌桶")
-    open fun rateLimit(): SingleValueResult {
+    open fun rateLimit(): SingleValueResult<String> {
         return if (!accessLimitServiceImpl.getPermit()) {
             SingleValueResult("限流")
         } else {
@@ -165,7 +165,7 @@ open class KotlinTestController {
      */
     @ApiOperation("映射多路径测试")
     @GetMapping(path = ["os", "111", "222"])
-    open fun os(): SingleValueResult {
+    open fun os(): SingleValueResult<String> {
         return SingleValueResult(ktService.t())
     }
 

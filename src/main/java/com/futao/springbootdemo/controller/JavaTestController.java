@@ -24,8 +24,8 @@ public class JavaTestController {
 
 
     @GetMapping("parameterTest")
-    public SingleValueResult parameterTest(@RequestParam("annParam") String annParam, String simpleAnn) {
-        return new SingleValueResult(annParam + simpleAnn);
+    public SingleValueResult<String> parameterTest(@RequestParam("annParam") String annParam, String simpleAnn) {
+        return new SingleValueResult<>(annParam + simpleAnn);
     }
 
     @GetMapping(path = "get")
