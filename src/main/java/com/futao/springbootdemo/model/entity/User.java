@@ -222,4 +222,19 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
 
     public User() {
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", age='" + age + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", sex=" + sex +
+                ", role=" + role +
+                "} " + super.toString();
+    }
 }

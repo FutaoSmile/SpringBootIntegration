@@ -19,6 +19,7 @@ import com.futao.springbootdemo.suit.a.A;
 import com.futao.springbootdemo.suit.a.B;
 import com.futao.springbootdemo.suit.a.CC;
 import com.futao.springbootdemo.utils.DateTools;
+import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
 import com.futao.springbootdemo.utils.http.GetRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,6 +55,14 @@ import java.util.stream.Collectors;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test64() {
+        AbstractBaseRequest p = new GetRequest("http://127.0.0.1:8888/user/my");
+//        p.addParameter("cityIds","1");
+        p.addCookie(new BasicClientCookie("SESSION", "MDUyNjMxMTMtYjFjZC00ZjE1LWJjNGUtOTFlODAyYTlkNTA3"));
+        System.out.println(p.send());
+    }
 
     @Test
     public void test63() {
@@ -115,7 +124,7 @@ public class NormalTest implements Runnable {
 
     @Test
     public void test58() throws UnsupportedEncodingException {
-        String encode = URLEncoder.encode("https://www.baidu.com?a=hahha1&name=诶我擦哦");
+        String encode = URLEncoder.encode("https://www.baidu.com?a=hahha1&name=诶我擦哦", "UTF-8");
         encode = "https://www.baidu.com?a=hahha1&name=诶我擦哦";
         System.out.println(encode);
         System.out.println(URLDecoder.decode(encode, "UTF-8"));

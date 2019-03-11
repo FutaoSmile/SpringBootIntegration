@@ -30,6 +30,7 @@
                last_modify_time
         from springmvcdemo.futao_article
         where id = #{value}
+        limit 1
     </select>
 
     <select id="list" resultType="com.futao.springbootdemo.model.entity.Article">

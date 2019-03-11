@@ -6,7 +6,6 @@ package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.Order;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -18,7 +17,6 @@ import java.sql.Timestamp;
  * @author futao
  * Created on 2018/11/20.
  */
-@Mapper
 public interface OrderDao {
 
     /**

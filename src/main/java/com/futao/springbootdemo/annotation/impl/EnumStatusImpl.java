@@ -4,7 +4,6 @@ import com.futao.springbootdemo.annotation.EnumStatus;
 import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.enums.face.IEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -33,7 +32,6 @@ public class EnumStatusImpl implements ConstraintValidator<EnumStatus, Object> {
 
     @Override
     public void initialize(EnumStatus constraintAnnotation) {
-        System.out.println(StringUtils.repeat("-", 100));
         Class enumClass = constraintAnnotation.value();
         if (cache.containsKey(enumClass)) {
             currentEnumStatus = cache.get(enumClass);

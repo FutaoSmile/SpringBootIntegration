@@ -18,6 +18,7 @@
         select `id`, `createTime`
         from springmvcdemo.futao_user
         where mobile = #{mobile}
+        limit 1
     </select>
 
     <select id="getUserByMobileAndPwd" resultType="com.futao.springbootdemo.model.entity.User">
@@ -25,12 +26,14 @@
         from springmvcdemo.futao_user
         where mobile = #{mobile}
           and password = #{password}
+        limit 1
     </select>
 
     <select id="getUserById" resultType="user">
         select *
         from springmvcdemo.futao_user
         where id = #{id}
+        limit 1
     </select>
 
     <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）

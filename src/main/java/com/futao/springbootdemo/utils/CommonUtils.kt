@@ -1,6 +1,8 @@
 package com.futao.springbootdemo.utils
 
+import com.alibaba.fastjson.JSON
 import com.futao.springbootdemo.foundation.LogicException
+import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration
 import com.futao.springbootdemo.model.system.ErrorMessage
 import net.sourceforge.pinyin4j.PinyinHelper
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType
@@ -141,4 +143,11 @@ fun numVerifyCode(size: Int): String {
         sb.append(random.nextInt(9))
     }
     return sb.toString()
+}
+
+/**
+ * 将JSON String格式化返回
+ */
+fun String.formatJsonString(): String? {
+    return JSON.toJSONString(JSON.parseObject(this), *HttpMessageConverterConfiguration.SERIALIZER_FEATURES)
 }

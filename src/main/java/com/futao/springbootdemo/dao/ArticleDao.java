@@ -2,7 +2,6 @@ package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.Article;
 import com.futao.springbootdemo.model.entity.User;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * @author futao
  * Created on 2018/10/20.
  */
-@Mapper
 public interface ArticleDao {
 
     /**

@@ -241,3 +241,5 @@ futao:
 systemconfig:
   enableSwagger: true
   enableDruidServlet: true
+
+debug: true

@@ -1,7 +1,6 @@
 package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.Tag;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
 
@@ -11,7 +10,6 @@ import java.util.ArrayList;
  * @author futao
  * Created on 2019-03-06.
  */
-@Mapper
 public interface TagDao {
 
     /**
