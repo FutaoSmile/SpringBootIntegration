@@ -24,10 +24,7 @@ public final class Constant {
      * rocket mq 发送邮件-注册邮件的tag
      */
     public static final String ROCKET_MQ_TAG_MAIL_REGISTER = "tag_mail_register";
-    /**
-     * Service事物超时时间
-     */
-    public static final int SERVICE_TIMEOUT_TIME = 2;
+
 
     public static class RequestConst {
         public static final int CONNECTION_REQUEST_TIMEOUT = 5000;

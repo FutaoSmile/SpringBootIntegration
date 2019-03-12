@@ -1,8 +1,9 @@
 package com.futao.springbootdemo.annotation.listener;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.futao.springbootdemo.model.system.SystemConfig;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -17,15 +18,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 @WebListener("onlinePeopleQuantity")
 public class OnlineHttpSessionListener implements HttpSessionListener {
+
+    @Resource
+    private SystemConfig systemConfig;
+
     /**
      * 在线人数量
      */
     private AtomicInteger onlinePeopleQuantity = new AtomicInteger();
-    /**
-     * 人数缩放比例
-     */
-    @Value("${onlinePeopleQuantityScale}")
-    private int scale;
 
     /**
      * Notification that a session was created.
@@ -34,7 +34,7 @@ public class OnlineHttpSessionListener implements HttpSessionListener {
      */
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        onlinePeopleQuantity.addAndGet(scale);
+        onlinePeopleQuantity.addAndGet(systemConfig.getOnlinePeopleQuantityScale());
     }
 
     /**
@@ -44,7 +44,7 @@ public class OnlineHttpSessionListener implements HttpSessionListener {
      */
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        onlinePeopleQuantity.addAndGet(-scale);
+        onlinePeopleQuantity.addAndGet(-systemConfig.getOnlinePeopleQuantityScale());
     }
 
     /**

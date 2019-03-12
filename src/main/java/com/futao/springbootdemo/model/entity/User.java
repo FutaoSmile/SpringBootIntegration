@@ -85,7 +85,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
      * {@link UserRoleEnum}
      */
     @EnumStatus(value = UserRoleEnum.class, message = ErrorMessage.LogicErrorMessage.USER_ROLE_ENUM_ILLEGAL)
-    private int role;
+    private int roles;
 
     /**
      * 2.实例代码块与实例代码块之间根据代码书写顺序依次执行
@@ -104,7 +104,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println(this.hashCode() + "我被回收啦");
+        System.out.println(">>>" + Thread.currentThread().getName() + ":" + this.hashCode() + "我被回收啦");
     }
 
     //3.必须执行完代码块才执行构造方法
@@ -133,19 +133,6 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     @Override
     public User clone() throws CloneNotSupportedException {
         return (User) super.clone();
-    }
-
-    public User(String id, Timestamp createTime, Timestamp lastModifyTime, @Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL) String username, String password, @Range(min = 0, max = 300) String age, @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL) String mobile, @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL) String email, @NotNull String address, int status, int sex, int role) {
-        super(id, createTime, lastModifyTime);
-        this.username = username;
-        this.password = password;
-        this.age = age;
-        this.mobile = mobile;
-        this.email = email;
-        this.address = address;
-        this.status = status;
-        this.sex = sex;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -212,12 +199,25 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
         this.sex = sex;
     }
 
-    public int getRole() {
-        return role;
+    public int getRoles() {
+        return roles;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRoles(int roles) {
+        this.roles = roles;
+    }
+
+    public User(String id, Timestamp createTime, Timestamp lastModifyTime, @Size(min = 3, max = 8, message = ErrorMessage.LogicErrorMessage.USERNAME_LEN_ILLEGAL) String username, String password, @Range(min = 0, max = 300) String age, @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL) String mobile, @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL) String email, @NotNull String address, int status, int sex, int roles) {
+        super(id, createTime, lastModifyTime);
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.mobile = mobile;
+        this.email = email;
+        this.address = address;
+        this.status = status;
+        this.sex = sex;
+        this.roles = roles;
     }
 
     public User() {
@@ -234,7 +234,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
                 ", address='" + address + '\'' +
                 ", status=" + status +
                 ", sex=" + sex +
-                ", role=" + role +
+                ", roles=" + roles +
                 "} " + super.toString();
     }
 }

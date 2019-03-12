@@ -20,7 +20,7 @@ import com.futao.springbootdemo.foundation.configuration.HibernateValidatorConfi
 * @author ${authorName}
 * Created on ${createDate}.
 */
-@Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
+@Transactional(isolation = Isolation.DEFAULT, timeout = SystemConfig.SERVICE_TRANSACTION_TIMEOUT_SECOND, rollbackFor = Exception.class)
 @Service
 public class ${className}ServiceImpl implements ${className}Service{
 

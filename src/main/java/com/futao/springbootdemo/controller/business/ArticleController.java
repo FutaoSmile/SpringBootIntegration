@@ -53,7 +53,7 @@ public class ArticleController {
      * @param id 要删除的文章的id
      * @return
      */
-    @DeleteMapping("${id}")
+    @DeleteMapping("{id}")
     public Article delete(
             @PathVariable("id") String id
     ) {
@@ -66,7 +66,7 @@ public class ArticleController {
      * @param id 要更新的文章的id
      * @return
      */
-    @PutMapping("${id}")
+    @PutMapping("{id}")
     public Article update(
             @PathVariable("id") String id
     ) {

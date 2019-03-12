@@ -1,8 +1,7 @@
 package com.futao.springbootdemo.model.entity;
 
 
-import com.futao.springbootdemo.annotation.EnumStatus;
-import com.futao.springbootdemo.model.enums.UserRoleEnum;
+import java.util.List;
 
 /**
  * 角色
@@ -10,7 +9,6 @@ import com.futao.springbootdemo.model.enums.UserRoleEnum;
  * @author futao
  * Created on 2018-12-11.
  */
-//@TableName("futao_role")
 public class Role extends BaseEntity {
 
     /**
@@ -20,8 +18,17 @@ public class Role extends BaseEntity {
     /**
      * 角色描述
      */
-    @EnumStatus(UserRoleEnum.class)
     private String roleDescription;
+
+    /**
+     * 角色拥有的权限
+     */
+    private List<Permission> permissions;
+
+    /**
+     * 拥有该角色的用户
+     */
+    private List<User> users;
 
 
     public String getRoleName() {
@@ -38,5 +45,21 @@ public class Role extends BaseEntity {
 
     public void setRoleDescription(String roleDescription) {
         this.roleDescription = roleDescription;
+    }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

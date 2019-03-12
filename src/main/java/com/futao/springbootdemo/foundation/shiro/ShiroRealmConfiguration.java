@@ -1,8 +1,7 @@
 //package com.futao.springbootdemo.foundation.shiro;
 //
-//import com.futao.springbootdemo.mapper.UserDao;
+//import com.futao.springbootdemo.dao.UserDao;
 //import com.futao.springbootdemo.model.entity.User;
-//import com.futao.springbootdemo.service.UserService;
 //import com.futao.springbootdemo.service.impl.UserServiceImpl;
 //import com.futao.springbootdemo.utils.CommonUtilsKt;
 //import org.apache.shiro.authc.AuthenticationException;
@@ -24,24 +23,7 @@
 //public class ShiroRealmConfiguration extends AuthorizingRealm {
 //
 //    @Resource
-//    private UserService userService;
-//    @Resource
 //    private UserDao userDao;
-//
-//    /**
-//     * 授权
-//     *
-//     * @param principals
-//     * @return
-//     */
-//    @Override
-//    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-//        User user = (User) principals.getPrimaryPrincipal();
-//        authorizationInfo.addRoles(userDao.getUserRoleList());
-////        authorizationInfo.addObjectPermissions();
-//        return null;
-//    }
 //
 //    /**
 //     * 认证
@@ -55,35 +37,34 @@
 //        if (token.getPrincipal() == null) {
 //            return null;
 //        }
+//        //用户名
 //        String mobile = (String) token.getPrincipal();
-//        String password = CommonUtilsKt.md5(new String((char[]) token.getCredentials()) + UserServiceImpl.PWD_SALT);
+//        //密码
+//        String password = new String((char[]) token.getCredentials());
+//        //密码加密
+////        password = CommonUtilsKt.md5(password + UserServiceImpl.PWD_SALT);
+//        //查询DB
 //        User user = userDao.getUserByMobileAndPwd(mobile, password);
 //        return null != user ? new SimpleAuthenticationInfo(mobile, password, getName()) : null;
 //    }
 //
-////
-////    @Bean
-////    public ShiroFilterFactoryBean shirFilter(org.apache.shiro.mgt.SecurityManager securityManager) {
-////        System.out.println("ShiroConfiguration.shirFilter()");
-////        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-////        shiroFilterFactoryBean.setSecurityManager(securityManager);
-////
-////        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-////        //注意过滤器配置顺序 不能颠倒
-////        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
-////        filterChainDefinitionMap.put("/logout", "logout");
-////        // 配置不会被拦截的链接 顺序判断
-////        filterChainDefinitionMap.put("/static/**", "anon");
-////        filterChainDefinitionMap.put("/ajaxLogin", "anon");
-////        filterChainDefinitionMap.put("/login", "anon");
-////        filterChainDefinitionMap.put("/**", "authc");
-////        //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
-////        shiroFilterFactoryBean.setLoginUrl("/unauth");
-////        // 登录成功后要跳转的链接
-//////        shiroFilterFactoryBean.setSuccessUrl("/index");
-////        //未授权界面;
-//////        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-////        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-////        return shiroFilterFactoryBean;
-////    }
+//    /**
+//     * 授权
+//     *
+//     * @param principals
+//     * @return
+//     */
+//    @Override
+//    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+//        User user = (User) principals.getPrimaryPrincipal();
+//        user.getRoles().forEach(role ->
+//                {
+//                    authorizationInfo.addRole(role.getRoleName());
+//                    role.getPermissions().forEach(permission -> authorizationInfo.addStringPermission(permission.getPermissionName()));
+//                }
+//        );
+//        return authorizationInfo;
+//    }
+//
 //}

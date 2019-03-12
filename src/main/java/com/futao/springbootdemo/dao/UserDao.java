@@ -1,12 +1,12 @@
 package com.futao.springbootdemo.dao;
 
 import com.futao.springbootdemo.model.entity.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +14,42 @@ import java.util.List;
  * Created on 2018/9/20-16:00.
  */
 public interface UserDao {
+
+    /**
+     * 通过email查询用户预注册信息
+     *
+     * @param email 邮箱
+     * @return
+     */
+    HashMap<String, Object> getPreRegisterInfo(String email);
+
+    /**
+     * 插入预注册信息
+     *
+     * @param id    主键
+     * @param email 邮箱
+     * @return
+     */
+    int insertPreRegisterInfo(@Param("id") String id, @Param("email") String email);
+
+    /**
+     * 修改预注册邮件发送次数
+     *
+     * @param id             主键
+     * @param sendTimes      发送次数
+     * @param lastModifyTime 最后修改时间
+     * @return
+     */
+    int updatePreRegisterInfo(@Param("id") String id, @Param("sendTimes") int sendTimes, @Param("lastModifyTime") Timestamp lastModifyTime);
+
+    /**
+     * 通过email查询用户,如果没查到数据返回的是null
+     *
+     * @param email  邮箱
+     * @param status 用户状态
+     * @return
+     */
+    User getUserIdByEmailAndStatus(@Param("email") String email, @Param("status") int status);
 
 
 //    /**
@@ -110,37 +146,6 @@ public interface UserDao {
             "and " +
             "password=#{password}")
     User getUserByUserNameAndPwd(@Param("username") String username, @Param("password") String password);
-
-    /**
-     * 通过email查询正常的用户,如果没查到数据返回的是null
-     *
-     * @param email
-     * @param status
-     * @return
-     */
-    @Select("select id from futao_user where email=#{email} and status=#{status}")
-    String getNormalUserByEmail(@Param("email") String email, @Param("status") int status);
-
-
-    /**
-     * 预注册
-     *
-     * @param id
-     * @param email
-     * @param status
-     * @param createTime
-     * @param lastModifyTime
-     */
-    @Insert("insert into futao_user(id,email,status,createTime,lastModifyTime) " +
-            "select #{id},#{email},#{status},#{createTime},#{lastModifyTime} " +
-            "where not exists(" +
-            "select id from futao_user where email=#{email}" +
-            ")")
-    void preRegister(@Param("id") String id,
-                     @Param("email") String email,
-                     @Param("status") int status,
-                     @Param("createTime") Timestamp createTime,
-                     @Param("lastModifyTime") Timestamp lastModifyTime);
 
 
     /**

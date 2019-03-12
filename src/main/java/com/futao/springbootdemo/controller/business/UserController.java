@@ -4,14 +4,21 @@ import com.alibaba.fastjson.JSONObject;
 import com.futao.springbootdemo.annotation.IllegalValueCheck;
 import com.futao.springbootdemo.annotation.LoginUser;
 import com.futao.springbootdemo.annotation.Role;
+import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.entity.PageResultList;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
+import com.futao.springbootdemo.service.impl.UserServiceImpl;
+import com.futao.springbootdemo.utils.CommonUtilsKt;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +31,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
+ * 用户
+ *
  * @author futao
  * Created on 2018/9/19-15:05.
  */
@@ -50,17 +59,18 @@ public class UserController {
                     String email
     ) {
         userService.sendRegisterEmailVerifyCode(email);
-        return new SingleValueResult("success");
+        return new SingleValueResult<>("success");
     }
 
     /**
      * 用户注册
      *
-     * @param username 用户名
-     * @param age      年龄
-     * @param mobile   手机号
-     * @param email    邮箱
-     * @param address  地址
+     * @param username   用户名
+     * @param age        年龄
+     * @param mobile     手机号
+     * @param email      邮箱
+     * @param address    地址
+     * @param verifyCode 验证码
      * @return
      */
     @ApiOperation("通过邮箱注册")
@@ -70,6 +80,7 @@ public class UserController {
              * 是流的形式读取，那么流读了一次就没有了
              * */
             @RequestParam("username")
+            @IllegalValueCheck(forbidden = "admin")
             @Size(min = 2, max = 8, message = "{a.c}")
                     String username,
             @RequestParam("age")
@@ -82,7 +93,6 @@ public class UserController {
             @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
                     String email,
             @Size(max = 100, message = ErrorMessage.LogicErrorMessage.ADDRESS_LEN_TOO_LARGE)
-            @IllegalValueCheck(forbidden = "LOL")
             @RequestParam("address")
                     String address,
             @RequestParam("password")
@@ -131,11 +141,6 @@ public class UserController {
             @RequestParam("password") String password,
             HttpServletRequest request
     ) {
-        try {
-//            SecurityUtils.getSubject().login(new UsernamePasswordToken(mobile, password));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
         return userService.login(mobile, password, request);
     }
 
@@ -165,19 +170,28 @@ public class UserController {
 
 
     /**
-     * 添加评论
+     * shiroLogin 未实现
      *
-     * @param content
+     * @param mobile   手机号
+     * @param password 密码
      * @return
      */
-    @ApiOperation("敏感词检测")
-    @PostMapping(path = "addReview")
-    public SingleValueResult addReview(
-            @RequestParam("content")
-            @IllegalValueCheck(forbidden = "亚索")
-                    String content) {
-        System.out.println("已经被执行");
-        SingleValueResult result = new SingleValueResult(content);
-        return result;
+    @PostMapping("loginShiro")
+    public User loginShiro(
+            @RequestParam("mobile") String mobile,
+            @RequestParam("password") String password
+    ) {
+        password = CommonUtilsKt.md5(password + UserServiceImpl.PWD_SALT);
+        UsernamePasswordToken token = new UsernamePasswordToken(mobile, password, false);
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            if (subject != null) {
+                subject.logout();
+            }
+            SecurityUtils.getSubject().login(token);
+            return (User) SecurityUtils.getSubject().getPrincipal();
+        } catch (AuthenticationException e) {
+            throw ApplicationException.ae(e.getMessage());
+        }
     }
 }

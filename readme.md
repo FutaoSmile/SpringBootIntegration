@@ -36,6 +36,7 @@ git添加多远程仓库
 > Swagger接口文档
 
 > 整合mybatis
+   * mybatis + redis实现的二级缓存，但是不推荐使用
 
 > 用户登录
     基于`httpsession`
@@ -120,8 +121,7 @@ src
 
 ### # TODO items
 * ~~mybatis分页~~ -> sql分页
-* ~~缓存~~
-    ~~* redis缓存过期时间(全局过期时间)~~
+
 * ~~elastic search全文检索~~
     * 查询语句
     * elasticsearch分词器
@@ -143,7 +143,6 @@ src
     * Socket
 * zxing二维码
 * hashMap原理
-* gradle profile 根据不同用户读取不同的配置文件
 * 一种用于 API 的查询语言-非常新颖，颠覆以往的认知 [http://graphql.cn/](http://graphql.cn/)
 * 分布式日志收集logstash+kibana
 * 心跳

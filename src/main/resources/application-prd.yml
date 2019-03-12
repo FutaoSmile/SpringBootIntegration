@@ -190,6 +190,11 @@ mybatis-plus:
       table-underline: false
 
 
+# 系统配置
 systemconfig:
   enableSwagger: false
   enableDruidServlet: false
+  redisCacheSecond: 300
+  registerMailCodeExpireSecond: 300
+  sessionInvalidateSecond: 300
+  onlinePeopleQuantityScale: 2

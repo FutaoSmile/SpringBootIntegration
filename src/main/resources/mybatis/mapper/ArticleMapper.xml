@@ -10,7 +10,7 @@
         WEAK    弱引用策略，更积极地移除基于垃圾回收器状态和软引用规则的对象
     -->
     <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
-
+    <!--<cache type="mybatisCacheRedis"/>-->
 
     <insert id="add" parameterType="article">
         insert into springmvcdemo.futao_article (id, title, description, content, author, visit_times, create_time,

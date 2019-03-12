@@ -75,7 +75,7 @@ public class ExceptionTestController {
                     int param
     ) {
         User user = new User();
-        user.setRole(param);
+//        user.setRole(param);
 
         HibernateValidatorConfiguration.validate(user);
     }

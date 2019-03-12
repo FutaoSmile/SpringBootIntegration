@@ -145,8 +145,6 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 在线人数缩放比例
-onlinePeopleQuantityScale: 2
 
 jianshu:
   id: futaosmile
@@ -181,11 +179,6 @@ threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
 # [日志打印出来不好看.xml]logback-spring
 
 
-
-futao:
-  # 注册邮件验证码过期时间
-  registerMailCodeExpireSecond: 300
-  sessionInvalidateSecond: 1800
 
 # mybatis-plus插件
 #mybatis-plus:
@@ -241,5 +234,9 @@ futao:
 systemconfig:
   enableSwagger: true
   enableDruidServlet: true
+  redisCacheSecond: 300
+  registerMailCodeExpireSecond: 300
+  sessionInvalidateSecond: 300
+  onlinePeopleQuantityScale: 2
 
 debug: true

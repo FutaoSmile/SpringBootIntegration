@@ -44,8 +44,12 @@
         <typeAlias type="com.futao.springbootdemo.model.entity.Article" alias="article"/>
         <typeAlias type="com.futao.springbootdemo.model.entity.User" alias="user"/>
         <typeAlias type="com.futao.springbootdemo.model.entity.Tag" alias="tag"/>
+        <typeAlias type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"
+                   alias="mybatisCacheRedis"/>
+
+
     </typeAliases>
     <plugins>
-        <plugin interceptor="com.futao.springbootdemo.foundation.MybatisInterceptor"></plugin>
+        <plugin interceptor="com.futao.springbootdemo.foundation.MybatisInterceptor"/>
     </plugins>
 </configuration>

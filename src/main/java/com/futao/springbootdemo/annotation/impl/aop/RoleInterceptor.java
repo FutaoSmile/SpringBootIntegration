@@ -3,7 +3,6 @@ package com.futao.springbootdemo.annotation.impl.aop;
 import com.futao.springbootdemo.annotation.Role;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
-import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
 import org.aspectj.lang.JoinPoint;
@@ -11,11 +10,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 
 /**
  * 用户角色权限拦截
@@ -23,7 +20,6 @@ import java.util.Arrays;
  * @author futao
  * Created on 2018-12-13.
  */
-@Order(1)
 @Aspect
 @Component
 public class RoleInterceptor {
@@ -62,9 +58,10 @@ public class RoleInterceptor {
             annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
         }
         if (annotation != null) {
-            if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
-                throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);
-            }
+            //TODO("目前改为使用shiro")
+//            if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
+//                throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);
+//            }
         }
     }
 

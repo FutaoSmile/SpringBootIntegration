@@ -6,6 +6,39 @@
 <!-- com.futao.springbootdemoo.mapper 为根元素节点， 一个namespace对应一个dao -->
 <mapper namespace="com.futao.springbootdemo.dao.UserDao">
 
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
+
+    <!--<cache type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"/>-->
+    <!--<cache type="org.mybatis.caches.redis.RedisCache"/>-->
+
+    <select id="getPreRegisterInfo" resultType="hashMap" parameterType="string">
+        select id, create_time, last_modify_time, email, send_times, usered
+        from springmvcdemo.futao_register_email_send_log
+        where email = #{email}
+        limit 1
+    </select>
+
+    <insert id="insertPreRegisterInfo">
+        insert
+        into springmvcdemo.futao_register_email_send_log (id, email)
+        values (#{id}, #{email});
+    </insert>
+
+    <update id="updatePreRegisterInfo">
+        update springmvcdemo.futao_register_email_send_log
+        set send_times=#{sendTimes},
+            last_modify_time=#{lastModifyTime}
+        where id = #{id}
+    </update>
+
+    <select id="getUserIdByEmailAndStatus" parameterType="string" resultType="user">
+        select id
+        from springmvcdemo.futao_user
+        where email = #{email}
+          and status = #{status}
+        limit 1
+    </select>
+
     <insert id="addUser" parameterType="com.futao.springbootdemo.model.entity.User">
         insert into springmvcdemo.futao_user(`id`, `username`, `password`, `age`, `mobile`, `email`, `address`,
                                              `create_time`,
@@ -35,6 +68,7 @@
         where id = #{id}
         limit 1
     </select>
+
 
     <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）
       将要传入语句的参数的完全限定类名或别名， 如果不配置，mybatis会通过ParameterHandler 根据参数类型默认选择合适的typeHandler进行处理

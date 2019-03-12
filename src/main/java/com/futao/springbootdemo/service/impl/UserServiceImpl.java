@@ -4,19 +4,17 @@ import com.futao.springbootdemo.dao.UserDao;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserStatusEnum;
-import com.futao.springbootdemo.model.system.Constant;
-import com.futao.springbootdemo.model.system.ErrorMessage;
-import com.futao.springbootdemo.model.system.MailmSingle;
-import com.futao.springbootdemo.model.system.RedisKeySet;
+import com.futao.springbootdemo.model.system.*;
 import com.futao.springbootdemo.service.MailService;
 import com.futao.springbootdemo.service.UUIDService;
 import com.futao.springbootdemo.service.UserService;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
+import com.futao.springbootdemo.utils.DateTools;
 import com.futao.springbootdemo.utils.PageResultUtils;
 import com.futao.springbootdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -25,11 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static com.futao.springbootdemo.utils.TimeUtilsKt.currentTimeStamp;
 
 /**
  * Spring事务超时 = 事务开始时到最后一个Statement创建时时间 + 最后一个Statement的执行时超时时间（即其queryTimeout）。所以在在执行Statement之外的超时无法进行事务回滚。
@@ -38,13 +34,13 @@ import static com.futao.springbootdemo.utils.TimeUtilsKt.currentTimeStamp;
  * @author futao
  * Created on 2018/9/20-15:16.
  */
-@Transactional(isolation = Isolation.DEFAULT, timeout = Constant.SERVICE_TIMEOUT_TIME, rollbackFor = Exception.class)
+@Transactional(isolation = Isolation.DEFAULT, timeout = SystemConfig.SERVICE_TRANSACTION_TIMEOUT_SECOND, rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl implements UserService {
     /**
      * 密码加盐
      */
-    private static final String PWD_SALT = "nobug666";
+    public static final String PWD_SALT = "nobug666";
 
     @Resource
     private ThreadLocalUtils<User> threadLocalUtils;
@@ -57,6 +53,10 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private RedisTemplate redisTemplate;
+
+    @Resource
+    private SystemConfig systemConfig;
+
 
     @Override
     public User currentLoginUser() {
@@ -73,11 +73,54 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(id);
     }
 
-    @Value("${futao.registerMailCodeExpireSecond}")
-    public int registerMailCodeExpireSecond;
+    /**
+     * 发送注册邮件验证码
+     *
+     * @param email 邮箱
+     */
+    @Override
+    public void sendRegisterEmailVerifyCode(String email) {
+        //1.检查该邮箱是否已经被注册
+        HashMap preRegisterInfo = userDao.getPreRegisterInfo(email);
+        //未注册
+        if (preRegisterInfo == null) {
+            //存储注册信息
+            userDao.insertPreRegisterInfo(UUIDService.get(), email);
+            //发送注册验证码
+            sendRegisterEmail(email);
+        }
+        //已预注册过
+        else
+            //已经是正常用户
+            if ((boolean) preRegisterInfo.get("usered")) {
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_EXIST);
+            }
+            //潜在用户，还未注册成功
+            else {
+                sendRegisterEmail(email);
+                userDao.updatePreRegisterInfo(preRegisterInfo.get("id").toString(), (int) preRegisterInfo.get("sendTimes"), DateTools.currentTimeStamp());
+            }
+    }
 
-    @Value("${futao.sessionInvalidateSecond}")
-    private int sessionInvalidateSecond;
+    private void sendRegisterEmail(String email) {
+        //3.判断是否已经发送了邮件且未过期
+        if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email)) != null) {
+            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_SEND);
+        }
+        String verifyCode = CommonUtilsKt.numVerifyCode(6);
+
+        //4.TODO("通过消息队列")发送注册邮件
+        MailmSingle mailM = new MailmSingle();
+        mailM.setTo(email);
+        mailM.setSubject("快乐的网站 | 注册验证码");
+        mailM.setContent("您的验证码是" + verifyCode);
+        mailM.setCc("1185172056@qq.com");
+
+        mailService.sendSimpleEmail(new String[]{mailM.getTo()}, new String[]{mailM.getCc()}, mailM.getSubject(), mailM.getContent());
+        //5.将验证码存入redis环境，控制有效期
+        redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email), verifyCode, systemConfig.getRegisterMailCodeExpireSecond(), TimeUnit.SECONDS);
+
+    }
 
     /**
      * TODO("注册功能还有问题")
@@ -108,7 +151,7 @@ public class UserServiceImpl implements UserService {
         }
 
         //检查该邮箱是否已经被注册
-        if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
+        if (userDao.getUserIdByEmailAndStatus(email, UserStatusEnum.NORMAL.getCode()) != null) {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_EXIST);
         }
         //更新账号信息与状态
@@ -130,7 +173,7 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
             session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
-            session.setMaxInactiveInterval(sessionInvalidateSecond);
+            session.setMaxInactiveInterval(systemConfig.getSessionInvalidateSecond());
             return user;
         } else {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);
@@ -145,13 +188,12 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtils.allNotNull(byUserNameAndPwd)) {
             HttpSession session = request.getSession();
             session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
-            session.setMaxInactiveInterval(sessionInvalidateSecond);
+            session.setMaxInactiveInterval(systemConfig.getSessionInvalidateSecond());
             return byUserNameAndPwd;
         } else {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);
         }
     }
-    //    @Cacheable(value = "userList")
 
     /**
      * @param mobile
@@ -161,6 +203,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Cacheable(value = "userList")
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
         String sql = pageResultUtils.createCriteria(User.class.getSimpleName())
@@ -171,7 +214,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
 
 //        List<User> list = this.list();
-        redisTemplate.opsForValue().set("userList", list);
+//        redisTemplate.opsForValue().set("userList", list);
         return list;
 
     }
@@ -181,38 +224,5 @@ public class UserServiceImpl implements UserService {
         return userDao.total("futao_user");
     }
 
-
-    /**
-     * 发送注册邮件验证码
-     *
-     * @param email
-     */
-    @Override
-    public void sendRegisterEmailVerifyCode(String email) {
-        //1.检查该邮箱是否已经被注册
-        if (userDao.getNormalUserByEmail(email, UserStatusEnum.NORMAL.getCode()) != null) {
-            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_EXIST);
-        }
-
-        //2.预注册，用户表生成一条数据，存储email
-        Timestamp currentTimeStamp = currentTimeStamp();
-        userDao.preRegister(UUIDService.get(), email, UserStatusEnum.PRE_REGISTER.getCode(), currentTimeStamp, currentTimeStamp);
-        //3.判断是否已经发送了邮件且未过期
-        if (redisTemplate.opsForValue().get(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email)) != null) {
-            throw LogicException.le(ErrorMessage.LogicErrorMessage.EMAIL_ALREADY_SEND);
-        }
-        String verifyCode = CommonUtilsKt.numVerifyCode(6);
-
-        //4.TODO("通过消息队列")发送注册邮件
-        MailmSingle mailM = new MailmSingle();
-        mailM.setTo(email);
-        mailM.setSubject("快乐的网站 | 注册验证码");
-        mailM.setContent("您的验证码是" + verifyCode);
-        mailM.setCc("1185172056@qq.com");
-
-        mailService.sendSimpleEmail(new String[]{mailM.getTo()}, new String[]{mailM.getCc()}, mailM.getSubject(), mailM.getContent());
-        //5.将验证码存入redis环境，控制有效期
-        redisTemplate.opsForValue().set(RedisKeySet.gen(RedisKeySet.REGISTER_EMAIL_CODE, email), verifyCode, registerMailCodeExpireSecond, TimeUnit.SECONDS);
-    }
 
 }

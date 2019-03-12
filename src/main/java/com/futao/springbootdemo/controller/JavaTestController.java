@@ -82,7 +82,7 @@ public class JavaTestController {
             @RequestParam("fileName") String fileName,
             HttpServletResponse response) {
         User user = new User();
-        Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRole(), user.getAddress(), user.getMobile(), user.getEmail()};
+        Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRoles(), user.getAddress(), user.getMobile(), user.getEmail()};
         ArrayList<Object[]> list = new ArrayList<>();
         list.add(object);
         list.add(object);
