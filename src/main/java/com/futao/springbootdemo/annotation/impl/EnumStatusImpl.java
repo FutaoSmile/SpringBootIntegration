@@ -30,6 +30,7 @@ public class EnumStatusImpl implements ConstraintValidator<EnumStatus, Object> {
     private String[] currentEnumStatus;
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public void initialize(EnumStatus constraintAnnotation) {
         Class enumClass = constraintAnnotation.value();

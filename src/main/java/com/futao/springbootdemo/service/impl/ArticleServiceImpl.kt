@@ -2,7 +2,6 @@ package com.futao.springbootdemo.service.impl
 
 import com.alibaba.fastjson.JSONObject
 import com.futao.springbootdemo.dao.ArticleDao
-import com.futao.springbootdemo.dao.impl.ArticleSearchDao
 import com.futao.springbootdemo.foundation.configuration.HibernateValidatorConfiguration
 import com.futao.springbootdemo.model.entity.Article
 import com.futao.springbootdemo.model.entity.User
@@ -33,8 +32,8 @@ open class ArticleServiceImpl : ArticleService {
     @Resource
     private lateinit var redisTemplate: RedisTemplate<Any, Any>
 
-    @Resource
-    private lateinit var elasticsearch: ArticleSearchDao
+//    @Resource
+//    private lateinit var elasticsearch: ArticleSearchDao
 
     @Resource
     private lateinit var elastic: Client

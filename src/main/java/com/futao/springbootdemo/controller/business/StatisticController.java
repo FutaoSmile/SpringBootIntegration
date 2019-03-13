@@ -3,14 +3,12 @@ package com.futao.springbootdemo.controller.business;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springbootdemo.annotation.Role;
 import com.futao.springbootdemo.annotation.impl.interceptor.RequestLogInterceptor;
 import com.futao.springbootdemo.annotation.listener.OnlineHttpSessionListener;
 import com.futao.springbootdemo.controller.SentinelAnn;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.SystemInformation;
-import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessageFields;
 import com.futao.springbootdemo.service.StatisticService;
 import com.futao.springbootdemo.service.notbusiness.I18nService;
@@ -58,10 +56,10 @@ public class StatisticController {
      * @return
      */
     @ApiOperation("统计当前在线人数")
-    @Role(UserRoleEnum.ADMIN)
+//    @Role(UserRoleEnum.ADMIN)
     @GetMapping("onlinePeopleQuantity")
-    public SingleValueResult onlinePeopleQuantity() {
-        return new SingleValueResult(onlineHttpSessionListener.getOnlinePeopleQuantity().get());
+    public SingleValueResult<Integer> onlinePeopleQuantity() {
+        return new SingleValueResult<>(onlineHttpSessionListener.getOnlinePeopleQuantity().get());
     }
 
     /**

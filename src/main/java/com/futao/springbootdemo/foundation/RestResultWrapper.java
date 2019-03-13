@@ -47,8 +47,11 @@ public class RestResultWrapper implements ResponseBodyAdvice<Object> {
      */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        RestResult result = new RestResult(true, RestResult.SUCCESS_CODE, body, null);
+        if (MediaType.IMAGE_JPEG.getType().equalsIgnoreCase(selectedContentType.getType())) {
+            return body;
+        }
+        //为什么不在这里转为JSON的原因是，这样的话HttpMessageConvert就没用了
 //        return JSON.toJSON(result);
-        return result;
+        return new RestResult(true, RestResult.SUCCESS_CODE, body, null);
     }
 }

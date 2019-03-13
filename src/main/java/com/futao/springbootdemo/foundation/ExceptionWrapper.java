@@ -1,6 +1,7 @@
 package com.futao.springbootdemo.foundation;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.model.system.RestResult;
 import org.slf4j.Logger;
@@ -105,11 +106,10 @@ public class ExceptionWrapper {
      * @param e 异常
      * @return
      */
-    @ExceptionHandler(BlockException.class)
+    @ExceptionHandler({BlockException.class, FlowException.class})
     public Object blockException(BlockException e) {
         printExceptionLog(e);
-        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
-        return result;
+        return new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.LogicErrorMessage.VISIT_TOO_FREQUENTLY);
     }
 
 

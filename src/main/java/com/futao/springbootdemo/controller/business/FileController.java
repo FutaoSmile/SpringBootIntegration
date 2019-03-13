@@ -36,7 +36,7 @@ public class FileController {
     ) {
         try {
             System.out.println(file.getSize());
-            FileUtils.writeByteArrayToFile(new File("/Users/futao/src/backend/fun/" + file.getOriginalFilename()), file.getBytes());
+            FileUtils.writeByteArrayToFile(new File(System.getProperty("user.dir") + "/src/main/resources/uploadFiles/" + file.getOriginalFilename()), file.getBytes());
             return new SingleValueResult<>("上传成功!!!");
         } catch (IOException e) {
             e.printStackTrace();

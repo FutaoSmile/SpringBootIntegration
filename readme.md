@@ -116,7 +116,7 @@ src
 
 > 打包生成jar包 `gradle clean build -x test`
     
-> 运行 `java -jar ./build/libs/springmvcdemo-0.0.1-SNAPSHOT.jar`
+> 运行 `java -jar ./build/libs/springbootdemo-0.0.1-SNAPSHOT.jar`
 
 
 ### # TODO items

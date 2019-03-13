@@ -50,11 +50,50 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
+
 /**
  * @author futao
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test66() {
+        System.out.println(System.getProperty("user.dir"));
+    }
+
+    @Test
+    public void test65() {
+        System.out.println(tableSizeFor(2));
+        System.out.println(tableSizeFor(3));
+        System.out.println(tableSizeFor(4));
+        System.out.println(tableSizeFor(16));
+        System.out.println(tableSizeFor(32));
+
+    }
+
+    static int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    }
+
+    class HashMapTest {
+        @Override
+        public int hashCode() {
+            return 1;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return true;
+        }
+    }
 
     @Test
     public void test64() {
