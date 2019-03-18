@@ -47,8 +47,11 @@
         <typeAlias type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"
                    alias="mybatisCacheRedis"/>
 
+        <package name="com.futao.springbootdemo.model.entity"/>
+
 
     </typeAliases>
+
     <plugins>
         <plugin interceptor="com.futao.springbootdemo.foundation.MybatisInterceptor"/>
     </plugins>

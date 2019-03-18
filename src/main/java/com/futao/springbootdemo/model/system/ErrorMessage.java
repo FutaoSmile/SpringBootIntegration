@@ -86,7 +86,7 @@ public final class ErrorMessage {
         public static final String USER_STATUS_ENUM_ILLEGAL = "01023_用户状态不合法";
         public static final String USER_ROLE_ENUM_ILLEGAL = "01023_用户角色不合法";
 
-        public static final String RESULT_NULL = "01024_查询结果为空";
+        public static final String RESULT_NULL = "01024_%s查询结果为空";
 
 
     }

@@ -212,7 +212,7 @@ threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
 #行内写法 kv: {k1: v1,k2: v2}
 
 # @Value与@ConfigurationProperties
-# @ConfigurationProperties支持松散语法，支持批量注入，支持JSR303校验@Validated，支持复杂类型map,list，默认从全局配置文件中获取值
+# @ConfigurationProperties支持松散语法，支持批量注入，支持JSR303校验@Validated，支持复杂类型map,listAdd，默认从全局配置文件中获取值
 
 # @PropertySource(加载指定的配置文件)
 # @ImportResource(导入Spring的配置文件，使配置文件生效)

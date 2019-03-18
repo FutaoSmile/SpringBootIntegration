@@ -71,12 +71,12 @@ open class ArticleServiceImpl : ArticleService {
         val opsForValue = redisTemplate.opsForValue()
         return if (opsForValue.get("articlelist") != null && opsForValue.get("articlelist") != StringUtils.EMPTY) {
             val list = opsForValue.get("articlelist") as List<Article>
-//            elasticsearch.saveAll(list)
+//            elasticsearch.saveAll(listAdd)
             list
         } else {
             val list = articleDao.list()
             opsForValue.set("articlelist", list)
-//            elasticsearch.saveAll(list)
+//            elasticsearch.saveAll(listAdd)
             list
         }
     }
@@ -143,7 +143,7 @@ open class ArticleServiceImpl : ArticleService {
     }
 
     override fun byId(id: String): Article? {
-        return ServiceTools.checkResultNullAndThrow(articleDao.getById(id))
+        return ServiceTools.checkResultNullAndThrow(articleDao.byId(id), "文章")
     }
 
     override fun my(): MutableList<Article>? {

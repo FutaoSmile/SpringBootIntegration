@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * @author futao
  * Created on 2018/9/20-15:16.
  */
-@Transactional(isolation = Isolation.DEFAULT, timeout = SystemConfig.SERVICE_TRANSACTION_TIMEOUT_SECOND, rollbackFor = Exception.class)
+@Transactional(isolation = Isolation.REPEATABLE_READ, timeout = SystemConfig.SERVICE_TRANSACTION_TIMEOUT_SECOND, rollbackFor = Exception.class)
 @Service
 public class UserServiceImpl implements UserService {
     /**
@@ -213,8 +213,8 @@ public class UserServiceImpl implements UserService {
         List<User> list = userDao.list(sql);
         User user = new User();
 
-//        List<User> list = this.list();
-//        redisTemplate.opsForValue().set("userList", list);
+//        List<User> listAdd = this.listAdd();
+//        redisTemplate.opsForValue().set("userList", listAdd);
         return list;
 
     }

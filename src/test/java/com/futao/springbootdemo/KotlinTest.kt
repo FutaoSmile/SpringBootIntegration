@@ -68,7 +68,7 @@ class KotlinTest {
         val size = list.size
         return list.subList(size - 10, size)
 
-        //return list.reversed().subList(0, 10).reversed()
+        //return listAdd.reversed().subList(0, 10).reversed()
     }
 
 

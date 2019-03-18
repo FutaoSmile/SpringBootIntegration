@@ -66,7 +66,7 @@ public interface UserDao {
 //            "where mobile like '%${mobile}%' " +
 //            "order by createtime desc " +
 //            "limit #{start},#{limit}")
-//    List<User> list(@Param("mobile") String mobile, @Param("start") int start, @Param("limit") int limit);
+//    List<User> listAdd(@Param("mobile") String mobile, @Param("start") int start, @Param("limit") int limit);
 
 
     /**

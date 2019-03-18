@@ -187,7 +187,7 @@
 //     * parameter of about 0.5 on average for the default resizing
 //     * threshold of 0.75, although with a large variance because of
 //     * resizing granularity. Ignoring variance, the expected
-//     * occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
+//     * occurrences of listAdd size k are (exp(-0.5) * pow(0.5, k) /
 //     * factorial(k)). The first values are:
 //     *
 //     * 0:    0.60653066
@@ -252,7 +252,7 @@
 //    static final float DEFAULT_LOAD_FACTOR = 0.75f;
 //
 //    /**
-//     * The bin count threshold for using a tree rather than list for a
+//     * The bin count threshold for using a tree rather than listAdd for a
 //     * bin.  Bins are converted to trees when adding an element to a
 //     * bin with at least this many nodes. The value must be greater
 //     * than 2 and should be at least 8 to mesh with assumptions in
@@ -2042,7 +2042,7 @@
 //        }
 //
 //        /**
-//         * Returns a list of non-TreeNodes replacing those linked from
+//         * Returns a listAdd of non-TreeNodes replacing those linked from
 //         * this node.
 //         */
 //        final Node<K, V> untreeify(HashMap<K, V> map) {

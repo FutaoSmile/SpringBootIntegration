@@ -19,7 +19,7 @@
                 #{lastModifyTime})
     </insert>
 
-    <select id="getById" parameterType="java.lang.String" resultType="article">
+    <select id="byId" parameterType="java.lang.String" resultType="article">
         select id,
                title,
                description,

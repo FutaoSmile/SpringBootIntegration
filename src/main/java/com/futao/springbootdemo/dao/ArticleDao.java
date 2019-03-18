@@ -33,7 +33,7 @@ public interface ArticleDao {
      * @param id 文章id
      * @return 查询到的文章
      */
-    Article getById(String id);
+    Article byId(String id);
 
     /**
      * 查询用户发表的文章列表

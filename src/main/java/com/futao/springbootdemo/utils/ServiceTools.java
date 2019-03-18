@@ -42,10 +42,35 @@ public class ServiceTools {
      * @param <T> 类型
      * @return
      */
-    public static <T extends BaseEntity> T checkResultNullAndThrow(T t) {
+    public static <T> T checkResultNullAndThrow(T t, String entityName) {
         if (t == null) {
-            throw LogicException.le(ErrorMessage.LogicErrorMessage.RESULT_NULL);
+            throw LogicException.le(String.format(ErrorMessage.LogicErrorMessage.RESULT_NULL, entityName));
         }
+        return t;
+    }
+
+    /**
+     * 设置创建时间与最后修改时间
+     *
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public static <T extends BaseEntity> T setCreateAndLastModiftTimeNow(T t) {
+        t.setCreateTime(DateTools.currentTimeStamp());
+        t.setLastModifyTime(DateTools.currentTimeStamp());
+        return t;
+    }
+
+    /**
+     * 设置最后修改时间
+     *
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public static <T extends BaseEntity> T setLastModiftTimeNow(T t) {
+        t.setLastModifyTime(DateTools.currentTimeStamp());
         return t;
     }
 }

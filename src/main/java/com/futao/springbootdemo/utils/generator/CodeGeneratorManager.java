@@ -111,9 +111,9 @@ public class CodeGeneratorManager {
 
         Map<String, Object> dataMap = new HashMap<>(6);
         /*配置类名*/
-        dataMap.put("className", "Address");
+        dataMap.put("className", "Review");
         /*配置类描述*/
-        dataMap.put("classDesc", "用户地址");
+        dataMap.put("classDesc", "评论");
         /*配置@author*/
         dataMap.put("authorName", "futao");
 

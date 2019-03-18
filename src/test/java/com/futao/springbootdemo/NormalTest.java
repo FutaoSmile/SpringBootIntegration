@@ -35,6 +35,7 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.annotations.Document;
+import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -60,7 +61,12 @@ public class NormalTest implements Runnable {
 
     @Test
     public void test66() {
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println(Base64.getEncoder().encodeToString("ni123123213312u".getBytes()));
+        System.out.println(Base64.getEncoder().encodeToString("niu".getBytes()));
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        System.out.println(base64Encoder.encode("ni123123213312u".getBytes()));
+        System.out.println(base64Encoder.encode("niu".getBytes()));
+        System.out.println(UUID.randomUUID().toString().toUpperCase());
     }
 
     @Test
@@ -688,7 +694,7 @@ public class NormalTest implements Runnable {
         }
         List<A> list = new ArrayList<>();
 
-//        list.add(new User("1231", "123123", "12", "1111", "1231", "12313"));
+//        listAdd.add(new User("1231", "123123", "12", "1111", "1231", "12313"));
         list.add(new A("12312", "123123"));
         System.out.println(JSONObject.toJSON(list));
     }

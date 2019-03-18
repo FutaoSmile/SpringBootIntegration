@@ -3,7 +3,7 @@ package ${serviceImplPackagePath};
 import ${daoPackagePath}.${className}Dao;
 import ${serviceFacePackagePath}.${className}Service;
 import ${entityPackagePath}.${className};
-import com.futao.springbootdemo.model.system.Constant;
+import com.futao.springbootdemo.model.system.SystemConfig;
 import com.futao.springbootdemo.utils.ServiceTools;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -54,7 +54,7 @@ return ${className?lower_case};
 @Override
 public ${className} delete(String id){
 //调用dao层
-${className?lower_case}Dao.delete(${className?lower_case}Dao.getId());
+${className?lower_case}Dao.delete(${className?lower_case}Dao.byId(id).getId());
 return ${className?lower_case};
 }
 

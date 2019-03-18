@@ -11,6 +11,7 @@ import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
+import com.futao.springbootdemo.service.VerifyCodeService;
 import com.futao.springbootdemo.service.impl.UserServiceImpl;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
 import io.swagger.annotations.Api;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -44,6 +46,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private VerifyCodeService verifyCodeService;
 
     /**
      * 发送注册邮件验证码
@@ -193,5 +198,18 @@ public class UserController {
         } catch (AuthenticationException e) {
             throw ApplicationException.ae(e.getMessage());
         }
+    }
+
+    /**
+     * 图形验证码
+     *
+     * @param response
+     */
+    @GetMapping(path = "verifyCode")
+    public byte[] verifyCode(
+            HttpServletResponse response
+    ) {
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        return verifyCodeService.updateVerifyCodeBytes();
     }
 }

@@ -29,6 +29,16 @@ public class BaseEntity implements Serializable {
      */
     private Timestamp lastModifyTime;
 
+
+    public BaseEntity(String id, Timestamp createTime, Timestamp lastModifyTime) {
+        this.id = id;
+        this.createTime = createTime;
+        this.lastModifyTime = lastModifyTime;
+    }
+
+    public BaseEntity() {
+    }
+
     public String getId() {
         return id;
     }
@@ -51,14 +61,5 @@ public class BaseEntity implements Serializable {
 
     public void setLastModifyTime(Timestamp lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
-    }
-
-    public BaseEntity(String id, Timestamp createTime, Timestamp lastModifyTime) {
-        this.id = id;
-        this.createTime = createTime;
-        this.lastModifyTime = lastModifyTime;
-    }
-
-    public BaseEntity() {
     }
 }

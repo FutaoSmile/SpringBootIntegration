@@ -1,7 +1,6 @@
 package ${daoPackagePath};
 
 import ${entityPackagePath}.${className};
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -11,7 +10,6 @@ import java.util.List;
 * @author ${authorName}
 * Created on ${createDate}.
 */
-@Mapper
 public interface ${className}Dao {
 
 /**
@@ -20,7 +18,7 @@ public interface ${className}Dao {
 *
 * @return ${classDesc}
 */
-${className} add(${className} ${className?lower_case});
+void add(${className} ${className?lower_case});
 
 /**
 * 删除${classDesc}
