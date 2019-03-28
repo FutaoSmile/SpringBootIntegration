@@ -35,7 +35,7 @@ open class ArticleServiceImpl : ArticleService {
 //    @Resource
 //    private lateinit var elasticsearch: ArticleSearchDao
 
-    @Resource
+    //    @Resource
     private lateinit var elastic: Client
     @Resource
     private lateinit var userService: UserService

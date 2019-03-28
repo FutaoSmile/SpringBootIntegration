@@ -29,9 +29,9 @@ spring:
       ddl-auto: update
   data:
     # 全文检索 elasticsearch
-    elasticsearch:
-      cluster-name: elasticsearch-service #节点名称
-      cluster-nodes: 127.0.0.1:9300 #节点地址
+  #    elasticsearch:
+  #      cluster-name: elasticsearch-service #节点名称
+  #      cluster-nodes: 127.0.0.1:9300 #节点地址
   # 数据源
   datasource:
     url: jdbc:mysql://localhost:3306/springmvcdemo?useUnicode=true&characterEncoding=utf8
@@ -85,7 +85,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 1185172056@qq.com
-    password: security
+    password: SSi
     properties:
       smtp:
         auth: true
@@ -150,7 +150,7 @@ jianshu:
   id: futaosmile
 
 # 线程池配置
-threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
+threadpool: {corePoolSize: 5,maxPoolSize: 10,queueCapacity: 200}
 
 
 
@@ -234,9 +234,9 @@ threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
 systemconfig:
   enableSwagger: true
   enableDruidServlet: true
-  redisCacheSecond: 300
+  redisCacheSecond: 30
   registerMailCodeExpireSecond: 300
-  sessionInvalidateSecond: 300
+  sessionInvalidateSecond: 20
   onlinePeopleQuantityScale: 2
 
 debug: true

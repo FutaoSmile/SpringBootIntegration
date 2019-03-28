@@ -17,8 +17,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -41,8 +39,6 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @ServletComponentScan
 @MapperScan("com.futao.springbootdemo.dao")      //会将包里面的接口当做mapper配置，之后可以自动引入mapper类
 @EnableCaching  //开启缓存
-@EnableScheduling
-@EnableAsync
 @EnableAspectJAutoProxy
 //@EnableElasticsearchRepositories(basePackages = "com.futao.springbootdemo.dao")
 @EnableEntity

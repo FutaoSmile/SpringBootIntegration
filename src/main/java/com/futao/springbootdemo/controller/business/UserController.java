@@ -144,9 +144,10 @@ public class UserController {
     public User mobileLogin(
             @RequestParam("mobile") String mobile,
             @RequestParam("password") String password,
-            HttpServletRequest request
+            HttpServletRequest request,
+            HttpServletResponse response
     ) {
-        return userService.login(mobile, password, request);
+        return userService.login(mobile, password, request, response);
     }
 
     @ApiOperation("RequestBody形式登录")

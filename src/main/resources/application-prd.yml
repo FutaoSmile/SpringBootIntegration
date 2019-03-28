@@ -149,7 +149,7 @@ jianshu:
   id: futaosmile
 
 # 线程池配置
-threadpool: {corePoolSize: 10,maxPoolSize: 200,queueCapacity: 10}
+threadpool: {corePoolSize: 5,maxPoolSize: 10,queueCapacity: 200}
 
 
 

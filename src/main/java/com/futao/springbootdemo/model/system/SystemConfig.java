@@ -59,7 +59,7 @@ public class SystemConfig {
     /**
      * Session过期时间
      */
-    private int sessionInvalidateSecond = 60 * 5;
+    private int sessionInvalidateSecond = 5;
 
     /**
      * 注册邮件验证码过期时间

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CachingConfigurerSupport
-import org.springframework.cache.annotation.EnableCaching
 import org.springframework.cache.interceptor.KeyGenerator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -38,7 +37,6 @@ import javax.annotation.Resource
  *
  */
 @Configuration
-@EnableCaching
 open class RedisConfiguration : CachingConfigurerSupport() {
 
     @Autowired
@@ -76,9 +74,10 @@ open class RedisConfiguration : CachingConfigurerSupport() {
         return redisTemplate.apply {
             defaultSerializer = fastJsonRedisSerializer
             keySerializer = stringRedisSerializer
-            hashKeySerializer = stringRedisSerializer
             valueSerializer = fastJsonRedisSerializer
+            hashKeySerializer = fastJsonRedisSerializer
             hashValueSerializer = fastJsonRedisSerializer
+            stringSerializer = stringRedisSerializer
             connectionFactory = factory
         }
     }

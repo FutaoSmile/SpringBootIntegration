@@ -87,18 +87,18 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     @EnumStatus(value = UserRoleEnum.class, message = ErrorMessage.LogicErrorMessage.USER_ROLE_ENUM_ILLEGAL)
     private int roles;
 
-    /**
-     * 2.实例代码块与实例代码块之间根据代码书写顺序依次执行
+    /*
+      2.实例代码块与实例代码块之间根据代码书写顺序依次执行
      */ {
-        System.out.println("{}");
+        System.out.println("user.实例代码块{}");
     }
 
 
-    /**
-     * 1.静态代码块优先于实例代码块
+    /*
+      1.静态代码块优先于实例代码块
      */
     static {
-        System.out.println("static{}");
+        System.out.println("user.静态代码块static{}");
     }
 
     @Override

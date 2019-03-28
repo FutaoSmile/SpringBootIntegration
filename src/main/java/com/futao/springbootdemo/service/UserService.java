@@ -3,6 +3,7 @@ package com.futao.springbootdemo.service;
 import com.futao.springbootdemo.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -51,16 +52,6 @@ public interface UserService {
     void registerByEmail(String username, String password, int age, String mobile, String email, String address, String verifyCode, int sex);
 
     /**
-     * 用户登录
-     *
-     * @param mobile
-     * @param password
-     * @param request
-     * @return
-     */
-    User login(String mobile, String password, HttpServletRequest request);
-
-    /**
      * 获取用户列表
      *
      * @param mobile
@@ -77,6 +68,8 @@ public interface UserService {
      * @return
      */
     int total();
+
+    User login(String mobile, String password, HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 用户登录

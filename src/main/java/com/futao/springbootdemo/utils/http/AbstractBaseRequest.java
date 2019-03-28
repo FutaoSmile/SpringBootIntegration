@@ -5,6 +5,7 @@ import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -314,19 +315,20 @@ public abstract class AbstractBaseRequest {
     private void requestLog(HttpRequestBase requestBase, CloseableHttpResponse response) {
         StringBuilder sb = new StringBuilder();
         if (requestBase != null) {
-            //记录请求地址
             sb.append("\n")
-                    .append("请求地址:").append(requestBase.getURI()).append("\n")
-                    .append("请求头:").append(Arrays.toString(requestBase.getAllHeaders())).append("\n")
-                    .append("请求方式:").append(requestBase.getMethod()).append("\n")
-                    .append("请求体:").append(this.entity).append("\n")
-                    .append("请求参数:").append(this.parameters).append("\n");
+                    .append("【请求地址】:").append(requestBase.getURI()).append("\n")
+                    .append("【请求头】:").append(Arrays.toString(requestBase.getAllHeaders())).append("\n")
+                    .append("【请求方式】:").append(requestBase.getMethod()).append("\n")
+                    .append("【请求体】:").append(this.entity).append("\n")
+                    .append("【请求参数】:").append(this.parameters).append("\n");
         }
         if (response != null) {
             try {
                 result = EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
-                sb.append("响应状态码:").append(response.getStatusLine().getStatusCode()).append("\n")
-                        .append("响应结果:").append(CommonUtilsKt.formatJsonString(result)).append("\n");
+                sb.append(StringUtils.repeat("-", 40)).append("\n")
+                        .append("【响应状态码】:").append(response.getStatusLine().getStatusCode()).append("\n")
+                        .append("【响应结果】:").append(CommonUtilsKt.formatJsonString(result)).append("\n")
+                        .append("【响应头】:").append(Arrays.toString(response.getAllHeaders()));
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);
                 throw LogicException.le(ErrorMessage.LogicErrorMessage.GET_RESPONSE_FAIL, new String[]{e.getMessage()});

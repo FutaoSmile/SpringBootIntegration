@@ -149,5 +149,9 @@ fun numVerifyCode(size: Int): String {
  * 将JSON String格式化返回
  */
 fun String.formatJsonString(): String? {
-    return JSON.toJSONString(JSON.parseObject(this), *HttpMessageConverterConfiguration.SERIALIZER_FEATURES)
+    return try {
+        JSON.toJSONString(JSON.parseObject(this), *HttpMessageConverterConfiguration.SERIALIZER_FEATURES)
+    } catch (e: java.lang.Exception) {
+        this
+    }
 }

@@ -21,7 +21,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -167,13 +169,21 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public User login(String mobile, String password, HttpServletRequest request) {
+    public User login(String mobile, String password, HttpServletRequest request, HttpServletResponse response) {
         String md5Pwd = CommonUtilsKt.md5(password + PWD_SALT);
         User user = userDao.getUserByMobileAndPwd(mobile, md5Pwd);
         if (ObjectUtils.allNotNull(user)) {
             HttpSession session = request.getSession();
             session.setAttribute(Constant.LOGIN_USER_SESSION_KEY, String.valueOf(user.getId()));
             session.setMaxInactiveInterval(systemConfig.getSessionInvalidateSecond());
+            Cookie cookie = new Cookie("JSESSIONID", session.getId());
+            cookie.setMaxAge(systemConfig.getSessionInvalidateSecond());
+            //是否不允许js读取
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+            //是否只在https下传输
+            cookie.setSecure(false);
+            response.addCookie(cookie);
             return user;
         } else {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.MOBILE_OR_PWD_ERROR);

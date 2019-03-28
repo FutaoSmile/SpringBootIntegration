@@ -18,9 +18,11 @@ import com.futao.springbootdemo.smart4j.foundation.ClassUtils;
 import com.futao.springbootdemo.suit.a.A;
 import com.futao.springbootdemo.suit.a.B;
 import com.futao.springbootdemo.suit.a.CC;
+import com.futao.springbootdemo.utils.CommonUtilsKt;
 import com.futao.springbootdemo.utils.DateTools;
 import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
 import com.futao.springbootdemo.utils.http.GetRequest;
+import com.futao.springbootdemo.utils.http.PostRequest;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -29,6 +31,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.reflections.Reflections;
@@ -58,6 +61,25 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test68() {
+        Md5Hash md5Hash = new Md5Hash("123456789");
+        System.out.println(md5Hash.toString());
+    }
+
+    @Test
+    public void test67() {
+
+        AbstractBaseRequest request = new PostRequest("https://www.zpkoo.com/api/wise-wises/rs/client/ClientUserLogin/login");
+        request.addParameter("loginId", "1185172056@qq.com");
+        request.addParameter("password", CommonUtilsKt.md5("123456789"));
+        request.addParameter("code", "1234");
+
+//        ((PostRequest) request).addEntity(new JSONObject().fluentPut("loginId", "18797811999").fluentPut("password", "1234**").fluentPut("code", "1234"));
+        request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36");
+        request.send();
+    }
 
     @Test
     public void test66() {
