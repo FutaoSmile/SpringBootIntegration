@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.futao.springbootdemo.annotation.IllegalValueCheck;
 import com.futao.springbootdemo.annotation.LoginUser;
 import com.futao.springbootdemo.annotation.Role;
-import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.entity.PageResultList;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.User;
@@ -12,12 +11,10 @@ import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
 import com.futao.springbootdemo.service.VerifyCodeService;
-import com.futao.springbootdemo.service.impl.UserServiceImpl;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.http.MediaType;
@@ -182,23 +179,27 @@ public class UserController {
      * @param password 密码
      * @return
      */
-    @PostMapping("loginShiro")
+    @PostMapping("shiroLogin")
     public User loginShiro(
             @RequestParam("mobile") String mobile,
             @RequestParam("password") String password
     ) {
-        password = CommonUtilsKt.md5(password + UserServiceImpl.PWD_SALT);
+//        password = CommonUtilsKt.md5(password + UserServiceImpl.PWD_SALT);
+
+        //如果使用了加密，则要求传入的密码一定是加过密的，否则会报错Odd number of characters.
+        //如果MD5之后的字符串中出现了非md5范围内的字符，则会报错Illegal hexadecimal character " + ch + " at index " + index
+        password = CommonUtilsKt.md5(password);
         UsernamePasswordToken token = new UsernamePasswordToken(mobile, password, false);
-        try {
-            Subject subject = SecurityUtils.getSubject();
-            if (subject != null) {
-                subject.logout();
-            }
-            SecurityUtils.getSubject().login(token);
-            return (User) SecurityUtils.getSubject().getPrincipal();
-        } catch (AuthenticationException e) {
-            throw ApplicationException.ae(e.getMessage());
-        }
+
+//        try {
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+        return (User) subject.getPrincipal();
+    }
+
+    @GetMapping("currentShiroUser")
+    public User currentShiroUser() {
+        return (User) SecurityUtils.getSubject().getPrincipal();
     }
 
     /**

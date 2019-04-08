@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.futao.springbootdemo.design.pattern.gof.a.singleton.EagerSingleton;
+import com.futao.springbootdemo.design.pattern.gof.a.singleton.LazySingleton;
+import com.futao.springbootdemo.design.pattern.gof.a.singleton.SingletonEnum;
+import com.futao.springbootdemo.design.pattern.gof.a.singleton.byself.StaticInnerClassSingleton;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
@@ -23,6 +27,7 @@ import com.futao.springbootdemo.utils.DateTools;
 import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
 import com.futao.springbootdemo.utils.http.GetRequest;
 import com.futao.springbootdemo.utils.http.PostRequest;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -40,7 +45,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.annotations.Document;
 import sun.misc.BASE64Encoder;
 
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -52,6 +58,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
@@ -63,6 +70,145 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
 public class NormalTest implements Runnable {
 
     @Test
+    public void test78() throws Exception {
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./a.txt"));
+        objectOutputStream.writeObject(EagerSingleton.getInstance());
+    }
+
+    @Test
+    public void test77() throws Exception {
+        //通过静态方法访问单例对象
+        System.out.println(EagerSingleton.getInstance());
+        System.out.println(EagerSingleton.getInstance());
+        //反序列化对象
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("./a.txt"));
+        EagerSingleton eagerSingleton = (EagerSingleton) objectInputStream.readObject();
+        System.out.println(eagerSingleton);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void test76() throws Exception {
+        //通过静态方法访问单例对象
+        System.out.println(EagerSingleton.getInstance());
+        System.out.println(EagerSingleton.getInstance());
+
+        Class<EagerSingleton> eagerSingleton = (Class<EagerSingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.a.singleton.EagerSingleton");
+        //获取构造方法
+        Constructor<EagerSingleton> constructor = eagerSingleton.getDeclaredConstructor();
+        //因为构造方法是私有的，所以需要跳过java安全检查
+        constructor.setAccessible(true);
+        //通过反射创建新的对象
+        EagerSingleton singleton = constructor.newInstance();
+        System.out.println(singleton);
+    }
+
+    @Test
+    public void test75() {
+//        System.out.println(EagerSingleton.getInstance());
+//        System.out.println(EagerSingleton.getInstance());
+//        System.out.println(EagerSingleton.getInstance());
+        System.out.println(StringUtils.repeat("==", 30));
+        System.out.println(LazySingleton.getInstance());
+        System.out.println(LazySingleton.getInstance());
+        System.out.println(LazySingleton.getInstance());
+        System.out.println(StringUtils.repeat("==", 30));
+        System.out.println(SingletonEnum.INSTANCE == SingletonEnum.INSTANCE);
+        System.out.println(StringUtils.repeat("==", 30));
+        System.out.println(StaticInnerClassSingleton.getInstance());
+        System.out.println(StaticInnerClassSingleton.getInstance());
+        System.out.println(StaticInnerClassSingleton.getInstance());
+    }
+
+    @Test
+    public void test74() throws InterruptedException {
+        int threadCount = 10;
+        long start = System.currentTimeMillis();
+
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+
+        //开启10个线程
+        for (int i = 0; i < threadCount; i++) {
+            new Thread(() -> {
+                //10个线程并发获取单例对象1000W次
+                for (int j = 0; j < 10000000; j++) {
+                    Object o = StaticInnerClassSingleton.getInstance();
+                }
+                //一个线程执行完成之后计数器-1
+                countDownLatch.countDown();
+            }).start();
+        }
+        //阻塞主线程进行等待，内部会一直检查计数器的值是否为0
+        countDownLatch.await();
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+    }
+
+    @Test
+    public void test73() throws Exception {
+        System.out.println(LazySingleton.getInstance());
+        System.out.println(LazySingleton.getInstance());
+        Class<LazySingleton> aClass = (Class<LazySingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.a.singleton.LazySingleton");
+        Constructor<LazySingleton> constructor = aClass.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        LazySingleton lazy = constructor.newInstance();
+        LazySingleton lazy2 = constructor.newInstance();
+        System.out.println(lazy);
+        System.out.println(lazy2);
+
+
+    }
+
+    @Test
+    public void test72() {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        NormalTest normalTest = new NormalTest();
+        executorService.execute(normalTest);
+    }
+
+    @Test
+    public void test71() {
+
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        System.out.println(list);
+
+        List<String> list1 = Collections.unmodifiableList(list);
+        list1.add("1");
+        System.out.println(list1);
+    }
+
+    @Test
+    public void test70() {
+        System.out.println(CommonUtilsKt.md5(Objects.requireNonNull(CommonUtilsKt.md5("12345678"))));
+
+    }
+
+    @Test
+    public void test69() {
+        System.out.println(ShiroFilterEnum.ANON.toString());
+        System.out.println(ShiroFilterEnum.AUTHBASIC.toString());
+        System.out.println(ShiroFilterEnum.LOGOUT.toString());
+    }
+
+    private enum ShiroFilterEnum {
+        ANON,
+        AUTHBASIC,
+        AUTHC,
+        USER,
+        LOGOUT;
+
+        @Override
+        public String toString() {
+            return this.name().toLowerCase();
+        }
+    }
+
+    @Test
     public void test68() {
         Md5Hash md5Hash = new Md5Hash("123456789");
         System.out.println(md5Hash.toString());
@@ -71,14 +217,40 @@ public class NormalTest implements Runnable {
     @Test
     public void test67() {
 
-        AbstractBaseRequest request = new PostRequest("https://www.zpkoo.com/api/wise-wises/rs/client/ClientUserLogin/login");
-        request.addParameter("loginId", "1185172056@qq.com");
-        request.addParameter("password", CommonUtilsKt.md5("123456789"));
-        request.addParameter("code", "1234");
+        ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
+        threadFactoryBuilder.setNameFormat("wlb-tpe-%s");
+        ThreadFactory threadFactory = threadFactoryBuilder.build();
+        ThreadPoolExecutor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
+                2,
+                8,
+                60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(100),
+                threadFactory,
+                (r, e) -> LOGGER.error("线程池ThreadPoolExecutor发生异常，超出最大可分配线程"));
 
+
+        Requ requ = new Requ();
+        THREAD_POOL_EXECUTOR.execute(requ);
+//        requ.run();
+    }
+
+    class Requ implements Runnable {
+
+        @Override
+        public void run() {
+            System.out.println("00");
+            AbstractBaseRequest request = new PostRequest("https://www.zpkoo.com/api/wise-wises/rs/client/ClientUserLogin/login");
+            System.out.println("1");
+            request.addParameter("loginId", "1185172056@qq.com");
+            request.addParameter("password", CommonUtilsKt.md5("123456789"));
+            request.addParameter("code", "1234");
+
+            System.out.println("2");
 //        ((PostRequest) request).addEntity(new JSONObject().fluentPut("loginId", "18797811999").fluentPut("password", "1234**").fluentPut("code", "1234"));
-        request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36");
-        request.send();
+            request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36");
+            request.send();
+        }
     }
 
     @Test

@@ -90,7 +90,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     /*
       2.实例代码块与实例代码块之间根据代码书写顺序依次执行
      */ {
-        System.out.println("user.实例代码块{}");
+//        System.out.println("user.实例代码块{}");
     }
 
 
@@ -104,7 +104,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println(">>>" + Thread.currentThread().getName() + ":" + this.hashCode() + "我被回收啦");
+//        System.out.println(">>>" + Thread.currentThread().getName() + ":" + this.hashCode() + "我被回收啦");
     }
 
     //3.必须执行完代码块才执行构造方法
@@ -119,6 +119,7 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
 //        this.sex = sex;
 //        this.role = role;
 //    }
+
 
     @Override
     public int compareTo(@org.jetbrains.annotations.NotNull User o) {

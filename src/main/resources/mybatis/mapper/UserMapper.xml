@@ -6,7 +6,7 @@
 <!-- com.futao.springbootdemoo.mapper 为根元素节点， 一个namespace对应一个dao -->
 <mapper namespace="com.futao.springbootdemo.dao.UserDao">
 
-    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
+    <!--<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>-->
 
     <!--<cache type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"/>-->
     <!--<cache type="org.mybatis.caches.redis.RedisCache"/>-->
@@ -48,7 +48,7 @@
     </insert>
 
     <select id="getUserByMobile" resultType="com.futao.springbootdemo.model.entity.User">
-        select `id`, `createTime`
+        select *
         from springmvcdemo.futao_user
         where mobile = #{mobile}
         limit 1

@@ -23,6 +23,8 @@ public class SingletonStaticInnerClass {
         return SingletonInnerClass.instance;
     }
 
+    //静态内部类实现的单例无法防止反射
     private SingletonStaticInnerClass() {
+
     }
 }

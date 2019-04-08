@@ -10,7 +10,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -42,16 +41,14 @@ public class CustomShiroRealm extends AuthorizingRealm {
         }
         //用户名
         String mobile = (String) token.getPrincipal();
-        //密码
-        String password = new String((char[]) token.getCredentials());
-        //密码加密
-//        password = CommonUtilsKt.md5(password + UserServiceImpl.PWD_SALT);
         //查询DB
-        User user = userDao.getUserByMobileAndPwd(mobile, password);
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(mobile, password, getName());
+        User user = userDao.getUserByMobile(mobile);
+        if (user == null) {
+            return null;
+        }
         //加盐
-        authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes("nobug666"));
-        return null != user ? authenticationInfo : null;
+//        authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes("nobug666"));
+        return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
     }
 
     /**

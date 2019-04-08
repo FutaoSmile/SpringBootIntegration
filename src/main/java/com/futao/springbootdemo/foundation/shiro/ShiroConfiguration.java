@@ -1,5 +1,6 @@
 package com.futao.springbootdemo.foundation.shiro;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -11,12 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://blog.csdn.net/u013615903/article/details/78781166/
+ *
  * @author futao
  * Created on 2018-12-18.
  */
 @Configuration
 public class ShiroConfiguration {
-
 
     @Resource
     private CustomShiroRealm customShiroRealm;
@@ -40,6 +42,9 @@ public class ShiroConfiguration {
         map.put("/swagger-ui.html", "anon");
         map.put("/swagger-resources", "anon");
         map.put("/v2/api-docs", "anon");
+        map.put("/images/favicon-32x32.png", "anon");
+        map.put("/webjars/springfox-swagger-ui/swagger-ui.min.js", "anon");
+        map.put("/user/shiroLogin", "anon");
         //对所有用户认证
         map.put("/**", "authc");
         //登录
@@ -64,13 +69,18 @@ public class ShiroConfiguration {
     @Bean
     public org.apache.shiro.mgt.SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        //密码加密
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher("md5");
+        matcher.setHashIterations(1);
+        customShiroRealm.setCredentialsMatcher(matcher);
+        //设置数据源
         securityManager.setRealm(customShiroRealm);
         return securityManager;
     }
 
 
     /**
-     * 加入注解的使用，不加入这个注解不生效
+     * 开启shiro的注解模式
      *
      * @param securityManager
      * @return

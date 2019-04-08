@@ -4,6 +4,9 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.model.system.RestResult;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionTimedOutException;
@@ -144,6 +147,23 @@ public class ExceptionWrapper {
             result.setCode(String.valueOf(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
             result.setErrorMessage(ErrorMessage.ApplicationErrorMessage.SERVER_ERROR);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+        return result;
+    }
+
+
+    @ExceptionHandler(AuthenticationException.class)
+    public Object shiroException(Exception e) {
+        RestResult result = new RestResult(false, RestResult.SYSTEM_ERROR_CODE, e.getMessage(), ErrorMessage.ApplicationErrorMessage.SYSTEM_EXCEPTION);
+        if (e instanceof UnknownAccountException) {
+            result.setCode("");
+            result.setData(e.getMessage());
+            result.setErrorMessage("用户名错误");
+        }
+        if (e instanceof IncorrectCredentialsException) {
+            result.setCode("");
+            result.setData(e.getMessage());
+            result.setErrorMessage("密码错误");
         }
         return result;
     }
