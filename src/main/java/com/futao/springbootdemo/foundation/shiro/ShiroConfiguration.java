@@ -5,7 +5,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.Map;
  * @author futao
  * Created on 2018-12-18.
  */
-@Configuration
+//@Configuration
 public class ShiroConfiguration {
 
     @Resource

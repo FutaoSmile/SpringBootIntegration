@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.design.pattern.gof.a.singleton.byself;
+package com.futao.springbootdemo.design.pattern.gof.singleton.byself;
 
 /**
  * 单例模式2-懒汉模式

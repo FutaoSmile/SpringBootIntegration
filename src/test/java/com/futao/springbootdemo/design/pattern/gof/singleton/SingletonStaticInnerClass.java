@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.design.pattern.gof.a.singleton;
+package com.futao.springbootdemo.design.pattern.gof.singleton;
 
 /**
  * 3

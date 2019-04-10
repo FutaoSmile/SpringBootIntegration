@@ -10,7 +10,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -21,7 +20,7 @@ import javax.annotation.Resource;
  * @author futao
  * Created on 2018-12-13.
  */
-@Component
+//@Component
 public class CustomShiroRealm extends AuthorizingRealm {
 
     @Resource

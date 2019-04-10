@@ -12,7 +12,7 @@ import java.nio.charset.Charset
  * @author futao
  * Created on 2018/10/17.
  */
-class FastJsonRedisSerializer<T>(p: Class<T>) : RedisSerializer<T> {
+class FastJsonRedisSerializer<T> : RedisSerializer<T> {
 
     private val clazz: Class<T>? = null
 

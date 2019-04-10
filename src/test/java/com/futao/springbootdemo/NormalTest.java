@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.futao.springbootdemo.design.pattern.gof.a.singleton.EagerSingleton;
-import com.futao.springbootdemo.design.pattern.gof.a.singleton.LazySingleton;
-import com.futao.springbootdemo.design.pattern.gof.a.singleton.SingletonEnum;
-import com.futao.springbootdemo.design.pattern.gof.a.singleton.byself.StaticInnerClassSingleton;
+import com.futao.springbootdemo.design.pattern.gof.singleton.EagerSingleton;
+import com.futao.springbootdemo.design.pattern.gof.singleton.LazySingleton;
+import com.futao.springbootdemo.design.pattern.gof.singleton.SingletonEnum;
+import com.futao.springbootdemo.design.pattern.gof.singleton.byself.StaticInnerClassSingleton;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
@@ -94,7 +94,7 @@ public class NormalTest implements Runnable {
         System.out.println(EagerSingleton.getInstance());
         System.out.println(EagerSingleton.getInstance());
 
-        Class<EagerSingleton> eagerSingleton = (Class<EagerSingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.a.singleton.EagerSingleton");
+        Class<EagerSingleton> eagerSingleton = (Class<EagerSingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.singleton.EagerSingleton");
         //获取构造方法
         Constructor<EagerSingleton> constructor = eagerSingleton.getDeclaredConstructor();
         //因为构造方法是私有的，所以需要跳过java安全检查
@@ -149,7 +149,7 @@ public class NormalTest implements Runnable {
     public void test73() throws Exception {
         System.out.println(LazySingleton.getInstance());
         System.out.println(LazySingleton.getInstance());
-        Class<LazySingleton> aClass = (Class<LazySingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.a.singleton.LazySingleton");
+        Class<LazySingleton> aClass = (Class<LazySingleton>) Class.forName("com.futao.springbootdemo.design.pattern.gof.singleton.LazySingleton");
         Constructor<LazySingleton> constructor = aClass.getDeclaredConstructor();
         constructor.setAccessible(true);
         LazySingleton lazy = constructor.newInstance();

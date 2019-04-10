@@ -36,7 +36,7 @@ public final class ErrorMessage {
      */
     public static class LogicErrorMessage {
         public static final String NOT_LOGIN = "00001_您还未登陆或者登陆已超时，请重新登陆";
-        public static final String CONTAIN_ILLEGAL_PARAMETER = "00002_评论中包含敏感词汇";
+        public static final String CONTAIN_ILLEGAL_PARAMETER = "00002_提交的内容中包含敏感词汇";
         public static final String ROLE_NOT_EXIST = "00003_角色信息不存在";
         public static final String ROLE_NOT_ALLOW = "00004_您当前的角色无此权限";
         public static final String PROPERTIES_NOT_EXISTS = "00005_配置文件%s不存在";
@@ -87,6 +87,9 @@ public final class ErrorMessage {
         public static final String USER_ROLE_ENUM_ILLEGAL = "01023_用户角色不合法";
 
         public static final String RESULT_NULL = "01024_%s查询结果为空";
+
+
+        public static final String USER_NAME_NOT_ALLOWED = "01025_用户名不合法，请重新输入";
 
 
     }

@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.design.pattern.gof.a.singleton;
+package com.futao.springbootdemo.design.pattern.gof.singleton;
 
 /**
  * 单例模式4-枚举式

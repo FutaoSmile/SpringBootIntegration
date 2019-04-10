@@ -82,7 +82,7 @@ public class UserController {
              * 是流的形式读取，那么流读了一次就没有了
              * */
             @RequestParam("username")
-            @IllegalValueCheck(forbidden = "admin")
+            @IllegalValueCheck(forbidden = "admin", message = ErrorMessage.LogicErrorMessage.USER_NAME_NOT_ALLOWED)
             @Size(min = 2, max = 8, message = "{a.c}")
                     String username,
             @RequestParam("age")

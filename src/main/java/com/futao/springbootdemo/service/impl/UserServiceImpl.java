@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     private MailService mailService;
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Resource
     private SystemConfig systemConfig;

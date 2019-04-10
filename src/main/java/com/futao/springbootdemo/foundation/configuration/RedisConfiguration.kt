@@ -67,9 +67,9 @@ open class RedisConfiguration : CachingConfigurerSupport() {
      * 不自定义的话redisTemplate会乱码
      */
     @Bean
-    open fun redisTemplate(factory: RedisConnectionFactory): RedisTemplate<String, Any> {
-        val redisTemplate = RedisTemplate<String, Any>()
-        val fastJsonRedisSerializer = FastJsonRedisSerializer(Any::class.java)
+    open fun <T> redisTemplate(factory: RedisConnectionFactory): RedisTemplate<String, T> {
+        val redisTemplate = RedisTemplate<String, T>()
+        val fastJsonRedisSerializer = FastJsonRedisSerializer<T>()
         val stringRedisSerializer = StringRedisSerializer()
         return redisTemplate.apply {
             defaultSerializer = fastJsonRedisSerializer
