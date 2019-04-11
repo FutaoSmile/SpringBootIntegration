@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.service.ExportExcelService;
+import com.futao.springbootdemo.service.TestService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,14 @@ import java.util.List;
 @Api("java测试接口")
 @RequestMapping(path = "test")
 public class JavaTestController {
+
+    @Resource
+    private TestService testService;
+
+    @GetMapping("transaction")
+    public int transaction(@RequestParam("amount") int amount) {
+        return testService.transactionTest(amount);
+    }
 
 
     @GetMapping("parameterTest")
@@ -82,7 +91,7 @@ public class JavaTestController {
             @RequestParam("fileName") String fileName,
             HttpServletResponse response) {
         User user = new User();
-        Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRoles(), user.getAddress(), user.getMobile(), user.getEmail()};
+        Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRole(), user.getAddress(), user.getMobile(), user.getEmail()};
         ArrayList<Object[]> list = new ArrayList<>();
         list.add(object);
         list.add(object);

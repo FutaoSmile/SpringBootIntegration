@@ -1,16 +1,20 @@
 package com.futao.springbootdemo.annotation.impl.aop;
 
+import com.futao.springbootdemo.annotation.Role;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
+import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * 用户角色权限拦截
@@ -27,10 +31,6 @@ public class RoleInterceptor {
 
     /**
      * 切入点
-     *
-     * @Pointcut("@within(org.springframework.web.bind.annotation.RestController) && @annotation(org.springframework.web.bind.annotation.RestController)")
-     * @Pointcut("execution(public * com.futao.springbootdemo.controller.*.*(..))")
-     * @Pointcut("execution(public * com.futao.springbootdemo.controller..* (..)) && @annotation(org.springframework.web.bind.annotation.RestController)")
      */
     @Pointcut("@within(com.futao.springbootdemo.annotation.Role)||@annotation(com.futao.springbootdemo.annotation.Role)")
     public void pointCut() {
@@ -48,19 +48,17 @@ public class RoleInterceptor {
         //未登录
         if (user == null) {
             throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);
+        }//注解打在方法上
+        Role annotation = ((MethodSignature) point.getSignature()).getMethod().getAnnotation(Role.class);
+        if (annotation == null) {
+            //注解打在类上
+            annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
         }
-        //注解打在方法上
-//        Role annotation = ((MethodSignature) point.getSignature()).getMethod().getAnnotation(Role.class);
-//        if (annotation == null) {
-//            //注解打在类上
-//            annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
-//        }
-//        if (annotation != null) {
-        //TODO("目前改为使用shiro")
-//            if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
-//                throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);
-//            }
-//        }
+        if (annotation != null) {
+            if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
+                throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);
+            }
+        }
     }
 
 }

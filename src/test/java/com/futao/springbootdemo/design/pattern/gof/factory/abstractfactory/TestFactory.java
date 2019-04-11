@@ -11,5 +11,7 @@ public class TestFactory {
         Engine engine = factory.createEngine();
         engine.run();
         engine.start();
+
+        StringBuilder stringBuilder = new StringBuilder();
     }
 }

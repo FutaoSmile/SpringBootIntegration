@@ -8,4 +8,5 @@ import com.futao.springbootdemo.smart4j.annotation.SmartService;
  */
 @SmartService
 public class TestService {
+
 }

@@ -8,7 +8,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver
 import org.springframework.core.io.support.ResourcePatternResolver
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.transaction.PlatformTransactionManager
-import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.annotation.TransactionManagementConfigurer
 import java.util.*
 import javax.annotation.Resource
@@ -27,7 +26,6 @@ import javax.sql.DataSource
  * Created on ${date}.
  */
 @Configuration
-@EnableTransactionManagement//加上这个注解，使得支持事务
 open class MybatisConfiguration : TransactionManagementConfigurer {
 
     @Resource
@@ -44,9 +42,9 @@ open class MybatisConfiguration : TransactionManagementConfigurer {
     @Bean(name = ["sqlSessionFactory"])
     open fun sqlSessionFactory(): SqlSessionFactoryBean {
         val sqlSessionFactoryBean = SqlSessionFactoryBean()
-        sqlSessionFactoryBean.setDataSource(dataSource)
-        // 设置mybatis configuration 扫描路径
+        // 设置mybatis configuration 路径
         sqlSessionFactoryBean.setConfigLocation(ClassPathResource("/mybatis/mybatis-config.xml"))
+        sqlSessionFactoryBean.setDataSource(dataSource)
         // 添加mapper 扫描路径
         val pathMatchingResourcePatternResolver = PathMatchingResourcePatternResolver()
         val packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/mybatis/mapper/*.xml"

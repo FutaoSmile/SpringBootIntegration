@@ -30,8 +30,11 @@
 
         <setting name="jdbcTypeForNull" value="NULL"/>
 
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+
     </settings>
 
+    <!--别名-->
     <typeAliases>
         <typeAlias alias="int" type="java.lang.Integer"/>
         <typeAlias alias="long" type="java.lang.Long"/>
@@ -41,17 +44,25 @@
         <typeAlias alias="linkedList" type="java.util.LinkedList"/>
         <typeAlias alias="string" type="java.lang.String"/>
 
-        <typeAlias type="com.futao.springbootdemo.model.entity.Article" alias="article"/>
-        <typeAlias type="com.futao.springbootdemo.model.entity.User" alias="user"/>
-        <typeAlias type="com.futao.springbootdemo.model.entity.Tag" alias="tag"/>
         <typeAlias type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"
                    alias="mybatisCacheRedis"/>
-
         <package name="com.futao.springbootdemo.model.entity"/>
-
-
     </typeAliases>
 
+    <!--类型处理器，在设置参数或者从结果集中取出值时起作用-->
+    <typeHandlers>
+
+    </typeHandlers>
+
+    <!--对象工厂-->
+    <objectFactory type="com.futao.springbootdemo.foundation.MybatisObjectFactory">
+        <property name="p1" value="v1"/>
+        <property name="p2" value="v2"/>
+        <property name="p3" value="v3"/>
+    </objectFactory>
+
+
+    <!--拦截器-->
     <plugins>
         <plugin interceptor="com.futao.springbootdemo.foundation.MybatisInterceptor"/>
     </plugins>

@@ -43,7 +43,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 //@EnableElasticsearchRepositories(basePackages = "com.futao.springbootdemo.dao")
 @EnableEntity
 //@EnableWebSocketMessageBroker
-@EnableTransactionManagement
+@EnableTransactionManagement//加上这个注解，使得支持事务
 @EnableRedisHttpSession
 @EnableConfigurationProperties
 public class SpringBootDemoApplication implements CommandLineRunner {

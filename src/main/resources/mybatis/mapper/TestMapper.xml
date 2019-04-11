@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.futao.springbootdemo.dao.TestDao">
+
+
+    <update id="incrementA">
+        update
+            springmvcdemo.futao_test_a
+        set `balance`=balance + #{amount}
+        where `id` = #{id}
+    </update>
+
+    <update id="incrementB">
+        update
+            springmvcdemo.futao_test_b
+        set `balance`=balance + #{amount}
+        where `id` = #{id}
+    </update>
+</mapper>

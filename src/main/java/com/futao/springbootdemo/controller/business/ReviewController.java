@@ -1,8 +1,10 @@
 package com.futao.springbootdemo.controller.business;
 
 import com.futao.springbootdemo.annotation.LoginUser;
+import com.futao.springbootdemo.annotation.Role;
 import com.futao.springbootdemo.model.entity.Review;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
+import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.service.ReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +50,7 @@ public class ReviewController {
      * @param id 要删除的评论的id
      * @return
      */
+    @Role(UserRoleEnum.ADMIN)
     @DeleteMapping("{id}")
     public SingleValueResult delete(
             @PathVariable("id") String id

@@ -32,9 +32,9 @@
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
-//                .withUser("user1").password("{noop}user1Pass").roles("USER")
+//                .withUser("user1").password("{noop}user1Pass").role("USER")
 //                .and()
-//                .withUser("admin1").password("{noop}admin1Pass").roles("ADMIN");
+//                .withUser("admin1").password("{noop}admin1Pass").role("ADMIN");
 //    }
 //
 //    @Override
@@ -92,11 +92,11 @@
 //    @Override
 //    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
+//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).role("USER")
 //                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
+//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).role("USER")
 //                .and()
-//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+//                .withUser("admin").password(passwordEncoder().encode("adminPass")).role("ADMIN");
 //    }
 //
 //

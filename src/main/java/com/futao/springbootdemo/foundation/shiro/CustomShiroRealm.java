@@ -60,7 +60,7 @@ public class CustomShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = (User) principals.getPrimaryPrincipal();
-//        user.getRoles().forEach(role ->
+//        user.getRole().forEach(role ->
 //                {
 //                    authorizationInfo.addRole(role.getRoleName());
 //                    role.getPermissions().forEach(permission -> authorizationInfo.addStringPermission(permission.getPermissionName()));
