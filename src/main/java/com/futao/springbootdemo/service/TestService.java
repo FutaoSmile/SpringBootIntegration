@@ -6,4 +6,8 @@ package com.futao.springbootdemo.service;
  */
 public interface TestService {
     int transactionTest(int amount);
+
+    void list();
+
+    void batchInsert();
 }

@@ -16,4 +16,9 @@
         set `balance`=balance + #{amount}
         where `id` = #{id}
     </update>
+
+    <select id="list" resultType="hashMap">
+        select *
+        from springmvcdemo.futao_test_a
+    </select>
 </mapper>

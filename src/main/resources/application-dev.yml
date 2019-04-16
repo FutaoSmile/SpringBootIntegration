@@ -28,7 +28,7 @@ spring:
     hibernate:
       ddl-auto: update
   data:
-    # 全文检索 elasticsearch
+  # 全文检索 elasticsearch
   #    elasticsearch:
   #      cluster-name: elasticsearch-service #节点名称
   #      cluster-nodes: 127.0.0.1:9300 #节点地址
@@ -236,8 +236,7 @@ systemconfig:
   enableDruidServlet: true
   redisCacheSecond: 30
   registerMailCodeExpireSecond: 300
-  sessionInvalidateSecond: 20
+  sessionInvalidateSecond: 3600
   onlinePeopleQuantityScale: 2
-
 
 debug: true

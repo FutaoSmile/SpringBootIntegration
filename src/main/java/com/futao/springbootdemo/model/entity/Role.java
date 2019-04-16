@@ -1,6 +1,13 @@
 package com.futao.springbootdemo.model.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -9,15 +16,23 @@ import java.util.List;
  * @author futao
  * Created on 2018-12-11.
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Validated
 public class Role extends BaseEntity {
 
     /**
      * 角色名称
      */
+    @Size(min = 1, max = 20)
     private String roleName;
+
     /**
      * 角色描述
      */
+    @Size(min = 1, max = 50)
     private String roleDescription;
 
     /**
@@ -25,41 +40,4 @@ public class Role extends BaseEntity {
      */
     private List<Permission> permissions;
 
-    /**
-     * 拥有该角色的用户
-     */
-    private List<User> users;
-
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleDescription() {
-        return roleDescription;
-    }
-
-    public void setRoleDescription(String roleDescription) {
-        this.roleDescription = roleDescription;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

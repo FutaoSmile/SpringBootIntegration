@@ -213,7 +213,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    @Cacheable(value = "userList")
+//    @Cacheable(value = "userList")
     public List<User> list(String mobile, int pageNum, int pageSize, String orderBy) {
         PageResultUtils<User> pageResultUtils = new PageResultUtils<>();
         String sql = pageResultUtils.createCriteria(User.class.getSimpleName())

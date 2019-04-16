@@ -1,5 +1,6 @@
 package com.futao.springbootdemo.foundation.configuration;
 
+import com.futao.springbootdemo.model.system.RedisKeySet;
 import com.futao.springbootdemo.model.system.SystemConfig;
 import com.futao.springbootdemo.utils.SpringUtils;
 import org.apache.ibatis.cache.Cache;
@@ -15,17 +16,17 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * 使用redis作为mybatis的二级缓存
- * 已实现，但是目前存在的问题是，insert和update会调用#flushDB方法，导致redis中的数据被清空，导致其他功能不正常（目前是springsession中存储的session信息都被清空了）
- * 所以这个方法还是不建议使用
  *
  * @author futao
  * Created on 2019-03-06.
  */
+@SuppressWarnings("unchecked")
 public class MybatisCacheRedis implements Cache {
 
     private static final Logger logger = LoggerFactory.getLogger(MybatisCacheRedis.class);
 
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
     /**
      * cache instance id
      */
@@ -55,12 +56,12 @@ public class MybatisCacheRedis implements Cache {
      * @param value
      */
     @Override
-    @SuppressWarnings("unchecked")
     public void putObject(Object key, Object value) {
         RedisTemplate redisTemplate = getRedisTemplate();
         ValueOperations opsForValue = redisTemplate.opsForValue();
-        opsForValue.set(key.toString(), value, EXPIRE_TIME_IN_MINUTES, TimeUnit.SECONDS);
-        logger.info("\n<<< Put query result to redis, 【key】:{}【value】:{}", key.toString(), value);
+        String redisKey = RedisKeySet.gen(RedisKeySet.MYBATIS_CACHE + ":" + id, key.toString());
+        opsForValue.set(redisKey, value, EXPIRE_TIME_IN_MINUTES, TimeUnit.SECONDS);
+        logger.info("\n<<< 结果插入redis缓存\n【key】{}\n【值】:{}", redisKey, value);
     }
 
     /**
@@ -73,8 +74,9 @@ public class MybatisCacheRedis implements Cache {
     public Object getObject(Object key) {
         RedisTemplate redisTemplate = getRedisTemplate();
         ValueOperations opsForValue = redisTemplate.opsForValue();
-        Object result = opsForValue.get(key.toString());
-        logger.info("\n<<< Get cached query result from redis, 【key】:{}\n【value】:{}", key.toString(), result);
+        String redisKey = RedisKeySet.gen(RedisKeySet.MYBATIS_CACHE + ":" + id, key.toString());
+        Object result = opsForValue.get(redisKey);
+        logger.info("\n<<< 从redis中查询缓存\n【key】{}\n【结果】:{}", redisKey, result);
         return result;
     }
 
@@ -85,12 +87,11 @@ public class MybatisCacheRedis implements Cache {
      * @return
      */
     @Override
-    @SuppressWarnings("unchecked")
     public Object removeObject(Object key) {
         RedisTemplate redisTemplate = getRedisTemplate();
-        redisTemplate.delete(key.toString());
-        logger.info("\n<<< Remove cached query result from redis, 【key】:{}", key.toString());
-        return null;
+        String redisKey = RedisKeySet.gen(RedisKeySet.MYBATIS_CACHE + ":" + id, key.toString());
+        logger.info("\n<<< 从redis中移除缓存\n【key】{}", redisKey);
+        return redisTemplate.delete(redisKey);
     }
 
     /**
@@ -99,11 +100,14 @@ public class MybatisCacheRedis implements Cache {
     @Override
     public void clear() {
         RedisTemplate redisTemplate = getRedisTemplate();
-        redisTemplate.execute((RedisCallback) connection -> {
-            connection.flushDb();
-            return null;
-        });
-        logger.info("\n<<< Clear all the cached query result from redis");
+//        redisTemplate.execute((RedisCallback) connection -> {
+////            connection.flushDb();
+////            return null;
+////        });
+        String redisKey = RedisKeySet.gen(RedisKeySet.MYBATIS_CACHE + ":" + id, "*");
+
+        redisTemplate.delete(redisKey);
+        logger.info("\n<<< 清空redis中的前缀为【{}】的缓存", redisKey);
     }
 
     @Override

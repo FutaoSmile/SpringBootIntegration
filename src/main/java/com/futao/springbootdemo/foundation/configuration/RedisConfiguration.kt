@@ -86,7 +86,7 @@ open class RedisConfiguration : CachingConfigurerSupport() {
     /**
      * 连接池
      */
-    @Bean
+    @Bean("redisConnectionFactory")
     open fun connectionFactory(): RedisConnectionFactory {
         val poolConfig = JedisPoolConfig()
         poolConfig.maxTotal = redisProperties.jedis.pool.maxActive

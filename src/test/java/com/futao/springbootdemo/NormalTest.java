@@ -68,7 +68,6 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
-
     @Test
     public void test78() throws Exception {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./a.txt"));
@@ -327,13 +326,6 @@ public class NormalTest implements Runnable {
         System.out.println(a.replaceFirst("\\?", "666"));
     }
 
-    @Test
-    public void test61() {
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        System.out.println(user.getId());
-        System.out.println(user);
-        System.out.println(JSON.toJSONString(user));
-    }
 
     @Test
     public void test60() {
@@ -369,44 +361,6 @@ public class NormalTest implements Runnable {
         System.out.println(URLDecoder.decode(encode, "UTF-8"));
     }
 
-    @Test
-    public void test57() throws CloneNotSupportedException {
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setAge("121");
-        User user1 = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user1.setAge("111");
-        User[] users = new User[2];
-        users[0] = user;
-        users[1] = user1;
-        System.out.println(Arrays.toString(users));
-        Arrays.sort(users);
-        System.out.println(Arrays.toString(users));
-        System.out.println(user.hashCode());
-        System.out.println(user.clone().hashCode());
-    }
-
-
-    @Test
-    public void test56() throws NoSuchFieldException, IllegalAccessException {
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setAge("18");
-        System.out.println(user);
-        Class<User> userClass = User.class;
-
-        Field ageField = user.getClass().getDeclaredField("age");
-        ageField.setAccessible(true);
-        System.out.println(ageField.get(user));
-
-
-        System.out.println(user);
-        ageField.set(user, "11");
-        System.out.println(user);
-
-        for (int i = 1; i < 20; i++) {
-            System.out.println(Math.sqrt(i));
-        }
-
-    }
 
     @Test
     public void test55() {
@@ -439,33 +393,6 @@ public class NormalTest implements Runnable {
         System.out.println(666);
     }
 
-    @Test
-    public void test52() {
-        User user1 = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user1.setAddress("111");
-        User user2 = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user2.setAddress("2222");
-        /*
-        结果并不会改变user1和user2的引用
-        原因是：
-        调用t52()的时候，传的是user1和user2的两个`引用的拷贝`
-        所以在t52()方法中交换引用地址只是改变了t52()中两个拷贝的引用的引用地址
-        并不会改变test52()方法中对对象的引用
-        但是如果在t52()中对user1或user2的属性进行改动的话是会有效果的，因为t52()和test52()中指向的是同一个地址
-         */
-        t52(user1, user2);
-        System.out.println(user1 + "" + user2);
-        //关闭钩
-        Runtime.getRuntime().addShutdownHook(new Thread(new NormalTest()));
-    }
-
-    private void t52(User user1, User user2) {
-        User user = user1;
-        user1 = user2;
-        user2 = user;
-    }
-
-    String bb;
 
     @Test
     public void test51() {
@@ -613,21 +540,6 @@ public class NormalTest implements Runnable {
         System.out.println(new Timestamp(new Date().getTime()));
     }
 
-    @Test
-    public void test39() {
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setAge("18");
-        System.out.println(JSONObject.toJSONString(user,
-                SerializerFeature.PrettyFormat,
-                SerializerFeature.SkipTransientField,
-                SerializerFeature.WriteDateUseDateFormat,
-                SerializerFeature.WriteMapNullValue
-        ));
-        System.out.println(JSON.toJSON(user));
-        System.out.println(JSON.toJSONString(user));
-        ApiControllerDescription apiControllerDescription = new ApiControllerDescription("desc", new ArrayList<>(),
-                "cn", new ArrayList<>());
-    }
 
     @Test
     public void test38() {
@@ -947,20 +859,6 @@ public class NormalTest implements Runnable {
     }
 
     @Test
-    public void test6() {
-        RestResult restResult = new RestResult();
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setUsername("NiuBist");
-        user.setAge("18");
-        user.setEmail("12312");
-        user.setMobile("12312321312");
-        restResult.setData(user);
-        System.out.println("-" + JSONObject.toJSON(restResult));
-        System.out.println("--" + JSONObject.toJSONString(restResult, SerializerFeature.PrettyFormat));
-        System.out.println("---" + JSONObject.toJSON(restResult));
-    }
-
-    @Test
     public void test5() {
         String[] arr = new String[]{"123", "2312", "12321"};
         test6(arr);
@@ -975,14 +873,6 @@ public class NormalTest implements Runnable {
         String originStr = "你好";
         System.out.println(new String(originStr.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
 
-    }
-
-    @Test
-    public void test3() {
-        System.out.println(String.valueOf(UUID.randomUUID()).replace("-", "").length());
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum.NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setId("1212321as");
-        user.setUsername("asjkh");
     }
 
     @Test

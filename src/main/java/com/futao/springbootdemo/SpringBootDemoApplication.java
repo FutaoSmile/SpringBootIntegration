@@ -17,7 +17,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Timestamp;
@@ -44,7 +43,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @EnableEntity
 //@EnableWebSocketMessageBroker
 @EnableTransactionManagement//加上这个注解，使得支持事务
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 @EnableConfigurationProperties
 public class SpringBootDemoApplication implements CommandLineRunner {
 

@@ -13,6 +13,26 @@ git添加多远程仓库
 
 ` git remote set-url --add origin git@github.com:FutaoSmile/springbootFramework.git`
 
+### # 配合配套文章食用更加哦~
+*   [SpringBoot2.0统一返回Rest风格数据结构与统一异常处理](https://www.jianshu.com/p/9ff254413e9d)
+*   [基于注解的用户登录权限拦截Spring HandlerInterceptor](https://www.jianshu.com/p/657fa7118e84)
+*   [SpringBoot 2.0参数校验Hibernate Validator](https://www.jianshu.com/p/6f3d809c6705)
+*   [自定义Hibernate Validator校验注解](https://www.jianshu.com/p/86c318c023cb)
+*   [@ConfigurationProperties注解的使用与@Value的使用](https://www.jianshu.com/p/1bb95eb83ca6)
+*   [SpringBoot整合druid连接池](https://www.jianshu.com/p/0631755f9983)
+*   [SpringBoot整合redis从安装到FLUSHALL](https://www.jianshu.com/p/38b733f7f5f3)
+*   [为什么发送邮件要使用消息队列而不是多线程](https://www.jianshu.com/p/ea6ed45fc5b8)
+*   [SpringBoot 发送邮件](https://www.jianshu.com/p/65a1f7f63522)
+*   [SpringBoot整合RocketMQ消息队列还没入门就想放弃](https://www.jianshu.com/p/dd7ca2d10767)
+*   [IntelliJ IDEA个人配置（持续更新）](https://www.jianshu.com/p/d9d7a14927ea)
+*   [SpringBoot整合elasticsearch全文检索入门](https://www.jianshu.com/p/d8abebf7aa62)
+*   [SpringBoot 403 跨域解决方案](https://www.jianshu.com/p/535930a6e572)
+*   [基于切面与注解的用户权限拦截](https://www.jianshu.com/p/71200d94a9bf)
+*   [SpringBoot国际化](https://www.jianshu.com/p/7784968e1659)
+*   [CrudBoy快乐水-编写代码生成器](https://www.jianshu.com/p/d08905064f40)
+*   [跨域的原因以及解决方案](https://www.jianshu.com/p/106d6e0bb43d)
+*   [【牛🐂🍺】使用Redis作为Mybatis的二级缓存MybatisCacheRedis](https://www.jianshu.com/p/65d145d8e8dd)
+
 ### # 环境
 * SpringBoot 2.0.5.RELEASE
 * java 1.8
@@ -36,9 +56,9 @@ git添加多远程仓库
 > Swagger接口文档
 
 > 整合mybatis
-   * mybatis + redis实现的二级缓存，但是不推荐使用
+   * mybatis + redis实现的二级缓存
 
-> 用户登录
+> 用户登录(满足分布式)
     基于`httpsession`
 
 > 控制接口的访问权限（必须登录才能访问/可不登录直接访问的资源）
@@ -58,14 +78,12 @@ git添加多远程仓库
  
 > 第三方接口统一验签
  * 基于`Annotation`+`SpringMvc Interceptor`
- 
-> 简单易用的sql分页
 
 > 整合redis
 
 > 发送邮件
 
-> 整合rocketMq消息队列
+> 整合RocketMq消息队列
 
 > logback 日志系统
 
@@ -131,6 +149,7 @@ src
 * 接口限流
     * 漏斗算法
     * 令牌桶算法
+    * Sentinel
 * shiro 安全框架
 * solr 全文检索框架
 * Excel的导入导出
@@ -194,7 +213,11 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 否则项目启不起来
 * 需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了
 * 项目依赖的其他jar包放在jars文件夹下
-
+* 程序中操作redis不允许使用`keys`操作
+* @Resource 属于J2EE对于JSR-250规范的实现，不属于Spring
+    * 如果未设置name/type，   则先byName，再byType
+    * 如果设置了name/type，   找不到则报错
+* @Autowired  属于Spring  默认byType
 
 ### # 阿里巴巴限流工具 Sentinel 控制台
 * https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D

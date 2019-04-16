@@ -1,11 +1,10 @@
 package com.futao.springbootdemo.annotation.impl.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.futao.springbootdemo.annotation.LoginUser;
+import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
-import com.futao.springbootdemo.model.system.RestResult;
 import com.futao.springbootdemo.service.UserService;
 import com.futao.springbootdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -67,9 +66,7 @@ public class LoginUserInterceptor extends HandlerInterceptorAdapter {
                         return false;
                     }
                 } else {//session为空，用户未登录
-                    RestResult restResult = new RestResult(false, "-1", ErrorMessage.LogicErrorMessage.NOT_LOGIN, ErrorMessage.LogicErrorMessage.NOT_LOGIN.substring(6));
-                    response.getWriter().append(JSON.toJSONString(restResult));
-                    return false;
+                    throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);
                 }
             }
         }

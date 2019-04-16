@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 //@TableName(value = "futao_user")
 
@@ -88,11 +89,17 @@ public class User extends BaseEntity implements Comparable<User>, Cloneable {
     private int sex;
 
     /**
-     * 角色
+     * 角色-基于aop的拦截器实现简单的权限控制
+     * <p>
      * {@link UserRoleEnum}
      */
     @EnumStatus(value = UserRoleEnum.class, message = ErrorMessage.LogicErrorMessage.USER_ROLE_ENUM_ILLEGAL)
     private int role;
+
+    /**
+     * 权限列表
+     */
+    private List<Role> roles;
 
     /*
       2.实例代码块与实例代码块之间根据代码书写顺序依次执行

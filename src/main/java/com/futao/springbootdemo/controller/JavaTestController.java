@@ -31,6 +31,16 @@ public class JavaTestController {
         return testService.transactionTest(amount);
     }
 
+    @GetMapping("list")
+    public void list() {
+        testService.list();
+    }
+
+    @GetMapping("batchInsert")
+    public void batchInsert() {
+        testService.batchInsert();
+    }
+
 
     @GetMapping("parameterTest")
     public SingleValueResult<String> parameterTest(@RequestParam("annParam") String annParam, String simpleAnn) {

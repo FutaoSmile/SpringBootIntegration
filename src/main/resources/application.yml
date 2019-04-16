@@ -10,3 +10,4 @@ logging:
   level:
     #    show sql
     com.futao.springbootdemo.dao: debug
+    org.springframework.jdbc.core.JdbcTemplate: debug

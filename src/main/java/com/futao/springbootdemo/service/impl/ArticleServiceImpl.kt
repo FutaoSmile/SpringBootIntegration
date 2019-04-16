@@ -10,6 +10,7 @@ import com.futao.springbootdemo.service.UserService
 import com.futao.springbootdemo.utils.ServiceTools
 import com.futao.springbootdemo.utils.getFieldName
 import com.futao.springbootdemo.utils.setCreateAndLastModifyTimeNow
+import com.futao.springbootdemo.utils.uuid
 import org.apache.commons.lang3.StringUtils
 import org.elasticsearch.client.Client
 import org.elasticsearch.index.query.QueryBuilders
@@ -51,6 +52,7 @@ open class ArticleServiceImpl : ArticleService {
 //            setContent(content)
 //        }.setCreateAndLastModifyTimeNow())
         val article = Article(title, desc, content, userService.currentLoginUser(), 0, null).setCreateAndLastModifyTimeNow()
+        article.id = uuid()
         HibernateValidatorConfiguration.validate(article)
         articleDao.add(article)
         return article

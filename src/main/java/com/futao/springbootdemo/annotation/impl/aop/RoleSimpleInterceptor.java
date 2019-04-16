@@ -10,7 +10,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,7 +23,7 @@ import java.util.Arrays;
  */
 @Aspect
 @Component
-public class RoleInterceptor {
+public class RoleSimpleInterceptor {
 
     @Resource
     private UserService userService;
@@ -42,18 +41,15 @@ public class RoleInterceptor {
      *
      * @param point
      */
-    @Before("pointCut()")
-    public void checkUserRole(JoinPoint point) {
+    @Before("@within(annotation)||@annotation(annotation)")
+    public void checkUserRole(JoinPoint point, Role annotation) {
         User user = userService.currentLoginUser();
-        //未登录
-        if (user == null) {
-            throw LogicException.le(ErrorMessage.LogicErrorMessage.NOT_LOGIN);
-        }//注解打在方法上
-        Role annotation = ((MethodSignature) point.getSignature()).getMethod().getAnnotation(Role.class);
-        if (annotation == null) {
-            //注解打在类上
-            annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
-        }
+//        //注解打在方法上
+//        Role annotation = ((MethodSignature) point.getSignature()).getMethod().getAnnotation(Role.class);
+//        if (annotation == null) {
+//            //注解打在类上
+//            annotation = (Role) point.getSignature().getDeclaringType().getAnnotation(Role.class);
+//        }
         if (annotation != null) {
             if (!Arrays.asList(annotation.value()).contains(UserRoleEnum.value(user.getRole()))) {
                 throw LogicException.le(ErrorMessage.LogicErrorMessage.ROLE_NOT_ALLOW);

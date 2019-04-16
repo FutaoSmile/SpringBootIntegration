@@ -5,7 +5,7 @@ import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import java.lang.annotation.*;
 
 /**
- * 用户权限控制
+ * 简单用户权限控制
  *
  * @author futao
  * Created on 2018-12-13.

@@ -1,18 +1,23 @@
 package com.futao.springbootdemo.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
 import com.futao.springbootdemo.model.entity.ApiMethodDescription;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.model.system.ErrorMessageFields;
 import com.futao.springbootdemo.service.StatisticService;
+import com.futao.springbootdemo.utils.SpringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -157,5 +162,50 @@ public class StatisticServiceImpl implements StatisticService {
                     }));
         });
         return apiDescriptions;
+    }
+
+
+    /**
+     * apiList版本2
+     */
+    public void apiListV2() {
+        //Controller列表
+        Map<String, Object> beansWithAnnotation = SpringUtils.getContext().getBeansWithAnnotation(Controller.class);
+        //容器
+        ArrayList<ApiControllerDescription> apiDescriptions = new ArrayList<>(beansWithAnnotation.size());
+        beansWithAnnotation.forEach((k, v) -> {
+            Class<?> aClass = v.getClass();
+            Api apiAnn = aClass.getAnnotation(Api.class);
+            Controller controllerAnn = aClass.getAnnotation(Controller.class);
+            RequestMapping annotation = aClass.getAnnotation(RequestMapping.class);
+        });
+    }
+
+    public static void main(String[] args) {
+        StatisticServiceImpl statisticService = new StatisticServiceImpl();
+        ArrayList<ApiControllerDescription> a = statisticService.a();
+//        System.out.println(JSON.toJSONString(a, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        Set<String> list = new HashSet<>();
+        a.forEach(controller -> {
+            //controllerPath
+            List<String> baseUrl = controller.getBaseUrl();
+            //方法
+            List<ApiMethodDescription> methodDescriptionList = controller.getMethodDescriptionList();
+            methodDescriptionList.forEach(method -> {
+                String[] methodUrls = method.getMethodUrl();
+                if (baseUrl.size() == 0) {
+                    for (String methodUrl : methodUrls) {
+                        list.add("/" + methodUrl);
+                    }
+                } else {
+                    baseUrl.forEach(bUrl -> {
+                        for (String methodUrl : methodUrls) {
+                            list.add("/" + bUrl + "/" + methodUrl);
+                        }
+                    });
+                }
+            });
+        });
+        System.out.println(JSON.toJSONString(list, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
     }
 }

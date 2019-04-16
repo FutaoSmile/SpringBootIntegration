@@ -138,10 +138,6 @@ import java.util.function.Function;
 public class HashMap<K, V> extends AbstractMap<K, V>
         implements Map<K, V>, Cloneable, Serializable {
 
-    /**
-     * TODO("疑问: 为什么初始化时要指定hashmap的大小，当指定hashMap初始化大小的时候，比如是16，那么此时的扩容阈值是12，那么当put了12个元素就会进行扩容，所以是不是初始化的大小不应该等于要put的元素的个数，而要除以0.75")
-     * TODO("当hashMap扩容之后，原来的元素的hash值还会跟原来一样吗，还会在原来的位置吗")
-     */
     private static final long serialVersionUID = 362498820763181265L;
 
     /*

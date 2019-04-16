@@ -8,7 +8,7 @@
 
     <!--<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>-->
 
-    <!--<cache type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"/>-->
+    <cache type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"/>
     <!--<cache type="org.mybatis.caches.redis.RedisCache"/>-->
 
     <select id="getPreRegisterInfo" resultType="hashMap" parameterType="string">

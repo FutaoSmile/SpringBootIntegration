@@ -96,14 +96,6 @@ public class HttpClientTest {
         //HttpGet httpGet = new HttpGet(new URI("http", "localhost:8080", "statistic/apiList", ""));
 
         HttpPost request = new HttpPost(uriBuilder.build());
-        User user = new User("1", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), "没问题", "12313", "18", "18797811999", "121", "江西省", UserStatusEnum.NORMAL.getCode(), UserStatusEnum
-
-
-                .NORMAL.getCode(), UserRoleEnum.ADMIN.getType());
-        user.setUsername("Niubi");
-        HttpEntity httpEntity = new ByteArrayEntity(JSON.toJSONBytes(user));
-
-        request.setEntity(httpEntity);
         CloseableHttpResponse response = httpClient.execute(request);
         System.out.println(response.getStatusLine().getStatusCode());
         //获取输出结果
