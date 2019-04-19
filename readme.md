@@ -23,7 +23,7 @@ git添加多远程仓库
 *   [SpringBoot整合redis从安装到FLUSHALL](https://www.jianshu.com/p/38b733f7f5f3)
 *   [为什么发送邮件要使用消息队列而不是多线程](https://www.jianshu.com/p/ea6ed45fc5b8)
 *   [SpringBoot 发送邮件](https://www.jianshu.com/p/65a1f7f63522)
-*   [SpringBoot整合RocketMQ消息队列还没入门就想放弃](https://www.jianshu.com/p/dd7ca2d10767)
+*   [SpringBoot整合RocketMQ消息队列](https://www.jianshu.com/p/dd7ca2d10767)
 *   [IntelliJ IDEA个人配置（持续更新）](https://www.jianshu.com/p/d9d7a14927ea)
 *   [SpringBoot整合elasticsearch全文检索入门](https://www.jianshu.com/p/d8abebf7aa62)
 *   [SpringBoot 403 跨域解决方案](https://www.jianshu.com/p/535930a6e572)
