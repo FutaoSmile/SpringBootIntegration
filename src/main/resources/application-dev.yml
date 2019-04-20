@@ -100,7 +100,6 @@ spring:
   #    rabbitmq
   rabbitmq:
     addresses: localhost
-    port:
     username: guest
     password: 123456
     publisher-confirms: true

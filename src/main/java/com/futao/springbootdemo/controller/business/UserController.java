@@ -3,11 +3,9 @@ package com.futao.springbootdemo.controller.business;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.springbootdemo.annotation.IllegalValueCheck;
 import com.futao.springbootdemo.annotation.LoginUser;
-import com.futao.springbootdemo.annotation.Role;
 import com.futao.springbootdemo.model.entity.PageResultList;
 import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.User;
-import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
 import com.futao.springbootdemo.service.VerifyCodeService;
@@ -119,7 +117,7 @@ public class UserController {
      */
     @ApiOperation("用户列表")
     @GetMapping("list")
-    @Role({UserRoleEnum.ADMIN, UserRoleEnum.NORMAL})
+//    @Role({UserRoleEnum.ADMIN, UserRoleEnum.NORMAL})
     public PageResultList<User> list(
             @RequestParam(value = "mobile", required = false) String mobile,
             @RequestParam(value = "orderBy", required = false) String orderBy,

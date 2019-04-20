@@ -135,7 +135,7 @@ rocketmq:
     tags: register_email
 
 server:
-  port: 8888
+  port: 8887
 
 # 在控制台打印sql
 mybatis:

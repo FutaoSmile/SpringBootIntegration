@@ -4,9 +4,11 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springbootdemo.annotation.EnableEntity;
+import com.futao.springbootdemo.foundation.rabbitmq.Receiver;
 import com.futao.springbootdemo.model.entity.SystemInformation;
 import com.futao.springbootdemo.model.system.SentinelResourceEnum;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -99,6 +101,19 @@ public class SpringBootDemoApplication implements CommandLineRunner {
                 "//\n" +
                 "//               佛祖保佑         永无BUG\n" +
                 "//");
+
+//        System.out.println("Sending message...");
+//        rabbitTemplate.convertAndSend(topicExchange, "foo.bar.baz", "Hello from RabbitMQ!");
+//        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+
+    }
+
+    private final RabbitTemplate rabbitTemplate;
+    private final Receiver receiver;
+
+    public SpringBootDemoApplication(Receiver receiver, RabbitTemplate rabbitTemplate) {
+        this.receiver = receiver;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
 
