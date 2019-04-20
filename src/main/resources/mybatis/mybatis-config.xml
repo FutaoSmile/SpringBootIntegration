@@ -47,7 +47,12 @@
         <typeAlias type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"
                    alias="mybatisCacheRedis"/>
 
-        <package name="com.futao.springbootdemo.model.entity"/>
+        <!--<package name="com.futao.springbootdemo.model.entity"/>-->
+        <typeAlias type="com.futao.springbootdemo.model.entity.User" alias="user"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.Article" alias="article"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.Review" alias="review"/>
+        <typeAlias type="com.futao.springbootdemo.model.entity.Tag" alias="tag"/>
+
     </typeAliases>
 
     <!--类型处理器，在设置参数或者从结果集中取出值时起作用-->

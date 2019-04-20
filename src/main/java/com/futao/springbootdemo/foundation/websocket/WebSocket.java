@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint("/websocket/{username}")
 public class WebSocket {
+
     /**
      * 在线人数
      */
@@ -29,7 +30,7 @@ public class WebSocket {
     /**
      * 以用户的姓名为key，WebSocket为对象保存起来
      */
-    private static Map<String, WebSocket> clients = new ConcurrentHashMap<String, WebSocket>();
+    private static Map<String, WebSocket> clients = new ConcurrentHashMap<>();
     /**
      * 会话
      */
@@ -86,7 +87,7 @@ public class WebSocket {
     @OnError
     public void onError(Session session, Throwable error) {
         log.info("服务端发生了错误" + error.getMessage());
-        //error.printStackTrace();
+        error.printStackTrace();
     }
 
     /**
