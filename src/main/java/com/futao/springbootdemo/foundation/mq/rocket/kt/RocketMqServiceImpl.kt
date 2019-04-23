@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.foundation.configuration.mq.rocket.kt
+package com.futao.springbootdemo.foundation.mq.rocket.kt
 
 import com.futao.springbootdemo.foundation.LogicException
 import com.futao.springbootdemo.model.system.Constant

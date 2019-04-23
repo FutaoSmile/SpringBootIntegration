@@ -4,7 +4,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springbootdemo.annotation.EnableEntity;
-import com.futao.springbootdemo.foundation.rabbitmq.Receiver;
+import com.futao.springbootdemo.foundation.mq.rabbit.Receiver;
 import com.futao.springbootdemo.model.entity.SystemInformation;
 import com.futao.springbootdemo.model.system.SentinelResourceEnum;
 import org.mybatis.spring.annotation.MapperScan;

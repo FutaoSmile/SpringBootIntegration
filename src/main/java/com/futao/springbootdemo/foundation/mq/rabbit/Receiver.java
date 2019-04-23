@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.foundation.rabbitmq;
+package com.futao.springbootdemo.foundation.mq.rabbit;
 
 import org.springframework.stereotype.Component;
 

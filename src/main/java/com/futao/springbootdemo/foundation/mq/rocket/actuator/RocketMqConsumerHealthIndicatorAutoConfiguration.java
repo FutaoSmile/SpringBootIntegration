@@ -1,6 +1,6 @@
-package com.futao.springbootdemo.foundation.configuration.mq.rocket.actuator;
+package com.futao.springbootdemo.foundation.mq.rocket.actuator;
 
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthIndicatorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
@@ -20,25 +20,24 @@ import java.util.Map;
  * Created on 2018-12-28.
  */
 @Configuration
-@ConditionalOnClass(DefaultMQProducer.class)
-@ConditionalOnBean(DefaultMQProducer.class)
-@ConditionalOnEnabledHealthIndicator("rocketMqProducer")
+@ConditionalOnClass(DefaultMQPushConsumer.class)
+@ConditionalOnBean(DefaultMQPushConsumer.class)
+@ConditionalOnEnabledHealthIndicator("rocketMqConsumer")
 @AutoConfigureBefore(HealthIndicatorAutoConfiguration.class)
-//@AutoConfigureAfter(RocketMqProducerHealthIndicator.class)
-public class RocketMqProducerHealthIndicatorAutoConfiguration extends
-        CompositeHealthIndicatorConfiguration<RocketMqProducerHealthIndicator, DefaultMQProducer> {
+public class RocketMqConsumerHealthIndicatorAutoConfiguration extends
+        CompositeHealthIndicatorConfiguration<RocketMqConsumerHealthIndicator, DefaultMQPushConsumer> {
 
-    private final Map<String, DefaultMQProducer> defaultMQProducerMap;
+    private final Map<String, DefaultMQPushConsumer> defaultMQPushConsumerMap;
 
-    public RocketMqProducerHealthIndicatorAutoConfiguration(
-            ObjectProvider<Map<String, DefaultMQProducer>> defaultMQProducerMap) {
-        this.defaultMQProducerMap = defaultMQProducerMap.getIfAvailable();
+    public RocketMqConsumerHealthIndicatorAutoConfiguration(
+            ObjectProvider<Map<String, DefaultMQPushConsumer>> defaultMQPushConsumerMap) {
+        this.defaultMQPushConsumerMap = defaultMQPushConsumerMap.getIfAvailable();
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "rocketMqProducerHealthIndicator")
-    public HealthIndicator rocketMqProducerHealthIndicator() {
-        return createHealthIndicator(this.defaultMQProducerMap);
+    @ConditionalOnMissingBean(name = "rocketMqConsumerHealthIndicator")
+    public HealthIndicator rocketMqConsumerHealthIndicator() {
+        return createHealthIndicator(this.defaultMQPushConsumerMap);
     }
 
 }

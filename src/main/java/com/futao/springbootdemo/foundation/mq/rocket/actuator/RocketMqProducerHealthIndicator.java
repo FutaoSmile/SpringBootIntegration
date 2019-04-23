@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.foundation.configuration.mq.rocket.actuator;
+package com.futao.springbootdemo.foundation.mq.rocket.actuator;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;

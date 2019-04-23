@@ -3,7 +3,7 @@ package com.futao.springbootdemo.controller;
 import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.foundation.configuration.HibernateValidatorConfiguration;
-import com.futao.springbootdemo.foundation.configuration.mq.rocket.RocketMqProducerOnOff;
+import com.futao.springbootdemo.foundation.mq.rocket.RocketMqProducerOnOff;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.KotlinTestService;

@@ -1,4 +1,4 @@
-package com.futao.springbootdemo.foundation.configuration.mq.rocket;
+package com.futao.springbootdemo.foundation.mq.rocket;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;

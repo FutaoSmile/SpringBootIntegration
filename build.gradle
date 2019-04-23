@@ -131,6 +131,7 @@ dependencies {
     compile 'org.freemarker:freemarker:2.3.23'
     //rabbitmq
     compile("org.springframework.boot:spring-boot-starter-amqp")
+    compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
 }
 
 compileKotlin {
