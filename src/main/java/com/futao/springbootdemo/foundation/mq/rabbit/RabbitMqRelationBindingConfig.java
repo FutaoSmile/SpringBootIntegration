@@ -14,12 +14,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 /**
+ * RabbitMq关系绑定配置
+ *
  * @author futao
  * Created on 2019-04-19.
  */
 @Profile("dev")
 @Configuration
-public class RabbitMq {
+public class RabbitMqRelationBindingConfig {
 
     /**
      * 定义一个队列
@@ -27,7 +29,7 @@ public class RabbitMq {
      * @return
      */
     @Bean("topicQueue")
-    public Queue queue() {
+    public Queue topicQueue() {
         return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
     }
 
@@ -48,15 +50,61 @@ public class RabbitMq {
      * @param exchange 交换器
      * @return
      */
-    @Bean
-    public Binding binding(@Qualifier("topicQueue") @Autowired Queue queue, @Qualifier("topicExchange") @Autowired TopicExchange exchange) {
+    @Bean("binding")
+    public Binding binding(
+            @Qualifier("topicQueue")
+            @Autowired Queue queue,
+            @Qualifier("topicExchange")
+            @Autowired TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
                 .with("foo.bar.#");
     }
 
-    @Bean
+
+    /**
+     * topicBakQueue
+     *
+     * @return
+     */
+    @Bean("topicQueueBak")
+    public Queue topicBakQueue() {
+        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE_BAK.getQueueName());
+    }
+
+    /**
+     * topicExchangeBak
+     *
+     * @return
+     */
+    @Bean("topicExchangeBak")
+    public TopicExchange topicExchangeBak() {
+        return new TopicExchange(RabbitMqExchangeEnum.TOPIC_EXCHANGE_BAK.getExchangeName());
+    }
+
+    /**
+     * Bak绑定
+     *
+     * @param queue
+     * @param exchange
+     * @return
+     */
+    @Bean("bindingBak")
+    public Binding bindingBak(
+            @Qualifier("topicQueueBak")
+            @Autowired Queue queue,
+            @Qualifier("topicExchangeBak")
+            @Autowired TopicExchange exchange
+    ) {
+        return BindingBuilder
+                .bind(queue)
+                .to(exchange)
+                .with("topic.#.bak");
+    }
+
+
+    //    @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
         simpleMessageListenerContainer.setQueueNames(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
@@ -64,7 +112,7 @@ public class RabbitMq {
         return simpleMessageListenerContainer;
     }
 
-    @Bean
+    //    @Bean
     MessageListenerAdapter listenerAdapter(Receiver receiver) {
         return new MessageListenerAdapter(receiver, "receiveMessage");
     }

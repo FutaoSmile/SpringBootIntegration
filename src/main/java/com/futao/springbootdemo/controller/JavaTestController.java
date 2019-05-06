@@ -38,9 +38,13 @@ public class JavaTestController {
     @PostMapping("rabbitSender")
     public SingleValueResult<String> rabbitMqSender(
             @NotNull
-            @RequestParam("msg")
-                    String msg) {
-        testService.sendMsgByRabbit(msg);
+            @RequestParam
+                    String routingKey,
+            @NotNull
+            @RequestParam
+                    String msg
+    ) {
+        testService.sendMsgByRabbit(routingKey, msg);
         return new SingleValueResult<>(msg);
     }
 

@@ -43,8 +43,8 @@ public class TestServiceImpl implements TestService {
     private RabbitTemplate rabbitTemplate;
 
     @Override
-    public void sendMsgByRabbit(String msg) {
-        rabbitTemplate.convertAndSend(RabbitMqExchangeEnum.TOPIC_EXCHANGE.getExchangeName(), "log.info", msg);
+    public void sendMsgByRabbit(String routingKey, String msg) {
+        rabbitTemplate.convertAndSend(RabbitMqExchangeEnum.TOPIC_EXCHANGE_BAK.getExchangeName(), routingKey, msg);
     }
 
     @Override

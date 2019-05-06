@@ -15,6 +15,10 @@ public enum RabbitMqExchangeEnum {
     /**
      * SpringBoot-topic交换器
      */
-    TOPIC_EXCHANGE("sb-exchange-topic");
+    TOPIC_EXCHANGE("sb-exchange-topic"),
+    /**
+     * SpringBoot-topic-bak交换器
+     */
+    TOPIC_EXCHANGE_BAK("sb-exchange-topic-bak");
     private String exchangeName;
 }

@@ -15,9 +15,16 @@ public enum RabbitMqQueueEnum {
     /**
      * SpringBoot-主题模式队列
      */
-    TOPIC_QUEUE("sb-topic-queue");
+    TOPIC_QUEUE(RabbitMqQueueEnum.topicQueue),
+
+    /**
+     * SpringBoot-主题模式备份队列
+     */
+    TOPIC_QUEUE_BAK(RabbitMqQueueEnum.topicQueueBak);
 
 
     private String queueName;
 
+    public static final String topicQueue = "sb-topic-queue";
+    public static final String topicQueueBak = "sb-topic-queue-bak";
 }
