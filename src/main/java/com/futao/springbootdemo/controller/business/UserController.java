@@ -18,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import javax.validation.constraints.Size;
 @RestController
 @Validated
 @Api("用户")
+@ApiIgnore
 public class UserController {
 
     @Resource

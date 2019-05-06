@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 @Api("评论")
 @RestController
 @RequestMapping(path = "review", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@ApiIgnore
 public class ReviewController {
 
     @Resource

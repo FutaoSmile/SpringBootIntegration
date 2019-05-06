@@ -1,7 +1,15 @@
 package com.futao.springbootdemo;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
+import com.futao.springbootdemo.utils.http.GetRequest;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import lombok.SneakyThrows;
 import org.junit.Test;
 
+import java.io.FileOutputStream;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,6 +19,52 @@ import java.util.concurrent.TimeUnit;
  * Created on 2019-01-16.
  */
 public class Snippets {
+
+    @SneakyThrows
+    @Test
+    public void test3() {
+        String url = "http://localhost:8887/v2/api-docs";
+        AbstractBaseRequest request = new GetRequest(url);
+        String result = request.send();
+        JSONObject resultJson = JSON.parseObject(result);
+
+        String host = resultJson.getString("host");
+        String basePath = resultJson.getString("basePath");
+
+
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("iText11.pdf"));
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16f, BaseColor.BLACK);
+        Chunk chunk = new Chunk("Hello World", font);
+        document.add(chunk);
+        document.add(new Anchor(1, "anchor"));
+        document.add(new Annotation(1, 1, 1, 1, "http://localhost:8887"));
+        document.add(new Chapter("chapter", 2));
+        document.add(new Header("header", "content"));
+        //
+//        document.add(new Jpeg(new URL("https", "upload.jianshu.io", 80, "admin_banners/web_images/4592/22f5cfa984d47eaf3def6a48510cc87c157bf293.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540")));
+        document.add(new List(true, true));
+        document.add(new ListItem(1, "213213"));
+        document.add(new Meta("meatTag", "mateContent"));
+        document.add(new Paragraph());
+        document.add(new Phrase());
+        document.add(new Rectangle(1, 1, 1, 1));
+        loadPaths(resultJson.getJSONObject("paths"));
+        document.close();
+    }
+
+
+    public void loadInfo(JSONObject jsonObject) {
+        JSONObject info = jsonObject.getJSONObject("info");
+        String description = info.getString("description");
+        String version = info.getString("version");
+        String title = info.getString("title");
+    }
+
+    public void loadPaths(JSONObject jsonObject) {
+        jsonObject.forEach((key, value) -> System.out.println(key + ":::" + value));
+    }
 
     @Test
     public void test2() {

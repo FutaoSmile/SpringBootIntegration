@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.thymeleaf.context.Context
+import springfox.documentation.annotations.ApiIgnore
 import javax.annotation.Resource
 
 /**
@@ -25,7 +26,7 @@ import javax.annotation.Resource
 @Conditional(RocketMqProducerOnOff::class)
 @RestController
 @RequestMapping(path = ["kotlinTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
-//@ApiIgnore
+@ApiIgnore
 @Api("Kotlin测试")
 open class KotlinTestController {
 

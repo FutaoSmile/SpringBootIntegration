@@ -100,9 +100,10 @@ spring:
   #    rabbitmq
   rabbitmq:
     addresses: localhost
-    username: guest
+    username: futao
     password: 123456
     publisher-confirms: true
+    virtual-host: /springboot
 
 #      mail:
 #        smtp:

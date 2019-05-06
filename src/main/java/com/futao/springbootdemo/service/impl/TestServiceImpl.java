@@ -2,9 +2,11 @@ package com.futao.springbootdemo.service.impl;
 
 
 import com.futao.springbootdemo.dao.TestDao;
+import com.futao.springbootdemo.foundation.mq.rabbit.RabbitMqExchangeEnum;
 import com.futao.springbootdemo.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,6 +38,14 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Override
+    public void sendMsgByRabbit(String msg) {
+        rabbitTemplate.convertAndSend(RabbitMqExchangeEnum.TOPIC_EXCHANGE.getExchangeName(), "log.info", msg);
+    }
 
     @Override
     public int transactionTest(int amount) {

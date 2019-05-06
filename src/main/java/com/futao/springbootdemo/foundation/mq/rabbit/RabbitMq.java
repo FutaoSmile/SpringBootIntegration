@@ -7,26 +7,28 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
  * @author futao
  * Created on 2019-04-19.
  */
-//@Configuration
+@Profile("dev")
+@Configuration
 public class RabbitMq {
-
-    public static String queueName = "futao-spring-boot";
-    public static String topicExchange = "futao-topicExchange";
 
     /**
      * 定义一个队列
      *
      * @return
      */
-    @Bean
+    @Bean("topicQueue")
     public Queue queue() {
-        return new Queue(queueName);
+        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
     }
 
     /**
@@ -34,20 +36,30 @@ public class RabbitMq {
      *
      * @return
      */
-    @Bean
+    @Bean("topicExchange")
     public TopicExchange topicExchange() {
-        return new TopicExchange(topicExchange);
+        return new TopicExchange(RabbitMqExchangeEnum.TOPIC_EXCHANGE.getExchangeName());
     }
 
+    /**
+     * 消息队列与Exchange进行绑定
+     *
+     * @param queue    消息队列
+     * @param exchange 交换器
+     * @return
+     */
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+    public Binding binding(@Qualifier("topicQueue") @Autowired Queue queue, @Qualifier("topicExchange") @Autowired TopicExchange exchange) {
+        return BindingBuilder
+                .bind(queue)
+                .to(exchange)
+                .with("foo.bar.#");
     }
 
     @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
-        simpleMessageListenerContainer.setQueueNames(queueName);
+        simpleMessageListenerContainer.setQueueNames(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
         simpleMessageListenerContainer.setMessageListener(messageListenerAdapter);
         return simpleMessageListenerContainer;
     }

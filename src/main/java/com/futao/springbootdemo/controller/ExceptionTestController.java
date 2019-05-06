@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,7 @@ import javax.validation.constraints.NotNull;
 @Validated
 @Api("异常示例")
 @Conditional(RocketMqProducerOnOff.class)
+@ApiIgnore
 public class ExceptionTestController {
 
     @Resource

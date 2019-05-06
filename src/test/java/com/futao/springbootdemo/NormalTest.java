@@ -12,6 +12,7 @@ import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterCon
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.futao.springbootdemo.service.impl.StatisticServiceImpl;
 import com.futao.springbootdemo.smart4j.annotation.SmartService;
 import com.futao.springbootdemo.smart4j.foundation.ClassHelper;
 import com.futao.springbootdemo.smart4j.foundation.ClassUtils;
@@ -30,6 +31,7 @@ import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -64,6 +66,41 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+
+    @Test
+    public void test80() {
+        Set<String> set = new HashSet<>();
+        set.add("1");
+        set.add("2");
+        set.add("3");
+
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+            System.out.println(iterator.next());
+            System.out.println(iterator.next());
+        }
+    }
+
+    @Test
+    public void test79() throws IOException {
+        StatisticServiceImpl statisticService = new StatisticServiceImpl();
+        FileUtils.writeStringToFile(new File("./yo.md"), JSON.toJSONString(statisticService.apiList()), "UTF-8");
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("1");
+        lines.add("1");
+        lines.add("1");
+        lines.add("1");
+        lines.add("1");
+        lines.add("1");
+        lines.add("1");
+        lines.add("");
+        lines.add("");
+        lines.add("1");
+        FileUtils.writeLines(new File("./yo.md"), lines, "\n", true);
+    }
+
     @Test
     public void test78() throws Exception {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("./a.txt"));

@@ -6,10 +6,12 @@ import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.service.ExportExcelService;
 import com.futao.springbootdemo.service.TestService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,22 @@ public class JavaTestController {
 
     @Resource
     private TestService testService;
+
+    /**
+     * 发送消息到RabbitMq消息队列
+     *
+     * @param msg 消息
+     * @return
+     */
+    @ApiOperation("发送消息到RabbitMq消息队列")
+    @PostMapping("rabbitSender")
+    public SingleValueResult<String> rabbitMqSender(
+            @NotNull
+            @RequestParam("msg")
+                    String msg) {
+        testService.sendMsgByRabbit(msg);
+        return new SingleValueResult<>(msg);
+    }
 
     @GetMapping("transaction")
     public int transaction(@RequestParam("amount") int amount) {
