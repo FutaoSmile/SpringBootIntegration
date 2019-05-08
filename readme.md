@@ -85,6 +85,8 @@ git添加多远程仓库
 
 > 整合RocketMq消息队列
 
+> 整合RabbitMq消息队列
+
 > logback 日志系统
 
 > 解决跨域访问

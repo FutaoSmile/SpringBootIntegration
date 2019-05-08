@@ -12,4 +12,6 @@ public interface TestService {
     void list();
 
     void batchInsert();
+
+    void select();
 }

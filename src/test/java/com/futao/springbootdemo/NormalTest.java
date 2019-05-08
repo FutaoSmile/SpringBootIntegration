@@ -34,6 +34,9 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -50,6 +53,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -66,6 +70,91 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    //TODO(可以改的通用一点。1.将数据抽出来。2.样式)
+    @Test
+    public void test81() throws IOException {
+//        String content = FileUtils.readFileToString(new File("./bytondb-schemadump.sql"), Charset.forName("UTF-8"));
+        String content = FileUtils.readFileToString(new File("./byton_dev.sql"), Charset.forName("UTF-8"));
+        String[] tables = content.split("CREATE TABLE");
+        //创建poi导出数据对象
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
+        //创建sheet页
+        SXSSFSheet sheet = workbook.createSheet("bytonAppDbScheme");
+        //创建表头
+        SXSSFRow headRow = sheet.createRow(0);
+        String[] columnHeads = new String[]{"COLUMN NAME", "DATA TYPE", "DEFAULT VALUE", "NOT NULL"};
+        for (int i = 0; i < columnHeads.length; i++) {
+            headRow.createCell(i).setCellValue(columnHeads[i]);
+        }
+        for (int i = 0; i < tables.length; i++) {
+            if (i == 0) {
+                continue;
+            }
+            String table = tables[i];
+            //tableName表名
+            String tableName = table.split("`")[1];
+            SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(tableName);
+            //table里面的字段等信息
+            String fields = table.substring(table.indexOf("(") + 1, table.lastIndexOf(")"));
+            for (String field : fields.split(",")) {
+                String trimField = field.trim();
+                String notNull = "";
+                if (trimField.startsWith("`")) {
+                    SXSSFRow columnRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                    //表的每一列
+                    String[] properties = trimField.split("\\s+");
+                    if (properties.length > 0) {
+                        //字段名称
+                        String columnName = properties[0];
+                        columnRow.createCell(0).setCellValue(columnName);
+                    }
+                    if (properties.length > 1) {
+                        //字段类型
+                        String type = properties[1];
+                        columnRow.createCell(1).setCellValue(type);
+                    }
+
+                    if (properties.length > 2) {
+                        //defaultValue
+                        notNull = properties[2];
+                        if ("default".equalsIgnoreCase(notNull)) {
+                            notNull += " " + properties[3];
+                            columnRow.createCell(2).setCellValue(notNull);
+                        }
+                    }
+                    if (properties.length > 3) {
+                        String defaultValue = properties[3];
+                        if ("null".equalsIgnoreCase(defaultValue)) {
+                            defaultValue = notNull + " " + defaultValue;
+                        }
+                        if ("default".equalsIgnoreCase(properties[2])) {
+                            defaultValue = "";
+                        }
+                        columnRow.createCell(3).setCellValue(defaultValue);
+                    }
+                    String p4 = "";
+                    String p5 = "";
+                    String p6 = "";
+                    if (properties.length > 4) {
+                        p4 = properties[4];
+                    }
+                    if (properties.length > 5) {
+                        System.out.println(StringUtils.repeat("=-=-", 200));
+                        p5 = properties[5];
+                    }
+                    if (properties.length > 6) {
+                        System.out.println(StringUtils.repeat(">>>>", 200));
+                        p6 = properties[6];
+                    }
+                    columnRow.createCell(4).setCellValue(p4 + " " + p5 + " " + p6);
+                }
+            }
+            sheet.createRow(sheet.getLastRowNum() + 1);
+        }
+        workbook.write(FileUtils.openOutputStream(new File("bytonAppDbScheme" + System.currentTimeMillis() + ".xls")));
+    }
 
 
     @Test

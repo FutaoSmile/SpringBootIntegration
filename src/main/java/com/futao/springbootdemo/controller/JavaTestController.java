@@ -28,6 +28,11 @@ public class JavaTestController {
     @Resource
     private TestService testService;
 
+    @GetMapping("select")
+    public void select() {
+        testService.select();
+    }
+
     /**
      * 发送消息到RabbitMq消息队列
      *

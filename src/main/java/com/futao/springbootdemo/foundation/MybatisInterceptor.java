@@ -1,7 +1,5 @@
 package com.futao.springbootdemo.foundation;
 
-import com.futao.springbootdemo.model.system.SystemConfig;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -16,7 +14,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -32,19 +32,22 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
-
 public class MybatisInterceptor implements Interceptor {
 
     /**
      * 慢sql时长
      */
-    private static final long SLOW_SQL_TIME_MILLS = 1000;
+    private static final long SLOW_SQL_TIME_MILLS = 1000L;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisInterceptor.class);
     private static final String UPDATE = "update";
 
+    @Resource
+    private java.util.concurrent.Executor execute;
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+
         //sql开始执行时间
         long startTime = System.currentTimeMillis();
         //执行sql(事物超时：在事物提交之前超时)
@@ -54,7 +57,7 @@ public class MybatisInterceptor implements Interceptor {
         long endTime = System.currentTimeMillis();
         //sql执行时间
         long sqlTime = endTime - startTime;
-        if (SystemConfig.PRINT_SQL_BY_INTERCEPTOR) {
+        if (true) {
             try {
                 Object[] args = invocation.getArgs();
                 MappedStatement ms = (MappedStatement) args[0];
@@ -69,8 +72,7 @@ public class MybatisInterceptor implements Interceptor {
                 //开启新线程记录慢sql
                 if (sqlTime > SLOW_SQL_TIME_MILLS) {
                     SlowSql slowSql = new SlowSql(sqlTime);
-                    Thread thread = new Thread(slowSql);
-                    thread.start();
+                    execute.execute(slowSql);
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
@@ -163,7 +165,7 @@ public class MybatisInterceptor implements Interceptor {
         /**
          * 记录慢sql日志
          */
-        public void log() {
+        private void log() {
             LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime);
         }
     }

@@ -102,14 +102,17 @@ spring:
     addresses: localhost
     username: futao
     password: 123456
+    #开启发送确认
     publisher-confirms: true
     virtual-host: /springboot
-
-#      mail:
-#        smtp:
-#          ssl:
-#            enable: true
-
+    # 开启发送失败退回
+    publisher-returns: true
+    # 开启ACK
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
 ###producer
 #该应用是否启用生产者
 rocketmq:

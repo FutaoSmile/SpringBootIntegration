@@ -1,6 +1,7 @@
 package com.futao.springbootdemo.service.impl;
 
 
+import com.futao.springbootdemo.dao.TagDao;
 import com.futao.springbootdemo.dao.TestDao;
 import com.futao.springbootdemo.foundation.mq.rabbit.RabbitMqExchangeEnum;
 import com.futao.springbootdemo.service.TestService;
@@ -12,6 +13,8 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Executor;
 
 /**
  * @author futao
@@ -41,6 +45,23 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Resource
+    private Executor executor;
+
+    @Resource
+    private TagDao tagDao;
+
+    @Async
+    @Scheduled(fixedRate = 1000L)
+    public void async() {
+        log.info(System.currentTimeMillis() + "");
+    }
+
+    @Scheduled(fixedRate = 1000L)
+    public void async2() {
+        executor.execute(() -> log.info(System.currentTimeMillis() + "=="));
+    }
 
     @Override
     public void sendMsgByRabbit(String routingKey, String msg) {
@@ -89,5 +110,13 @@ public class TestServiceImpl implements TestService {
         parameters.addValue("ids", strings);
         namedParameterJdbcTemplate.update("delete from springmvcdemo.futao_test_01 where name in (:ids)", parameters);
 //        jdbcTemplate.update("delete from springmvcdemo.futao_test_01 where name in (:ids)", parameters);
+    }
+
+    @Override
+    public void select() {
+        jdbcTemplate.query("select * from wlb_tag limit 1", (resultSet) -> {
+            System.out.println(resultSet.getString("id"));
+        });
+
     }
 }
