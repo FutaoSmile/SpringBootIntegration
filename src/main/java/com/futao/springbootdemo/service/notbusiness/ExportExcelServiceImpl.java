@@ -5,6 +5,8 @@ import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.ExportExcelService;
 import com.futao.springbootdemo.utils.ServiceTools;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -28,40 +31,34 @@ import java.util.List;
  * @author futao
  * Created on 2019-01-30.
  */
+@Slf4j
 @Service
 public class ExportExcelServiceImpl implements ExportExcelService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExportExcelServiceImpl.class);
 
+
+    /**
+     * 导出excel到文件
+     *
+     * @param fileName    文件名
+     * @param sheetName   sheetName
+     * @param columnHeads 列头
+     * @param data        数据
+     */
     @Override
-    public void export(String fileName, String sheetName, String[] columnHeads, List<Object[]> data, HttpServletResponse response) {
-        //创建poi导出数据对象
-        SXSSFWorkbook workbook = new SXSSFWorkbook();
-
-        //创建sheet页
-        SXSSFSheet sheet = workbook.createSheet(sheetName);
-
-
-        //参数1：起始行 参数2：终止行 参数3：起始列 参数4：终止列
-//        CellRangeAddress regin = new CellRangeAddress(0, 1, (short) 0, (short) 12);
-//        sheet.addMergedRegion(regin);
-
-//        SXSSFRow headTitle = sheet.createRow(0);
-//        headTitle.createCell(0).setCellValue("重点项目计划表");
-
-        //创建表头
-        SXSSFRow headRow = sheet.createRow(0);
-        if (columnHeads != null && columnHeads.length >= 1) {
-            for (int i = 0; i < columnHeads.length; i++) {
-                headRow.createCell(i).setCellValue(columnHeads[i]);
-            }
+    public void export2File(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data) {
+        SXSSFWorkbook workbook = genExcel(sheetName, columnHeads, data);
+        try {
+            workbook.write(FileUtils.openOutputStream(new File(fileName + ".xlsx")));
+        } catch (IOException e) {
+            log.error("导出excel失败", e);
+            throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
         }
+        log.info("导出成功...");
+    }
 
-        data.forEach(objArray -> {
-            SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            for (int i = 0; i < objArray.length; i++) {
-                dataRow.createCell(i).setCellValue(String.valueOf(objArray[i]));
-            }
-        });
+    @Override
+    public void export(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data, HttpServletResponse response) {
 
         //设置响应头
         response.setCharacterEncoding(Constant.UTF8_ENCODE);
@@ -72,28 +69,28 @@ public class ExportExcelServiceImpl implements ExportExcelService {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        SXSSFWorkbook workbook = genExcel(sheetName, columnHeads, data);
         //创建一个输出流
         ServletOutputStream outputStream = null;
         try {
             outputStream = response.getOutputStream();
             workbook.write(outputStream);
         } catch (IOException e) {
-            LOGGER.error("导出excel异常:" + e.getMessage(), e);
+            LOGGER.error("导出excel异常:{}", e.getMessage(), e);
             throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.EXPORT_EXCEL_FAIL);
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
-                    LOGGER.error("关闭输出流异常:" + e.getMessage(), e);
+                    LOGGER.error("关闭输出流异常:{}", e.getMessage(), e);
                     throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
                 }
             }
             try {
                 workbook.close();
             } catch (IOException e) {
-                LOGGER.error("关闭输出流异常:" + e.getMessage(), e);
+                LOGGER.error("关闭输出流异常:{}", e.getMessage(), e);
                 throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.CLOSE_OUTPUT_STREAM_FAIL);
             }
         }
@@ -109,12 +106,12 @@ public class ExportExcelServiceImpl implements ExportExcelService {
                 columnHeads[i] = ServiceTools.getFieldName(methods[i]);
             }
         }
-        List<Object[]> dataList = new ArrayList<>();
+        List<List<Object>> dataList = new ArrayList<>();
         objs.forEach(obj -> {
-                    Object[] rowData = new Object[length];
+            ArrayList<Object> rowData = new ArrayList<>();
                     for (int i = 0; i < methods.length; i++) {
                         try {
-                            rowData[i] = methods[i].invoke(obj);
+                            rowData.set(i, methods[i].invoke(obj));
                         } catch (IllegalAccessException | InvocationTargetException e) {
                             LOGGER.error("执行方法异常");
                             throw ApplicationException.ae(ErrorMessage.ApplicationErrorMessage.INVOKE_METHOD_FAIL);
@@ -124,5 +121,38 @@ public class ExportExcelServiceImpl implements ExportExcelService {
                 }
         );
         export(fileName, sheetName, columnHeads, dataList, response);
+    }
+
+
+    /**
+     * 将数据写入Excel
+     *
+     * @param sheetName   sheetName
+     * @param columnHeads 列头
+     * @param data        数据
+     * @return
+     */
+    private SXSSFWorkbook genExcel(String sheetName, String[] columnHeads, List<List<Object>> data) {
+        //创建poi导出数据对象
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
+
+        //创建sheet页
+        SXSSFSheet sheet = workbook.createSheet(sheetName);
+
+        //创建表头
+        SXSSFRow headRow = sheet.createRow(0);
+        if (columnHeads != null && columnHeads.length >= 1) {
+            for (int i = 0; i < columnHeads.length; i++) {
+                headRow.createCell(i).setCellValue(columnHeads[i]);
+            }
+        }
+
+        data.forEach(objArray -> {
+            SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            for (int i = 0; i < objArray.size(); i++) {
+                dataRow.createCell(i).setCellValue(String.valueOf(objArray.get(i)));
+            }
+        });
+        return workbook;
     }
 }

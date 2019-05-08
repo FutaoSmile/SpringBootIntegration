@@ -12,7 +12,9 @@ import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterCon
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.futao.springbootdemo.service.ExportExcelService;
 import com.futao.springbootdemo.service.impl.StatisticServiceImpl;
+import com.futao.springbootdemo.service.notbusiness.ExportExcelServiceImpl;
 import com.futao.springbootdemo.smart4j.annotation.SmartService;
 import com.futao.springbootdemo.smart4j.foundation.ClassHelper;
 import com.futao.springbootdemo.smart4j.foundation.ClassUtils;
@@ -34,9 +36,6 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.poi.xssf.streaming.SXSSFRow;
-import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -74,19 +73,15 @@ public class NormalTest implements Runnable {
     //TODO(可以改的通用一点。1.将数据抽出来。2.样式)
     @Test
     public void test81() throws IOException {
+
+        String fileName = "bytonAppDbScheme" + System.currentTimeMillis();
+        String sheetName = "SN";
+        List<List<Object>> data = new ArrayList<>();
+
 //        String content = FileUtils.readFileToString(new File("./bytondb-schemadump.sql"), Charset.forName("UTF-8"));
         String content = FileUtils.readFileToString(new File("./byton_dev.sql"), Charset.forName("UTF-8"));
         String[] tables = content.split("CREATE TABLE");
-        //创建poi导出数据对象
-        SXSSFWorkbook workbook = new SXSSFWorkbook();
-        //创建sheet页
-        SXSSFSheet sheet = workbook.createSheet("bytonAppDbScheme");
-        //创建表头
-        SXSSFRow headRow = sheet.createRow(0);
         String[] columnHeads = new String[]{"COLUMN NAME", "DATA TYPE", "DEFAULT VALUE", "NOT NULL"};
-        for (int i = 0; i < columnHeads.length; i++) {
-            headRow.createCell(i).setCellValue(columnHeads[i]);
-        }
         for (int i = 0; i < tables.length; i++) {
             if (i == 0) {
                 continue;
@@ -94,26 +89,29 @@ public class NormalTest implements Runnable {
             String table = tables[i];
             //tableName表名
             String tableName = table.split("`")[1];
-            SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            dataRow.createCell(0).setCellValue(tableName);
+            List<Object> tableNameData = new ArrayList<>();
+            tableNameData.add(tableName);
+            data.add(tableNameData);
             //table里面的字段等信息
             String fields = table.substring(table.indexOf("(") + 1, table.lastIndexOf(")"));
             for (String field : fields.split(",")) {
+                List<Object> row = new ArrayList<>();
+                data.add(row);
                 String trimField = field.trim();
                 String notNull = "";
                 if (trimField.startsWith("`")) {
-                    SXSSFRow columnRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                    String[] columnRow = new String[]{};
                     //表的每一列
                     String[] properties = trimField.split("\\s+");
                     if (properties.length > 0) {
                         //字段名称
                         String columnName = properties[0];
-                        columnRow.createCell(0).setCellValue(columnName);
+                        row.add(columnName);
                     }
                     if (properties.length > 1) {
                         //字段类型
                         String type = properties[1];
-                        columnRow.createCell(1).setCellValue(type);
+                        row.add(type);
                     }
 
                     if (properties.length > 2) {
@@ -121,7 +119,7 @@ public class NormalTest implements Runnable {
                         notNull = properties[2];
                         if ("default".equalsIgnoreCase(notNull)) {
                             notNull += " " + properties[3];
-                            columnRow.createCell(2).setCellValue(notNull);
+                            row.add(notNull);
                         }
                     }
                     if (properties.length > 3) {
@@ -132,7 +130,7 @@ public class NormalTest implements Runnable {
                         if ("default".equalsIgnoreCase(properties[2])) {
                             defaultValue = "";
                         }
-                        columnRow.createCell(3).setCellValue(defaultValue);
+                        row.add(defaultValue);
                     }
                     String p4 = "";
                     String p5 = "";
@@ -148,12 +146,13 @@ public class NormalTest implements Runnable {
                         System.out.println(StringUtils.repeat(">>>>", 200));
                         p6 = properties[6];
                     }
-                    columnRow.createCell(4).setCellValue(p4 + " " + p5 + " " + p6);
+                    row.add(p4 + " " + p5 + " " + p6);
                 }
             }
-            sheet.createRow(sheet.getLastRowNum() + 1);
         }
-        workbook.write(FileUtils.openOutputStream(new File("bytonAppDbScheme" + System.currentTimeMillis() + ".xls")));
+
+        ExportExcelService exportExcelService = new ExportExcelServiceImpl();
+        exportExcelService.export2File(fileName, sheetName, columnHeads, data);
     }
 
 

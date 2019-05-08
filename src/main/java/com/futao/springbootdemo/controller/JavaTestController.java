@@ -129,14 +129,14 @@ public class JavaTestController {
             HttpServletResponse response) {
         User user = new User();
         Object[] object = new Object[]{user.getUsername(), user.getAge(), user.getRole(), user.getAddress(), user.getMobile(), user.getEmail()};
-        ArrayList<Object[]> list = new ArrayList<>();
-        list.add(object);
-        list.add(object);
-        list.add(object);
-        list.add(object);
-        list.add(object);
-        list.add(object);
-        list.add(object);
+        List<List<Object>> list = new ArrayList<>();
+//        list.add(object);
+//        list.add(object);
+//        list.add(object);
+//        list.add(object);
+//        list.add(object);
+//        list.add(object);
+//        list.add(object);
 
         String[] head = new String[]{"姓名", "年龄", "角色", "地址", "电话", "邮箱"};
         exportExcelService.export(fileName, "我是sheet", head, list, response);

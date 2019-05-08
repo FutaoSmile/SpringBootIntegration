@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface ExportExcelService {
 
+    void export2File(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data);
+
     /**
      * 导出excel
      *
@@ -21,7 +23,7 @@ public interface ExportExcelService {
      * @param data        数据
      * @param response    响应
      */
-    void export(String fileName, String sheetName, String[] columnHeads, List<Object[]> data, HttpServletResponse response);
+    void export(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data, HttpServletResponse response);
 
     /**
      * 导出excel
