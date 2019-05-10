@@ -86,6 +86,12 @@ git添加多远程仓库
 > 整合RocketMq消息队列
 
 > 整合RabbitMq消息队列
+* 消息的可靠性
+    * queue与message的持久化
+    * 发送确认-手动ack
+        * 异常情况下将message丢到redis再进行其他处理
+    * 接收确认-手动ack
+        * 处理失败重新丢回mq，再次消费
 
 > logback 日志系统
 
@@ -157,7 +163,7 @@ src
     * Sentinel
 * shiro 安全框架
 * solr 全文检索框架
-* Excel的导入导出
+* 简单实用的Excel导入导出
 * WebSecurity
 * Condition接口与@Conditional注解的使用
 * @Enable* 注解原理与@Import注解的使用

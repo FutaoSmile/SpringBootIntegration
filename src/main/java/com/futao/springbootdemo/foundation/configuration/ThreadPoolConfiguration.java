@@ -1,11 +1,11 @@
 package com.futao.springbootdemo.foundation.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.concurrent.Executor;
 
 /**
@@ -20,7 +20,7 @@ public class ThreadPoolConfiguration implements AsyncConfigurer {
     private int maxPoolSize;
     private int queueCapacity;
 
-    @Resource
+    @Autowired
     private Executor executor;
 
     @Override

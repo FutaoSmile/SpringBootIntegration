@@ -1,12 +1,10 @@
 package com.futao.springbootdemo.foundation.mq.rabbit;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +17,7 @@ import org.springframework.context.annotation.Profile;
  * @author futao
  * Created on 2019-04-19.
  */
+@Slf4j
 @Profile("dev")
 @Configuration
 public class RabbitMqRelationBindingConfig {
@@ -30,7 +29,7 @@ public class RabbitMqRelationBindingConfig {
      */
     @Bean("topicQueue")
     public Queue topicQueue() {
-        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
+        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName(), true);
     }
 
     /**
@@ -70,7 +69,7 @@ public class RabbitMqRelationBindingConfig {
      */
     @Bean("topicQueueBak")
     public Queue topicBakQueue() {
-        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE_BAK.getQueueName());
+        return new Queue(RabbitMqQueueEnum.TOPIC_QUEUE_BAK.getQueueName(), true);
     }
 
     /**
@@ -104,17 +103,17 @@ public class RabbitMqRelationBindingConfig {
     }
 
 
-    //    @Bean
-    public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
-        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
-        simpleMessageListenerContainer.setQueueNames(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
-        simpleMessageListenerContainer.setMessageListener(messageListenerAdapter);
-        return simpleMessageListenerContainer;
-    }
-
-    //    @Bean
-    MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
-    }
+//    //    @Bean
+//    public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
+//        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
+//        simpleMessageListenerContainer.setQueueNames(RabbitMqQueueEnum.TOPIC_QUEUE.getQueueName());
+//        simpleMessageListenerContainer.setMessageListener(messageListenerAdapter);
+//        return simpleMessageListenerContainer;
+//    }
+//
+//    //    @Bean
+//    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+//        return new MessageListenerAdapter(receiver, "receiveMessage");
+//    }
 }
 

@@ -5,6 +5,7 @@ import com.futao.springbootdemo.model.entity.SingleValueResult;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.service.ExportExcelService;
 import com.futao.springbootdemo.service.TestService;
+import com.futao.springbootdemo.service.impl.RabbitMqServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,14 @@ public class JavaTestController {
     @GetMapping("select")
     public void select() {
         testService.select();
+    }
+
+    @Resource
+    private RabbitMqServiceImpl rabbitMqService;
+
+    @PostMapping("sync2Mq")
+    public void sync2Mq() {
+        rabbitMqService.syncMsg2Mq();
     }
 
     /**

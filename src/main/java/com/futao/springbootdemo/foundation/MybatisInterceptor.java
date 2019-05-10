@@ -14,9 +14,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -32,6 +33,7 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
+@Component
 public class MybatisInterceptor implements Interceptor {
 
     /**
@@ -42,7 +44,8 @@ public class MybatisInterceptor implements Interceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisInterceptor.class);
     private static final String UPDATE = "update";
 
-    @Resource
+    //todo 无法注入问题
+    @Autowired
     private java.util.concurrent.Executor execute;
 
     @Override

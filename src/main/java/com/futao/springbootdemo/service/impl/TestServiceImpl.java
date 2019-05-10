@@ -4,17 +4,19 @@ package com.futao.springbootdemo.service.impl;
 import com.futao.springbootdemo.dao.TagDao;
 import com.futao.springbootdemo.dao.TestDao;
 import com.futao.springbootdemo.foundation.mq.rabbit.RabbitMqExchangeEnum;
+import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.service.TestService;
+import com.futao.springbootdemo.utils.CommonUtilsKt;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,19 +55,23 @@ public class TestServiceImpl implements TestService {
     private TagDao tagDao;
 
     @Async
-    @Scheduled(fixedRate = 1000L)
+//    @Scheduled(fixedRate = 1000L)
     public void async() {
         log.info(System.currentTimeMillis() + "");
     }
 
-    @Scheduled(fixedRate = 1000L)
+    //    @Scheduled(fixedRate = 1000L)
     public void async2() {
         executor.execute(() -> log.info(System.currentTimeMillis() + "=="));
     }
 
     @Override
     public void sendMsgByRabbit(String routingKey, String msg) {
-        rabbitTemplate.convertAndSend(RabbitMqExchangeEnum.TOPIC_EXCHANGE_BAK.getExchangeName(), routingKey, msg);
+        User user = new User();
+        user.setId(CommonUtilsKt.uuid());
+        user.setAddress("上海市中山公园");
+        user.setUsername(msg);
+        rabbitTemplate.convertAndSend(RabbitMqExchangeEnum.TOPIC_EXCHANGE_BAK.getExchangeName(), routingKey, user, new CorrelationData(user.getId()));
     }
 
     @Override

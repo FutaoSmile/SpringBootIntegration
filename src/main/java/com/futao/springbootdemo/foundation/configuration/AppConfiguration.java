@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -18,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class AppConfiguration {
 
-    @Bean
-    public ThreadPoolExecutor a() {
+    @Primary
+    @Bean(destroyMethod = "shutdown")
+    public ThreadPoolExecutor threadPoolExecutor() {
         ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
         threadFactoryBuilder.setNameFormat("wlb-tpe-%s");
         ThreadFactory threadFactory = threadFactoryBuilder.build();
@@ -31,7 +33,7 @@ public class AppConfiguration {
                 //可被阻塞的消息数量
                 new LinkedBlockingQueue<>(1024),
                 threadFactory,
-                (r, e) -> log.error("线程池ThreadPoolExecutor发生异常{}", e));
+                (r, e) -> log.error("线程池ThreadPoolExecutor发生异常{}，超出最大可阻塞线程数量", e));
     }
 
 }

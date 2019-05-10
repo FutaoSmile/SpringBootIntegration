@@ -45,6 +45,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @EnableTransactionManagement//加上这个注解，使得支持事务
 //@EnableRedisHttpSession
 @EnableConfigurationProperties
+//@EnableRabbit
 public class SpringBootDemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

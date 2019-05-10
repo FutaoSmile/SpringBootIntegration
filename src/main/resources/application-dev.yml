@@ -34,7 +34,7 @@ spring:
   #      cluster-nodes: 127.0.0.1:9300 #节点地址
   # 数据源
   datasource:
-    url: jdbc:mysql://localhost:3306/springmvcdemo?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/west_lake_blog?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456789
     driver-class-name: com.mysql.jdbc.Driver
@@ -97,22 +97,27 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
-  #    rabbitmq
+  #rabbitmq
   rabbitmq:
     addresses: localhost
     username: futao
     password: 123456
-    #开启发送确认
-    publisher-confirms: true
+    publisher-confirms: true     #开启发送确认
+    publisher-returns: true   # 开启发送失败退回
     virtual-host: /springboot
-    # 开启发送失败退回
-    publisher-returns: true
-    # 开启ACK
+    connection-timeout: 10s   # 连接超时时间
+    template:
+      retry:
+        enabled: true   # 重试
+        initial-interval: 2s
+      mandatory: true
     listener:
-      direct:
-        acknowledge-mode: manual
       simple:
-        acknowledge-mode: manual
+        acknowledge-mode: manual  # 开启手动ack
+        concurrency: 5
+        max-concurrency: 10
+        prefetch: 1   # 每次拉取一条
+
 ###producer
 #该应用是否启用生产者
 rocketmq:

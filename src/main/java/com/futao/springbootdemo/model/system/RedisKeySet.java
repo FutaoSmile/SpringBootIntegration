@@ -18,6 +18,11 @@ public class RedisKeySet {
     public static final String MYBATIS_CACHE = "mybatis:cache";
 
     /**
+     * rabbitmq发送消息失败的数据
+     */
+    public static final String RABBITMQ_SEND_FAIL = "rabbit:send:fail";
+
+    /**
      * 生成redis中的key
      *
      * @param prefix 前缀
@@ -27,8 +32,6 @@ public class RedisKeySet {
     public static String gen(String prefix, String key) {
         return prefix + ":" + key;
     }
-
-
 
 
 }

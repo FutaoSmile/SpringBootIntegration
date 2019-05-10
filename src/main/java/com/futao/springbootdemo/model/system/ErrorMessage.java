@@ -26,6 +26,7 @@ public final class ErrorMessage {
         public static final String BAD_REQUEST = "参数[%s]是必传的~";
         public static final String SERVER_ERROR = "服务暂时不可用。正在紧急修复中~";
         public static final String TRANSACTION_TIME_OUT = "请求已超时，请重试";
+        public static final String UNKNOW_DATA_TYPE = "未知的数据类型";
 
     }
 
