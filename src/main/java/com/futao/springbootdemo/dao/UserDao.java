@@ -173,4 +173,9 @@ public interface UserDao {
                          @Param("email") String email
     );
 
+
+    void update(@Param("age") String age, @Param("id") String id);
+
+    User select4Update(@Param("id") String id);
+
 }

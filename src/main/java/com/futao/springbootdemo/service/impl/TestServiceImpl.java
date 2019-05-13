@@ -3,10 +3,12 @@ package com.futao.springbootdemo.service.impl;
 
 import com.futao.springbootdemo.dao.TagDao;
 import com.futao.springbootdemo.dao.TestDao;
+import com.futao.springbootdemo.dao.UserDao;
 import com.futao.springbootdemo.foundation.mq.rabbit.RabbitMqExchangeEnum;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.service.TestService;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,6 +28,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author futao
@@ -33,7 +36,7 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 @Service
-@Transactional(timeout = 3, rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class TestServiceImpl implements TestService {
 
     @Resource
@@ -53,6 +56,39 @@ public class TestServiceImpl implements TestService {
 
     @Resource
     private TagDao tagDao;
+
+    @Resource
+    private UserDao userDao;
+
+    @SneakyThrows
+    @Override
+    public boolean notSelect4Update() {
+        User user = userDao.getUserById("6584a071432c49d4939a1f6beb045d7f");
+        if (Integer.valueOf(user.getAge()) > 20) {
+            log.info("truetruetruetruetrue");
+            TimeUnit.SECONDS.sleep(5);
+            userDao.update("0", "6584a071432c49d4939a1f6beb045d7f");
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    @SneakyThrows
+    public void select4Update() {
+        User user = userDao.select4Update("6584a071432c49d4939a1f6beb045d7f");
+        if (Integer.valueOf(user.getAge()) > 20) {
+            log.info("truetruetruetruetrue");
+            TimeUnit.SECONDS.sleep(5);
+            userDao.update("0", "6584a071432c49d4939a1f6beb045d7f");
+        }
+    }
+
+    @Override
+    public void afterSelect() {
+        userDao.update("10", "6584a071432c49d4939a1f6beb045d7f");
+    }
 
     @Async
 //    @Scheduled(fixedRate = 1000L)

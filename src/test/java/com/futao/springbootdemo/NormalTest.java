@@ -70,6 +70,80 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  */
 public class NormalTest implements Runnable {
 
+    @Test
+    public void test84() {
+        //HashMap的key和value都允许为null，如果key为null，则hashcode为0
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("1", null);
+        hashMap.put(null, "1");
+        hashMap.put(null, null);
+        syso(hashMap);
+
+        Map<Object, Object> objectMap = Collections.synchronizedMap(new HashMap<>());
+
+        //Hashtable的key和value都不允许为null，会报NPE
+        Hashtable<String, Object> hashtable = new Hashtable<>();
+        hashtable.put("1", null);
+        hashtable.put(null, "1");
+        hashtable.put(null, null);
+        syso(hashtable);
+
+        //TreeMap的key不允许为null，value允许为null
+        TreeMap<String, Object> treeMap = new TreeMap<>();
+        treeMap.put("1", null);
+        treeMap.put(null, "1");
+        treeMap.put(null, null);
+        syso(treeMap);
+
+    }
+
+    private void syso(Map map) {
+        map.forEach((k, v) -> System.out.println("k=" + k + ";v=" + v));
+    }
+
+
+    @Test
+    public void test83() {
+        String clientId = "474cb497fd9b0d4e68689c59a3ae9ea3f0f531dddb3b01536694fcc0eddc0355";
+        String clientSecret = "0fc613160712bcc8018cd7df2edf4f524620ba5657810d3180f57e31c8770ab2";
+        String code = "f2e4d92505967d573a04e07667d679c5bbfb27ce94ac2f6fc317dc0107edd338";
+
+        //获取accessToken
+//        AbstractBaseRequest request = new GetRequest("https://gitee.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=http://47.106.247.59:8888&response_type=code");
+//        request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
+//        request.send();
+
+        AbstractBaseRequest request1 = new PostRequest("https://gitee.com/oauth/token?grant_type=refresh_token&refresh_token=f2e4d92505967d573a04e07667d679c5bbfb27ce94ac2f6fc317dc0107edd338");
+        request1.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
+        request1.send();
+    }
+
+    @Test
+    public void test82() {
+        float a = 1.12345678F;
+        System.out.println(a);
+        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("1", "1");
+        linkedHashMap.put("2", "2");
+        linkedHashMap.put("3", "3");
+        for (int i = 0; i < 10; i++) {
+            linkedHashMap.forEach((k, v) -> System.out.println(k + "__" + v));
+            System.out.println("====================");
+        }
+
+        Iterator<Object> iterator = linkedHashMap.values().iterator();
+        iterator.next();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("1", "1");
+        hashMap.put("2", "2");
+        hashMap.put("3", "3");
+        for (int i = 0; i < 10; i++) {
+            hashMap.forEach((k, v) -> System.out.println(k + "--" + v));
+            System.out.println("----------------------");
+        }
+    }
+
     //TODO(可以改的通用一点。1.将数据抽出来。2.样式)
     @Test
     public void test81() throws IOException {

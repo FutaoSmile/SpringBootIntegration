@@ -69,6 +69,19 @@
         limit 1
     </select>
 
+    <update id="update">
+        update springmvcdemo.futao_user
+        set age=#{age}
+        where id = #{id}
+    </update>
+
+    <select id="select4Update" parameterType="string" resultType="com.futao.springbootdemo.model.entity.User">
+        select *
+        from springmvcdemo.futao_user
+        where id = #{id}
+            for
+        update
+    </select>
 
     <!-- 2. parameterType （可选配置, 默认为mybatis自动选择处理）
       将要传入语句的参数的完全限定类名或别名， 如果不配置，mybatis会通过ParameterHandler 根据参数类型默认选择合适的typeHandler进行处理

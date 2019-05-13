@@ -1,5 +1,6 @@
 package com.futao.springbootdemo.foundation;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -14,12 +15,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.regex.Matcher;
 
 /**
@@ -45,8 +48,17 @@ public class MybatisInterceptor implements Interceptor {
     private static final String UPDATE = "update";
 
     //todo 无法注入问题
-    @Autowired
-    private java.util.concurrent.Executor execute;
+//    @Autowired
+//    private java.util.concurrent.Executor execute;
+
+    private static final ExecutorService execute;
+
+    static {
+        ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
+        threadFactoryBuilder.setNameFormat("wlb-mybatis-%s");
+        ThreadFactory threadFactory = threadFactoryBuilder.build();
+        execute = Executors.newCachedThreadPool(threadFactory);
+    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -74,8 +86,7 @@ public class MybatisInterceptor implements Interceptor {
                 logSql(id, configuration, boundSql, sqlTime + "");
                 //开启新线程记录慢sql
                 if (sqlTime > SLOW_SQL_TIME_MILLS) {
-                    SlowSql slowSql = new SlowSql(sqlTime);
-                    execute.execute(slowSql);
+                    execute.execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
@@ -146,30 +157,6 @@ public class MybatisInterceptor implements Interceptor {
             }
 
         }
-
         LOGGER.info("\n>>>【sql id: 】{}\n>>>【sql 语句: 】{}\n>>>【sql 耗时: 】{} ms", id, sql, time);
-    }
-
-    /**
-     * 记录慢sql
-     */
-    class SlowSql implements Runnable {
-        @Override
-        public void run() {
-            log();
-        }
-
-        private long sqlTime;
-
-        SlowSql(long sqlTime) {
-            this.sqlTime = sqlTime;
-        }
-
-        /**
-         * 记录慢sql日志
-         */
-        private void log() {
-            LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime);
-        }
     }
 }

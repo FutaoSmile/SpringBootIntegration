@@ -114,8 +114,8 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual  # 开启手动ack
-        concurrency: 5
-        max-concurrency: 10
+        concurrency: 2            # 定义消费者个数
+        max-concurrency: 4
         prefetch: 1   # 每次拉取一条
 
 ###producer

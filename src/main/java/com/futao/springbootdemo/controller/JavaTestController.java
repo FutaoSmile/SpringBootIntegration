@@ -37,6 +37,33 @@ public class JavaTestController {
     @Resource
     private RabbitMqServiceImpl rabbitMqService;
 
+
+    /**
+     * 行级锁select for update测试-未使用行级锁
+     *
+     * @return
+     */
+    @PostMapping("notSelect4Update")
+    public boolean notSelect4Update() {
+        return testService.notSelect4Update();
+    }
+
+    /**
+     * 行级锁select for update测试-中途修改数据
+     */
+    @PostMapping("afterSelect")
+    public void afterSelect() {
+        testService.afterSelect();
+    }
+
+    /**
+     * 行级锁select for update测试-使用行级锁
+     */
+    @PostMapping("select4Update")
+    public void select4Update() {
+        testService.select4Update();
+    }
+
     @PostMapping("sync2Mq")
     public void sync2Mq() {
         rabbitMqService.syncMsg2Mq();
