@@ -69,6 +69,30 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+    @Test
+    public void test85() {
+        System.out.println(t3First("abcabcbb"));
+        System.out.println(t3First("pwwkew"));
+        System.out.println(t3First("bbbbb"));
+        System.out.println(t3First("abcabcbb"));
+    }
+
+    public int t3First(String s) {
+        char[] chars = s.toCharArray();
+        StringBuilder maxLengthStr = new StringBuilder();
+        StringBuilder currentStr = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = i; j < chars.length; j++) {
+                char currentChar = chars[j];
+                if (currentStr.indexOf(String.valueOf(currentChar)) == -1) {
+                    currentStr.append(currentChar);
+                } else break;
+            }
+            maxLengthStr = currentStr.length() > maxLengthStr.length() ? currentStr : maxLengthStr;
+            currentStr = new StringBuilder();
+        }
+        return maxLengthStr.length();
+    }
 
     @Test
     public void test84() {
