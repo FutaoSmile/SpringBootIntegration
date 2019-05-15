@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 
@@ -26,7 +25,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping(path = "order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@ApiIgnore
+//@ApiIgnore
 @Api("订单")
 public class OrderController {
 

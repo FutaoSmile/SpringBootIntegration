@@ -5,7 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
@@ -100,7 +99,7 @@ public class DruidConfiguration {
     private String filters;
 
     @Bean(destroyMethod = "close", initMethod = "init")
-    public DataSource druidDataSource() throws SQLException {
+    public DruidDataSource druidDataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
         druidDataSource.setFilters(filters);

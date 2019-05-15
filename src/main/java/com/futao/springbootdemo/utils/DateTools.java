@@ -98,6 +98,16 @@ public class DateTools {
         return new Timestamp(System.currentTimeMillis());
     }
 
+
+    /**
+     * 当前时间戳字符串
+     *
+     * @return
+     */
+    public static String currentTimestampString() {
+        return dateToString(new Date(), yyyyMMddHHmmss);
+    }
+
     /**
      * 将字符串转为时间戳类型
      *
@@ -179,5 +189,6 @@ public class DateTools {
 
         public int getType() {
             return type;
-        }}
+        }
+    }
 }

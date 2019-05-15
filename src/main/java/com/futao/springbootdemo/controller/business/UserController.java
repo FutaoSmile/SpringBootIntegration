@@ -12,6 +12,7 @@ import com.futao.springbootdemo.service.VerifyCodeService;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -54,7 +55,7 @@ public class UserController {
     @ApiOperation("发送注册邮件验证码")
     @PostMapping("sendRegisterEmailVerifyCode")
     public SingleValueResult sendRegisterEmailVerifyCode(
-            @RequestParam("email")
+            @RequestParam("email") @ApiParam("邮箱")
             @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
                     String email
     ) {
@@ -82,15 +83,18 @@ public class UserController {
             @RequestParam("username")
             @IllegalValueCheck(forbidden = "admin", message = ErrorMessage.LogicErrorMessage.USER_NAME_NOT_ALLOWED)
             @Size(min = 2, max = 8, message = "{a.c}")
+            @ApiParam("用户名")
                     String username,
             @RequestParam("age")
             @Max(value = 300, message = ErrorMessage.LogicErrorMessage.AGE_ERROR)
+            @ApiParam("年龄")
                     int age,
             @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
             @RequestParam("mobile")
                     String mobile,
             @RequestParam("email")
             @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
+            @ApiParam("邮箱")
                     String email,
             @Size(max = 100, message = ErrorMessage.LogicErrorMessage.ADDRESS_LEN_TOO_LARGE)
             @RequestParam("address")

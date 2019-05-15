@@ -114,6 +114,11 @@ git添加多远程仓库
 
 > 行级锁`select for update`的使用
 
+> 一键生成markdown接口文档（目前依赖于swagger），不必再手动维护
+* 待优化的点:
+    * parameter为自定义的数据类型时候无法获取对应的数据类型
+    * 未按照controller进行分组
+
 ### # 项目结构
 ```
 src

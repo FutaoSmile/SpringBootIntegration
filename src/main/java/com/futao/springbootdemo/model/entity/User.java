@@ -7,6 +7,7 @@ import com.futao.springbootdemo.model.enums.UserSexEnum;
 import com.futao.springbootdemo.model.enums.UserStatusEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -29,6 +30,7 @@ import java.util.List;
 @AllArgsConstructor
 @Document(indexName = User.ES_INDEX_NAME, type = User.ES_TYPE)
 @Validated
+@EqualsAndHashCode(callSuper = false)
 public class User extends BaseEntity implements Comparable<User>, Cloneable {
 
     public static final String ES_TYPE = "user";

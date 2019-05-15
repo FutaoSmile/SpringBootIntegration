@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -59,6 +60,29 @@ public class TestServiceImpl implements TestService {
 
     @Resource
     private UserDao userDao;
+
+    @Autowired
+    private RedisTemplate<String, User> redisTemplate;
+
+    @Override
+    public void redisHashTest(String name) {
+        User value = new User();
+        value.setUsername(name);
+        redisTemplate.opsForHash().put("key", value.hashCode(), value);
+    }
+
+    /**
+     * 查询
+     *
+     * @param name
+     * @return
+     */
+    @Override
+    public User redisHashSelect(String name) {
+        User user = new User();
+        user.setUsername(name);
+        return (User) redisTemplate.opsForHash().get("key", user.hashCode());
+    }
 
     @SneakyThrows
     @Override

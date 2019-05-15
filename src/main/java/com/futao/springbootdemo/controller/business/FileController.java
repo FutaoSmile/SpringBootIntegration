@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.io.IOException;
 @Api("文件操作")
 @RestController
 @RequestMapping(path = "file")
-@ApiIgnore
+//@ApiIgnore
 public class FileController {
     /**
      * 上传文件

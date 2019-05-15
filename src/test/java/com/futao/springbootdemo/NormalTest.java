@@ -69,6 +69,111 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * Created on 2018/9/18-10:37.
  */
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test86() {
+        String fileName = "./444.md";
+        GetRequest getRequest = new GetRequest("http://localhost:8887/v2/api-docs");
+        String result = getRequest.send();
+        JSONObject resultJson = JSON.parseObject(result);
+        File file = new File(fileName);
+        writeToFile(file, loadInfo(resultJson));
+        writeToFile(file, loadPaths(resultJson));
+    }
+
+    /**
+     * 加载path信息
+     *
+     * @param jsonObject api数据JSONObject
+     * @return
+     */
+    private StringBuilder loadPaths(JSONObject jsonObject) {
+        JSONObject pathBody = jsonObject.getJSONObject("paths");
+        StringBuilder stringBuilder = new StringBuilder();
+        pathBody.forEach((pathUrl, requestMethods) -> {
+            JSONObject requestMethodContent = (JSONObject) requestMethods;
+            JSONObject methodInfo = requestMethodContent.getJSONObject(methodName(requestMethodContent));
+            stringBuilder.append("#### # ").append(methodInfo.getString("summary")).append("\n")
+                    .append("* path: ").append("`").append(pathUrl).append("`").append("\n")
+                    .append("* method: ").append("`").append(requestMethodContent.keySet()).append("`").append("\n")
+                    .append("* parameters: ").append(buildTable(methodInfo.getJSONArray("parameters"))).append("\n")
+                    .append("\n");
+        });
+        return stringBuilder;
+    }
+
+    /**
+     * 返回一个支持的RequestMethod
+     *
+     * @param jsonObject
+     * @return
+     */
+    private String methodName(JSONObject jsonObject) {
+        String methodName = "";
+        for (String s : jsonObject.keySet()) {
+            methodName = s;
+        }
+        return methodName;
+    }
+
+    /**
+     * 构建markdown格式的table
+     *
+     * @param data
+     * @return
+     */
+    private StringBuilder buildTable(JSONArray data) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (data != null && data.size() > 0) {
+            stringBuilder.append(
+                    "\n\n    | name | type | description | required |\n    |:---:|:---:|:---:|:---:|\n");
+            for (int i = 0; i < data.size(); i++) {
+                JSONObject jsonObject = data.getJSONObject(i);
+                stringBuilder.append("    |").append(jsonObject.getString("name"))
+                        .append("|").append(jsonObject.getString("type"))
+                        .append("|").append(jsonObject.getString("description"))
+                        .append("|").append(jsonObject.getBoolean("required"))
+                        .append("|\n");
+            }
+        } else {
+            stringBuilder.append("无");
+        }
+        return stringBuilder;
+    }
+
+    /**
+     * 将字符串写入文件中
+     *
+     * @param file          文件
+     * @param stringBuilder 字符串
+     */
+    private void writeToFile(File file, StringBuilder stringBuilder) {
+        try {
+            FileUtils.writeByteArrayToFile(file, stringBuilder.append("\n\n").toString().getBytes(StandardCharsets.UTF_8), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 加载info信息
+     *
+     * @param jsonObject api数据JSONObject
+     */
+    private StringBuilder loadInfo(JSONObject jsonObject) {
+        JSONObject info = jsonObject.getJSONObject("info");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("### # ").append(info.getString("title")).append("\n")
+                .append("> ").append(info.getString("description")).append("\n")
+                .append("* host: ").append("`").append(jsonObject.getString("host")).append("`").append("\n")
+                .append("* basePath: ").append("`").append(jsonObject.getString("basePath")).append("`").append("\n")
+                .append("* version: ").append(info.getString("version")).append("   (").append(DateTools.currentTimestampString()).append(")\n")
+                .append("* termsOfService: ").append(info.getString("termsOfService")).append("\n")
+                .append("* contact: ").append(info.getString("contact")).append("\n")
+                .append("* license: ").append(info.getString("license"));
+        return stringBuilder;
+    }
+
     @Test
     public void test85() {
         System.out.println(t3First("abcabcbb"));
@@ -123,23 +228,6 @@ public class NormalTest implements Runnable {
 
     private void syso(Map map) {
         map.forEach((k, v) -> System.out.println("k=" + k + ";v=" + v));
-    }
-
-
-    @Test
-    public void test83() {
-        String clientId = "474cb497fd9b0d4e68689c59a3ae9ea3f0f531dddb3b01536694fcc0eddc0355";
-        String clientSecret = "0fc613160712bcc8018cd7df2edf4f524620ba5657810d3180f57e31c8770ab2";
-        String code = "f2e4d92505967d573a04e07667d679c5bbfb27ce94ac2f6fc317dc0107edd338";
-
-        //获取accessToken
-//        AbstractBaseRequest request = new GetRequest("https://gitee.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=http://47.106.247.59:8888&response_type=code");
-//        request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
-//        request.send();
-
-        AbstractBaseRequest request1 = new PostRequest("https://gitee.com/oauth/token?grant_type=refresh_token&refresh_token=f2e4d92505967d573a04e07667d679c5bbfb27ce94ac2f6fc317dc0107edd338");
-        request1.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
-        request1.send();
     }
 
     @Test

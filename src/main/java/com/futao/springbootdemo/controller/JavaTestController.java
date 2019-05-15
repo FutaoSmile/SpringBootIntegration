@@ -37,6 +37,16 @@ public class JavaTestController {
     @Resource
     private RabbitMqServiceImpl rabbitMqService;
 
+    @PostMapping("redisHashTest")
+    public void redisHashTest(@RequestParam String name) {
+        testService.redisHashTest(name);
+    }
+
+    @PostMapping("redisHashSelect")
+    public User redisHashSelect(@RequestParam String name) {
+        return testService.redisHashSelect(name);
+    }
+
 
     /**
      * 行级锁select for update测试-未使用行级锁

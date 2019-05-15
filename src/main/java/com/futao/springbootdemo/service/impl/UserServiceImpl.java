@@ -14,7 +14,6 @@ import com.futao.springbootdemo.utils.PageResultUtils;
 import com.futao.springbootdemo.utils.ThreadLocalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 密码加盐
      */
-    public static final String PWD_SALT = "nobug666";
+    private static final String PWD_SALT = "nobug666";
 
     @Resource
     private ThreadLocalUtils<User> threadLocalUtils;

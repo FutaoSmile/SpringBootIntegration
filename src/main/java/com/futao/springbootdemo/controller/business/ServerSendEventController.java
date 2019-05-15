@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Random;
 
@@ -19,7 +18,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping(path = "sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-@ApiIgnore
+//@ApiIgnore
 @Api("服务端发送消息")
 public class ServerSendEventController {
 

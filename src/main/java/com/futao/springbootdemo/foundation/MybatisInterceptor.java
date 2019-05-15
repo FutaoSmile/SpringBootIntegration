@@ -15,6 +15,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -37,6 +38,7 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 @Component
+@Order
 public class MybatisInterceptor implements Interceptor {
 
     /**
@@ -49,15 +51,18 @@ public class MybatisInterceptor implements Interceptor {
 
     //todo 无法注入问题
 //    @Autowired
-//    private java.util.concurrent.Executor execute;
+//    private java.util.concurrent.Executor EXECUTE;
 
-    private static final ExecutorService execute;
+    /**
+     * 线程池
+     */
+    private static final ExecutorService EXECUTE;
 
     static {
         ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
         threadFactoryBuilder.setNameFormat("wlb-mybatis-%s");
         ThreadFactory threadFactory = threadFactoryBuilder.build();
-        execute = Executors.newCachedThreadPool(threadFactory);
+        EXECUTE = Executors.newCachedThreadPool(threadFactory);
     }
 
     @Override
@@ -86,7 +91,7 @@ public class MybatisInterceptor implements Interceptor {
                 logSql(id, configuration, boundSql, sqlTime + "");
                 //开启新线程记录慢sql
                 if (sqlTime > SLOW_SQL_TIME_MILLS) {
-                    execute.execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
+                    EXECUTE.execute(() -> LOGGER.warn(StringUtils.repeat("-", 50) + "太慢了{}", sqlTime));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
