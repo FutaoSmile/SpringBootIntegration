@@ -53,6 +53,7 @@ public class ArticleController {
      * @param id 要删除的文章的id
      * @return
      */
+    @ApiOperation("根据id删除文章")
     @DeleteMapping("{id}")
     public Article delete(
             @PathVariable("id") String id
@@ -66,6 +67,7 @@ public class ArticleController {
      * @param id 要更新的文章的id
      * @return
      */
+    @ApiOperation("更新文章")
     @PutMapping("{id}")
     public Article update(
             @PathVariable("id") String id
@@ -79,6 +81,7 @@ public class ArticleController {
      *
      * @return
      */
+    @ApiOperation("查询文章列表")
     @GetMapping("list")
     public List<Article> list() {
         return articleService.list();
@@ -90,6 +93,7 @@ public class ArticleController {
      * @param id 文章id
      * @return
      */
+    @ApiOperation("获取文章详情")
     @GetMapping("{id}")
     public Article get(@PathVariable("id") String id) {
         return articleService.byId(id);

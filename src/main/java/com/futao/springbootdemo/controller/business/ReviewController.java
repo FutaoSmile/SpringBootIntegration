@@ -51,6 +51,7 @@ public class ReviewController {
      * @param id 要删除的评论的id
      * @return
      */
+    @ApiOperation("删除评论")
     @Role(UserRoleEnum.ADMIN)
     @DeleteMapping("{id}")
     public SingleValueResult delete(
@@ -66,6 +67,7 @@ public class ReviewController {
      * @param id 要更新的评论的id
      * @return
      */
+    @ApiOperation("更新评论")
     @PutMapping("{id}")
     public Review update(
             @PathVariable("id") String id
@@ -80,6 +82,7 @@ public class ReviewController {
      *
      * @return
      */
+    @ApiOperation("评论列表")
     @GetMapping("list")
     public List<Review> list() {
         return reviewService.list();
@@ -91,6 +94,7 @@ public class ReviewController {
      * @param id 评论id
      * @return
      */
+    @ApiOperation("获取评论详情")
     @GetMapping("{id}")
     public Review byId(@PathVariable("id") String id) {
         return reviewService.byId(id);

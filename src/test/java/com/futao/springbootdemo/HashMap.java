@@ -52,29 +52,29 @@ import java.util.function.Function;
  * collection views requires time proportional to the "capacity" of the
  * <tt>HashMap</tt> instance (the number of buckets) plus its size (the number
  * of key-value mappings).  Thus, it's very important not to set the initial
- * capacity too high (or the load factor too low) if iteration performance is
+ * capacity too high (or the loadData factor too low) if iteration performance is
  * important.
  *
  * <p>An instance of <tt>HashMap</tt> has two parameters that affect its
- * performance: <i>initial capacity</i> and <i>load factor</i>.  The
+ * performance: <i>initial capacity</i> and <i>loadData factor</i>.  The
  * <i>capacity</i> is the number of buckets in the hash table, and the initial
  * capacity is simply the capacity at the time the hash table is created.  The
- * <i>load factor</i> is a measure of how full the hash table is allowed to
+ * <i>loadData factor</i> is a measure of how full the hash table is allowed to
  * get before its capacity is automatically increased.  When the number of
- * entries in the hash table exceeds the product of the load factor and the
+ * entries in the hash table exceeds the product of the loadData factor and the
  * current capacity, the hash table is <i>rehashed</i> (that is, internal data
  * structures are rebuilt) so that the hash table has approximately twice the
  * number of buckets.
  *
- * <p>As a general rule, the default load factor (.75) offers a good
+ * <p>As a general rule, the default loadData factor (.75) offers a good
  * tradeoff between time and space costs.  Higher values decrease the
  * space overhead but increase the lookup cost (reflected in most of
  * the operations of the <tt>HashMap</tt> class, including
  * <tt>get</tt> and <tt>put</tt>).  The expected number of entries in
- * the map and its load factor should be taken into account when
+ * the map and its loadData factor should be taken into account when
  * setting its initial capacity, so as to minimize the number of
  * rehash operations.  If the initial capacity is greater than the
- * maximum number of entries divided by the load factor, no rehash
+ * maximum number of entries divided by the loadData factor, no rehash
  * operations will ever occur.
  *
  * <p>If many mappings are to be stored in a <tt>HashMap</tt>
@@ -243,7 +243,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
-     * The load factor used when none specified in constructor.
+     * The loadData factor used when none specified in constructor.
      */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
@@ -427,7 +427,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
 
     /**
      * 扩容阈值（当Size>=threshold的时候，那么就要考虑对数组的扩增了）Size=实际存放的元素个数
-     * The next size value at which to resize (capacity * load factor).
+     * The next size value at which to resize (capacity * loadData factor).
      *
      * @serial
      */
@@ -438,7 +438,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
     int threshold;
 
     /**
-     * The load factor for the hash table.
+     * The loadData factor for the hash table.
      *
      * @serial
      */
@@ -448,12 +448,12 @@ public class HashMap<K, V> extends AbstractMap<K, V>
 
     /**
      * Constructs an empty <tt>HashMap</tt> with the specified initial
-     * capacity and load factor.
+     * capacity and loadData factor.
      *
      * @param initialCapacity the initial capacity
-     * @param loadFactor      the load factor
+     * @param loadFactor      the loadData factor
      * @throws IllegalArgumentException if the initial capacity is negative
-     *                                  or the load factor is nonpositive
+     *                                  or the loadData factor is nonpositive
      */
     public HashMap(int initialCapacity, float loadFactor) {
         if (initialCapacity < 0)
@@ -462,7 +462,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         if (initialCapacity > MAXIMUM_CAPACITY)
             initialCapacity = MAXIMUM_CAPACITY;
         if (loadFactor <= 0 || Float.isNaN(loadFactor))
-            throw new IllegalArgumentException("Illegal load factor: " +
+            throw new IllegalArgumentException("Illegal loadData factor: " +
                     loadFactor);
         this.loadFactor = loadFactor;
         this.threshold = tableSizeFor(initialCapacity);
@@ -470,7 +470,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
 
     /**
      * Constructs an empty <tt>HashMap</tt> with the specified initial
-     * capacity and the default load factor (0.75).
+     * capacity and the default loadData factor (0.75).
      *
      * @param initialCapacity the initial capacity.
      * @throws IllegalArgumentException if the initial capacity is negative.
@@ -481,7 +481,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
 
     /**
      * Constructs an empty <tt>HashMap</tt> with the default initial capacity
-     * (16) and the default load factor (0.75).
+     * (16) and the default loadData factor (0.75).
      */
     public HashMap() {
         this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
@@ -490,7 +490,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
     /**
      * Constructs a new <tt>HashMap</tt> with the same mappings as the
      * specified <tt>Map</tt>.  The <tt>HashMap</tt> is created with
-     * default load factor (0.75) and an initial capacity sufficient to
+     * default loadData factor (0.75) and an initial capacity sufficient to
      * hold the mappings in the specified <tt>Map</tt>.
      *
      * @param m the map whose mappings are to be placed in this map
@@ -1448,7 +1448,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
         s.defaultReadObject();
         reinitialize();
         if (loadFactor <= 0 || Float.isNaN(loadFactor))
-            throw new InvalidObjectException("Illegal load factor: " +
+            throw new InvalidObjectException("Illegal loadData factor: " +
                     loadFactor);
         s.readInt();                // Read and ignore number of buckets
         int mappings = s.readInt(); // Read number of mappings (size)
@@ -1456,7 +1456,7 @@ public class HashMap<K, V> extends AbstractMap<K, V>
             throw new InvalidObjectException("Illegal mappings count: " +
                     mappings);
         else if (mappings > 0) { // (if zero, use defaults)
-            // Size the table using given load factor only if within
+            // Size the table using given loadData factor only if within
             // range of 0.25...4.0
             float lf = Math.min(Math.max(0.25f, loadFactor), 4.0f);
             float fc = (float) mappings / lf + 1.0f;

@@ -117,8 +117,11 @@ git添加多远程仓库
 > 一键生成markdown接口文档（目前依赖于swagger），不必再手动维护
 * 待优化的点:
     * parameter为自定义的数据类型时候无法获取对应的数据类型
-    * 未按照controller进行分组
-
+    * ~~未按照controller进行分组~~
+    * $ref无法解析问题-> fastJson issue https://github.com/alibaba/fastjson/issues/2429
+* 特点
+    * 多数据源 - 同时将多个项目的swagger接口文档加载到一个文件中
+    * 如果请求参数被@ApiParam标注，则需要手动标记required=true/false，否则会直接读取@RequestParameter()的required
 ### # 项目结构
 ```
 src

@@ -1,33 +1,25 @@
 package com.futao.springbootdemo.apigen.model;
 
-import com.alibaba.fastjson.JSONObject;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
- * 每一个接口方法
- *
  * @author futao
- * Created on 2019-04-28.
+ * Created on 2019-05-15.
  */
+@ToString
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiMethod {
-    /**
-     * 描述
-     */
-    private String desc;
-    /**
-     * 地址
-     */
-    private String url;
-    /**
-     * 请求方式
-     */
-    private String method;
-    /**
-     * 参数列表
-     */
-    private JSONObject parameters;
-
+    private Set<String> supportMethods;
+    private String summary;
+    private ApiParameter[] parameters;
+    private String response;
+    private String path;
+    private List<String> consumers;
+    private List<String> produces;
 }

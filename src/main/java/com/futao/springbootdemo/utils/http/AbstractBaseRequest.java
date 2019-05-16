@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
-import com.futao.springbootdemo.utils.CommonUtilsKt;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.*;
 import org.apache.http.auth.AuthenticationException;
@@ -327,7 +326,7 @@ public abstract class AbstractBaseRequest {
                 result = EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
                 sb.append(StringUtils.repeat("-", 40)).append("\n")
                         .append("【响应状态码】:").append(response.getStatusLine().getStatusCode()).append("\n")
-                        .append("【响应结果】:").append(CommonUtilsKt.formatJsonString(result)).append("\n")
+//                        .append("【响应结果】:").append(CommonUtilsKt.formatJsonString(result)).append("\n")
                         .append("【响应头】:").append(Arrays.toString(response.getAllHeaders()));
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);

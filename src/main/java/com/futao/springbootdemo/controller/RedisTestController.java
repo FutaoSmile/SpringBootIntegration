@@ -2,6 +2,7 @@ package com.futao.springbootdemo.controller;
 
 import com.futao.springbootdemo.service.RedisService;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 @RequestMapping("redis")
 @RestController
-//@ApiIgnore
+@ApiIgnore
 public class RedisTestController {
 
     @Resource

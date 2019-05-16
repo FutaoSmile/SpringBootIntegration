@@ -37,7 +37,7 @@ import javax.validation.constraints.Size;
 @RequestMapping(path = "user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @RestController
 @Validated
-@Api("用户")
+@Api(value = "用户", description = "用户操作")
 public class UserController {
 
     @Resource
@@ -55,7 +55,8 @@ public class UserController {
     @ApiOperation("发送注册邮件验证码")
     @PostMapping("sendRegisterEmailVerifyCode")
     public SingleValueResult sendRegisterEmailVerifyCode(
-            @RequestParam("email") @ApiParam("邮箱")
+            @RequestParam("email")
+            @ApiParam("邮箱")
             @Email(message = ErrorMessage.LogicErrorMessage.EMAIL_ILLEGAL)
                     String email
     ) {
@@ -87,7 +88,7 @@ public class UserController {
                     String username,
             @RequestParam("age")
             @Max(value = 300, message = ErrorMessage.LogicErrorMessage.AGE_ERROR)
-            @ApiParam("年龄")
+            @ApiParam(value = "年龄", required = true)
                     int age,
             @Size(max = 11, message = ErrorMessage.LogicErrorMessage.MOBILE_LEN_ILLEGAL)
             @RequestParam("mobile")
@@ -123,10 +124,18 @@ public class UserController {
     @GetMapping("list")
 //    @Role({UserRoleEnum.ADMIN, UserRoleEnum.NORMAL})
     public PageResultList<User> list(
-            @RequestParam(value = "mobile", required = false) String mobile,
-            @RequestParam(value = "orderBy", required = false) String orderBy,
-            @RequestParam("pageNum") int pageNum,
-            @RequestParam("pageSize") int pageSize
+            @RequestParam(value = "mobile", required = false)
+            @ApiParam("手机号")
+                    String mobile,
+            @RequestParam(value = "orderBy", required = false)
+            @ApiParam("排序字段")
+                    String orderBy,
+            @RequestParam("pageNum")
+            @ApiParam("页码")
+                    int pageNum,
+            @RequestParam("pageSize")
+            @ApiParam("分页大小")
+                    int pageSize
     ) {
         return new PageResultList<>(userService.list(mobile, pageNum, pageSize, orderBy), 1, 11);
     }
@@ -181,6 +190,7 @@ public class UserController {
      * @param password 密码
      * @return
      */
+    @ApiOperation("shiro实现的用户登录")
     @PostMapping("shiroLogin")
     public User loginShiro(
             @RequestParam("mobile") String mobile,
@@ -209,6 +219,7 @@ public class UserController {
      *
      * @param response
      */
+    @ApiOperation("获取图形验证码")
     @GetMapping(path = "verifyCode")
     public byte[] verifyCode(
             HttpServletResponse response

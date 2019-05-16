@@ -29,6 +29,7 @@ import com.futao.springbootdemo.utils.http.PostRequest;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -60,6 +61,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
@@ -68,7 +70,34 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  * @author futao
  * Created on 2018/9/18-10:37.
  */
+@Slf4j
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test87() throws InterruptedException {
+        int threadCount = 30;
+        int repeatCount = 100;
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+        ExecutorService pool = Executors.newFixedThreadPool(threadCount,
+                r -> new Thread(r, "thread-niubi-" + atomicInteger.getAndIncrement()));
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+        for (int i = 0; i < threadCount; i++) {
+            pool.execute(() -> {
+                for (int j = 0; j < repeatCount; j++) {
+//                    String url = "https://vensing.com/2019/05/14/ditf/";
+//                    String url = "http://coderli.cn/";
+                    String url = "http://47.106.247.59:8888/user/list";
+                    GetRequest request = new GetRequest(url);
+                    request.addCookie(new BasicClientCookie("wlbsk", "d60f09e2c09847fe9394c41ae483345a"));
+                    request.send();
+                    log.info("-");
+                }
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+        pool.shutdown();
+    }
 
     @Test
     public void test86() {
