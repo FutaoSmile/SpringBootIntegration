@@ -1,7 +1,7 @@
 package com.futao.springbootdemo.utils.generator;
 
-import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.utils.DateTools;
+import com.lazyer.foundation.foundation.exception.ApplicationException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

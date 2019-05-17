@@ -1,8 +1,8 @@
 package com.futao.springbootdemo.service.notbusiness;
 
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.utils.SpringUtils;
+import com.lazyer.foundation.foundation.exception.LogicException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.NoSuchMessageException;

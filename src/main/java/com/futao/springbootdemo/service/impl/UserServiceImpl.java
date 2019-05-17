@@ -1,7 +1,6 @@
 package com.futao.springbootdemo.service.impl;
 
 import com.futao.springbootdemo.dao.UserDao;
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserStatusEnum;
 import com.futao.springbootdemo.model.system.*;
@@ -12,6 +11,7 @@ import com.futao.springbootdemo.utils.CommonUtilsKt;
 import com.futao.springbootdemo.utils.DateTools;
 import com.futao.springbootdemo.utils.PageResultUtils;
 import com.futao.springbootdemo.utils.ThreadLocalUtils;
+import com.lazyer.foundation.foundation.exception.LogicException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

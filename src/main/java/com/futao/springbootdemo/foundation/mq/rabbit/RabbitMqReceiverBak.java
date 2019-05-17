@@ -1,9 +1,9 @@
 package com.futao.springbootdemo.foundation.mq.rabbit;
 
 import com.alibaba.fastjson.JSON;
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.Tag;
 import com.futao.springbootdemo.model.entity.User;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -36,7 +36,7 @@ public class RabbitMqReceiverBak {
      */
     @RabbitHandler
     public void process(@Payload User user, @Header(AmqpHeaders.DELIVERY_TAG) long tag, Channel channel) {
-        log.info("接收到消息:[{}]", JSON.toJSONString(user, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        log.info("接收到消息:[{}]", JSON.toJSONString(user, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
         try {
             //确认消息-手动ack（multiple批处理）
             channel.basicAck(tag, false);
@@ -62,7 +62,7 @@ public class RabbitMqReceiverBak {
      */
     @RabbitHandler
     public void process(@Payload Tag tagData, @Header(AmqpHeaders.DELIVERY_TAG) long tag, Channel channel) {
-        log.info("接收到消息:[{}]", JSON.toJSONString(tagData, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        log.info("接收到消息:[{}]", JSON.toJSONString(tagData, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
         try {
             //确认消息-手动ack（multiple批处理）
             channel.basicAck(tag, false);

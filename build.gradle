@@ -6,8 +6,10 @@ buildscript {
         swagger2Version = '2.2.2'
         shiroVersion = '1.4.0'
         poiVersion = '3.17'
+        lazyerVersion = '1.1.2'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
     }
     dependencies {
@@ -44,6 +46,10 @@ sourceCompatibility = 1.8
 //}
 
 repositories {
+    //从本次maven库中找
+    mavenLocal()
+    //从maven中央仓库找
+    mavenCentral()
     // maven库
     def cn = "http://maven.aliyun.com/nexus/content/groups/public/"
     def abroad = "http://central.maven.org/maven2/"
@@ -138,6 +144,13 @@ dependencies {
     compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.4'
     compile 'org.bouncycastle:bcprov-jdk15on:1.56'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+
+    //通用模块组件依赖
+    compile "com.lazyer.starter:http-client:${lazyerVersion}"
+    compile "com.lazyer.starter:foundation:${lazyerVersion}"
+    compile "com.lazyer.starter:api-generator:${lazyerVersion}"
+    compile "com.lazyer.starter:mybatis:${lazyerVersion}"
 }
 
 compileKotlin {

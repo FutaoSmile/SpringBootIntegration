@@ -1,8 +1,8 @@
 package com.futao.springbootdemo.utils;
 
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.BaseEntity;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.LogicException;
 
 import java.lang.reflect.Method;
 

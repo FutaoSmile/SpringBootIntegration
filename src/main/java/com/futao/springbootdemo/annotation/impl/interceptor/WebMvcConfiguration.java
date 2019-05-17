@@ -1,7 +1,8 @@
 package com.futao.springbootdemo.annotation.impl.interceptor;
 
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.system.SystemConfig;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
+import com.lazyer.foundation.interceptors.RequestLogInterceptor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -33,7 +34,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Resource
     private LocaleChangeInterceptor localeChangeInterceptor;
     @Resource
-    private HttpMessageConverterConfiguration httpMessageConverterConfiguration;
+    private FastJson2HttpMessageConverter httpMessageConverterConfiguration;
 
     @Resource
     private SystemConfig systemConfig;

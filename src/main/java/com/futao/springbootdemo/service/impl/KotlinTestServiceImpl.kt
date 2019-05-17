@@ -1,9 +1,9 @@
 package com.futao.springbootdemo.service.impl
 
-import com.futao.springbootdemo.foundation.LogicException
 import com.futao.springbootdemo.foundation.mq.rocket.RocketMqProducerOnOff
 import com.futao.springbootdemo.model.system.ErrorMessage
 import com.futao.springbootdemo.service.KotlinTestService
+import com.lazyer.foundation.foundation.exception.LogicException
 import org.apache.rocketmq.client.producer.DefaultMQProducer
 import org.apache.rocketmq.common.message.Message
 import org.slf4j.LoggerFactory

@@ -1,7 +1,7 @@
 package com.futao.springbootdemo.smart4j.foundation;
 
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.LogicException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

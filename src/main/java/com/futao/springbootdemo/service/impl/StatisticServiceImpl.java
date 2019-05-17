@@ -3,19 +3,18 @@ package com.futao.springbootdemo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
 import com.futao.springbootdemo.model.entity.ApiMethodDescription;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.model.system.ErrorMessageFields;
 import com.futao.springbootdemo.service.StatisticService;
 import com.futao.springbootdemo.utils.SpringUtils;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -206,6 +205,6 @@ public class StatisticServiceImpl implements StatisticService {
                 }
             });
         });
-        System.out.println(JSON.toJSONString(list, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        System.out.println(JSON.toJSONString(list, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
     }
 }

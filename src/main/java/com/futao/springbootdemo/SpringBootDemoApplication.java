@@ -6,6 +6,7 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.futao.springbootdemo.annotation.EnableEntity;
 import com.futao.springbootdemo.model.entity.SystemInformation;
 import com.futao.springbootdemo.model.system.SentinelResourceEnum;
+import com.lazyer.foundation.annotation.EnableLazyer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -46,6 +47,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 //@EnableRedisHttpSession
 @EnableConfigurationProperties
 //@EnableRabbit
+@EnableLazyer
 public class SpringBootDemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

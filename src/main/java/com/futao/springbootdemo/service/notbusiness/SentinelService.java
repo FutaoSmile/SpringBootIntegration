@@ -1,9 +1,9 @@
 package com.futao.springbootdemo.service.notbusiness;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.ApiControllerDescription;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.LogicException;
 
 import java.util.ArrayList;
 

@@ -44,7 +44,7 @@
         <typeAlias alias="linkedList" type="java.util.LinkedList"/>
         <typeAlias alias="string" type="java.lang.String"/>
 
-        <typeAlias type="com.futao.springbootdemo.foundation.configuration.MybatisCacheRedis"
+        <typeAlias type="com.lazyer.mybatis.cache.MybatisCacheRedis"
                    alias="mybatisCacheRedis"/>
 
         <!--<package name="com.futao.springbootdemo.model.entity"/>-->

@@ -1,12 +1,12 @@
 package com.futao.springbootdemo.annotation.impl.interceptor;
 
 import com.futao.springbootdemo.annotation.LoginUser;
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.system.Constant;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
 import com.futao.springbootdemo.utils.ThreadLocalUtils;
+import com.lazyer.foundation.foundation.exception.LogicException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

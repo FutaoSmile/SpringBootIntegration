@@ -118,6 +118,12 @@ spring:
         max-concurrency: 4
         prefetch: 1   # 每次拉取一条
 
+  security:
+    user:
+      name: admin
+      password: admin
+
+
 ###producer
 #该应用是否启用生产者
 rocketmq:
@@ -256,4 +262,4 @@ systemconfig:
   sessionInvalidateSecond: 3600
   onlinePeopleQuantityScale: 2
 
-debug: true
+debug: truey

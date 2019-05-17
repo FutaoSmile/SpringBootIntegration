@@ -1,8 +1,8 @@
 package com.futao.springbootdemo.foundation.mq.rocket.kt
 
-import com.futao.springbootdemo.foundation.LogicException
 import com.futao.springbootdemo.model.system.Constant
 import com.futao.springbootdemo.model.system.ErrorMessage
+import com.lazyer.foundation.foundation.exception.LogicException
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer
 import org.apache.rocketmq.client.producer.DefaultMQProducer
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere

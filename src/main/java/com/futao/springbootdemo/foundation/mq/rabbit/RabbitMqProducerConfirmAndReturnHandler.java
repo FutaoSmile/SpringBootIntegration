@@ -2,8 +2,8 @@ package com.futao.springbootdemo.foundation.mq.rabbit;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.system.RedisKeySet;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -85,7 +85,7 @@ public class RabbitMqProducerConfirmAndReturnHandler implements RabbitTemplate.C
         result.put("replyText", replyText);
         result.put("exchange", exchange);
         result.put("routingKey", routingKey);
-        redisTemplate.opsForList().leftPush(RedisKeySet.gen(RedisKeySet.RABBITMQ_SEND_FAIL, routingKey), JSON.toJSONString(result, HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        redisTemplate.opsForList().leftPush(RedisKeySet.gen(RedisKeySet.RABBITMQ_SEND_FAIL, routingKey), JSON.toJSONString(result, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
         log.error("消息发送失败");
         log.error("消息主体 message : {}", message);
         log.error("错误码 : {}", replyCode);

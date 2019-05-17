@@ -1,9 +1,9 @@
 package com.futao.springbootdemo.annotation.impl;
 
 import com.futao.springbootdemo.annotation.EnumStatus;
-import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.enums.face.IEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.ApplicationException;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

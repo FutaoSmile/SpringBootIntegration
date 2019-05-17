@@ -1,8 +1,8 @@
 package com.futao.springbootdemo.utils;
 
-import com.futao.springbootdemo.foundation.ApplicationException;
 import com.futao.springbootdemo.model.entity.BaseEntity;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

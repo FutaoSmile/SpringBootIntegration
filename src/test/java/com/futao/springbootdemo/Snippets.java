@@ -2,10 +2,10 @@ package com.futao.springbootdemo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
-import com.futao.springbootdemo.utils.http.GetRequest;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.lazyer.httpclient.AbstractBaseRequest;
+import com.lazyer.httpclient.GetRequest;
 import lombok.SneakyThrows;
 import org.junit.Test;
 

@@ -8,6 +8,8 @@ gitee 🔗 [https://gitee.com/FutaoSmile/springboot_framework](https://gitee.com
 ![https://img.shields.io/badge/jdk-v1.8-green.svg](https://img.shields.io/badge/jdk-v1.8-green.svg)
 ![https://img.shields.io/badge/version-v0.0.1--SNAPSHOT-green.svg](https://img.shields.io/badge/version-v0.0.1--SNAPSHOT-green.svg)
 
+## 此项目依赖于公共组件LazyerStarter
+[https://github.com/FutaoSmile/LazyerStarter](https://github.com/FutaoSmile/LazyerStarter)
 </p>
 git添加多远程仓库
 

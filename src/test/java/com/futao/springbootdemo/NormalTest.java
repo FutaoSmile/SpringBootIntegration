@@ -7,8 +7,6 @@ import com.futao.springbootdemo.design.pattern.gof.singleton.EagerSingleton;
 import com.futao.springbootdemo.design.pattern.gof.singleton.LazySingleton;
 import com.futao.springbootdemo.design.pattern.gof.singleton.SingletonEnum;
 import com.futao.springbootdemo.design.pattern.gof.singleton.byself.StaticInnerClassSingleton;
-import com.futao.springbootdemo.foundation.LogicException;
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
@@ -23,10 +21,15 @@ import com.futao.springbootdemo.suit.a.B;
 import com.futao.springbootdemo.suit.a.CC;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
 import com.futao.springbootdemo.utils.DateTools;
-import com.futao.springbootdemo.utils.http.AbstractBaseRequest;
-import com.futao.springbootdemo.utils.http.GetRequest;
-import com.futao.springbootdemo.utils.http.PostRequest;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.lazyer.api.generator.model.ApiInfo;
+import com.lazyer.api.generator.service.ApiGenerator;
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
+import com.lazyer.foundation.foundation.exception.LogicException;
+import com.lazyer.httpclient.AbstractBaseRequest;
+import com.lazyer.httpclient.GetRequest;
+import com.lazyer.httpclient.PostRequest;
+import com.lazyer.httpclient.enums.UserAgentEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +75,25 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
  */
 @Slf4j
 public class NormalTest implements Runnable {
+
+    @Test
+    public void test89() {
+        AbstractBaseRequest request = new GetRequest("http://localhost:8887/user/list");
+        request.addCredentials("admin", "admin");
+        request.addParameter("pageNum", "1");
+        request.addParameter("pageSize", "100");
+        request.addUserAgent(UserAgentEnum.CHROME);
+        request.addUserAgent(UserAgentEnum.FIREFOX);
+        request.addUserAgent(UserAgentEnum.SAFARI);
+        String result = request.send();
+        System.out.println(result);
+    }
+
+    @Test
+    public void test88() {
+        ApiInfo apiInfo = ApiGenerator.SwaggerGenerator.gen("/Users/futao/Desktop/apiDoc.md", "http://localhost:8887/v2/api-docs", "admin", "admin");
+        System.out.println(JSON.toJSONString(apiInfo, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
+    }
 
     @Test
     public void test87() throws InterruptedException {
@@ -783,7 +805,7 @@ public class NormalTest implements Runnable {
         getRequest.addCookie(new BasicClientCookie("coo", "12313"));
         getRequest.addParameter("p1", "123132");
         getRequest.addParameter("p2", "1231344");
-        System.out.println(JSONObject.toJSONString(JSON.parseObject(getRequest.send()), HttpMessageConverterConfiguration.SERIALIZER_FEATURES));
+        System.out.println(JSONObject.toJSONString(JSON.parseObject(getRequest.send()), FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
 //        }
     }
 

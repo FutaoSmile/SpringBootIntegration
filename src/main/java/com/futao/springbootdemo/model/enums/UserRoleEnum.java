@@ -1,8 +1,8 @@
 package com.futao.springbootdemo.model.enums;
 
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.enums.face.IEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
+import com.lazyer.foundation.foundation.exception.LogicException;
 
 /**
  * 角色

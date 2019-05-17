@@ -1,11 +1,11 @@
 package com.futao.springbootdemo.annotation.impl.aop;
 
 import com.futao.springbootdemo.annotation.Role;
-import com.futao.springbootdemo.foundation.LogicException;
 import com.futao.springbootdemo.model.entity.User;
 import com.futao.springbootdemo.model.enums.UserRoleEnum;
 import com.futao.springbootdemo.model.system.ErrorMessage;
 import com.futao.springbootdemo.service.UserService;
+import com.lazyer.foundation.foundation.exception.LogicException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

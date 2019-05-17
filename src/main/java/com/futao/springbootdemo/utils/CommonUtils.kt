@@ -1,9 +1,9 @@
 package com.futao.springbootdemo.utils
 
 import com.alibaba.fastjson.JSON
-import com.futao.springbootdemo.foundation.LogicException
-import com.futao.springbootdemo.foundation.configuration.HttpMessageConverterConfiguration
 import com.futao.springbootdemo.model.system.ErrorMessage
+import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter
+import com.lazyer.foundation.foundation.exception.LogicException
 import net.sourceforge.pinyin4j.PinyinHelper
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat
@@ -150,7 +150,7 @@ fun numVerifyCode(size: Int): String {
  */
 fun String.formatJsonString(): String? {
     return try {
-        JSON.toJSONString(JSON.parseObject(this), *HttpMessageConverterConfiguration.SERIALIZER_FEATURES)
+        JSON.toJSONString(JSON.parseObject(this), *FastJson2HttpMessageConverter.SERIALIZER_FEATURES)
     } catch (e: java.lang.Exception) {
         this
     }
