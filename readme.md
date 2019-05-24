@@ -10,7 +10,10 @@ gitee 🔗 [https://gitee.com/FutaoSmile/springboot_framework](https://gitee.com
 
 ## 此项目依赖于公共组件LazyerStarter
 [https://github.com/FutaoSmile/LazyerStarter](https://github.com/FutaoSmile/LazyerStarter)
-</p>
+
+> 先将`lazyer`那个项目clone下来，再在`lazyer`项目下执行`mvn clean install -Dmaven.test.skip=true`将`lazyer`组件安装到本地maven仓库，再启动此项目即可(需要修改数据库账号密码)
+
+
 git添加多远程仓库
 
 ` git remote set-url --add origin git@github.com:FutaoSmile/springbootFramework.git`
