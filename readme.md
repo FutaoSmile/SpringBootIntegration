@@ -1,3 +1,5 @@
+![1](https://www.jetbrains.com/company/press/#images-logo)
+感谢JetBrains提供IDEA与DataGrip软件支持 https://www.jetbrains.com/?from=SpringBootIntegration
 
 github 🔗[https://github.com/FutaoSmile/springbootFramework](https://github.com/FutaoSmile/springbootFramework)
 
@@ -227,33 +229,4 @@ Error running 'ServiceStarter': Command line is too long. Shorten command line f
 * 启动nameserver ` ~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqnamesrv`
 * 启动broker `~/soft/rocketmq-all-4.3.0/distribution/target/apache-rocketmq/bin  ./mqbroker -n 127.0.0.1:9876 autoCreateTopicEnable=true`
 * 启动console `java -jar ./docs/jars/rocketmq-console-ng-1.0.0.jar`
-* 如果没装rocketmq，可关闭该功能(项目中使用到rocketmq的地方都将被关闭)。关闭方法: 配置文件:`rocketmq.consumer.onOff:off,rocketmq.producer.onOff:off`
-
-## #代码规范
-
-> 强制
-
-* 对于依赖RocketMq的Bean
-    * 如果依赖生产者，则需要需要标注`@Conditional(RocketMqProducerOnOff::class)`
-    * 如果依赖消费者，则需要标注`@Conditional(RocketMqConsumerOnOff::class)`
-否则项目启不起来
-* 需要序列化的类的所有字段都不能以is开头，boolean类型也不可以，否则框架在序列化的时候会出问题。目前出现的问题是isSuccess返回到前端还是success，is被吃掉了
-* 项目依赖的其他jar包放在jars文件夹下
-* 程序中操作redis不允许使用`keys`操作
-* @Resource 属于J2EE对于JSR-250规范的实现，不属于Spring
-    * 如果未设置name/type，   则先byName，再byType
-    * 如果设置了name/type，   找不到则报错
-* @Autowired  属于Spring  默认byType
-
-### # 阿里巴巴限流工具 Sentinel 控制台
-* https://github.com/alibaba/Sentinel/wiki/%E4%BB%8B%E7%BB%8D
-* https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0
-* 注解支持 https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81
-* 启动 `java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar ./docs/console/sentinel-dashboard.jar`
-* 其中 -Dserver.port=8080 用于指定 Sentinel 控制台端口为 8080。
-* springboot项目启动时加入 JVM 参数 -Dcsp.sentinel.dashboard.server=consoleIp:port 指定控制台地址和端口。若启动多个应用，则需要通过 -Dcsp.sentinel.api.port=xxxx 指定客户端监控 API 的端口（默认是 8719）
-* 如果请求的方法上标记了@Cachexxx()注解则Sentinel无效
-
-如果出现下载不了jar包的情况，把toggle offline mode关掉
-
-https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/reference/htmlsingle/
+* 如果没装rocketmq，可关闭该功能(
