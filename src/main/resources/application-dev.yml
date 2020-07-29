@@ -100,6 +100,7 @@ spring:
   #rabbitmq
   rabbitmq:
     addresses: localhost
+    port: 5672
     username: futao
     password: 123456
     publisher-confirms: true     #开启发送确认
@@ -117,18 +118,35 @@ spring:
         concurrency: 2            # 定义消费者个数
         max-concurrency: 4
         prefetch: 1   # 每次拉取一条
+  # activemq
+  activemq:
+    broker-url: tcp://localhost:61616 # failover:(tcp://localhost:61616)?randomize=false      # tcp://localhost:61616/故障转移，默认情况下如果某个链接失效了，则从列表中随机获取一个，如果设置了randomize=false则是严格按照列表的先后顺序的
+    user: admin           # 用户名
+    password: admin       # 密码
+    in-memory: false      # 基于内存的activemq
+    close-timeout: 15s     # 在考虑结束之前等待的时间
+    pool:
+      enabled: true                               # 启动连接池(是否用Pooledconnectionfactory代替普通的ConnectionFactory)
+      max-connections: 10                         # 最大链接数量
+      idle-timeout: 60s                           # 空闲连接存活时间
+      block-if-full: true                         # 当连接请求和池满时是否阻塞。设置false会抛“JMSException异常”
+      block-if-full-timeout: -1                   # 如果池仍然满，则在抛出异常之前阻塞时间
+      create-connection-on-startup: true          # 是否在启动时创建连接。可以在启动时用于加热池
+      maximum-active-session-per-connection: 500  # 每个连接的有效会话的最大数目。
+      reconnect-on-exception: true                # 当发生"JMSException"时尝试重新连接
+  jms:
+    pub-sub-domain: true                  # 默认情况下activemq提供的是queue模式，若要使用topic模式需要配置下面配置
 
-  security:
-    user:
-      name: admin
-      password: admin
 
-
+#  security:
+#    user:
+#      name: admin
+#      password: admins
 ###producer
 #该应用是否启用生产者
 rocketmq:
   producer:
-    onOff: on
+    onOff: off
     #发送同一类消息的设置为同一个group，保证唯一,默认不需要设置，rocketmq会使用ip@pid(pid代表jvm名字)作为唯一标示
     groupName: ${spring.application.name}
     #mq的nameserver地址
@@ -145,7 +163,7 @@ rocketmq:
   ###consumer
   ##该应用是否启用消费者
   consumer:
-    onOff: on
+    onOff: off
     groupName: ${spring.application.name}
     #mq的nameserver地址
     nameServerAddr: 127.0.0.1:9876
@@ -262,4 +280,4 @@ systemconfig:
   sessionInvalidateSecond: 3600
   onlinePeopleQuantityScale: 2
 
-debug: truey
+debug: true

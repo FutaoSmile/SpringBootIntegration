@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <!--
+    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:
+    properties?, settings?,
+    typeAliases?, typeHandlers?,
+    objectFactory?,objectWrapperFactory?,
+    plugins?,
+    environments?, databaseIdProvider?, mappers?
+-->
+    <settings>
+        <setting name="callSettersOnNulls" value="true"/>
+
+        <!--开启二级缓存-Mapper级别的缓存(一级缓存是默认开启的SqlSession级别的缓存)-->
+        <setting name="cacheEnabled" value="true"/>
+
+        <!--懒加载的全局开关-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <!--立即加载全局开关-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <setting name="multipleResultSetsEnabled" value="true"/>
+
+        <setting name="useColumnLabel" value="true"/>
+
+        <setting name="useGeneratedKeys" value="false"/>
+
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+
+        <!--数据库下划线转驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <setting name="localCacheScope" value="SESSION"/>
+
+        <setting name="jdbcTypeForNull" value="NULL"/>
+
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="int" type="java.lang.Integer"/>
+        <typeAlias alias="long" type="java.lang.Long"/>
+        <typeAlias alias="hashMap" type="java.util.HashMap"/>
+        <typeAlias alias="linkedHashMap" type="java.util.LinkedHashMap"/>
+        <typeAlias alias="arrayList" type="java.util.ArrayList"/>
+        <typeAlias alias="linkedList" type="java.util.LinkedList"/>
+        <typeAlias alias="string" type="java.lang.String"/>
+
+        <typeAlias type="com.west.lake.blog.model.entity.User" alias="user"/>
+        <typeAlias type="com.west.lake.blog.model.entity.Article" alias="article"/>
+        <typeAlias type="com.west.lake.blog.model.entity.Review" alias="review"/>
+        <typeAlias type="com.west.lake.blog.model.entity.Tag" alias="tag"/>
+
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.lazy.mybatis.cache.MybatisInterceptor"/>
+        <!--pagehelper分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--设置方言-->
+            <property name="helperDialect" value="mysql"/>
+            <!--分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询-->
+            <property name="reasonable" value="true"/>
+            <!--当 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果-->
+            <property name="pageSizeZero" value="true"/>
+        </plugin>
+    </plugins>
+</configuration>

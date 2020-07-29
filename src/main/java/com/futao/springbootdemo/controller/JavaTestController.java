@@ -185,7 +185,7 @@ public class JavaTestController {
 //        list.add(object);
 
         String[] head = new String[]{"姓名", "年龄", "角色", "地址", "电话", "邮箱"};
-        exportExcelService.export(fileName, "我是sheet", head, list, response);
+        exportExcelService.export2Response(fileName, "我是sheet", head, list, response);
     }
 
     @GetMapping(path = "exportExcelObj")
@@ -204,6 +204,6 @@ public class JavaTestController {
         users.add(user);
         user.setUsername("我是");
         user.setAge("121");
-        exportExcelService.export(fileName, "我是sheet", head, methods, users, response);
+        exportExcelService.exportByGetter2Response(fileName, "我是sheet", head, methods, users, response);
     }
 }

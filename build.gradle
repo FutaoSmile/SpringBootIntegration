@@ -5,7 +5,6 @@ buildscript {
         rocketmqVersion = '4.3.0'
         swagger2Version = '2.2.2'
         shiroVersion = '1.4.0'
-        poiVersion = '3.17'
         lazyerVersion = '1.1.2'
     }
     repositories {
@@ -112,15 +111,16 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.3.3'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
-    compile group: 'org.apache.poi', name: 'poi', version: "${poiVersion}"
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: "${poiVersion}"
-    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: "${poiVersion}"
     compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
     compile group: 'com.google.zxing', name: 'core', version: '3.3.3'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: "${shiroVersion}"
     compile group: 'org.apache.shiro', name: 'shiro-core', version: "${shiroVersion}"
     compile group: 'org.apache.shiro', name: 'shiro-web', version: "${shiroVersion}"
     //compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.6'
+
+    // https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt
+    compile group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '6.0'
+
 
     //处理excel
 //    compile group: 'com.alibaba', name: 'easyexcel', version: '1.1.1'
@@ -134,7 +134,6 @@ dependencies {
     compile("com.alibaba.csp:sentinel-annotation-aspectj:${sentinelVersion}")
     // sentinel与控制台通讯
     compile("com.alibaba.csp:sentinel-transport-simple-http:${sentinelVersion}")
-    //compile('org.springframework.boot:spring-boot-starter-security')
     compile 'com.graphql-java:graphql-java:11.0'
     compile 'org.freemarker:freemarker:2.3.23'
     //rabbitmq
@@ -144,13 +143,21 @@ dependencies {
     compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.4'
     compile 'org.bouncycastle:bcprov-jdk15on:1.56'
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
-    compile 'org.springframework.boot:spring-boot-starter-security'
+//    compile 'org.springframework.boot:spring-boot-starter-security'
 
     //通用模块组件依赖
     compile "com.lazyer.starter:http-client:${lazyerVersion}"
     compile "com.lazyer.starter:foundation:${lazyerVersion}"
     compile "com.lazyer.starter:api-generator:${lazyerVersion}"
     compile "com.lazyer.starter:mybatis:${lazyerVersion}"
+    compile "com.lazyer.starter:tools:${lazyerVersion}"
+
+    //jms-active
+    compile 'org.springframework.boot:spring-boot-starter-activemq'
+    //active连接池-1.5.13依赖
+    compile 'org.apache.activemq:activemq-pool'
+    // 2.1.1版本
+//    compile 'org.messaginghub:pooled-jms:1.0.4'
 }
 
 compileKotlin {

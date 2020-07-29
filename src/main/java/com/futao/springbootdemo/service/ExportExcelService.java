@@ -12,28 +12,11 @@ import java.util.List;
  */
 public interface ExportExcelService {
 
-    void export2File(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data);
+    void export2File(String filePath, String sheetName, String[] columnHeads, List<List<Object>> data);
 
-    /**
-     * 导出excel
-     *
-     * @param fileName    文件名
-     * @param sheetName   工作簿名
-     * @param columnHeads 列头
-     * @param data        数据
-     * @param response    响应
-     */
-    void export(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data, HttpServletResponse response);
+    void export2Response(String fileName, String sheetName, String[] columnHeads, List<List<Object>> data, HttpServletResponse response);
 
-    /**
-     * 导出excel
-     *
-     * @param fileName    文件名
-     * @param sheetName   sheetName
-     * @param columnHeads 列头
-     * @param methods     方法
-     * @param objs        数据
-     * @param response    响应
-     */
-    void export(String fileName, String sheetName, String[] columnHeads, Method[] methods, List<?> objs, HttpServletResponse response);
+    void exportByGetter2Response(String fileName, String sheetName, String[] columnHeads, Method[] methods, List<?> objs, HttpServletResponse response);
+
+    void exportByGetter2File(String filePath, String sheetName, String[] columnHeads, Method[] methods, List<?> objs);
 }

@@ -5,6 +5,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
  * RabbitMq配置类
@@ -12,8 +14,8 @@ import org.springframework.context.annotation.Bean;
  * @author futao
  * Created on 2019-04-23.
  */
-//@Profile("dev")
-//@Configuration
+@Profile("dev")
+@Configuration
 public class RabbitMqConfig {
 
     @Bean

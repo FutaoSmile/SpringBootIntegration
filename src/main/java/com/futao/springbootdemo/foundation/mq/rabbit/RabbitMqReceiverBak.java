@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  * Created on 2019-05-06.
  */
 @Slf4j
-@Component
-@RabbitListener(queues = {RabbitMqQueueEnum.topicQueueBak})
+//@Component
+//@RabbitListener(queues = {RabbitMqQueueEnum.topicQueueBak})
 public class RabbitMqReceiverBak {
 
     /**

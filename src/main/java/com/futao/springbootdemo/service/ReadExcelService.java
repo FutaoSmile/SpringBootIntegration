@@ -2,18 +2,20 @@ package com.futao.springbootdemo.service;
 
 import com.alibaba.fastjson.JSONArray;
 
+import javax.validation.constraints.Positive;
+
 /**
  * @author futao
  * Created on 2019-05-08.
  */
 public interface ReadExcelService {
-    /**
-     * 读取excel
-     *
-     * @param fileName         文件名
-     * @param skipHeader       忽略开头几行
-     * @param headerDefinition 头定义
-     * @return JSON数组
-     */
-    JSONArray read(String fileName, int skipHeader, int headerDefinition);
+
+    JSONArray read(
+            String fileName,
+            int skipHeader,
+            @Positive(message = "您必须定义头信息，它们将作为JSON结果集的key")
+                    int headerDefinition,
+            @Positive(message = "sheetNum页码从1开始，请确认您的输入")
+                    int sheetNum
+    );
 }

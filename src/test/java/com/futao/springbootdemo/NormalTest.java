@@ -22,14 +22,12 @@ import com.futao.springbootdemo.suit.a.CC;
 import com.futao.springbootdemo.utils.CommonUtilsKt;
 import com.futao.springbootdemo.utils.DateTools;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.lazyer.api.generator.model.ApiInfo;
-import com.lazyer.api.generator.service.ApiGenerator;
 import com.lazyer.foundation.foundation.FastJson2HttpMessageConverter;
 import com.lazyer.foundation.foundation.exception.LogicException;
 import com.lazyer.httpclient.AbstractBaseRequest;
 import com.lazyer.httpclient.GetRequest;
 import com.lazyer.httpclient.PostRequest;
-import com.lazyer.httpclient.enums.UserAgentEnum;
+import com.sun.xml.internal.rngom.binary.DataPattern;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +44,8 @@ import org.junit.Test;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.asm.ClassReader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.data.elasticsearch.annotations.Document;
 import sun.misc.BASE64Encoder;
 
@@ -54,6 +54,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -76,23 +77,32 @@ import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
 @Slf4j
 public class NormalTest implements Runnable {
 
+
+    @Test
+    public void test90() {
+        AC ac = new AC();
+    }
+
+    public class AC {
+
+    }
+
     @Test
     public void test89() {
-        AbstractBaseRequest request = new GetRequest("http://localhost:8887/user/list");
-        request.addCredentials("admin", "admin");
-        request.addParameter("pageNum", "1");
-        request.addParameter("pageSize", "100");
-        request.addUserAgent(UserAgentEnum.CHROME);
-        request.addUserAgent(UserAgentEnum.FIREFOX);
-        request.addUserAgent(UserAgentEnum.SAFARI);
-        String result = request.send();
-        System.out.println(result);
+        try {
+            AC ac1 = new AC();
+            AC ac = AC.class.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void test88() {
-        ApiInfo apiInfo = ApiGenerator.SwaggerGenerator.gen("/Users/futao/Desktop/apiDoc.md", "http://localhost:8887/v2/api-docs", "admin", "admin");
-        System.out.println(JSON.toJSONString(apiInfo, FastJson2HttpMessageConverter.SERIALIZER_FEATURES));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("");
+        System.out.println(simpleDateFormat.format(new Date()));
     }
 
     @Test

@@ -18,6 +18,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Timestamp;
@@ -48,6 +49,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 @EnableConfigurationProperties
 //@EnableRabbit
 @EnableLazyer
+@EnableJms
 public class SpringBootDemoApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

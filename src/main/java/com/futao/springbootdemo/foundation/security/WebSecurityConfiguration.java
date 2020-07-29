@@ -8,6 +8,7 @@
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.builders.WebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,8 +20,7 @@
 // * @author futao
 // * Created on 2018/11/6.
 // */
-////@Configuration
-////@EnableWebSecurity
+//@EnableWebSecurity
 //public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //
 //    @Bean("authenticationManager")
@@ -32,9 +32,9 @@
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
-//                .withUser("user1").password("{noop}user1Pass").role("USER")
+//                .withUser("user1").password("{noop}user1Pass").roles("USER")
 //                .and()
-//                .withUser("admin1").password("{noop}admin1Pass").role("ADMIN");
+//                .withUser("admin1").password("{noop}admin1Pass").roles("ADMIN");
 //    }
 //
 //    @Override
@@ -92,11 +92,11 @@
 //    @Override
 //    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
-//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).role("USER")
+//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
 //                .and()
-//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).role("USER")
+//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
 //                .and()
-//                .withUser("admin").password(passwordEncoder().encode("adminPass")).role("ADMIN");
+//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
 //    }
 //
 //

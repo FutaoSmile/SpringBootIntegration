@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Profile;
  * Created on 2019-04-19.
  */
 @Slf4j
-@Profile("dev")
-@Configuration
+//@Profile("dev")
+//@Configuration
 public class RabbitMqRelationBindingConfig {
 
     /**
